@@ -1,4 +1,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/hunterkn/makermarket.au/
-    - /bin/cp -R wp-content $DEPLOYPATH
+    - /bin/cp -r * $DEPLOYPATH
