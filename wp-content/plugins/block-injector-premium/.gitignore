@@ -1,0 +1,16 @@
+.DS_Store
+.idea/
+.phpunit.result.cache
+.vagrant/
+console.log
+node_modules/
+phpcs.xml
+phpunit.xml
+vendor/
+.devcontainer/
+Vagrantfile
+docker-compose.yml
+webpack.config.js
+test/
+block-injector.zip
+!js/dist/

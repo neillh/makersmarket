@@ -1,0 +1,164 @@
+form {
+	margin-bottom: ms(3);
+}
+
+button,
+input,
+select,
+textarea {
+	font-size: 100%; /* Corrects font size not being inherited in all browsers */
+	margin: 0; /* Addresses margins set differently in IE6/7, F3/4, S5, Chrome */
+	vertical-align: baseline; /* Improves appearance and consistency in all browsers */
+	/* stylelint-disable */
+	*vertical-align: middle; /* Improves appearance and consistency in all browsers */
+	/* stylelint-enable */
+}
+
+button,
+input[type='button'],
+input[type='reset'],
+input[type='submit'],
+.button,
+.added_to_cart {
+	height: auto;
+	border: 0;
+	background: none;
+	background-color: $color_body;
+	border-color: $color_body;
+	color: #fff;
+	cursor: pointer; /* Improves usability and consistency of cursor style between image-type 'input' and others */
+	padding: ms(-2) ms(2);
+	text-decoration: none;
+	font-weight: 600;
+	text-shadow: none;
+	display: inline-block;
+	outline: none;
+	-webkit-appearance: none;
+	border-radius: 0;
+
+	&.cta,
+	&.alt {
+		background-color: $color_links;
+		border-color: $color_links;
+
+		&:hover {
+			background-color: $color_links;
+		}
+	}
+
+	&:hover {
+		color: #fff;
+	}
+
+	&:focus {
+		outline: 1px dotted $color_woocommerce;
+	}
+
+	&.loading {
+		opacity: 0.5;
+	}
+
+	&.small {
+		padding: ms(-3) ms(-1);
+		font-size: ms(-1);
+	}
+
+	&.disabled,
+	&:disabled {
+		opacity: 0.5 !important;
+		cursor: not-allowed;
+
+		&:hover {
+			opacity: 0.5 !important;
+		}
+	}
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+	padding: 0; /* Addresses excess padding in IE8/9 */
+
+	& + label {
+		margin: 0 0 0 ms(-4);
+	}
+}
+
+input[type='search']::-webkit-search-decoration { /* Corrects inner padding displayed oddly in S5, Chrome on OSX */
+	-webkit-appearance: none;
+}
+
+input[type='search'] {
+	box-sizing: border-box; // Overrules normalize.css.
+
+	&::placeholder {
+		color: #616161;
+	}
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner { /* Corrects inner padding and border displayed oddly in FF3/4 www.sitepen.com/blog/2008/05/14/the-devils-in-the-details-fixing-dojos-toolbar-buttons/ */
+	border: 0;
+	padding: 0;
+}
+
+input[type='text'],
+input[type='email'],
+input[type='tel'],
+input[type='url'],
+input[type='password'],
+input[type='search'],
+textarea {
+	padding: ms(-2);
+	background-color: darken($body-background, 5%);
+	color: $color_body;
+	outline: none;
+	border: 0;
+	-webkit-appearance: none;
+	box-sizing: border-box;
+	font-weight: normal;
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.125);
+
+	&:focus {
+		background-color: darken($body-background, 10%);
+		color: darken($color_body, 10%);
+	}
+}
+
+textarea {
+	overflow: auto; /* Removes default vertical scrollbar in IE6/7/8/9 */
+	padding-left: ms(-1);
+	vertical-align: top; /* Improves readability and alignment in all browsers */
+	width: 100%;
+}
+
+label {
+	font-weight: 400;
+}
+
+label.inline {
+	input {
+		width: auto;
+	}
+}
+
+fieldset {
+	padding: ms(3);
+	padding-top: ms(1);
+	border: 0;
+	margin: 0;
+	margin-bottom: ms(3);
+	margin-top: ms(3);
+
+	legend {
+		font-weight: 600;
+		padding: ms(-2) ms(1);
+		margin-left: - ms(1);
+	}
+}
+
+[placeholder]:focus::-webkit-input-placeholder {
+	-webkit-transition: opacity 0.5s 0.5s ease;
+	-moz-transition: opacity 0.5s 0.5s ease;
+	transition: opacity 0.5s 0.5s ease;
+	opacity: 0;
+}

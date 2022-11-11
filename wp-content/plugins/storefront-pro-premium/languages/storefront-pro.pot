@@ -1,0 +1,1297 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Storefront Pro\n"
+"POT-Creation-Date: 2018-12-22 21:23+0530\n"
+"PO-Revision-Date: 2017-11-27 12:04+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.12\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: storefront-pro.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: includes/admin-tpl/settings-page-tab-modules.php:172
+msgid "Active"
+msgstr ""
+
+#: includes/admin-tpl/settings-page-tab-modules.php:175
+msgid "Activate"
+msgstr ""
+
+#: includes/admin-tpl/settings-page-tab-modules.php:177
+msgid "Install"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+#: includes/class-admin.php:61 includes/class-admin.php:62
+msgid "Storefront Pro"
+msgstr ""
+
+#: includes/class-admin.php:78
+msgid "Customize Product"
+msgstr ""
+
+#: includes/class-admin.php:81 includes/page-customizer/page-customizer.php:231
+msgid "Customize this page in customizer"
+msgstr ""
+
+#: includes/class-admin.php:100
+msgid "All Storefront options have been successfully reset."
+msgstr ""
+
+#: includes/class-admin.php:120
+msgid "No data recieved."
+msgstr ""
+
+#: includes/class-admin.php:126
+msgid "Error parsing the file contents."
+msgstr ""
+
+#: includes/class-admin.php:130
+msgid "Could not save settings from data."
+msgstr ""
+
+#: includes/class-admin.php:132
+msgid "Successfully imported settings from the file."
+msgstr ""
+
+#: includes/class-admin.php:151 storefront-pro.php:233
+msgid "Cancel"
+msgstr ""
+
+#: includes/class-admin.php:152
+msgid "Accept"
+msgstr ""
+
+#: includes/class-admin.php:165 includes/vars-n-funcs.php:2322
+msgid "Primary Navigation"
+msgstr ""
+
+#: includes/class-admin.php:165 includes/class-header-nav-styles.php:92
+msgid "Secondary Navigation"
+msgstr ""
+
+#: includes/class-admin.php:165
+msgid "Header elements"
+msgstr ""
+
+#: includes/class-admin.php:167 includes/class-admin.php:177
+msgid "Mobile menu"
+msgstr ""
+
+#: includes/class-admin.php:168
+msgid ""
+"Mobile menu customizations require menu assigned to Handheld Menu location"
+msgstr ""
+
+#: includes/class-admin.php:170
+msgid "Product Page"
+msgstr ""
+
+#: includes/class-admin.php:170
+msgid "Shop"
+msgstr ""
+
+#: includes/class-admin.php:170
+msgid "Checkout"
+msgstr ""
+
+#: includes/class-admin.php:172
+msgid "Shop Header Hero"
+msgstr ""
+
+#: includes/class-admin.php:173
+msgid "Header Hero"
+msgstr ""
+
+#: includes/class-admin.php:175
+msgid "Widgets"
+msgstr ""
+
+#: includes/class-admin.php:177
+msgid "Mobile Fixed Footer"
+msgstr ""
+
+#: includes/class-admin.php:179
+msgid "Content Elements"
+msgstr ""
+
+#: includes/class-admin.php:196
+msgid "General Layout"
+msgstr ""
+
+#: includes/class-admin.php:211
+msgid "First Gradient color"
+msgstr ""
+
+#: includes/class-admin.php:221
+msgid "Second Gradient color"
+msgstr ""
+
+#: includes/class-admin.php:228
+msgid "Header and Navigation"
+msgstr ""
+
+#: includes/class-admin.php:233
+msgid "Mobile"
+msgstr ""
+
+#: includes/class-admin.php:238
+msgid "Content"
+msgstr ""
+
+#: includes/class-admin.php:243
+msgid "Posts"
+msgstr ""
+
+#: includes/class-admin.php:248
+msgid "WooCommerce"
+msgstr ""
+
+#: includes/class-admin.php:253
+msgid "Footer"
+msgstr ""
+
+#: includes/class-admin.php:265
+msgid "Post page Layout"
+msgstr ""
+
+#: includes/class-admin.php:281
+msgid "Posts Page"
+msgstr ""
+
+#: includes/class-admin.php:287
+msgid "Single post"
+msgstr ""
+
+#: includes/class-admin.php:293 includes/vars-n-funcs.php:1268
+msgid "Layout"
+msgstr ""
+
+#: includes/class-admin.php:304
+msgid "Header Elements"
+msgstr ""
+
+#: includes/class-content-styles.php:147
+msgid "Pages:"
+msgstr ""
+
+#: includes/class-content-styles.php:186 includes/template/single-1.php:40
+#: includes/template/single-2.php:46
+#, php-format
+msgid "Continue reading %s"
+msgstr ""
+
+#: includes/class-footer-styles.php:134
+#, php-format
+msgid "%1$s designed by %2$s."
+msgstr ""
+
+#: includes/class-public.php:88
+msgid "Loading"
+msgstr ""
+
+#: includes/class-public.php:89
+msgid "More"
+msgstr ""
+
+#: includes/class-public.php:93 includes/vars-n-funcs.php:857
+msgid "Expand"
+msgstr ""
+
+#: includes/class-public.php:94
+msgid "Collapse"
+msgstr ""
+
+#: includes/class-woocommerce-shop.php:73
+msgid "Quick View"
+msgstr ""
+
+#: includes/ext/live-search/class-sfp-live-search-widget.php:31
+msgid "Storefront Pro Live Search"
+msgstr ""
+
+#: includes/ext/live-search/class-sfp-live-search-widget.php:33
+msgid ""
+"Awesome widget that searches for WooCommerce Products and Product Categories "
+"live!"
+msgstr ""
+
+#: includes/ext/live-search/class-sfp-live-search-widget.php:41
+msgid "Enter title"
+msgstr ""
+
+#: includes/ext/live-search/class-sfp-live-search-widget.php:42
+msgid "Seach box placeholder"
+msgstr ""
+
+#: includes/ext/live-search/class-sfp-live-search-widget.php:91
+#: includes/ext/live-search/storefront-pro-live-search.php:346
+msgid "Search"
+msgstr ""
+
+#: includes/ext/live-search/class-sfp-live-search-widget.php:103
+msgid "Search for:"
+msgstr ""
+
+#: includes/ext/live-search/class-sfp-live-search-widget.php:154
+msgid "Error - Field type not supported"
+msgstr ""
+
+#: includes/ext/live-search/storefront-pro-live-search.php:54
+msgid "Live search"
+msgstr ""
+
+#: includes/ext/live-search/storefront-pro-live-search.php:58
+msgid "WooCommerce live search"
+msgstr ""
+
+#: includes/ext/live-search/storefront-pro-live-search.php:59
+msgid "Only searches WooCommerce products."
+msgstr ""
+
+#: includes/ext/live-search/storefront-pro-live-search.php:72
+msgid "WooCommerce live search on Mobile"
+msgstr ""
+
+#: includes/ext/live-search/storefront-pro-live-search.php:73
+msgid "Show in mobile footer search icon"
+msgstr ""
+
+#: includes/ext/live-search/storefront-pro-live-search.php:80
+#: includes/vars-n-funcs.php:763
+msgid "Search box background color"
+msgstr ""
+
+#: includes/ext/live-search/storefront-pro-live-search.php:86
+#: includes/vars-n-funcs.php:769
+msgid "Search box text color"
+msgstr ""
+
+#: includes/ext/live-search/storefront-pro-live-search.php:92
+msgid "Search results background color"
+msgstr ""
+
+#: includes/ext/live-search/storefront-pro-live-search.php:98
+msgid "Search results text color"
+msgstr ""
+
+#: includes/ext/live-search/storefront-pro-live-search.php:104
+msgid "Search box/results rounded corners"
+msgstr ""
+
+#: includes/ext/live-search/storefront-pro-live-search.php:193
+#: includes/ext/live-search/storefront-pro-live-search.php:299
+msgid "Categories"
+msgstr ""
+
+#: includes/ext/live-search/storefront-pro-live-search.php:194
+#: includes/ext/live-search/storefront-pro-live-search.php:300
+#: includes/vars-n-funcs.php:1112
+msgid "Products"
+msgstr ""
+
+#: includes/ext/storefront-footer-bar/storefront-footer-bar.php:128
+#: includes/ext/storefront-footer-bar/storefront-footer-bar.php:137
+#: includes/ext/storefront-header-bar/storefront-header-bar.php:128
+#: includes/ext/storefront-header-bar/storefront-header-bar.php:137
+#: includes/ext/storefront-product-sharing/storefront-product-sharing.php:128
+#: includes/ext/storefront-product-sharing/storefront-product-sharing.php:137
+#: includes/page-customizer/page-customizer.php:170
+#: includes/page-customizer/page-customizer.php:179 storefront-pro.php:409
+#: storefront-pro.php:418
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: includes/ext/storefront-footer-bar/storefront-footer-bar.php:187
+#: includes/ext/storefront-footer-bar/storefront-footer-bar.php:206
+msgid "Footer Bar"
+msgstr ""
+
+#: includes/ext/storefront-footer-bar/storefront-footer-bar.php:216
+msgid "Enable footer bar"
+msgstr ""
+
+#: includes/ext/storefront-footer-bar/storefront-footer-bar.php:230
+#: includes/ext/storefront-header-bar/storefront-header-bar.php:228
+msgid "Background image"
+msgstr ""
+
+#: includes/ext/storefront-footer-bar/storefront-footer-bar.php:246
+#: includes/ext/storefront-header-bar/storefront-header-bar.php:243
+#: includes/vars-n-funcs.php:833 includes/vars-n-funcs.php:970
+#: includes/vars-n-funcs.php:1938 includes/vars-n-funcs.php:1953
+msgid "Background color"
+msgstr ""
+
+#: includes/ext/storefront-footer-bar/storefront-footer-bar.php:262
+#: includes/ext/storefront-header-bar/storefront-header-bar.php:258
+#: includes/vars-n-funcs.php:1237 includes/vars-n-funcs.php:1262
+msgid "Heading color"
+msgstr ""
+
+#: includes/ext/storefront-footer-bar/storefront-footer-bar.php:278
+#: includes/ext/storefront-header-bar/storefront-header-bar.php:273
+#: includes/vars-n-funcs.php:798 includes/vars-n-funcs.php:976
+msgid "Text color"
+msgstr ""
+
+#: includes/ext/storefront-footer-bar/storefront-footer-bar.php:293
+#: includes/ext/storefront-header-bar/storefront-header-bar.php:288
+msgid "Link color"
+msgstr ""
+
+#: includes/ext/storefront-header-bar/storefront-header-bar.php:185
+#: includes/ext/storefront-header-bar/storefront-header-bar.php:204
+msgid "Header Bar"
+msgstr ""
+
+#: includes/ext/storefront-header-bar/storefront-header-bar.php:214
+msgid "Enable header bar"
+msgstr ""
+
+#: includes/ext/storefront-product-sharing/storefront-product-sharing.php:206
+msgid "Share on Twitter"
+msgstr ""
+
+#: includes/ext/storefront-product-sharing/storefront-product-sharing.php:207
+msgid "Share on Facebook"
+msgstr ""
+
+#: includes/ext/storefront-product-sharing/storefront-product-sharing.php:208
+msgid "Pin this product"
+msgstr ""
+
+#: includes/ext/storefront-product-sharing/storefront-product-sharing.php:209
+msgid "Share via Email"
+msgstr ""
+
+#: includes/template/home-tiles.php:48 includes/template/home-tiles.php:49
+msgid ", "
+msgstr ""
+
+#: includes/vars-n-funcs.php:713
+msgid "Navigation Style"
+msgstr ""
+
+#: includes/vars-n-funcs.php:729
+msgid "Hamburger Label"
+msgstr ""
+
+#: includes/vars-n-funcs.php:735
+msgid "Show search box in Header"
+msgstr ""
+
+#: includes/vars-n-funcs.php:741
+msgid "Search box size"
+msgstr ""
+
+#: includes/vars-n-funcs.php:745 includes/vars-n-funcs.php:855
+#: includes/vars-n-funcs.php:1518 includes/vars-n-funcs.php:1770
+#: includes/vars-n-funcs.php:1781 includes/vars-n-funcs.php:1793
+#: includes/vars-n-funcs.php:1819 includes/vars-n-funcs.php:1997
+#: includes/vars-n-funcs.php:2070 includes/vars-n-funcs.php:2493
+msgid "Default"
+msgstr ""
+
+#: includes/vars-n-funcs.php:746
+msgid "Large"
+msgstr ""
+
+#: includes/vars-n-funcs.php:747
+msgid "Extra Large"
+msgstr ""
+
+#: includes/vars-n-funcs.php:752
+msgid "Search box rounded corners"
+msgstr ""
+
+#: includes/vars-n-funcs.php:756
+msgid "Boxy"
+msgstr ""
+
+#: includes/vars-n-funcs.php:757
+msgid "Curvaceous"
+msgstr ""
+
+#: includes/vars-n-funcs.php:758
+msgid "Really Curvaceous"
+msgstr ""
+
+#: includes/vars-n-funcs.php:775
+msgid "Remove search icon from nav"
+msgstr ""
+
+#: includes/vars-n-funcs.php:781 includes/vars-n-funcs.php:929
+msgid "Font"
+msgstr ""
+
+#: includes/vars-n-funcs.php:787 includes/vars-n-funcs.php:935
+#: includes/vars-n-funcs.php:1471
+msgid "Text size"
+msgstr ""
+
+#: includes/vars-n-funcs.php:804 includes/vars-n-funcs.php:947
+msgid "Letter spacing"
+msgstr ""
+
+#: includes/vars-n-funcs.php:815 includes/vars-n-funcs.php:958
+#: includes/vars-n-funcs.php:1482
+msgid "Font style"
+msgstr ""
+
+#: includes/vars-n-funcs.php:819 includes/vars-n-funcs.php:962
+#: includes/vars-n-funcs.php:1398 includes/vars-n-funcs.php:1457
+#: includes/vars-n-funcs.php:1486
+msgid "Bold"
+msgstr ""
+
+#: includes/vars-n-funcs.php:820 includes/vars-n-funcs.php:963
+#: includes/vars-n-funcs.php:1399 includes/vars-n-funcs.php:1458
+#: includes/vars-n-funcs.php:1487
+msgid "Italic"
+msgstr ""
+
+#: includes/vars-n-funcs.php:821 includes/vars-n-funcs.php:964
+#: includes/vars-n-funcs.php:1400 includes/vars-n-funcs.php:1459
+#: includes/vars-n-funcs.php:1488
+msgid "Underline"
+msgstr ""
+
+#: includes/vars-n-funcs.php:822 includes/vars-n-funcs.php:965
+#: includes/vars-n-funcs.php:1401 includes/vars-n-funcs.php:1460
+#: includes/vars-n-funcs.php:1489
+msgid "Uppercase"
+msgstr ""
+
+#: includes/vars-n-funcs.php:827 includes/vars-n-funcs.php:983
+msgid "Active link color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:839 includes/vars-n-funcs.php:989
+msgid "Drop down menu background color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:845 includes/vars-n-funcs.php:995
+msgid "Drop down menu text color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:851
+msgid "Drop down menu animation"
+msgstr ""
+
+#: includes/vars-n-funcs.php:856
+msgid "Fade"
+msgstr ""
+
+#: includes/vars-n-funcs.php:858
+msgid "Slide"
+msgstr ""
+
+#: includes/vars-n-funcs.php:859
+msgid "Flip"
+msgstr ""
+
+#: includes/vars-n-funcs.php:864
+msgid "Icon size"
+msgstr ""
+
+#: includes/vars-n-funcs.php:875
+msgid "Icon color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:881
+msgid "Drop down menu Icon size"
+msgstr ""
+
+#: includes/vars-n-funcs.php:892
+msgid "Drop down menu text size"
+msgstr ""
+
+#: includes/vars-n-funcs.php:903
+msgid "Drop down menu Icon color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:909
+msgid "Menu height"
+msgstr ""
+
+#: includes/vars-n-funcs.php:923
+msgid "Make full width"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1003
+msgid "Logo"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1010
+msgid "Header Background Color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1017
+msgid "Logo max height"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1030
+msgid "Phone Number"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1037
+msgid "Email"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1044
+msgid "Facebook profile URL"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1051
+msgid "Twitter profile URL"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1058
+msgid "Google+ profile URL"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1065
+msgid "Linked in profile URL"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1072
+msgid "Instagram profile URL"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1079
+msgid "Pinterest profile URL"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1086
+msgid "Youtube channel URL"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1093
+msgid "Align social icons and contact info"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1098 includes/vars-n-funcs.php:1554
+#: includes/vars-n-funcs.php:1820
+msgid "Left"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1099 includes/vars-n-funcs.php:1555
+#: includes/vars-n-funcs.php:1821
+msgid "Right"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1100 includes/vars-n-funcs.php:1553
+msgid "Center"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1105
+msgid "Post types to search"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1111
+msgid "Posts and Pages"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1117
+msgid "Cart location"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1122
+msgid "Primary nav"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1123
+msgid "Secondary nav"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1124
+msgid "Hide"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1129
+msgid "Cart text color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1136
+msgid "Cart drop down text color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1144
+msgid "Make header sticky"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1151
+msgid "Hide header until scroll"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1175
+msgid "Hide accessibility box around active links"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1181
+msgid "Hide breadcrumbs on pages"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1187
+msgid "Hide breadcrumbs on posts"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1194
+msgid "Hide breadcrumbs on archives"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1200
+msgid "Hide page title"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1206
+msgid "Hide horizontal lines"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1212
+msgid "Change horizontal lines color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1220 includes/vars-n-funcs.php:1251
+msgid "Heading size"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1231
+msgid "Featured image fixed parallax"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1243 includes/vars-n-funcs.php:1319
+msgid "Hide post meta"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1282
+msgid "Show posts"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1289
+msgid "Full content or Excerpt"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1293
+msgid "Full post"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1294
+msgid "Excerpt"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1299
+msgid "Excerpt word count"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1306
+msgid "Excerpt word end"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1313
+msgid "Read more button text"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1327
+msgid "Body font"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1333
+msgid "Body text size"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1344
+msgid "Body line height"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1355
+msgid "Heading font"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1361
+msgid "Heading text size"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1372
+msgid "Heading letter spacing"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1383
+msgid "Heading line height"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1394
+msgid "Heading font style"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1408
+msgid "Footer layout"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1412
+msgid "4 Columns"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1413
+msgid "3 Columns"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1414
+msgid "2 Columns"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1415
+msgid "1 Column"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1416
+msgid "1/4 + 3/4 Columns"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1417
+msgid "3/4 + 1/4 Columns"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1418
+msgid "1/3 + 2/3 Columns"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1419
+msgid "2/3 + 1/3 Columns"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1420
+msgid "1/4 + 1/4 + 1/2 Columns"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1421
+msgid "1/2 + 1/4 + 1/4 Columns"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1427
+msgid "Background Image"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1434
+msgid "Custom footer text"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1442
+msgid "Header text size"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1453
+msgid "Header font style"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1465
+msgid "Widget header color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1494
+msgid "Widget text color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1500
+msgid "Widget link color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1506
+msgid "Widget bullet color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1514
+msgid "Shop layout"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1519 includes/vars-n-funcs.php:1771
+msgid "Full width"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1520
+msgid "Masonry"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1521
+msgid "List"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1522
+msgid "Tiles"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1527
+msgid "Display sidebar"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1533
+msgid "Product columns"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1541
+msgid "Products per page"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1549
+msgid "Product alignment"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1567
+msgid "Shop Hero Type"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1571 includes/vars-n-funcs.php:1584
+msgid "Default (none)"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1572
+msgid "Featured image"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1574 includes/vars-n-funcs.php:1587
+msgid "Featured products slider"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1580
+msgid "Product Category Hero Type"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1585
+msgid "Category image"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1593
+msgid "Shop and Category Hero height"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1611
+msgid "Quick view product"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1617
+msgid "Flip product images"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1623
+msgid "Hide product count on categories"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1629
+msgid "Display product results count"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1636
+msgid "Display product sorting"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1643
+msgid "Display product image"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1650
+msgid "Display product title"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1657
+msgid "Display sale flash"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1664
+msgid "Display rating"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1671
+msgid "Display price"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1678
+msgid "Display add to cart button"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1685
+msgid "Hide breadcrumbs on WooCommerce pages"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1696
+msgid "Enable sweet mobile store styling"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1707
+msgid "Infinite scroll"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1718
+msgid "Success message background color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1724
+msgid "Success message text color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1735
+msgid "Info message background color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1741
+msgid "Info message text color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1752
+msgid "Error message background color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1758
+msgid "Error message text color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1766
+msgid "Product layout"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1777
+msgid "Product tabs"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1782
+msgid "Horizontal tabs"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1783
+msgid "Accordion"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1789 includes/vars-n-funcs.php:2489
+msgid "Product Style"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1794 includes/vars-n-funcs.php:2494
+msgid "Full width Product image"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1795 includes/vars-n-funcs.php:2495
+msgid "Full width Product Gallery"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1796 includes/vars-n-funcs.php:2496
+msgid "Full width Product Images Slider"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1797 includes/vars-n-funcs.php:2497
+msgid "Hero Product"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1803
+msgid "Sale badge style"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1807
+msgid "Rectangle"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1808
+msgid "Circle"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1809
+msgid "Slant left"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1810
+msgid "Slant right"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1815
+msgid "Sale badge alignment"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1826
+msgid "Sale badge text color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1832
+msgid "Sale badge background color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1838
+msgid "Sale badge border color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1844
+msgid "Hide breadcrumbs"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1851
+msgid "Show product sharing icons"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1857
+msgid "Hide product sharing icons labels"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1863
+msgid "Product sharing icons color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1869
+msgid "Display product tabs"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1876
+msgid "Display related products"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1883
+msgid "Display product meta"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1892
+msgid "Hide breadcrumbs on Cart and Checkout pages"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1899
+msgid "Enable distraction free Cart and Checkout"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1908
+msgid "Mobile Logo"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1915
+msgid "Mobile menu icon label"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1923
+msgid "Display search on mobile menu"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1930
+msgid "Menu icon color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1946
+msgid "Font color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1960
+msgid "Icons/Font color"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1966
+msgid "Hide my account icon"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1972
+msgid "Hide search icon"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1978
+msgid "Hide cart icon"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1993
+msgid "Homepage hero"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1998 includes/vars-n-funcs.php:2071
+msgid "Featured Image"
+msgstr ""
+
+#: includes/vars-n-funcs.php:1999
+msgid "Slider"
+msgstr ""
+
+#: includes/vars-n-funcs.php:2000
+msgid "Video"
+msgstr ""
+
+#: includes/vars-n-funcs.php:2001
+msgid "Featured products"
+msgstr ""
+
+#: includes/vars-n-funcs.php:2007
+msgid "Home header height"
+msgstr ""
+
+#: includes/vars-n-funcs.php:2020
+msgid "Header hero title font"
+msgstr ""
+
+#: includes/vars-n-funcs.php:2028
+msgid "Header hero title size"
+msgstr ""
+
+#: includes/vars-n-funcs.php:2041
+msgid "Header hero text size"
+msgstr ""
+
+#: includes/vars-n-funcs.php:2054
+msgid "Home hero position"
+msgstr ""
+
+#: includes/vars-n-funcs.php:2058
+msgid "Behind header"
+msgstr ""
+
+#: includes/vars-n-funcs.php:2059
+msgid "Below header"
+msgstr ""
+
+#: includes/vars-n-funcs.php:2066
+msgid "Sitewide hero"
+msgstr ""
+
+#: includes/vars-n-funcs.php:2079
+msgid "Featured image height"
+msgstr ""
+
+#: includes/vars-n-funcs.php:2080
+msgid "Sitewide header Featured image height."
+msgstr ""
+
+#: includes/vars-n-funcs.php:2093
+msgid "Video (full screen) URL"
+msgstr ""
+
+#: includes/vars-n-funcs.php:2094
+msgid "Put in Youtube/Vimeo video URL here."
+msgstr ""
+
+#: includes/vars-n-funcs.php:2109
+msgid "Slider (full screen)"
+msgstr ""
+
+#: includes/vars-n-funcs.php:2117
+msgid "Slide content black overlay"
+msgstr ""
+
+#: includes/vars-n-funcs.php:2118
+msgid "Transparent black background to improve readability."
+msgstr ""
+
+#: includes/vars-n-funcs.php:2133
+msgid "Call to action button link"
+msgstr ""
+
+#: includes/vars-n-funcs.php:2141
+msgid "Call to action button text"
+msgstr ""
+
+#: includes/vars-n-funcs.php:2420
+msgctxt "placeholder"
+msgid "Search&hellip;"
+msgstr ""
+
+#: includes/vars-n-funcs.php:2421
+msgctxt "label"
+msgid "Search for:"
+msgstr ""
+
+#: includes/vars-n-funcs.php:2422
+msgctxt "submit button"
+msgid "Search"
+msgstr ""
+
+#: includes/vars-n-funcs.php:2466
+msgid "Flush content with header"
+msgstr ""
+
+#: includes/vars-n-funcs.php:2473
+msgid "Make header come over the content"
+msgstr ""
+
+#: includes/vars-n-funcs.php:2480
+msgid "Color of header when it is over the content"
+msgstr ""
+
+#: includes/wcam-fs.php:99
+msgid "An error occurred, please try again."
+msgstr ""
+
+#: storefront-pro.php:221
+msgid ""
+"Are you sure you wanna import settings? All your current Storefront Pro "
+"settings will be lost."
+msgstr ""
+
+#: storefront-pro.php:225
+msgid "Yeah, Load file"
+msgstr ""
+
+#: storefront-pro.php:227
+msgid "No, thanks"
+msgstr ""
+
+#: storefront-pro.php:230
+msgid "Are you sure you wanna reset to default Storefront options?"
+msgstr ""
+
+#: storefront-pro.php:232
+msgid "Yeah"
+msgstr ""
+
+#: storefront-pro.php:249
+msgid "Invalid response"
+msgstr ""
+
+#: storefront-pro.php:257
+msgid "The FileReader API is not supported in this browser."
+msgstr ""
+
+#: storefront-pro.php:272
+#, php-format
+msgid "Requesting import from file %s."
+msgstr ""
+
+#: storefront-pro.php:289
+msgid "File not selected or browser incompatible."
+msgstr ""
+
+#: storefront-pro.php:438
+#, php-format
+msgid ""
+"%sThanks for installing the Storefront Pro extension. To get started, visit "
+"the %sCustomizer%s.%s %sOpen the Customizer%s"
+msgstr ""
+
+#: storefront-pro.php:468
+msgid "Storefront Pro requires that you use Storefront as your parent theme."
+msgstr ""
+
+#: storefront-pro.php:468
+msgid "Install Storefront now"
+msgstr ""
+
+#: woo-includes/woo-functions.php:77
+#, php-format
+msgid ""
+"%s Install the WooThemes Updater plugin%s to get updates for your WooThemes "
+"plugins."
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://www.pootlepress.com/storefront-pro/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Customize the design of every element of your Storefront website"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "pootlepress"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://pootlepress.com/"
+msgstr ""

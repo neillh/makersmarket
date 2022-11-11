@@ -809,7 +809,7 @@ if ( ! class_exists( 'Storefront_Customizer' ) ) :
 			input[type="url"]:focus,
 			input[type="password"]:focus,
 			input[type="search"]:focus {
-				outline-color: ' . $storefront_theme_mods['accent_color'] . ';
+				outline-color: #fff;
 			}
 
 			button, input[type="button"], input[type="reset"], input[type="submit"], .button, .widget a.button {

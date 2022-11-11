@@ -1,0 +1,84 @@
+.gtp_video_frame_laptop .wp-block-video {
+    position: relative;
+    // width: 550px;
+    // height: 340px;
+    // margin: 0 auto;
+    background: #89c9e5;
+    border: 15px solid #3f3f41;
+    border-top: 20px solid #3f3f41;
+    border-radius: 14px 14px 0 0;
+    // margin: 0 0 90px 0;
+    // box-shadow: 0 0 0 1px #d1d2d4;
+    line-height: 0;
+ }
+.gtp_video_frame_laptop .wp-block-video:before {
+    content: '';
+    bottom: -35px;
+    background: #e6e8e7;
+    height: 20px;
+    width: 150%;
+    border-radius: 0 0 10px 10px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+ }
+ .gtp_video_frame_laptop .wp-block-video:after {
+    content: '';
+    top: -12px;
+    width: 3px;
+    height: 3px;
+    background: #e6e8e7;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+ }
+
+
+
+//  mobile
+.gtp_video_frame_iphone .wp-block-video {
+  display: block;
+  position: relative;
+  background-color: #2d2d2d;
+  border: 6px solid #2d2d2d;
+  border-top: 46px solid #2d2d2d;
+  border-bottom: 47.2px solid #2d2d2d;
+  border-radius: 22.6px;
+  // width: 300px;
+  // height: 410.4px;
+  box-shadow: 0 0 0 2px #C6C7CA;
+}
+.gtp_video_frame_iphone .wp-block-video:before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  opacity: 1;
+  width: 40px;
+  height: 2px;
+  -webkit-transform: translate(-18px,-15px);
+  -ms-transform: translate(-18px,-15px);
+  -o-transform: translate(-18px,-15px);
+  transform: translate(-18px,-15px);
+  border-radius: 2px;
+  background-color: #959595;
+}
+.gtp_video_frame_iphone .wp-block-video:after {
+  border-radius: 100% !important;
+  width: 28px;
+  height: 28px;
+  display: block;
+  margin: 0 auto;
+  background-color: #959595;
+  z-index: 2 !important;
+  box-shadow: 0 0 0 2.2px #B4B6BC !important;
+  -webkit-transform: translate(0,37.6px);
+  -ms-transform: translate(0,37.6px);
+  -o-transform: translate(0,37.6px);
+  transform: translate(0,37.6px);
+  bottom:  0 !important;
+  left: 0 !important;
+  top:  auto !important;
+  right:  0 !important;
+}

@@ -1,0 +1,43 @@
+/**
+    Components Styling
+**/
+
+@import "./_styles/variations-picker";
+@import "./_styles/background-picker";
+@import "./_styles/dimension-picker";
+@import "./components/shape-divider/style.scss";
+
+/**
+    Extensions Styling
+**/
+
+@import "./extensions/columns-pro/style.scss";
+@import "./extensions/old-cover-pro/style.scss";
+@import "./extensions/video-pro/style.scss";
+
+/**
+    Plugins Styling
+**/
+
+@import "./plugins/global-settings/style.scss";
+
+/** Media Text Block overlap styling **/
+.wp-block-media-text.is-style-gtp-overlap.has-media-on-the-right .wp-block-media-text__content {
+	margin-right: -150px;
+}
+
+.wp-block-media-text.is-style-gtp-overlap:not(.has-media-on-the-right) .wp-block-media-text__content {
+	margin-left: -150px;
+}
+
+@media (max-width: 640px) {
+  
+    .wp-block-media-text.is-style-gtp-overlap:not(.has-media-on-the-right) .wp-block-media-text__content {
+        margin-left: 0px !important;
+    }
+    
+    .wp-block-media-text.is-style-gtp-overlap.has-media-on-the-right .wp-block-media-text__content {
+        margin-right: 0px !important;
+    }
+    
+}

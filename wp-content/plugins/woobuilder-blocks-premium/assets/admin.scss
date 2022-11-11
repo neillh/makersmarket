@@ -1,0 +1,128 @@
+/**
+ * Plugin front end styles
+ *
+ * @package WooBuilder_Blocks
+ * @version 1.0.0
+ */
+
+@import "front.css";
+
+.edit-post-visual-editor {
+	background: #fff;
+}
+
+.edit-post-visual-editor__content-area > div,
+.ast-separate-container .block-editor-writing-flow,
+.ast-two-container .block-editor-writing-flow,
+.editor-styles-wrapper {
+	background: none !important;
+}
+
+#woocommerce-embedded-root {
+	border-bottom: 1px solid #eee;
+
+	~ #wpbody {
+		.edit-post-header,
+		.edit-post-layout__content,
+		.edit-post-sidebar {
+			margin-top: 81px;
+		}
+	}
+}
+
+.wp-core-ui,
+.editor-styles-wrapper {
+	.woobuilder-add-to-cart-sticky {
+		position: static;
+	}
+
+	[data-type="woobuilder/long-description"] {
+		outline: 1px solid #007cba;
+		outline-offset: 5px;
+	}
+
+	[data-type="woobuilder/images"] .components-resizable-box__container {
+		margin: auto;
+	}
+
+	.woobuilder-block {
+		form.cart {
+			display: inline-block;
+		}
+
+		input, button {
+			display: inline-block;
+			margin: 0;
+			padding: .3em 1em;
+			border: 1px solid rgba(0, 0, 0, 0.34);
+			font: inherit;
+			border-radius: 0;
+			height: auto;
+			line-height: 1.6;
+			box-shadow: none;
+		}
+
+		.woocommerce-product-gallery.images {
+			opacity: 1 !important;
+
+			.woocommerce-product-gallery__image {
+				&:not(:first-child) {
+					display: none;
+				}
+
+				img.wp-post-image {
+					width: 100%;
+				}
+			}
+		}
+	}
+
+	.woobuilder-add-to-cart,
+	.woobuilder-add-to-cart-sticky {
+		.quantity {
+			float: left;
+			margin-right: 1em;
+		}
+	}
+
+	.woobuilder-product-price .price {
+		font-size: 1.41575em;
+		margin: 1.41575em 0;
+	}
+
+	.woobuilder-cover {
+		position: static;
+	}
+
+	.woobk-prods-wrapper-label {
+		padding: 2px 5px;
+		bottom: 0;
+		right: 0;
+		position: absolute;
+		background: #007cba;
+		color: #fff;
+		text-align: center;
+		font: 11px/1.8 sans-serif;
+		z-index: 999;
+		opacity: 1;
+		display: none;
+	}
+
+	.woobk-prods-wrapper:hover .woobk-prods-wrapper-label {
+		display: block;
+	}
+
+	.woobk-label {
+		background: rgba(255, 255, 255, .9);
+		color: #777;
+		border: 1px solid #ddd;
+		padding: 0 0.3em;
+		line-height: 1.4;
+		font-size: 12px;
+		position: absolute;
+		bottom: 2px;
+		right: 2px;
+		border-radius: 3px;
+		max-width: 120px;
+	}
+}

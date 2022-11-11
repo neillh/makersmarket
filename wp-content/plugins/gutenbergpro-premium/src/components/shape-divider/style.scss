@@ -1,0 +1,99 @@
+@mixin scrollbar() {
+	&::-webkit-scrollbar {
+		width: 5px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: transparent;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: transparent;
+	}
+
+	&::-webkit-scrollbar-thumb:hover {
+		background: transparent;
+	}
+
+	&:hover {
+		&::-webkit-scrollbar-track {
+			background: #eee;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			background: #ccc;
+		}
+
+		&::-webkit-scrollbar-thumb:hover {
+			background: #ccc;
+		}
+	}
+}
+
+.ep-svg-picker {
+	margin-bottom: 15px;
+
+	.ep-svg-picker-root {
+		.ep-svg-picker-dropdown {
+			width: 100%;
+
+			.ep-current-svg {
+				padding: 15px;
+				border: 1px solid;
+				width: 100%;
+				text-align: center;
+
+				& p {
+					margin: 0 !important;
+				}
+
+				&:hover {
+					background-color: #eee;
+				}
+				svg {
+					width: 100%;
+					fill: #4c5866;
+				}
+			}
+		}
+	}
+}
+
+.ep-svg-picker-dropdown-content {
+	.components-popover__content {
+		@include scrollbar();
+		max-width: 300px !important;
+		width: 300px;
+		padding: 20px 20px;
+		max-height: 300px !important;
+		svg {
+			width: 100%;
+
+			&:hover {
+				fill: #4c5866;
+			}
+		}
+
+		.ep-svg-select {
+			padding: 10px 0px;
+			border: 1px solid #eee;
+			margin: 15px 0px;
+
+			&.ep-none {
+				text-align: center;
+				border: 1px solid #eee;
+				cursor: pointer;
+				user-select: none;
+				p {
+					margin: 0 !important;
+				}
+			}
+
+			&.current-svg {
+				& svg {
+					fill: #4c5866;
+				}
+			}
+		}
+	}
+}

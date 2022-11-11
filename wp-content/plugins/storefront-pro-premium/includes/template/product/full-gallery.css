@@ -1,0 +1,108 @@
+/**
+ * Full gallery product styles
+ * @since 3.0.0
+ * @developer wpdevelopment.me<shramee@wpdevelopment.me>
+ */
+.storefront-full-width-content.single.single-product .product .images, .single.single-product .product .images {
+	width: 100%;
+}
+
+.single.single-product .product .images > a {
+	width: 47.5%;
+	display: block;
+	float: left;
+	margin-left: 5%;
+	margin-bottom: 5%;
+}
+
+.single.single-product .product .images > a:nth-child(2n + 1) {
+	margin-left: 0;
+	clear: both;
+}
+
+.single-product div.product .price {
+	font-size: 25px;
+	font-weight: normal;
+	letter-spacing: 1px;
+}
+
+.single.single-product .product .images img {
+	margin: auto;
+}
+
+.single.single-product .product .images .thumbnails {
+	display: none;
+}
+
+.single.single-product div.product .summary {
+	width: 100%;
+	clear: both;
+}
+
+.single-product .summary > * {
+	float: right;
+	width: 43.9%;
+	margin-right: 7.9%;
+	clear: none;
+}
+
+/*
+		.single-product .product .summary form.cart .quantity,
+		.single-product .product .summary form.cart .button {
+			text-align: left;
+			float: none;
+			width: auto;
+			margin-top: 2.5em;
+		}
+	*/
+.single-product .summary .product_title, .single-product .summary .woocommerce-product-rating {
+	text-align: center;
+	float: none;
+	width: auto;
+	margin-right: auto;
+}
+
+.single-product div.product form.cart button {
+	padding: 1em 1.4em;
+}
+
+.single-product .summary div[itemprop='description'] {
+	float: left;
+	width: 43%;
+	margin: auto;
+}
+
+.single-product div.product form.cart .quantity:before {
+	content: 'Quantity';
+	letter-spacing: 2px;
+	margin-right: 25px;
+}
+
+.single-product div.product form.cart input {
+	background: #fff;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding-left: 20px;
+	max-width: 5em;
+}
+
+a.woocommerce-review-link {
+	margin-right: -7em;
+}
+
+.single-product .summary > span.onsale {
+	width: auto;
+}
+
+@media only screen and (max-width: 768px) {
+	.single-product .summary div[itemprop='description'],.single-product .summary > * {
+		float: none;
+		width: 100%;
+		margin: 0;
+	}
+	.single.single-product .product .images > a,
+	.single.single-product .product .images > a:nth-child(2n + 1) {
+		width: auto;
+		margin: 0 auto 1.6em;
+	}
+}

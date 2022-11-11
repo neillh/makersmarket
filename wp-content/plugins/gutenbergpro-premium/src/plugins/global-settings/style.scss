@@ -1,0 +1,19 @@
+.gtp-global-settings {
+	.gtp-toggle-extension {
+		&.gtp-loading-extension-status,
+		&.gtp-is-disabled {
+			opacity: 0.5;
+		}
+
+		.gtp-toggle-label {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			svg {
+				width: 20px;
+				height: 20px;
+				margin: 0px 10px 0px 0px;
+			}
+		}
+	}
+}

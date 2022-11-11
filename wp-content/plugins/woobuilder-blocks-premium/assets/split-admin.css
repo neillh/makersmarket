@@ -1,0 +1,70 @@
+[woob-stest] .nav-tab-wrapper {
+	opacity: 0.25;
+	cursor: default;
+}
+
+[data-type="woobuilder/split-testing"].has-child-selected [woob-stest] .nav-tab-wrapper,
+[data-type="woobuilder/split-testing"].is-selected [woob-stest] .nav-tab-wrapper {
+	opacity: 1;
+	cursor: pointer;
+}
+
+[data-type="woobuilder/split-testing"].has-child-selected [woob-stest] .nav-tab {
+	opacity: .5;
+}
+
+[woob-stest] .nav-tab[data-type="woobuilder/split-testing"].has-child-selected [woob-stest] .nav-tab {
+	opacity: .25;
+	cursor: default;
+}
+
+.woob-stest-wrap .nav-tab {
+	color: inherit;
+}
+
+.woob-stest-wrap .nav-tab.fr {
+	float: right;
+	margin-right: .5em;
+}
+
+.woob-stest-wrap .nav-tab-active {
+	background: #fff;
+	border-bottom-color: #fff;
+}
+
+[woob-stest] [woob-stest-id] {
+	display: none;
+}
+
+[woob-stest='0'] [woob-stest-id="0"],
+[woob-stest='1'] [woob-stest-id="1"],
+[woob-stest='2'] [woob-stest-id="2"],
+[woob-stest='3'] [woob-stest-id="3"],
+[woob-stest='4'] [woob-stest-id="4"],
+[woob-stest='stats'] [woob-stest-id="stats"] {
+	display: block;
+}
+
+[woob-stest='0'] .nav-tab[data-index="0"],
+[woob-stest='1'] .nav-tab[data-index="1"],
+[woob-stest='2'] .nav-tab[data-index="2"],
+[woob-stest='3'] .nav-tab[data-index="3"],
+[woob-stest='4'] .nav-tab[data-index="4"],
+[woob-stest='stats'] .nav-tab[data-index="stats"] {
+	background: #fff;
+	border-bottom: 1px solid #fff;
+	margin-bottom: -1px;
+}
+
+[data-type="woobuilder/split-testing"].has-child-selected [woob-stest='0'] .nav-tab[data-index="0"],
+[data-type="woobuilder/split-testing"].has-child-selected [woob-stest='1'] .nav-tab[data-index="1"],
+[data-type="woobuilder/split-testing"].has-child-selected [woob-stest='2'] .nav-tab[data-index="2"],
+[data-type="woobuilder/split-testing"].has-child-selected [woob-stest='3'] .nav-tab[data-index="3"],
+[data-type="woobuilder/split-testing"].has-child-selected [woob-stest='4'] .nav-tab[data-index="4"],
+[data-type="woobuilder/split-testing"].has-child-selected [woob-stest='stats'] .nav-tab[data-index="stats"] {
+	opacity: 1;
+}
+
+[data-type="woobuilder/split-test-section"].is-selected .block-editor-block-contextual-toolbar {
+	display: none !important;
+}

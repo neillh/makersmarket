@@ -1,0 +1,51 @@
+@import "./extensions/columns-pro/frontend.scss";
+@import "./extensions/old-cover-pro/style.scss";
+
+@media (min-width: 1366px) {
+	.gtp-hide-desktop {
+		display: none !important;
+	}
+}
+
+@media (min-width: 641px) and (max-width: 1365px) {
+	.gtp-hide-tablet {
+		display: none !important;
+	}
+}
+
+@media (max-width: 640px) {
+	.gtp-hide-mobile {
+		display: none !important;
+	}
+
+	.gtp-sm-height-sd {
+		min-height: 75vw !important;
+	}
+	.gtp-sm-height-hd {
+		min-height: 56.25vw !important;
+	}
+	.gtp-sm-height-stretch {
+		min-height: 100vh !important;
+	}
+}
+
+/** Media Text Block overlap styling **/
+.wp-block-media-text.is-style-gtp-overlap.has-media-on-the-right .wp-block-media-text__content {
+	margin-right: -150px;
+}
+
+.wp-block-media-text.is-style-gtp-overlap:not(.has-media-on-the-right) .wp-block-media-text__content {
+	margin-left: -150px;
+}
+
+@media (max-width: 640px) {
+  
+    .wp-block-media-text.is-style-gtp-overlap:not(.has-media-on-the-right) .wp-block-media-text__content {
+        margin-left: 0px !important;
+    }
+    
+    .wp-block-media-text.is-style-gtp-overlap.has-media-on-the-right .wp-block-media-text__content {
+        margin-right: 0px !important;
+    }
+    
+}

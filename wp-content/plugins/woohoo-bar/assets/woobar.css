@@ -1,0 +1,81 @@
+.caxton-flex-block.woohoo-bar p,
+.caxton-flex-block.woohoo-bar [data-type="core/button"],
+.caxton-flex-block.woohoo-bar .wp-block-button {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.wp-core-ui .wp-block-buttons .block-editor-block-list__layout > * {
+	vertical-align: middle;
+}
+
+.wp-core-ui .components-notice-list.components-editor-notices__dismissible {
+	display: none;
+}
+
+.wp-core-ui [data-type="woohoo-bar/bar"].wp-block > * {
+	margin: 0 -50px;
+}
+
+.wp-core-ui .woohoo-bar .caxton-layout-options {
+	column-count: 1;
+}
+
+.wp-core-ui [data-type="woohoo-bar/bar"] .block-editor-block-list__layout:before {
+	display: none;
+}
+
+[data-type="woohoo-bar/bar"].wp-block .woohoo-bar {
+	padding: 5px 50px;
+}
+
+.woohoo-bar {
+	padding: 5px 0;
+	justify-content: center;
+	margin: 0 -0.5em;
+}
+
+.woohoo-bar > * {
+	margin: 0 .5em;
+}
+
+.woohoo-bar > p:last-child {
+	margin: 0;
+	padding: 0;
+}
+
+.woohoo-bar-close-btn {
+	display: block;
+	width: 1.6em;
+	line-height: 1.6em;
+	color: #fff;
+	margin-left: 1em;
+	margin-right: -.7em;
+	cursor: pointer;
+}
+
+.woohoo-bar-wrap > div {
+	padding-right: calc(50vw - 50%);
+	padding-left: calc(50vw - 50%);
+	margin-left: calc(-50vw + 50%) !important;
+	margin-right: calc(-50vw + 50%) !important;
+}
+
+.admin-bar .woohoo-bar-top-fixed.woohoo-bar-fix {
+	margin-top: 32px;
+}
+
+.woohoo-bar-fix {
+	position: fixed;
+	left: 0;
+	right: 0;
+	z-index: 99999;
+}
+
+.woohoo-bar-top-fixed.woohoo-bar-fix {
+	top: 0;
+}
+
+.woohoo-bar-bottom-fixed.woohoo-bar-fix {
+	bottom: 0;
+}
