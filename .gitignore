@@ -1,5 +1,6 @@
 .DS_Store
 .htaccess
+wp-content/uploads/
 index.php
 license.txt
 readme.html
