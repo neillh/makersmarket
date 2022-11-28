@@ -1,0 +1,23 @@
+*** Skinny Changelog ***
+
+2021-10-01 - version 1.1.2
+* Fix Select2 dropdowns visibility while selections at Woo Checkout pages
+* Fix Select2 dropdowns visibility at Customizer
+
+
+2021-09-28 - version 1.1.1
+* Fix fatal error at custom post types with is_block_editor calls
+
+2021-07-29 - version 1.1.0
+* Improve color palette at block editor
+* Improve Product blocks star rating styles
+* Fix Product grids star ratings with respect to multiple columns
+* Fix Product blocks grid/columns misalignment
+* Fix Product search block field & button
+* Fix Product filter by price/attribute blocks
+* Fix Product active filters block
+* Fix code block text color
+* Other code improvements
+
+2021-04-06 - version 1.0.0
+* Initial release

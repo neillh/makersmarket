@@ -1,0 +1,24 @@
+.expand-header {
+	margin: 0 -12px;
+	border-bottom: 1px solid #ddd;
+}
+
+.expand-toggle {
+	display: block;
+	text-decoration: none;
+	background: #fff !important;
+	padding: 12px;
+	box-shadow: none !important;
+	outline: none !important;
+}
+
+.accordion-section-title.expand-toggle::after {
+	border: none;
+	box-shadow: none;
+	outline: none;
+	transition: all 0.2s ease-in-out;
+}
+
+.accordion-section-title.expand-toggled::after {
+	transform: rotate(90deg);
+}

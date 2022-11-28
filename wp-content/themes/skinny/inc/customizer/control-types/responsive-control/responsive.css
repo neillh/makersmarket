@@ -1,0 +1,70 @@
+.skinny-responsive-btns,
+.customize-control-skinny-responsive .customize-control-title {
+	display: inline-block;
+}
+
+.skinny-responsive-btns {
+	float: right;
+	display: flex;
+	line-height: 1;
+	margin-top: 5px;
+}
+
+.skinny-responsive-btns > li {
+	margin-bottom: 0;
+	opacity: 0.5;
+	margin-right: 10px;
+}
+
+.skinny-responsive-btns > li:last-of-type {
+	margin-right: 0;
+}
+
+.skinny-responsive-btns > li.active {
+	opacity: 1;
+}
+
+.skinny-responsive-btns button[type="button"] {
+	padding: 0;
+	cursor: pointer;
+	background: none;
+	border: none;
+	opacity: .75;
+	outline: none;
+}
+
+.skinny-responsive-btns button[type="button"] > i {
+	width: 15px;
+	height: 15px;
+	font-size: 15px;
+}
+
+.customize-control-skinny-responsive .input-wrapper input {
+	display: none;
+	width: calc(100% - 52px);
+	float: left;
+}
+
+.customize-control-skinny-responsive .input-wrapper input.active {
+	display: inline-block;
+}
+
+.customize-control-skinny-responsive .input-wrapper .skinny-responsive-select {
+	width: 50px;
+	margin: 0;
+	display: none;
+	padding: .1em;
+	margin-left: 2px;
+}
+
+.customize-control-skinny-responsive .input-wrapper .skinny-responsive-input.active + .skinny-responsive-select {
+	display: inline-block;
+}
+
+.customize-control-skinny-responsive .input-wrapper .skinny-non-reponsive.skinny-responsive-input, .customize-control-skinny-responsive .input-wrapper .skinny-non-reponsive.skinny-responsive-input.active {
+	display: inline-block;
+}
+
+.customize-control-skinny-responsive .input-wrapper .skinny-non-reponsive.skinny-responsive-select {
+	display: inline-block;
+}

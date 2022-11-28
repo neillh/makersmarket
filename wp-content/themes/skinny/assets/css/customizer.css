@@ -1,0 +1,125 @@
+.customize-control-alpha-color:not(#customize-control-custom_header_bg_color) label {
+	display: inline-block;
+}
+.customize-control-alpha-color:not(#customize-control-custom_header_bg_color) .wp-picker-container, .customize-control-alpha-color:not(#customize-control-custom_header_bg_color) .wp-color-result {
+	display: inline;
+}
+.customize-control-alpha-color:not(#customize-control-custom_header_bg_color) .wp-picker-input-wrap {
+	text-align: right;
+}
+.customize-control-alpha-color:not(#customize-control-custom_header_bg_color) .wp-color-result, .customize-control-alpha-color:not(#customize-control-custom_header_bg_color) .wp-picker-holder {
+	float: right;
+	margin-right: 0 !important;
+}
+#customize-preview {
+	transition: opacity 100ms cubic-bezier(0.7, 0, 0.3, 1);
+}
+#customize-preview.is-loading {
+	opacity: 0;
+}
+.wp-full-overlay {
+	background: #fff;
+}
+.customize-control-design_style_control .customize-control-title {
+		line-height: 1.75;
+		margin-bottom: 4px;
+	}
+.customize-control-color .customize-control-title {
+		font-size: 13px;
+		font-weight: 500;
+	}
+/* ==========================================================================
+   Standard Selection
+   ========================================================================== */
+.customize-control select, .select2-container--default .selection .select2-selection--single {
+	border: 1px solid #ddd;
+	background-color: #fcfcff;
+	position: relative;
+	border-radius: 0;
+	height: 27px;
+	line-height: 27px;
+	outline: none;
+	box-shadow: none;
+}
+.wp-core-ui select.disabled, .wp-core-ui select:disabled {
+	background-repeat: no-repeat;
+}
+.wp-customizer
+.select2-container--default
+.selection
+.select2-selection--multiple {
+	border: 1px solid #ddd;
+	background: #fcfcff;
+	border-radius: 0;
+	height: auto;
+	outline: none;
+	box-shadow: none;
+}
+.wp-customizer
+.select2-container--default
+.selection
+.select2-selection--multiple
+.select2-selection__choice {
+	border-radius: 0;
+}
+.wp-customizer
+.select2-container--default
+.select2-selection--multiple
+.select2-selection__rendered {
+	width: 95%;
+}
+.wp-customizer
+.select2-container--default
+.select2-selection--multiple
+.select2-selection__clear {
+	position: absolute;
+	right: 0;
+}
+.wp-customizer .select2-container .select2-dropdown {
+	z-index: 900000;
+}
+.customize-control select:active, .customize-control select:focus {
+	outline: none;
+	box-shadow: none;
+}
+/* ==========================================================================
+   Standard Input
+   ========================================================================== */
+input[type='text'], input[type='number'], input[type='url'], input[type='email'], input[type='date'] {
+	background: #fcfcff;
+	position: relative;
+	border-radius: 0;
+	border: 1px solid #ddd;
+	height: 27px;
+	line-height: 27px;
+	outline: none;
+	box-shadow: none;
+}
+input[type='text']:active, input[type='text']:focus, input[type='number']:active, input[type='number']:focus {
+	outline: none;
+	box-shadow: none;
+}
+/* ==========================================================================
+   Reset btn.
+   ========================================================================== */
+.customize-control-reset-btn .button-link {
+		text-decoration: none;
+		display: inline-flex;
+		align-items: center;
+	}
+.customize-control-reset-btn .button-link span.dashicons {
+			margin-right: 10px;
+		}
+/* ==========================================================================
+   Btn colors.
+   ========================================================================== */
+[id*="customize-control-light_scheme_btn_"], [id*="customize-control-dark_scheme_btn_"] {
+	display: none;
+}
+.customize-control.customize-control-alpha-color .customize-control-title {
+	max-width: 70%;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImN1c3RvbWl6ZXIvYWxwaGEtY29sb3ItcGlja2VyLmNzcyIsImN1c3RvbWl6ZXIuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0NBQ0MscUJBQXFCO0FBQ3RCO0FBQ0E7Q0FDQyxlQUFlO0FBQ2hCO0FBQ0E7Q0FDQyxpQkFBaUI7QUFDbEI7QUFDQTtDQUVDLFlBQVk7Q0FDWiwwQkFBMEI7QUFDM0I7QUNYQTtDQUNDLHNEQUFzRDtBQUN2RDtBQUVBO0NBQ0MsVUFBVTtBQUNYO0FBRUE7Q0FDQyxnQkFBZ0I7QUFDakI7QUFJQztFQUNDLGlCQUFpQjtFQUNqQixrQkFBa0I7Q0FDbkI7QUFLQTtFQUNDLGVBQWU7RUFDZixnQkFBZ0I7Q0FDakI7QUFHRDs7K0VBRStFO0FBQy9FO0NBRUMsc0JBQXNCO0NBQ3RCLHlCQUF5QjtDQUN6QixrQkFBa0I7Q0FDbEIsZ0JBQWdCO0NBQ2hCLFlBQVk7Q0FDWixpQkFBaUI7Q0FDakIsYUFBYTtDQUViLGdCQUFnQjtBQUNqQjtBQUVBO0NBRUMsNEJBQTRCO0FBQzdCO0FBRUE7Ozs7Q0FJQyxzQkFBc0I7Q0FDdEIsbUJBQW1CO0NBQ25CLGdCQUFnQjtDQUNoQixZQUFZO0NBQ1osYUFBYTtDQUViLGdCQUFnQjtBQUNqQjtBQUVBOzs7OztDQUtDLGdCQUFnQjtBQUNqQjtBQUVBOzs7O0NBSUMsVUFBVTtBQUNYO0FBRUE7Ozs7Q0FJQyxrQkFBa0I7Q0FDbEIsUUFBUTtBQUNUO0FBRUE7Q0FDQyxlQUFlO0FBQ2hCO0FBRUE7Q0FFQyxhQUFhO0NBRWIsZ0JBQWdCO0FBQ2pCO0FBRUE7OytFQUUrRTtBQUMvRTtDQUtDLG1CQUFtQjtDQUNuQixrQkFBa0I7Q0FDbEIsZ0JBQWdCO0NBQ2hCLHNCQUFzQjtDQUN0QixZQUFZO0NBQ1osaUJBQWlCO0NBQ2pCLGFBQWE7Q0FFYixnQkFBZ0I7QUFDakI7QUFFQTtDQUlDLGFBQWE7Q0FFYixnQkFBZ0I7QUFDakI7QUFFQTs7K0VBRStFO0FBRTlFO0VBQ0MscUJBQXFCO0VBQ3JCLG9CQUFvQjtFQUNwQixtQkFBbUI7Q0FLcEI7QUFIQztHQUNDLGtCQUFrQjtFQUNuQjtBQUtGOzsrRUFFK0U7QUFDL0U7Q0FDQyxhQUFhO0FBQ2Q7QUFDQTtDQUNDLGNBQWM7QUFDZiIsImZpbGUiOiJjdXN0b21pemVyLmNzcyJ9 */
+
+/*# sourceMappingURL=customizer.css.map */
