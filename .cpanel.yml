@@ -1,4 +1,4 @@
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/hunterkn/makermarket.au/
+    - export DEPLOYPATH=/home/hunterkn/makersmarket.au/
     - /bin/cp -r * $DEPLOYPATH
