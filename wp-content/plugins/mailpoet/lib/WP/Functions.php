@@ -143,6 +143,10 @@ class Functions {
     return esc_sql($sql);
   }
 
+  public function escUrl($url): string {
+    return esc_url($url);
+  }
+
   public function getBloginfo($show = '', $filter = 'raw') {
     return get_bloginfo($show, $filter);
   }
@@ -626,6 +630,10 @@ class Functions {
     return is_main_query();
   }
 
+  public function getPrivacyPolicyUrl(): string {
+    return get_privacy_policy_url();
+  }
+
   /**
    * @param string $action
    * @param array|object $args
@@ -849,5 +857,9 @@ class Functions {
 
   public function isWpError($value): bool {
     return is_wp_error($value);
+  }
+
+  public function wpIsSiteUrlUsingHttps(): bool {
+    return wp_is_site_url_using_https();
   }
 }

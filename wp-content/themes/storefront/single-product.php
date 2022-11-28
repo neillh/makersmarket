@@ -33,7 +33,14 @@ get_header( 'shop' ); ?>
 
 		<?php while ( have_posts() ) : ?>
 			<?php the_post(); ?>
-
+			<?php
+			$product = wc_get_product( get_the_ID() );
+			echo $product->get_price();
+			echo "<br>\r\n";
+			print_r( $product->get_attributes() );
+			echo "<br>\r\n";
+			print_r($product);
+			?>
 			<?php wc_get_template_part( 'content', 'single-product' ); ?>
 
 		<?php endwhile; // end of the loop. ?>
