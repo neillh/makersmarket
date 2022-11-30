@@ -16,6 +16,7 @@
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
 
 	<?php wp_head(); ?>
+	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8015261447860780" crossorigin="anonymous"></script>
 </head>
 
 <body <?php body_class(); ?>>
