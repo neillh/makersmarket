@@ -29,13 +29,11 @@ if ( ! $short_description ) {
 
 ?>
 <div class="woocommerce-product-details__short-description">
-	<?php echo $short_description; // WPCS: XSS ok. ?>
+	<?php the_content(); ?>
+	<?php //echo $short_description; // WPCS: XSS ok. ?>
 </div>
-<?php
-global $product;
 
-
-?>
+<?php global $product; ?>
 <table class="woocommerce-product-attributes shop_attributes">
 	<?php foreach ( $product->get_attributes() as $product_attribute_key => $product_attribute ) { ?>
 		<tr class="woocommerce-product-attributes-item woocommerce-product-attributes-item--<?php echo esc_attr( $product_attribute_key ); ?>">
