@@ -67,7 +67,7 @@
                     
                     if (current_user_can( 'manage_options' )){
                             
-                        ?><a href="<?php echo admin_url('admin.php?page='.$zbs->slugs['migratedal3']); ?>" class="ui button small blue"><?php _e('Go to Migration',"zero-bs-crm"); ?></a><?php
+                        ?><a href="<?php echo esc_url( admin_url('admin.php?page='.$zbs->slugs['migratedal3']) ); ?>" class="ui button small blue"><?php esc_html_e('Go to Migration',"zero-bs-crm"); ?></a><?php
 
                     } 
 
@@ -127,7 +127,7 @@
                 ?></div><div class="actions"><?php if (current_user_can( 'manage_options' )){
 
                         
-                    ?><a href="<?php echo admin_url('admin.php?page='.$zbs->slugs['migratedal3']); ?>" class="ui button large blue"><?php _e('Go to Migration',"zero-bs-crm"); ?></a><?php
+                    ?><a href="<?php echo esc_url( admin_url('admin.php?page='.$zbs->slugs['migratedal3']) ); ?>" class="ui button large blue"><?php esc_html_e('Go to Migration',"zero-bs-crm"); ?></a><?php
 
                 } ?></div>
             </div>
@@ -195,7 +195,7 @@ class zeroBS__Metabox_ContactLock extends zeroBS__Metabox{
                 ?></div><div class="actions"><?php if (current_user_can( 'manage_options' )){
 
                         
-                    ?><a href="<?php echo admin_url('admin.php?page='.$zbs->slugs['migratedal3']); ?>" class="ui button large blue"><?php _e('Go to Migration',"zero-bs-crm"); ?></a><?php
+                    ?><a href="<?php echo esc_url( admin_url('admin.php?page='.$zbs->slugs['migratedal3']) ); ?>" class="ui button large blue"><?php esc_html_e('Go to Migration',"zero-bs-crm"); ?></a><?php
 
                 } ?></div>
             </div>
@@ -265,7 +265,7 @@ class zeroBS__Metabox_ContactViewLock extends zeroBS__Metabox{
                 ?></div><div class="actions"><?php if (current_user_can( 'manage_options' )){
 
                         
-                    ?><a href="<?php echo admin_url('admin.php?page='.$zbs->slugs['migratedal3']); ?>" class="ui button large blue"><?php _e('Go to Migration',"zero-bs-crm"); ?></a><?php
+                    ?><a href="<?php echo esc_url( admin_url('admin.php?page='.$zbs->slugs['migratedal3']) ); ?>" class="ui button large blue"><?php esc_html_e('Go to Migration',"zero-bs-crm"); ?></a><?php
 
                 } ?></div>
             </div>

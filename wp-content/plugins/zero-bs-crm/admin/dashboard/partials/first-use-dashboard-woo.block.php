@@ -33,11 +33,11 @@ $learn_from_mike_videos = array(
 
 	),
 
-  'youtube-preview-3' => array(
+	'youtube-preview-3' => array(
 
-		'url' => $zbs->urls['youtube_intro_to_tags'],
-		'img' => 'youtube-preview-3-intro-to-tags.png',
-		'title' => __( "Introduction to tags and segments", 'zero-bs-crm' )
+		'url'   => $zbs->urls['youtube_intro_to_tags'],
+		'img'   => 'youtube-preview-3-intro-to-tags.png',
+		'title' => __( 'Introduction to tags and segments', 'zero-bs-crm' ),
 
 	),
 
@@ -59,20 +59,20 @@ $learn_from_mike_videos = array(
 		<div class="jpcrm-modal-body ui grid">
 			<div class="jpcrm-modal-cta-group eight wide column middle aligned" id="jpcrm-modal-cta-group">
 				<div class="jpcrm-modal-mobile-only">
-					<img src="<?php echo ZEROBSCRM_URL; ?>i/first-use-dash-stylized-ui-activity-log.png" alt="<?php _e( 'Add a contact', 'zero-bs-crm' ); ?>" />
+					<img src="<?php echo esc_url( ZEROBSCRM_URL ); ?>i/first-use-dash-stylized-ui-activity-log.png" alt="<?php esc_attr_e( 'Add a contact', 'zero-bs-crm' ); ?>" />
 				</div>
-				<div class="jpcrm-modal-title"><?php _e( 'Add Your Contacts', 'zero-bs-crm' ); ?></div>
-				<div class="jpcrm-modal-paragraph"><?php _e( 'Your CRM starts with your contacts. Start collecting your contact information all in one place and use it to nurture those relationships.', 'zero-bs-crm' ); ?></div>
+				<div class="jpcrm-modal-title"><?php esc_html_e( 'Add Your Contacts', 'zero-bs-crm' ); ?></div>
+				<div class="jpcrm-modal-paragraph"><?php esc_html_e( 'Your CRM starts with your contacts. Start collecting your contact information all in one place and use it to nurture those relationships.', 'zero-bs-crm' ); ?></div>
 				<div class="jpcrm-modal-actions">
-					<a href="<?php echo zbsLink( 'create', -1, ZBS_TYPE_CONTACT ); ?>" class="ui black button jpcrm-modal-action-add"><?php _e( 'Add a contact', 'zero-bs-crm' ); ?></a>
-					<a href="<?php echo wp_nonce_url( zbsLink( $zbs->slugs['module-activate-redirect'] . '&jpcrm-module-name=woo-sync' ), 'jpcrmmoduleactivateredirectnonce' ); ?>" target="_blank" class="ui woopink button jpcrm-modal-action-import"><?php _e( 'Import from WooCommerce', 'zero-bs-crm' ); ?></a>
+					<a href="<?php echo jpcrm_esc_link( 'create', -1, ZBS_TYPE_CONTACT ); ?>" class="ui black button jpcrm-modal-action-add"><?php esc_html_e( 'Add a contact', 'zero-bs-crm' ); ?></a>
+					<a href="<?php echo wp_nonce_url( jpcrm_esc_link( $zbs->slugs['module-activate-redirect'] . '&jpcrm-module-name=woo-sync' ), 'jpcrmmoduleactivateredirectnonce' ); ?>" target="_blank" class="ui woopink button jpcrm-modal-action-import"><?php esc_html_e( 'Import from WooCommerce', 'zero-bs-crm' ); ?></a>
 				</div>
 			</div>
 			<div class="jpcrm-modal-mobile-only jpcrm-modal-mobile-watch-videos-link">
-				<a href="<?php echo $zbs->urls['youtube_intro_playlist']; ?>" target="_blank"><?php _e( 'Watch tutorials on YouTube', 'zero-bs-crm' ); ?></a>
+				<a href="<?php echo esc_url( $zbs->urls['youtube_intro_playlist'] ); ?>" target="_blank"><?php esc_html_e( 'Watch tutorials on YouTube', 'zero-bs-crm' ); ?></a>
 			</div>
 			<div class="jpcrm-modal-illustration eight wide column">
-				<img src="<?php echo ZEROBSCRM_URL; ?>i/first-use-dash-stylized-ui-activity-log.png" alt="<?php _e( 'Add a contact', 'zero-bs-crm' ); ?>" />
+				<img src="<?php echo esc_url( ZEROBSCRM_URL ); ?>i/first-use-dash-stylized-ui-activity-log.png" alt="<?php esc_attr_e( 'Add a contact', 'zero-bs-crm' ); ?>" />
 			</div>
 		</div>
 	</div>
@@ -85,12 +85,12 @@ $learn_from_mike_videos = array(
 
 				<div class="jpcrm-modal-learn-footer">
 					<div class="jpcrm-modal-learn-footer-title">
-						<img src="<?php echo ZEROBSCRM_URL; ?>i/learn-more-from-mike.jpeg" alt="<?php _e( 'Learn from Mike', 'zero-bs-crm' ); ?>" />
-						&nbsp;&nbsp;<?php _e( 'Learn more from Mike', 'zero-bs-crm' ); ?>
+						<img src="<?php echo esc_url( ZEROBSCRM_URL ); ?>i/learn-more-from-mike.jpeg" alt="<?php esc_attr_e( 'Learn from Mike', 'zero-bs-crm' ); ?>" />
+						&nbsp;&nbsp;<?php esc_html_e( 'Learn more from Mike', 'zero-bs-crm' ); ?>
 					</div>
-					<div class="jpcrm-modal-learn-footer-paragraph"><?php _e( 'Mike is one of the team behind Jetpack CRM and through these videos will help you to use Jetpack CRM to its full potential.', 'zero-bs-crm' ); ?></div>
+					<div class="jpcrm-modal-learn-footer-paragraph"><?php esc_html_e( 'Mike is one of the team behind Jetpack CRM and through these videos will help you to use Jetpack CRM to its full potential.', 'zero-bs-crm' ); ?></div>
 					<div class="jpcrm-modal-learn-footer-actions">
-						<a href="<?php echo $zbs->urls['youtube_intro_playlist']; ?>" target="_blank"><img src="<?php echo ZEROBSCRM_URL; ?>i/first-use-dash-learn-video-ico.png" alt="<?php _e( 'Learn from Mike', 'zero-bs-crm' ); ?>" /> <?php _e( 'Get Started Playlist', 'zero-bs-crm' ); ?></a>
+						<a href="<?php echo esc_url( $zbs->urls['youtube_intro_playlist'] ); ?>" target="_blank"><img src="<?php echo esc_url( ZEROBSCRM_URL ); ?>i/first-use-dash-learn-video-ico.png" alt="<?php esc_attr_e( 'Learn from Mike', 'zero-bs-crm' ); ?>" /> <?php esc_html_e( 'Get Started Playlist', 'zero-bs-crm' ); ?></a>
 					</div>
 				</div>
 
@@ -103,9 +103,9 @@ $learn_from_mike_videos = array(
 					foreach ( $learn_from_mike_videos as $video_key => $video_info ) {
 						?>
 						<div class="five wide column jpcrm-modal-learn-footer-video">
-							<a href="<?php echo $video_info['url']; ?>" target="_blank"><img src="<?php echo ZEROBSCRM_URL; ?>i/<?php echo $video_info['img']; ?>" alt="<?php echo $video_info['title']; ?>" /></a>
+							<a href="<?php echo esc_url( $video_info['url'] ); ?>" target="_blank"><img src="<?php echo esc_url( ZEROBSCRM_URL . 'i/' . $video_info['img'] ); ?>" alt="<?php echo esc_attr( $video_info['title'] ); ?>" /></a>
 							<br>
-							<a href="<?php echo $video_info['url']; ?>" target="_blank"><?php echo $video_info['title']; ?></a>
+							<a href="<?php echo esc_url( $video_info['url'] ); ?>" target="_blank"><?php echo esc_html( $video_info['title'] ); ?></a>
 						</div>
 
 						<?php

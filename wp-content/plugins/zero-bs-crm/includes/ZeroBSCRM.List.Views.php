@@ -37,24 +37,6 @@ function zeroBSCRM_render_customerslist_page(){
     #} ... zeroBSCRM_UI2_messageHTML($msgClass='',$msgHeader='',$msg='',$iconClass='',$id='')
     $messages = array(); 
 
-        // this adds a message if not yet migrated dal
-        if (!$zbs->isDAL2()){
-
-            $link = '';
-
-            if (current_user_can( 'manage_options' )) $link = '<br /><br /><a href="'.admin_url('admin.php?page='.$zbs->slugs['migratedb2contacts']).'" class="ui button large blue">'.__('Go to Update',"zero-bs-crm").'</a>';
-            $messages[] = array(
-
-                'large info',
-                __('Contact Database Update Needed',"zero-bs-crm"),
-                __('Your contact information needs an update to work with new database improvements, you will not be able to edit contact information until your contact database has been migrated.',"zero-bs-crm").$link,
-                'disabled warning sign',
-                'zbsNope'
-
-            );
-
-        }
-
     $list = new zeroBSCRM_list(array(
 
             'objType'       => 'customer',
@@ -78,12 +60,12 @@ function zeroBSCRM_render_customerslist_page(){
                 'statusnotupdated' => __('Could not update statuses!',"zero-bs-crm"),
  
                 // bulk actions - contact deleting
-                'andthese' => __('Shall I also delete the associated Invoices, Quotes, Transactions and Events?',"zero-bs-crm"),
+				'andthese'             => __( 'Shall I also delete the associated Invoices, Quotes, Transactions, and Tasks?', 'zero-bs-crm' ),
                 'contactsdeleted' => __('Your contact(s) have been deleted.',"zero-bs-crm"),
                 'notcontactsdeleted' => __('Your contact(s) could not be deleted.',"zero-bs-crm"),
 
                 // bulk actions - add/remove tags
-                'notags' => __('You do not have any tags, do you want to',"zero-bs-crm").' <a target="_blank" href="'.zbsLink('tags',-1,'zerobs_customer',false,'contact').'">'.__('Add a tag',"zero-bs-crm").'</a>',                
+                'notags' => __('You do not have any tags, do you want to',"zero-bs-crm").' <a target="_blank" href="'.jpcrm_esc_link('tags',-1,'zerobs_customer',false,'contact').'">'.__('Add a tag',"zero-bs-crm").'</a>',                
                 
                 // bulk actions - merge 2 records
                 'areyousurethesemerge' => __('Are you sure you want to merge these two contacts into one record? There is no way to undo this action.',"zero-bs-crm").'<br />',
@@ -139,12 +121,12 @@ function zeroBSCRM_render_companyslist_page(){
                 'export' => __('Export',"zero-bs-crm"),
 
                 // bulk actions - company deleting
-                'andthese' => __('Shall I also delete the associated Contacts, Invoices, Quotes, Transactions and Events? (This cannot be undone!)',"zero-bs-crm"),                
+				'andthese'           => __( 'Shall I also delete the associated Contacts, Invoices, Quotes, Transactions, and Tasks? (This cannot be undone!)', 'zero-bs-crm' ),
                 'companysdeleted' => __('Your company(s) have been deleted.',"zero-bs-crm"),
                 'notcompanysdeleted' => __('Your company(s) could not be deleted.',"zero-bs-crm"),
 
                 // bulk actions - add/remove tags
-                'notags' => __('You do not have any tags, do you want to',"zero-bs-crm").' <a target="_blank" href="'.zbsLink('tags',-1,'zerobs_company',false,'company').'">'.__('Add a tag',"zero-bs-crm").'</a>',
+                'notags' => __('You do not have any tags, do you want to',"zero-bs-crm").' <a target="_blank" href="'.jpcrm_esc_link('tags',-1,'zerobs_company',false,'company').'">'.__('Add a tag',"zero-bs-crm").'</a>',
 
             ),
             'bulkActions'   => array('delete','addtag','removetag','export'),
@@ -185,7 +167,7 @@ function zeroBSCRM_render_quoteslist_page(){
 
 
                 // bulk actions - quote deleting
-                'andthese' => __('Shall I also delete the associated Invoices, Quotes, Transactions and Events?',"zero-bs-crm"),
+				'andthese'                 => __( 'Shall I also delete the associated Invoices, Quotes, Transactions, and Tasks?', 'zero-bs-crm' ),
                 'quotesdeleted' => __('Your quote(s) have been deleted.',"zero-bs-crm"),
                 'notquotesdeleted' => __('Your quote(s) could not be deleted.',"zero-bs-crm"),
 
@@ -204,7 +186,7 @@ function zeroBSCRM_render_quoteslist_page(){
                 'unacceptnotquotesdeleted' => __('Your quote(s) could not be marked unaccepted.',"zero-bs-crm"),
 
                 // bulk actions - add/remove tags
-                'notags' => __('You do not have any tags, do you want to',"zero-bs-crm").' <a target="_blank" href="'.zbsLink('tags',-1,'zerobs_quote',false,'quote').'">'.__('Add a tag',"zero-bs-crm").'</a>',
+                'notags' => __('You do not have any tags, do you want to',"zero-bs-crm").' <a target="_blank" href="'.jpcrm_esc_link('tags',-1,'zerobs_quote',false,'quote').'">'.__('Add a tag',"zero-bs-crm").'</a>',
 
             ),
             'bulkActions'   => array('markaccepted','markunaccepted','addtag','removetag','delete','export'),
@@ -225,105 +207,82 @@ function zeroBSCRM_render_quoteslist_page(){
 /* ================================================================================
 =============================== INVOICES ======================================= */
 
-function zeroBSCRM_render_invoiceslist_page(){
+/**
+ * Renders the html for the invoices list.
+ *
+ * @return void
+ */
+function zeroBSCRM_render_invoiceslist_page() {
+	global $zbs;
 
-    global $zbs;
-    
+	$upsell_box_html = '';
+	$bundle          = false;
+	if ( $zbs->hasEntrepreneurBundleMin() ) {
+		$bundle = true;
+	}
 
-    #} has no sync ext? Sell them
-    $upsellBoxHTML = ''; 
+	if ( ! zeroBSCRM_isExtensionInstalled( 'invpro' ) ) {
+		if ( ! $bundle ) {
+			$upsell_box_html  = '<!-- Inv PRO box --><div class="">';
+			$upsell_box_html .= '<h4>Invoicing Pro:</h4>';
 
-            // WH added: Is now polite to License-key based settings like 'entrepreneur' doesn't try and upsell
-            // this might be a bit easy to "hack out" hmmmm
-            $bundle = false; if ($zbs->hasEntrepreneurBundleMin()) $bundle = true;
-    
-            #} has sync ext? Give feedback
-            if (!zeroBSCRM_isExtensionInstalled('invpro')){ 
+			$up_title  = __( 'Supercharged Invoicing', 'zero-bs-crm' );
+			$up_desc   = __( 'Get more out of invoicing, like accepting online payments!:', 'zero-bs-crm' );
+			$up_button = __( 'Get Invoicing Pro', 'zero-bs-crm' );
+			$up_target = $zbs->urls['invpro'];
 
-                if (!$bundle){
+			$upsell_box_html .= zeroBSCRM_UI2_squareFeedbackUpsell( $up_title, $up_desc, $up_button, $up_target );
+			$upsell_box_html .= '</div><!-- / Inv PRO box -->';
+		} else {
+			$upsell_box_html  = '<!-- Inv PRO box --><div class="">';
+			$upsell_box_html .= '<h4>Invoicing Pro:</h4>';
 
-                    // first build upsell box html
-                    $upsellBoxHTML = '<!-- Inv PRO box --><div class="">';
-                    $upsellBoxHTML .= '<h4>Invoicing Pro:</h4>';
+			$up_title  = __( 'Supercharged Invoicing', 'zero-bs-crm' );
+			$up_desc   = __( 'You have Invoicing Pro available because you are using a bundle. Please download and install from your account:', 'zero-bs-crm' );
+			$up_button = __( 'Your Account', 'zero-bs-crm' );
+			$up_target = $zbs->urls['account'];
 
-                        $upTitle = __('Supercharged Invoicing',"zero-bs-crm");
-                        $upDesc = __('Get more out of invoicing, like accepting online payments!:',"zero-bs-crm");
-                        $upButton = __('Get Invoicing PRO',"zero-bs-crm");
-                        $upTarget = $zbs->urls['invpro'];
+			$upsell_box_html .= zeroBSCRM_UI2_squareFeedbackUpsell( $up_title, $up_desc, $up_button, $up_target );
+			$upsell_box_html .= '</div><!-- / Inv PRO box -->';
+		}
+	}
 
-                        $upsellBoxHTML .= zeroBSCRM_UI2_squareFeedbackUpsell($upTitle,$upDesc,$upButton,$upTarget); 
+	$list = new zeroBSCRM_list(
+		array(
+			'objType'     => 'invoice',
+			'singular'    => __( 'Invoice', 'zero-bs-crm' ),
+			'plural'      => __( 'Invoices', 'zero-bs-crm' ),
+			'tag'         => '',
+			'postType'    => 'zerobs_invoice',
+			'postPage'    => 'manage-invoices',
+			'langLabels'  =>
+				array(
+					// bulk action labels
+					'delete'                   => __( 'Delete Invoice(s)', 'zero-bs-crm' ),
+					'export'                   => __( 'Export Invoice(s)', 'zero-bs-crm' ),
+					// bulk actions - invoice deleting
+					'invoicesdeleted'          => __( 'Your invoice(s) have been deleted.', 'zero-bs-crm' ),
+					'notinvoicesdeleted'       => __( 'Your invoice(s) could not be deleted.', 'zero-bs-crm' ),
+					// bulk actions - invoice status update
+					'statusareyousurethese'    => __( 'Are you sure you want to change the status on marked invoice(s)?', 'zero-bs-crm' ),
+					'statusupdated'            => __( 'Invoice(s) Updated', 'zero-bs-crm' ),
+					'statusinvoicesupdated'    => __( 'Your invoice(s) have been updated.', 'zero-bs-crm' ),
+					'statusnotupdated'         => __( 'Could not update invoice!', 'zero-bs-crm' ),
+					'statusnotinvoicesupdated' => __( 'Your invoice(s) could not be updated', 'zero-bs-crm' ),
+					'statusdraft'              => __( 'Draft', 'zero-bs-crm' ),
+					'statusunpaid'             => __( 'Unpaid', 'zero-bs-crm' ),
+					'statuspaid'               => __( 'Paid', 'zero-bs-crm' ),
+					'statusoverdue'            => __( 'Overdue', 'zero-bs-crm' ),
+					'statusdeleted'            => __( 'Deleted', 'zero-bs-crm' ),
+					// bulk actions - add/remove tags
+					'notags'                   => __( 'You do not have any tags, do you want to', 'zero-bs-crm' ) . ' <a target="_blank" href="' . jpcrm_esc_link( 'tags', -1, 'zerobs_invoice', false, 'invoice' ) . '">' . __( 'Add a tag', 'zero-bs-crm' ) . '</a>',
+				),
+			'bulkActions' => array( 'changestatus', 'addtag', 'removetag', 'delete', 'export' ),
+			'extraBoxes'  => $upsell_box_html,
+		)
+	);
 
-                    $upsellBoxHTML .= '</div><!-- / Inv PRO box -->';
-
-                } else {
-
-                    // prompt to install
-                    $upsellBoxHTML = '<!-- Inv PRO box --><div class="">';
-                    $upsellBoxHTML .= '<h4>Invoicing Pro:</h4>';
-
-                        $upTitle = __('Supercharged Invoicing',"zero-bs-crm");
-                        $upDesc = __('You have the PRO version of CSV importer available because you are using a bundle. Please download and install:',"zero-bs-crm");
-                        $upButton = __('Your Account',"zero-bs-crm");
-                        $upTarget = $zbs->urls['account'];
-
-                        $upsellBoxHTML .= zeroBSCRM_UI2_squareFeedbackUpsell($upTitle,$upDesc,$upButton,$upTarget); 
-
-                    $upsellBoxHTML .= '</div><!-- / Inv PRO box -->';
-                    
-                }
-
-            } else { 
-
-             // later this can point to https://kb.jetpackcrm.com/knowledge-base/how-to-get-customers-into-zero-bs-crm/ 
- 
-                
-
-            } 
-
-    $list = new zeroBSCRM_list(array(
-
-            'objType'       => 'invoice',
-            'singular'      => __('Invoice',"zero-bs-crm"),
-            'plural'        => __('Invoices',"zero-bs-crm"),
-            'tag'           => '',
-            'postType'      => 'zerobs_invoice',
-            'postPage'      => 'manage-invoices',
-            'langLabels'    => array(
-
-                
-                // bulk action labels
-                'delete' => __('Delete Invoice(s)',"zero-bs-crm"),
-                'export' => __('Export Invoice(s)',"zero-bs-crm"),
-
-                // bulk actions - invoice deleting
-                'invoicesdeleted' => __('Your invoice(s) have been deleted.',"zero-bs-crm"),
-                'notinvoicesdeleted' => __('Your invoice(s) could not be deleted.',"zero-bs-crm"),
-
-                // bulk actions - invoice status update
-                'statusareyousurethese' => __('Are you sure you want to change the status on marked invoice(s)?',"zero-bs-crm"),
-                'statusupdated' => __('Invoice(s) Updated',"zero-bs-crm"),
-                'statusinvoicesupdated' => __('Your invoice(s) have been updated.',"zero-bs-crm"),
-                'statusnotupdated' => __('Could not update invoice!',"zero-bs-crm"),
-                'statusnotinvoicesupdated' => __('Your invoice(s) could not be updated',"zero-bs-crm"),
-                'statusdraft' => __('Draft',"zero-bs-crm"),
-                'statusunpaid' => __('Unpaid',"zero-bs-crm"),
-                'statuspaid' => __('Paid',"zero-bs-crm"),
-                'statusoverdue' => __('Overdue',"zero-bs-crm"),
-                'statusdeleted' => __( 'Deleted', 'zero-bs-crm' ),
-
-                // bulk actions - add/remove tags
-                'notags' => __('You do not have any tags, do you want to',"zero-bs-crm").' <a target="_blank" href="'.zbsLink('tags',-1,'zerobs_invoice',false,'invoice').'">'.__('Add a tag',"zero-bs-crm").'</a>',
-
-
-            ),
-            'bulkActions'   => array('changestatus','addtag','removetag','delete','export'),
-            //default 'sortables'     => array('id'),
-            //default 'unsortables'   => array('tagged','latestlog','editlink','phonelink'),
-            'extraBoxes' => $upsellBoxHTML
-    ));
-
-    $list->drawListView();
-
+	$list->drawListView();
 }
 
 /* ============================== / INVOICES ===================================== 
@@ -352,7 +311,7 @@ function zeroBSCRM_render_transactionslist_page(){
                 'export' => __('Export Transaction(s)',"zero-bs-crm"),
 
                 // bulk actions - add/remove tags
-                'notags' => __('You do not have any tags, do you want to',"zero-bs-crm").' <a target="_blank" href="'.zbsLink('tags',-1,'zerobs_transaction',false,'transaction').'">'.__('Add a tag',"zero-bs-crm").'</a>',                
+                'notags' => __('You do not have any tags, do you want to',"zero-bs-crm").' <a target="_blank" href="'.jpcrm_esc_link('tags',-1,'zerobs_transaction',false,'transaction').'">'.__('Add a tag',"zero-bs-crm").'</a>',                
                
                 // statuses
                 'trans_status_cancelled' => __('Cancelled',"zero-bs-crm"),
@@ -499,7 +458,7 @@ function zeroBSCRM_render_segmentslist_page(){
             }
 
     // pass this for filter links
-    $extraJS = ''; if (zeroBSCRM_getSetting('filtersfromsegments') == "1"){ $extraJS = " var zbsSegmentViewStemURL = '".zbsLink($zbs->slugs['managecontacts']).'&quickfilters=segment_'."';"; }        
+    $extraJS = ''; if (zeroBSCRM_getSetting('filtersfromsegments') == "1"){ $extraJS = " var zbsSegmentViewStemURL = '".jpcrm_esc_link($zbs->slugs['managecontacts']).'&quickfilters=segment_'."';"; }        
 
     $list = new zeroBSCRM_list(array(
 
@@ -522,6 +481,9 @@ function zeroBSCRM_render_segmentslist_page(){
                 // bulk actions - segment deleting
                 'segmentsdeleted' => __('Your segment(s) have been deleted.',"zero-bs-crm"),
                 'notsegmentsdeleted' => __('Your segment(s) could not be deleted.',"zero-bs-crm"),
+
+                // export segment
+                'exportcsv' => __( 'Export .CSV', 'zero-bs-crm' ),
 
             ),
             'bulkActions'   => array('delete'),
@@ -598,8 +560,8 @@ function zeroBSCRM_render_eventslist_page(){
     $list = new zeroBSCRM_list(array(
 
             'objType'       => 'event',
-            'singular'      => __('Event',"zero-bs-crm"),
-            'plural'        => __('Events',"zero-bs-crm"),
+		'singular'        => __( 'Task', 'zero-bs-crm' ),
+		'plural'          => __( 'Tasks', 'zero-bs-crm' ),
             'tag'           => '',
             'postType'      => 'zerobs_event',
             'postPage'      => 'manage-events-list',
@@ -615,12 +577,12 @@ function zeroBSCRM_render_eventslist_page(){
                 'markincomplete' => __('Mark Task(s) Incomplete',"zero-bs-crm"),
 
                 // bulk actions - event actions
-                'eventsdeleted' => __( 'Your Event(s) have been deleted.',"zero-bs-crm"),
-                'noteventsdeleted' => __( 'Your Event(s) could not be deleted.',"zero-bs-crm"),            
-                'areyousureeventscompleted' => __( 'Are you sure you want to mark these events as completed?', "zero-bs-crm" ),
-                'areyousureeventsincomplete' => __( 'Are you sure you want to mark these events as incomplete?', "zero-bs-crm" ),
-                'eventsmarked' => __( 'Your Event(s) have been updated.', "zero-bs-crm" ),
-                'noteventsmarked' => __( 'Your Event(s) could not be updated.', "zero-bs-crm" ),
+				'eventsdeleted'              => __( 'Your Task(s) have been deleted.', 'zero-bs-crm' ),
+				'noteventsdeleted'           => __( 'Your Task(s) could not be deleted.', 'zero-bs-crm' ),
+				'areyousureeventscompleted'  => __( 'Are you sure you want to mark these tasks as completed?', 'zero-bs-crm' ),
+				'areyousureeventsincomplete' => __( 'Are you sure you want to mark these tasks as incomplete?', 'zero-bs-crm' ),
+				'eventsmarked'               => __( 'Your Task(s) have been updated.', 'zero-bs-crm' ),
+				'noteventsmarked'            => __( 'Your Task(s) could not be updated.', 'zero-bs-crm' ),
 
             ),
             'bulkActions'   => array('addtag','removetag','delete','markcomplete','markincomplete'), // 'export' - possible but needs tidy /wp-admin/admin.php?page=zbs-export-tools&zbstype=event            

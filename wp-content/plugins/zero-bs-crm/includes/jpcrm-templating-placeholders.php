@@ -186,7 +186,7 @@ class jpcrm_templating_placeholders {
 					'aliases'			=> array( )
 				),
 
-				'biz-extra-info' => array(
+				'biz-extra'          => array(
 
 					'description' => __( 'Business: Extra Info', 'zero-bs-crm' ),
 					'origin' => __( 'Global', 'zero-bs-crm' ),
@@ -509,7 +509,7 @@ class jpcrm_templating_placeholders {
 
 				'invoice-date' => array(
 
-					'description' 		=> __( 'Invoice Date', 'zero-bs-crm' ),
+					'description' 		=> __( 'Invoice date', 'zero-bs-crm' ),
 					'origin' 			=> __( 'Invoice Builder', 'zero-bs-crm' ),
 					'expected_format' 	=> 'str',
 					'available_in'	 	=> array(),
@@ -696,7 +696,7 @@ class jpcrm_templating_placeholders {
 
 				'invoice-label-to' => array(
 
-					'description' 		=> __( 'Label for name of customer receiving invoice', 'zero-bs-crm' ),
+					'description'     => __( 'Label for name of contact receiving invoice', 'zero-bs-crm' ),
 					'origin' 			=> __( 'Invoice Builder', 'zero-bs-crm' ),
 					'expected_format' 	=> 'str',
 					'available_in'	 	=> array(),
@@ -714,6 +714,17 @@ class jpcrm_templating_placeholders {
 					'associated_type' 	=> ZBS_TYPE_INVOICE,
 					'replace_str'		=> '##INVOICE-LABEL-DUE-DATE##',
 					'aliases'			=> array( '###LANGDUEDATE###' )
+				),
+
+				'invoice-label-status' => array(
+
+					'description' 		=> __( 'Label for invoice status', 'zero-bs-crm' ),
+					'origin' 			=> __( 'Invoice Builder', 'zero-bs-crm' ),
+					'expected_format' 	=> 'str',
+					'available_in'	 	=> array(),
+					'associated_type' 	=> ZBS_TYPE_INVOICE,
+					'replace_str'		=> '##INVOICE-LABEL-STATUS##',
+					'aliases'			=> array()
 				),
 
 				'invoice-html-status' => array(
@@ -1113,7 +1124,15 @@ class jpcrm_templating_placeholders {
 					// deal with exclusions
 					if ( !in_array( $field_index, $excluded_slugs ) ) {
 
-						$new_key =  str_replace( '_', '-', $object_type_key . '-' . $field_index );
+						// catching legacy secondary address contact field issues
+						$secondary_address_array = array( 'secaddr1', 'secaddr2', 'seccity', 'seccounty', 'secpostcode', 'seccountry' );
+						if ( 'contact' === $object_type_key && in_array( $field_index, $secondary_address_array, true ) ) {
+							$field_index = str_replace( 'sec', 'secaddr_', $field_index );
+							$new_key     = $object_type_key . '-' . $field_index;
+						} else {
+							$new_key = str_replace( '_', '-', $object_type_key . '-' . $field_index );
+						}
+
 						$expected_format = '';
 
 						// add if not present
@@ -1158,7 +1177,10 @@ class jpcrm_templating_placeholders {
 
 							// if it's a custom field we can infer format (and label):
 							if ( isset( $field_info['custom-field'] ) && $field_info['custom-field'] == 1 ) {
-								$expected_format = $field_info[0];
+								$field_info['format'] = $field_info[0];
+								if ( $field_info['format'] === 'date' ) {
+									$field_info['format'] = 'uts';
+								}
 								$description .= ' (' . __( 'Custom Field', 'zero-bs-crm' ) . ')';
 
 							}
@@ -1178,7 +1200,7 @@ class jpcrm_templating_placeholders {
 							// trying to future proof, added a few helper attributes:
 							if ( isset( $field_info['format'] ) ) {
 								$placeholders[ $object_type_key ][ $new_key ]['expected_format'] = $field_info['format'];
-								if ( $field_info['format'] === 'uts' && !isset( $field_info['autoconvert'] ) ) {
+								if ( $field_info['format'] === 'uts' && empty( $field_info['autoconvert'] ) ) {
 									$placeholders[ $object_type_key ][ $new_key . '_datetime_str' ] = array(
 
 										'description'     => $description . ' (' . __( 'DateTime string', 'zero-bs-crm' ) . ')',
@@ -1186,7 +1208,7 @@ class jpcrm_templating_placeholders {
 										'available_in'    => array(),
 										'associated_type' => $object_type_index,
 										'replace_str'     => '##' . strtoupper( $object_type_key ) . '-' . strtoupper( $field_index ) . '_DATETIME_STR##',
-										'expected_format' => $field_info['format'],
+										'expected_format' => 'str',
 
 									);
 									$placeholders[ $object_type_key ][ $new_key . '_date_str' ] = array(
@@ -1196,7 +1218,7 @@ class jpcrm_templating_placeholders {
 										'available_in'    => array(),
 										'associated_type' => $object_type_index,
 										'replace_str'     => '##' . strtoupper( $object_type_key ) . '-' . strtoupper( $field_index ) . '_DATE_STR##',
-										'expected_format' => $field_info['format'],
+										'expected_format' => 'str',
 
 									);
 								}
@@ -1506,8 +1528,24 @@ class jpcrm_templating_placeholders {
 		global $zbs;
 		
 		// vars
-		$login_url = admin_url('admin.php?page='.$zbs->slugs['dash'] ); 
-		$portal_url = zeroBS_portal_link();
+		$login_url      = admin_url( 'admin.php?page=' . $zbs->slugs['dash'] );
+		$portal_url     = zeroBS_portal_link();
+		$biz_name       = zeroBSCRM_getSetting( 'businessname' );
+		$biz_your_name  = zeroBSCRM_getSetting( 'businessyourname' );
+		$biz_your_email = zeroBSCRM_getSetting( 'businessyouremail' );
+		$biz_your_url   = zeroBSCRM_getSetting( 'businessyoururl' );
+		$biz_extra      = zeroBSCRM_getSetting( 'businessextra' );
+		$biz_info       = zeroBSCRM_invoicing_generateInvPart_bizTable(
+			array(
+				'zbs_biz_name'      => $biz_name,
+				'zbs_biz_yourname'  => $biz_your_name,
+				'zbs_biz_extra'     => $biz_extra,
+				'zbs_biz_youremail' => $biz_your_email,
+				'zbs_biz_yoururl'   => $biz_your_url,
+				'template'          => 'pdf',
+			)
+		);
+		$social_links   = show_social_links();
 		
 		// return
 		return array(
@@ -1523,18 +1561,21 @@ class jpcrm_templating_placeholders {
 			'portal-url'        => $portal_url,
 
 			// biz stuff
-			'biz-name'			=> zeroBSCRM_getSetting('businessname'),
-			'biz-your-name'		=> zeroBSCRM_getSetting('businessyourname'),
-			'biz-your-email'	=> zeroBSCRM_getSetting('businessyouremail'),
-			'biz-your-url'		=> zeroBSCRM_getSetting('businessyoururl'),
-			'biz-extra'			=> zeroBSCRM_getSetting('businessextra'),
-			'biz-logo'			=> jpcrm_business_logo_img( '150px' ),
+			'biz-name'        => $biz_name,
+			'biz-your-name'   => $biz_your_name,
+			'biz-your-email'  => $biz_your_email,
+			'biz-your-url'    => $biz_your_url,
+			'biz-info'        => $biz_info,
+			'biz-extra'       => $biz_extra,
+			'biz-logo'        => jpcrm_business_logo_img( '150px' ),
 
 			// general
 			'powered-by'		=> zeroBSCRM_mailTemplate_poweredByHTML(),
 			'email-from-name'	=> zeroBSCRM_mailDelivery_defaultFromname(),
 			'password'			=> '<a href="' . wp_lostpassword_url() . '" title="' . __( 'Lost Password', 'zero-bs-crm' ) . '">'. __('Set Your Password', 'zero-bs-crm').'</a>',
 
+			// social
+			'social-links'    => $social_links,
 		);
 
 	}
@@ -1630,7 +1671,7 @@ class jpcrm_templating_placeholders {
 				// ##BIZ-STATE## -> biz-state
 				$key = str_replace( '#', '', strtolower( $replace_string ) );
 				if ( isset( $replacement_info['key'] ) && !empty( $replacement_info['key'] ) ) {
-					
+
 					$key = $replacement_info['key'];
 
 				}
@@ -1762,6 +1803,15 @@ class jpcrm_templating_placeholders {
 					array_shift( $target_exploded );
 					$field_name = strtolower( $target_exploded[0] );
 
+					if ( isset( $replacement_objects[ $object_type_id ][ $field_name ] ) && !empty( $replacement_objects[ $object_type_id ][ $field_name ] ) ) {
+
+						// successful find
+						return $replacement_objects[ $object_type_id ][ $field_name ];
+
+					}
+
+					// check for potential fallback fields
+
 					if ( preg_match( '/_datetime_str$/', $field_name ) ) {
 
 						$potential_uts_field = str_replace( '_datetime_str', '', $field_name );
@@ -1787,24 +1837,6 @@ class jpcrm_templating_placeholders {
 								return $potential_uts_value;
 							}
 						}
-
-					}
-
-					if ( isset( $replacement_objects[ $object_type_id ][ $field_name ] ) && !empty( $replacement_objects[ $object_type_id ][ $field_name ] ) ) {
-
-						// successful find
-
-						// last check, if we have $field_name . '_cfdate' then we opt for that, in the case of custom fields and other UTS values, these are stored in $field_name and _date variant is auto-populated
-						// ... this may collide if user created a field such as text_custom_field_cfdate and had a custom field text_custom_field, but I presume that to be incredibly edge case
-						// Note from Thomas: Note that (at least currently) the custom field slugs don't allow _ anyway.
-						if ( isset( $replacement_objects[ $object_type_id ][ $field_name . '_cfdate' ] ) && !empty( $replacement_objects[ $object_type_id ][ $field_name . '_cfdate' ] ) ){
-
-							// return formatted version of the UTS
-							return $replacement_objects[ $object_type_id ][ $field_name . '_cfdate' ];
-
-						}
-
-						return $replacement_objects[ $object_type_id ][ $field_name ];
 
 					}
 

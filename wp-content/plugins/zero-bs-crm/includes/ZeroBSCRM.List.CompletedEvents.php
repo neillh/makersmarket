@@ -28,17 +28,16 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 
 class zeroBSCRM_Events_List_Complete extends WP_List_Table {
 
-    /** Class constructor */
-    public function __construct() {
-
-        parent::__construct( array(
-            'singular' => __( 'Event', 'zero-bs-crm' ), //singular name of the listed records
-            'plural'   => __( 'Events', 'zero-bs-crm' ), //plural name of the listed records
-            'ajax'     => false //does this table support ajax?
-        ) );
-
-    }
-
+	/** Class constructor */
+	public function __construct() {
+		parent::__construct(
+			array(
+				'singular' => __( 'Task', 'zero-bs-crm' ),
+				'plural'   => __( 'Tasks', 'zero-bs-crm' ),
+				'ajax'     => false,
+			)
+		);
+	}
 
     /**
      * Retrieve bookings data from the database
@@ -84,7 +83,7 @@ class zeroBSCRM_Events_List_Complete extends WP_List_Table {
 
     /** Text displayed when no booking data is available */
     public function no_items() {
-        _e( 'No Transactions avaliable.', 'zero-bs-crm' );
+        esc_html_e( 'No Transactions avaliable.', 'zero-bs-crm' );
     }
 
 
@@ -335,7 +334,7 @@ function zeroBSCRM_render_eventslistcomplete_page(){
 
     $option = 'per_page';
     $args   = array(
-        'label'   => 'Completed Events',
+		'label'   => 'Completed Tasks',
         'default' => 10,
         'option'  => 'events_per_page'
     );
@@ -372,7 +371,7 @@ function zeroBSCRM_render_eventslistcomplete_page(){
                 <h1>Events<?php 
                     #} Add new?
                     if ( zeroBSCRM_permsEvents() ) {
-                        echo ' <a href="' . zbsLink('create',-1,ZBS_TYPE_EVENT) . '" class="page-title-action">' . esc_html( 'Add New' ) . '</a>';
+                        echo ' <a href="' . jpcrm_esc_link( 'create', -1, ZBS_TYPE_EVENT ) . '" class="page-title-action">' . esc_html( 'Add New' ) . '</a>';
                     }
                 ?></h1>
                 <?php 
@@ -426,7 +425,7 @@ function zeroBSCRM_render_eventslistcomplete_page(){
                 center: 'title',
                 right: 'month,agendaWeek, agendaDay, listMonth'
             },
-            defaultDate: '<?php echo date('Y-m-d'); ?>',
+            defaultDate: '<?php echo esc_html( date('Y-m-d') ); ?>',
             navLinks: true, // can click day/week names to navigate views
             editable: true,
             eventLimit: true, // allow "more" link when too many events

@@ -232,10 +232,8 @@ class zbsDAL_segments extends zbsDAL_ObjectLayer {
                         $page = (int)$page-1;
                         if ($page < 0) $page = 0;
 
-                        // check params realistic
-                        // todo, for now, brute pass
-                        $orderByStr .= ' LIMIT '.(int)$page.','.(int)$perPage;
-
+						// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+						$orderByStr .= sprintf( ' LIMIT %d, %d ', (int) $page * (int) $perPage, (int) $perPage );
                     }
 
                     // append to sql
@@ -641,7 +639,16 @@ class zbsDAL_segments extends zbsDAL_ObjectLayer {
              * Runs a filtered search on customers based on a segment's condition
              * returns array or count ($onlyCount)
              */
-            public function getSegmentAudience($segmentID=-1,$page=0,$perPage=20,$sortByField='ID',$sortOrder='DESC',$onlyCount=false,$withDND=false){
+            public function getSegmentAudience(
+                $segmentID = -1,
+                $page = 0,
+                $perPage = 20,
+                $sortByField = 'ID',
+                $sortOrder = 'DESC',
+                $onlyCount = false,
+                $withDND = false,
+                $limited_fields = false
+            ){
 
 
                 // assumes sensible paging + sort vars... no checking of them
@@ -702,9 +709,16 @@ class zbsDAL_segments extends zbsDAL_ObjectLayer {
                         }
 
                         // got dnd?
-                        if ($withDND) $contactGetArgs['withDND'] = true;
+                        if ( $withDND ){
+                            $contactGetArgs['withDND'] = true;
+                        }
 
-                        $contacts = $this->DAL()->contacts->getContacts($contactGetArgs);
+                        // limited fields?
+                        if ( is_array( $limited_fields ) ){
+                            $contactGetArgs['onlyColumns'] = $limited_fields;
+                        }
+
+                        $contacts = $this->DAL()->contacts->getContacts( $contactGetArgs );
 
                         // if no limits, update compile record (effectively a compile)
                         if ($contactGetArgs['page'] == -1 && $contactGetArgs['perPage'] == -1){
@@ -1424,6 +1438,7 @@ class zbsDAL_segments extends zbsDAL_ObjectLayer {
                     switch ( $condition['type'] ){
 
                         case 'status':
+                        case 'zbsc_status':
 
                         /* while this is right, it doesn't allow for MULTIPLE status cond lines, so do via sql:
                             if ($condition['operator'] == 'equal')
@@ -1458,7 +1473,8 @@ class zbsDAL_segments extends zbsDAL_ObjectLayer {
                                         );
                             break;
 
-                        case 'email': // 'equal','notequal','contains'
+                        case 'email':
+                        case 'zbsc_email':
 
                             if ($condition['operator'] == 'equal'){
                                 // while this is right, it doesn't allow for MULTIPLE status cond lines, so do via sql:
@@ -1656,11 +1672,31 @@ class zbsDAL_segments extends zbsDAL_ObjectLayer {
                             // Allow for custom segmentArgument builders
                             if (!empty($condition['type'])){
 
-                                $filterTag = $this->makeSlug($condition['type']).'_zbsSegmentArgumentBuild';
+                                $filterTag = $this->makeSlug( $condition['type'] ) . '_zbsSegmentArgumentBuild';
                                 $potentialArgs = apply_filters( $filterTag, false, $condition,$conditionKeySuffix );
 
                                 // got anything back? 
-                                if ($potentialArgs !== false) return $potentialArgs;
+                                if ( $potentialArgs !== false ) {
+                                    
+                                    return $potentialArgs;
+
+                                } else {
+
+                                    // fallbacks
+                                    // to support cases where we prefix with `zbsc_` (Adv Segments), here we remove if present
+                                    if ( substr( $condition['type'], 0, 5 ) == 'zbsc_' ){
+
+                                        $filterTag = $this->makeSlug( substr( $condition['type'], 5 ) ) . '_zbsSegmentArgumentBuild';
+                                        $potentialArgs = apply_filters( $filterTag, false, $condition,$conditionKeySuffix );
+
+                                        if ( $potentialArgs !== false ) {
+                                            
+                                            return $potentialArgs;
+
+                                        }
+
+                                    }
+                                }
                             }
 
                             break;

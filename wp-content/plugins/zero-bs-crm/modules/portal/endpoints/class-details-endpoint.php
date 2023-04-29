@@ -55,7 +55,7 @@ class Details_Endpoint extends Client_Portal_Endpoint {
 				if(isset($_POST['password']) && !empty($_POST['password']) && isset($_POST['password2']) && !empty($_POST['password2']) ){
 
 					if($_POST['password'] != $_POST['password2']){
-						echo "<div class='zbs_alert danger'>" . __("Passwords do not match","zero-bs-crm") . "</div>";
+						echo "<div class='zbs_alert danger'>" . esc_html__("Passwords do not match","zero-bs-crm") . "</div>";
 					} else {
 						// update password
 						wp_set_password( sanitize_text_field($_POST['password']), $uid);
@@ -74,7 +74,7 @@ class Details_Endpoint extends Client_Portal_Endpoint {
 						);
 
 						// display message
-						echo "<div class='zbs_alert'>" . __( 'Password updated.', 'zero-bs-crm' ) . "</div>";
+						echo "<div class='zbs_alert'>" . esc_html__( 'Password updated.', 'zero-bs-crm' ) . "</div>";
 						// update any details as well
 						$this->portal->jpcrm_portal_update_details_from_post($cID);
 					}
@@ -135,8 +135,8 @@ class Details_Endpoint extends Client_Portal_Endpoint {
 		}
 		?>
 		<p>
-			<label class='label' for="<?php echo $fieldK; ?>"><?php _e( $fieldV[1], 'zero-bs-crm' ); ?>:</label>
-			<input <?php echo $extra_attributes; ?> type="text" name="zbsc_<?php echo $fieldK; ?>" id="<?php echo $fieldK; ?>" class="form-control widetext" placeholder="<?php if (isset($fieldV[2])) echo $fieldV[2]; ?>" value="<?php echo !empty( $value ) ? esc_attr( $value ) : ''; ?>" autocomplete="zbscontact-<?php echo time(); ?>-<?php echo $fieldK; ?>" />
+			<label class='label' for="<?php echo esc_attr( $fieldK ); ?>"><?php esc_html_e( $fieldV[1], 'zero-bs-crm' ); ?>:</label>
+			<input <?php echo esc_attr( $extra_attributes ); ?> type="text" name="zbsc_<?php echo esc_attr( $fieldK ); ?>" id="<?php echo esc_attr( $fieldK ); ?>" class="form-control widetext" placeholder="<?php if (isset($fieldV[2])) echo esc_attr( $fieldV[2] ); ?>" value="<?php echo !empty( $value ) ? esc_attr( $value ) : ''; ?>" autocomplete="zbscontact-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $fieldK ); ?>" />
 		</p>
 		<?php
 	}
@@ -147,9 +147,31 @@ class Details_Endpoint extends Client_Portal_Endpoint {
 			$extra_attributes .= ' readonly disabled ';
 		}
 		?><p>
-			<label for="<?php echo $fieldK; ?>"><?php _e($fieldV[1],"zero-bs-crm"); ?>:</label>
-			<?php echo zeroBSCRM_getCurrencyChr(); ?> <input <?php echo $extra_attributes; ?> style="width: 130px;display: inline-block;;" type="text" name="zbsc_<?php echo $fieldK; ?>" id="<?php echo $fieldK; ?>" class="form-control  numbersOnly" placeholder="<?php if (isset($fieldV[2])) echo $fieldV[2]; ?>" value="<?php echo !empty( $value ) ? esc_attr( $value ) : ''; ?>" autocomplete="zbscontact-<?php echo time(); ?>-<?php echo $fieldK; ?>" />
+			<label for="<?php echo esc_attr( $fieldK ); ?>"><?php esc_html_e($fieldV[1],"zero-bs-crm"); ?>:</label>
+			<?php echo esc_html( zeroBSCRM_getCurrencyChr() ); ?> <input <?php echo esc_attr( $extra_attributes ); ?> style="width: 130px;display: inline-block;;" type="text" name="zbsc_<?php echo esc_attr( $fieldK ); ?>" id="<?php echo esc_attr( $fieldK ); ?>" class="form-control  numbersOnly" placeholder="<?php if (isset($fieldV[2])) echo esc_attr( $fieldV[2] ); ?>" value="<?php echo !empty( $value ) ? esc_attr( $value ) : ''; ?>" autocomplete="zbscontact-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $fieldK ); ?>" />
 		</p><?php
+	}
+
+	/**
+	 * Renders the HTML of a numeric field identified by $field_key with value $value.
+	 *
+	 * @param string $field_key The key associated with this field, used (for example) in the input name.
+	 * @param object $field_settings Row from the meta table that needs to be updated.
+	 * @param object $value Row from the meta table that needs to be updated.
+	 *
+	 * @return void
+	 */
+	private function render_numeric_field( $field_key, $field_settings, $value ) {
+		$extra_attributes = '';
+		if ( isset( $field_settings['read_only'] ) && $field_settings['read_only'] ) {
+			$extra_attributes .= ' readonly disabled ';
+		}
+		?>
+		<p>
+			<label for="<?php echo esc_attr( $field_key ); ?>"><?php echo esc_html( $field_settings[1] ); ?>:</label>
+			<input <?php echo esc_attr( $extra_attributes ); ?> style="width: 130px;display: inline-block;;" type="text" name="zbsc_<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $field_key ); ?>" class="form-control  numbersOnly" placeholder="<?php echo isset( $field_settings[2] ) ? esc_attr( $field_settings[2] ) : ''; ?>" value="<?php echo ! empty( $value ) ? esc_attr( $value ) : ''; ?>" autocomplete="zbscontact-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $field_key ); ?>" />
+		</p>
+		<?php
 	}
 
 	function render_date_field( $field_key, $field_value, $value ) {
@@ -163,18 +185,18 @@ class Details_Endpoint extends Client_Portal_Endpoint {
 		} 
 		?>
 			<p>
-				<label class='label' for="<?php echo $field_key; ?>">
-					<?php _e( $field_value[1], 'zero-bs-crm' ); ?>:
+				<label class='label' for="<?php echo esc_attr( $field_key ); ?>">
+					<?php esc_html_e( $field_value[1], 'zero-bs-crm' ); ?>:
 				</label>
 				<input 
-				   <?php echo $extra_attributes; ?> 
+				   <?php echo esc_attr( $extra_attributes ); ?> 
 					type="text"
-					name="zbsc_<?php echo $field_key; ?>"
-					id="zbsc_<?php echo $field_key; ?>"
+					name="zbsc_<?php echo esc_attr( $field_key ); ?>"
+					id="zbsc_<?php echo esc_attr( $field_key ); ?>"
 					class="form-control widetext zbs-date zbs-empty-start zbs-dc"
-					placeholder="<?php if ( isset( $field_value[2] ) ) echo __( $field_value[2], 'zero-bs-crm' ); ?>"
+					placeholder="<?php if ( isset( $field_value[2] ) ) echo esc_attr( __( $field_value[2], 'zero-bs-crm' ) ); ?>"
 					value="<?php echo esc_attr( $date_value ); ?>"
-					autocomplete="zbs-<?php echo time(); ?>-<?php echo $field_key; ?>"
+					autocomplete="zbs-<?php echo esc_attr( time() ); ?>-<?php echo esc_html( $field_key ); ?>"
 				/>
 			</p>
 		<?php
@@ -187,8 +209,8 @@ class Details_Endpoint extends Client_Portal_Endpoint {
 		}
 		?>
 		<p>
-			<label class='label' for="<?php echo $fieldK; ?>"><?php _e($fieldV[1],"zero-bs-crm"); ?>:</label>
-			<select <?php echo $extra_attributes; ?> name="zbsc_<?php echo $fieldK; ?>" id="<?php echo $fieldK; ?>" class="form-control zbs-watch-input" autocomplete="zbscontact-<?php echo time(); ?>-<?php echo $fieldK; ?>">
+			<label class='label' for="<?php echo esc_attr( $fieldK ); ?>"><?php esc_html_e($fieldV[1],"zero-bs-crm"); ?>:</label>
+			<select <?php echo esc_attr( $extra_attributes ); ?> name="zbsc_<?php echo esc_attr( $fieldK ); ?>" id="<?php echo esc_attr( $fieldK ); ?>" class="form-control zbs-watch-input" autocomplete="zbscontact-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $fieldK ); ?>">
 				<?php
 				// pre DAL 2 = $fieldV[3], DAL2 = $fieldV[2]
 				$options = array();
@@ -205,7 +227,7 @@ class Details_Endpoint extends Client_Portal_Endpoint {
 					//catcher
 					echo '<option value="" disabled="disabled"';
 					if ( empty( $value ) ) echo ' selected="selected"';
-					echo '>'.__('Select',"zero-bs-crm").'</option>';
+					echo '>'.esc_html__('Select',"zero-bs-crm").'</option>';
 
 					foreach ($options as $opt){
 
@@ -216,11 +238,11 @@ class Details_Endpoint extends Client_Portal_Endpoint {
 
 					}
 
-				} else echo '<option value="">'.__('No Options',"zero-bs-crm").'!</option>';
+				} else echo '<option value="">'.esc_html__('No Options',"zero-bs-crm").'!</option>';
 
 				?>
 			</select>
-			<input type="hidden" name="zbsc_<?php echo $fieldK; ?>_dirtyflag" id="zbsc_<?php echo $fieldK; ?>_dirtyflag" value="0" />
+			<input type="hidden" name="zbsc_<?php echo esc_attr( $fieldK ); ?>_dirtyflag" id="zbsc_<?php echo esc_attr( $fieldK ); ?>_dirtyflag" value="0" />
 		</p>
 		<?php
 	}
@@ -233,9 +255,9 @@ class Details_Endpoint extends Client_Portal_Endpoint {
 
 		$click2call = 0;
 		?><p>
-		<label for="<?php echo $fieldK; ?>"><?php _e($fieldV[1],"zero-bs-crm");?>:</label>
-		<input <?php echo $extra_attributes; ?> type="text" name="zbsc_<?php echo $fieldK; ?>" id="<?php echo $fieldK; ?>" class="form-control zbs-tel" placeholder="<?php if (isset($fieldV[2])) echo $fieldV[2]; ?>" value="<?php echo !empty( $value ) ? esc_attr( $value ) : ''; ?>" autocomplete="zbscontact-<?php echo time(); ?>-<?php echo $fieldK; ?>" />
-		<?php if ($click2call == "1" && isset($zbsCustomer[$fieldK]) && !empty($zbsCustomer[$fieldK])) echo '<a href="'.zeroBSCRM_clickToCallPrefix().$zbsCustomer[$fieldK].'" class="button"><i class="fa fa-phone"></i> '.$zbsCustomer[$fieldK].'</a>'; ?>
+		<label for="<?php echo esc_attr( $fieldK ); ?>"><?php esc_html_e($fieldV[1],"zero-bs-crm");?>:</label>
+		<input <?php echo esc_attr( $extra_attributes ); ?> type="text" name="zbsc_<?php echo esc_attr( $fieldK ); ?>" id="<?php echo esc_attr( $fieldK ); ?>" class="form-control zbs-tel" placeholder="<?php if (isset($fieldV[2])) echo esc_attr( $fieldV[2] ); ?>" value="<?php echo !empty( $value ) ? esc_attr( $value ) : ''; ?>" autocomplete="zbscontact-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $fieldK ); ?>" />
+		<?php if ($click2call == "1" && isset($zbsCustomer[$fieldK]) && !empty($zbsCustomer[$fieldK])) echo '<a href="' . esc_attr( zeroBSCRM_clickToCallPrefix().$zbsCustomer[$fieldK] ) . '" class="button"><i class="fa fa-phone"></i> ' . esc_html( $zbsCustomer[$fieldK] ) . '</a>'; ?>
 		<?php
 		if ($fieldK == 'mobtel'){
 
@@ -245,7 +267,7 @@ class Details_Endpoint extends Client_Portal_Endpoint {
 
 			$customerMob = ''; if (is_array($zbsCustomer) && isset($zbsCustomer[$fieldK]) && isset($contact['id'])) $customerMob = zeroBS_customerMobile($contact['id'],$zbsCustomer);
 
-			if (!empty($customerMob)) echo '<a class="' . $sms_class . ' button" data-smsnum="' . $customerMob .'"><i class="mobile alternate icon"></i> '.__('SMS','zero-bs-crm').': ' . $customerMob . '</a>';
+			if (!empty($customerMob)) echo '<a class="' . esc_attr( $sms_class ) . ' button" data-smsnum="' . esc_attr( $customerMob ) .'"><i class="mobile alternate icon"></i> '. esc_html__('SMS','zero-bs-crm') . ': ' . esc_html( $customerMob ) . '</a>';
 		}
 
 		?>
@@ -260,21 +282,30 @@ class Details_Endpoint extends Client_Portal_Endpoint {
 		}
 
 		?><p>
-		<label for="<?php echo $fieldK; ?>"><?php _e($fieldV[1],"zero-bs-crm"); ?>:</label>
-		<div class="<?php echo $fieldK; ?>">
-			<input <?php echo $extra_attributes; ?> type="text" name="zbsc_<?php echo $fieldK; ?>" id="<?php echo $fieldK; ?>" class="form-control zbs-email" placeholder="<?php if (isset($fieldV[2])) echo $fieldV[2]; ?>" value="<?php echo !empty( $value ) ? esc_attr( $value ) : ''; ?>" autocomplete="off" />
+		<label for="<?php echo esc_attr( $fieldK ); ?>"><?php esc_html_e($fieldV[1],"zero-bs-crm"); ?>:</label>
+		<div class="<?php echo esc_attr( $fieldK ); ?>">
+			<input <?php echo esc_attr( $extra_attributes ); ?> type="text" name="zbsc_<?php echo esc_attr( $fieldK ); ?>" id="<?php echo esc_attr( $fieldK ); ?>" class="form-control zbs-email" placeholder="<?php if (isset($fieldV[2])) echo esc_attr( $fieldV[2] ); ?>" value="<?php echo !empty( $value ) ? esc_attr( $value ) : ''; ?>" autocomplete="off" />
 		</div>
 		</p><?php
 	}
 
-	function render_text_area_field($fieldK, $fieldV, $value) {
+	/**
+	 * Renders the HTML of a textarea identified by $field_key with value $value.
+	 *
+	 * @param string $field_key The key associated with this field, used (for example) in the input name.
+	 * @param object $field_settings Row from the meta table that needs to be updated.
+	 * @param object $value Row from the meta table that needs to be updated.
+	 *
+	 * @return void
+	 */
+	private function render_text_area_field( $field_key, $field_settings, $value ) {
 		$extra_attributes = "";
-		if ( isset( $fieldV[ 'read_only' ] ) && $fieldV[ 'read_only' ] ) {
+		if ( isset( $field_settings['read_only'] ) && $field_settings['read_only'] ) {
 			$extra_attributes .= ' readonly disabled ';
 		}
 		?><p>
-		<label for="<?php echo $fieldK; ?>"><?php _e($fieldV[1],"zero-bs-crm"); ?>:</label>
-		<textarea <?php echo $extra_attributes; ?> name="zbsc_<?php echo $fieldK; ?>" id="<?php echo $fieldK; ?>" class="form-control" placeholder="<?php if (isset($fieldV[2])) echo $fieldV[2]; ?>" autocomplete="zbscontact-<?php echo time(); ?>-<?php echo $fieldK; ?>"><?php echo !empty( $value ) ? esc_textarea( $value ) : ''; ?></textarea>
+		<label for="<?php echo esc_attr( $field_key ); ?>"><?php echo esc_html( $field_settings[1] ); ?>:</label>
+		<textarea <?php echo esc_attr( $extra_attributes ); ?> name="zbsc_<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $field_key ); ?>" class="form-control" placeholder="<?php echo isset( $field_settings[2] ) ? esc_attr( $field_settings[2] ) : ''; ?>" autocomplete="zbscontact-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $field_key ); ?>"><?php echo ! empty( $value ) ? esc_attr( $value ) : ''; ?></textarea>
 		</p><?php
 	}
 
@@ -289,8 +320,8 @@ class Details_Endpoint extends Client_Portal_Endpoint {
 		if ($showCountryFields == "1"){
 
 			?><p>
-			<label for="<?php echo $fieldK; ?>"><?php _e($fieldV[1],"zero-bs-crm"); ?>:</label>
-			<select <?php echo $extra_attributes; ?> name="zbsc_<?php echo $fieldK; ?>" id="<?php echo $fieldK; ?>" class="form-control" autocomplete="zbscontact-<?php echo time(); ?>-<?php echo $fieldK; ?>">
+			<label for="<?php echo esc_attr( $fieldK ); ?>"><?php esc_html_e($fieldV[1],"zero-bs-crm"); ?>:</label>
+			<select <?php echo esc_attr( $extra_attributes ); ?> name="zbsc_<?php echo esc_attr( $fieldK ); ?>" id="<?php echo esc_attr( $fieldK ); ?>" class="form-control" autocomplete="zbscontact-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $fieldK ); ?>">
 				<?php
 
 				if (isset($countries) && count($countries) > 0){
@@ -298,7 +329,7 @@ class Details_Endpoint extends Client_Portal_Endpoint {
 					//catcher
 					echo '<option value="" disabled="disabled"';
 					if ( empty( $value ) ) echo ' selected="selected"';
-					echo '>'.__('Select',"zero-bs-crm").'</option>';
+					echo '>'.esc_html__('Select',"zero-bs-crm").'</option>';
 
 					foreach ($countries as $countryKey => $country){
 
@@ -315,7 +346,7 @@ class Details_Endpoint extends Client_Portal_Endpoint {
 
 					}
 
-				} else echo '<option value="">'.__('No Countries Loaded',"zero-bs-crm").'!</option>';
+				} else echo '<option value="">'.esc_html__('No Countries Loaded',"zero-bs-crm").'!</option>';
 
 				?>
 			</select>
@@ -331,7 +362,7 @@ class Details_Endpoint extends Client_Portal_Endpoint {
 		}
 
 		?><p>
-		<label for="<?php echo $fieldK; ?>"><?php _e($fieldV[1],"zero-bs-crm"); ?>:</label>
+		<label for="<?php echo esc_attr( $fieldK ); ?>"><?php esc_html_e($fieldV[1],"zero-bs-crm"); ?>:</label>
 		<div class="zbs-field-radio-wrap">
 			<?php
 
@@ -352,7 +383,7 @@ class Details_Endpoint extends Client_Portal_Endpoint {
 				foreach ($options as $opt){
 					// <label><input type="radio" name="group1" id="x" /> <span>Label text x</span></label>
 					echo '<div class="zbs-radio">';
-					echo '<label for="'.$fieldK.'-'.$optIndex.'"><input ' . $extra_attributes . ' type="radio" name="'.$postPrefix.$fieldK.'" id="'.$fieldK.'-'.$optIndex.'" value="' . esc_attr( $opt ) . '"';
+					echo '<label for="'.esc_attr( $fieldK ).'-'.esc_attr( $optIndex ).'"><input ' . esc_attr( $extra_attributes ) . ' type="radio" name="' . esc_attr( $postPrefix.$fieldK ) . '" id="'. esc_attr( $fieldK ) . '-' . esc_attr( $optIndex ) . '" value="' . esc_attr( $opt ) . '"';
 					if (isset($value) && $value == $opt) echo ' checked="checked"';
 					echo ' /> <span>' . esc_html( $opt ) . '</span></label></div>';
 
@@ -372,7 +403,7 @@ class Details_Endpoint extends Client_Portal_Endpoint {
 			$extra_attributes .= ' readonly disabled ';
 		}
 		?><p>
-		<label for="<?php echo $fieldK; ?>"><?php _e($fieldV[1],"zero-bs-crm"); ?>:</label>
+		<label for="<?php echo esc_attr( $fieldK ); ?>"><?php esc_html_e($fieldV[1],"zero-bs-crm"); ?>:</label>
 		<div class="zbs-field-checkbox-wrap">
 			<?php
 
@@ -398,7 +429,7 @@ class Details_Endpoint extends Client_Portal_Endpoint {
 
 				foreach ($options as $opt){
 					echo '<div class="zbs-cf-checkbox">';
-					echo '<label for="'.$fieldK.'-'.$optIndex.'"><input ' . $extra_attributes . ' type="checkbox" name="'.$postPrefix.$fieldK.'-'.$optIndex.'" id="'.$fieldK.'-'.$optIndex.'" value="' . esc_attr( $opt ) . '"';
+					echo '<label for="' . esc_attr( $fieldK ) . '-' . esc_attr( $optIndex ) . '"><input ' . esc_attr( $extra_attributes ) . ' type="checkbox" name="' . esc_attr( $postPrefix . $fieldK ) . '-' . esc_attr( $optIndex ) . '" id="' . esc_attr( $fieldK ) . '-' . esc_attr( $optIndex ) . '" value="' . esc_attr( $opt ) . '"';
 					if (in_array($opt, $dataOpts)) echo ' checked="checked"';
 					echo ' /> <span>' . esc_html( $opt ) . '</span></label></div>';
 
@@ -459,6 +490,12 @@ class Details_Endpoint extends Client_Portal_Endpoint {
 			case 'checkbox':
 				$this->render_checkbox_field( $fieldK, $fieldV, $value, $postPrefix );
 				break;
+
+			case 'numberint':
+			case 'numberfloat':
+				$this->render_numeric_field( $fieldK, $fieldV, $value ); //phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+				break;
+
 			default:
 				do_action( 'jpcrm_client_portal_detail_render_field_by_type', $type, $fieldK, $fieldV, $value, $postPrefix, $showCountryFields, $zbsCustomer );
 				break;

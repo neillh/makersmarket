@@ -57,17 +57,17 @@ do_action( 'zbs_enqueue_scripts_and_styles' );
 				$portal->render->admin_message();			
 				if ( is_array( $customer_transactions ) && count( $customer_transactions ) > 0 ) {
 					// titled v3.0
-					?><h2><?php _e( 'Transactions', 'zero-bs-crm' ); ?></h2>
+					?><h2><?php esc_html_e( 'Transactions', 'zero-bs-crm' ); ?></h2>
 						<div class='zbs-entry-content zbs-responsive-table' style="position:relative;">
 						<?php
 							echo '<table class="table">';
 							echo '<thead>';
-							echo '<th>' . __( 'Transaction', 'zero-bs-crm' ) . '</th>';
-							echo '<th>' . __( 'Transaction Date', 'zero-bs-crm' ) . '</th>';
-							echo '<th>' . __( 'Title', 'zero-bs-crm' ) . '</th>';
-							echo '<th>' . __( 'Total', 'zero-bs-crm' ) . '</th>';
+							echo '<th>' . esc_html__( 'Transaction', 'zero-bs-crm' ) . '</th>';
+							echo '<th>' . esc_html__( 'Transaction Date', 'zero-bs-crm' ) . '</th>';
+							echo '<th>' . esc_html__( 'Title', 'zero-bs-crm' ) . '</th>';
+							echo '<th>' . esc_html__( 'Total', 'zero-bs-crm' ) . '</th>';
 							if ($show_transaction_status) {
-								echo '<th>' . __('Status', 'zero-bs-crm') . '</th>';
+								echo '<th>' . esc_html__('Status', 'zero-bs-crm') . '</th>';
 							}
 							echo '</thead>';
 							
@@ -100,18 +100,18 @@ do_action( 'zbs_enqueue_scripts_and_styles' );
 								}
 
 								echo '<tr>';
-								echo '<td data-title="' . __( 'Transaction', 'zero-bs-crm' ) . '">' . $transaction_ref . '</td>';
-								echo '<td data-title="' . __( 'Transaction Date', 'zero-bs-crm' ) . '">' . $transaction_date . '</td>';
-								echo '<td data-title="' . __( 'Title', 'zero-bs-crm' ) . '"><span class="name">' . $transaction_title . '</span></td>';
-								echo '<td data-title="' . __( 'Total', 'zero-bs-crm' ) . '">' . $transaction_value . '</td>';
+								echo '<td data-title="' . esc_attr__( 'Transaction', 'zero-bs-crm' ) . '">' . esc_html( $transaction_ref ) . '</td>';
+								echo '<td data-title="' . esc_attr__( 'Transaction Date', 'zero-bs-crm' ) . '">' . esc_html( $transaction_date ) . '</td>';
+								echo '<td data-title="' . esc_attr__( 'Title', 'zero-bs-crm' ) . '"><span class="name">' . esc_html( $transaction_title ) . '</span></td>';
+								echo '<td data-title="' . esc_attr__( 'Total', 'zero-bs-crm' ) . '">' . esc_html( $transaction_value ) . '</td>';
 								if ($show_transaction_status) {
-									echo '<td data-title="' . __( 'Status', 'zero-bs-crm') . '">' . $transaction_status . '</td>';
+									echo '<td data-title="' . esc_attr__( 'Status', 'zero-bs-crm') . '">' . esc_html( $transaction_status ) . '</td>';
 								}
 								echo '</tr>';
 							}
 							echo '</table>';
 				} else {
-					_e( 'You do not have any transactions yet.', 'zero-bs-crm'); 
+					esc_html_e( 'You do not have any transactions yet.', 'zero-bs-crm'); 
 				}
 			}
 			?></div>

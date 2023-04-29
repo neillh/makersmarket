@@ -348,36 +348,58 @@ function zeroBS_searchCustomers($args=array(),$withMoneyData=false){
 	global $zbs; return $zbs->DAL->contacts->getContacts($args);
 }
 
+/**
+ * Enables or disables the client portal access for a contact, by ID.
+ *
+ * @param int    $contact_id The id of the CRM Contact to be enabled or disabled.
+ * @param string $enable_or_disable String indicating if the selected contact should be enabled or disabled. Use 'disable' to disable, otherwise the contact will be enabled.
+ *
+ * @return bool True in case of success, false otherwise.
+ */
+function zeroBSCRM_customerPortalDisableEnable( $contact_id = -1, $enable_or_disable = 'disable' ) {
+	global $zbs;
 
-function zeroBSCRM_customerPortalDisableEnable( $contact_id=-1, $enableOrDisable='disable' ) {
-
-	if ( !empty( $contact_id ) ) {
-	
-		global $zbs;
-
-		if ( $enableOrDisable == 'disable' ) {
-			return $zbs->DAL->updateMeta( ZBS_TYPE_CONTACT, $contact_id, 'portal_disabled', true );
-		} else {
-			return $zbs->DAL->updateMeta( ZBS_TYPE_CONTACT, $contact_id, 'portal_disabled', false );
+	if ( zeroBSCRM_permsCustomers() && ! empty( $contact_id ) ) {
+		// Verify this user can be changed.
+		// Has to have singular role of `zerobs_customer`. This helps to avoid users changing each others accounts via crm.
+		$wp_user_id  = zeroBSCRM_getClientPortalUserID( $contact_id );
+		$user_object = get_userdata( $wp_user_id );
+		if ( jpcrm_role_check( $user_object, array(), array(), array( 'zerobs_customer' ) ) ) {
+			if ( $enable_or_disable === 'disable' ) {
+				return $zbs->DAL->updateMeta( ZBS_TYPE_CONTACT, $contact_id, 'portal_disabled', true ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			} else {
+				return $zbs->DAL->updateMeta( ZBS_TYPE_CONTACT, $contact_id, 'portal_disabled', false ); // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+			}
 		}
-
 	}
 
 	return false;
-
 }
 
+
+/*
+ * Resets the password for client portal access for a contact, by ID
+ */
 function zeroBSCRM_customerPortalPWReset( $contact_id=-1 ) {
 
-	if ( !empty( $contact_id ) ) {
+	global $zbs;
 
-		global $zbs;
-
+	if ( zeroBSCRM_permsCustomers() && !empty( $contact_id ) ) {
+		
 		$wp_user_id = zeroBS_getCustomerWPID( $contact_id );
 		$contact = $zbs->DAL->contacts->getContact( $contact_id );
 		$contact_email = $contact['email'];
+    $user_object = get_userdata( $contact_email );
 
 		if ( $wp_user_id > 0 && !empty( $contact_email ) ) {
+
+			// Verify this user can be changed
+			// (Has to have singular role of `zerobs_customer`. This helps to avoid users resetting each others passwords via crm)
+    	if ( jpcrm_role_check( $user_object, array(), array(), array( 'zerobs_customer' ) ) ) {
+
+				return false;
+
+			}
 
 			// generate new pw
 			$new_password = wp_generate_password( 12, false );
@@ -686,7 +708,7 @@ function zeroBS_getDemoCustomer(){
 
 	$demoData = array(
 
-		'status' => array('Lead','Customer'),
+		'status'           => array( 'Lead', 'Customer' ),
 		'prefix' => array('Mr', 'Mrs', 'Miss'),
 		'fname' => array('John','Jim','Mike','Melvin','Janet','Jennifer','Judy','Julie'),
 		'lname' => array('Smith','Jones','Scott','Filbert'),
@@ -1021,7 +1043,7 @@ function zeroBS_getCustomerIcoLinked($cID=-1,$incName=false,$extraClasses = '',$
 		if (!empty($cName)) $extraHTML = '<span class="">'.$cName.'</span>';
 	}
 
-	return '<div class="zbs-co-img'.$extraClasses.'"><a href = "'. zbsLink('view',$cID,'zerobs_customer') .'">' . zeroBS_customerAvatarHTML($cID,-1,$maxSize).'</a>'.$extraHTML.'</div>';
+	return '<div class="zbs-co-img'.$extraClasses.'"><a href = "'. jpcrm_esc_link('view',$cID,'zerobs_customer') .'">' . zeroBS_customerAvatarHTML($cID,-1,$maxSize).'</a>'.$extraHTML.'</div>';
 
 }
 
@@ -1040,7 +1062,7 @@ function zeroBS_getCustomerIcoLinkedLabel($cID=-1){
 
 	$extraClasses = ' ui image label';
 
-	return '<a href="'. zbsLink('view',$cID,'zerobs_customer') .'" class="'.$extraClasses.'">' . zeroBS_customerAvatarHTML($cID).$extraHTML.'</a>';
+	return '<a href="'. jpcrm_esc_link('view',$cID,'zerobs_customer') .'" class="'.$extraClasses.'">' . zeroBS_customerAvatarHTML($cID).$extraHTML.'</a>';
 
 }
 
@@ -1061,7 +1083,7 @@ function zeroBS_getCustomerLinkedLabel($cID=-1){
 
 	$extraClasses = ' ui label';
 
-	return '<a href="'. zbsLink('view',$cID,'zerobs_customer') .'" class="'.$extraClasses.'">' .$extraHTML.'</a>';
+	return '<a href="'. jpcrm_esc_link('view',$cID,'zerobs_customer') .'" class="'.$extraClasses.'">' .$extraHTML.'</a>';
 
 }
 
@@ -1637,7 +1659,7 @@ function zeroBSCRM_mergeCustomers($dominantID=-1,$slaveID=-1){
 
                                 // for events, we just "switch" the meta val :)
                                 zeroBSCRM_changeEventCustomer($event['id'],$dominantID);
-                                $changes[] = __('Assigned event from secondary record onto main record',"zero-bs-crm").' (#'.$event['id'].').';
+											$changes[] = __( 'Assigned task from secondary record onto main record', 'zero-bs-crm' ) . ' (#' . $event['id'] . ').';
                                 
 
    						}
@@ -1988,7 +2010,20 @@ function zeroBS_addUpdateCustomer(
 				$tags 		= $cFields['tags'];
 				#} Santize tags
 				if(is_array($tags)){
-					$customer_tags = filter_var_array($tags,FILTER_SANITIZE_STRING); 
+					$customer_tags = filter_var_array($tags,FILTER_UNSAFE_RAW); 
+					// Formerly this used FILTER_SANITIZE_STRING, which is now deprecated as it was fairly broken. This is basically equivalent.
+					// @todo Replace this with something more correct.
+					foreach ( $customer_tags as $k => $v ) {
+						$customer_tags[$k] = strtr(
+							strip_tags( $v ),
+							array(
+								"\0" => '',
+								'"' => '&#34;',
+								"'" => '&#39;',
+								"<" => '',
+							)
+						);
+					}
 					$we_have_tags = true;
 				}
 
@@ -3021,21 +3056,19 @@ function zeroBS___________DAL30Helpers(){return;}
 			// retrieve global var name
 			$globFieldVarName = $zbs->DAL->objFieldVarName($objType);
 	    
-	    	//req.
-	    	if (!empty($globFieldVarName)) global $$globFieldVarName;
 			// should be $zbsCustomerFields etc.
 			// from 3.0 this is kind of redundant, esp when dealing with events, which have none, so we skip if this case
 			if (
-				!$zbs->isDAL3() && (empty($globFieldVarName) || $globFieldVarName == false || !isset($$globFieldVarName))
+				!$zbs->isDAL3() && (empty($globFieldVarName) || $globFieldVarName == false || !isset($GLOBALS[ $globFieldVarName ]))
 				) return $retArray;
 
 			// nope. (for events in DAL3)
 			// ... potentially can turn this off for all non DAL3? may be redundant inside next {}
-			if ($objType !== ZBS_TYPE_EVENT && $objType !== ZBS_TYPE_QUOTETEMPLATE && isset($$globFieldVarName)){
+			if ($objType !== ZBS_TYPE_EVENT && $objType !== ZBS_TYPE_QUOTETEMPLATE && isset($GLOBALS[$globFieldVarName])){
 
 		        $i=0;
 
-		        foreach ($$globFieldVarName as $fK => $fV){
+		        foreach ($GLOBALS[$globFieldVarName] as $fK => $fV){
 
 		        	$i++;
 
@@ -3059,9 +3092,9 @@ function zeroBS___________DAL30Helpers(){return;}
 
 		                    case 'tel':
 
-		                        // validate tel?
+		                        // validate tel? Should be an user option, allow validation.
 		                        $retArray[$outputPrefix.$fK] = sanitize_text_field($arraySource[$fieldPrefix.$fK]);
-		                        preg_replace("/[^0-9 ]/", '', $retArray[$outputPrefix.$fK]);
+		                        //$retArray[$outputPrefix.$fK] = preg_replace("/[^0-9 .+\-()]/", '', $retArray[$outputPrefix.$fK]);
 		                        break;
 
 		                    case 'price':
@@ -3079,12 +3112,10 @@ function zeroBS___________DAL30Helpers(){return;}
 		                        $retArray[$outputPrefix.$fK] = intval($retArray[$outputPrefix.$fK]);
 		                        break;
 
-
-		                    case 'textarea':
-
-		                        $retArray[$outputPrefix.$fK] = zeroBSCRM_textProcess($arraySource[$fieldPrefix.$fK]);
-
-		                        break;
+						case 'textarea':
+							// phpcs:ignore WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase
+							$retArray[ $outputPrefix . $fK ] = sanitize_textarea_field( $arraySource[ $fieldPrefix . $fK ] );
+							break;
 
 		                    case 'date':
 
@@ -3968,7 +3999,20 @@ function zeroBS___________DAL30Helpers(){return;}
 
 					#} Santize tags
 					if(is_array($tags) && count($tags) > 0){
-						$company_tags = filter_var_array($tags,FILTER_SANITIZE_STRING); 
+						$company_tags = filter_var_array($tags,FILTER_UNSAFE_RAW); 
+						// Formerly this used FILTER_SANITIZE_STRING, which is now deprecated as it was fairly broken. This is basically equivalent.
+						// @todo Replace this with something more correct.
+						foreach ( $company_tags as $k => $v ) {
+							$company_tags[$k] = strtr(
+								strip_tags( $v ),
+								array(
+									"\0" => '',
+									'"' => '&#34;',
+									"'" => '&#39;',
+									"<" => '',
+								)
+							);
+						}
 						$we_have_tags = true;
 					}
 
@@ -4309,7 +4353,7 @@ function zeroBS___________DAL30Helpers(){return;}
 		if ($qID !== -1){
 
 	            $content = get_post_meta($qID, 'zbs_quote_content' , true ) ;
-	            $content = htmlspecialchars_decode($content);
+	            $content = htmlspecialchars_decode($content, ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401);
 			
 				return array(
 					'content'=>$content,
@@ -5184,25 +5228,25 @@ function zeroBSCRM_get_invoice_defaults( $obj_id = -1 ) {
 	        'businessyoururl'   => zbs_ifAV($all_settings,'businessyoururl',''),
 	        'settings_slug'     => admin_url("admin.php?page=" . $zbs->slugs['settings']) . "&tab=invbuilder",
 	        'biz_settings_slug'     => admin_url("admin.php?page=" . $zbs->slugs['settings']) . "&tab=bizinfo",
-	        'addnewcontacturl' => zbsLink('create',-1,'zerobs_customer'),
-	        'addnewcompanyurl' => zbsLink('create',-1,'zerobs_company'),
-	        'contacturlprefix' => zbsLink('edit',-1,'zerobs_customer',true),
-	        'companyurlprefix' => zbsLink('edit',-1,'zerobs_company',true),
+	        'addnewcontacturl' => jpcrm_esc_link('create',-1,'zerobs_customer'),
+	        'addnewcompanyurl' => jpcrm_esc_link('create',-1,'zerobs_company'),
+	        'contacturlprefix' => jpcrm_esc_link('edit',-1,'zerobs_customer',true),
+	        'companyurlprefix' => jpcrm_esc_link('edit',-1,'zerobs_company',true),
 	        'lang'                  => array(
 	                'invoice_number'    => zeroBSCRM_slashOut(__('ID', 'zero-bs-crm'),true),
-	                'invoice_date'      => zeroBSCRM_slashOut(__('Invoice Date', 'zero-bs-crm'),true),
+	                'invoice_date'      => zeroBSCRM_slashOut(__('Invoice date', 'zero-bs-crm'),true),
 	                'reference'         => zeroBSCRM_slashOut( $reference_label,true),
 	                'autogenerated'     => zeroBSCRM_slashOut( __('Generated on save', 'zero-bs-crm'),true),
 	                'refsettings'       => zeroBSCRM_slashOut( __('Set up your reference type here', 'zero-bs-crm'),true),
                     'nextref'           => zeroBSCRM_slashOut( __('Next reference expected', 'zero-bs-crm'),true),
-	                'due_date'          => zeroBSCRM_slashOut(__('Due Date', 'zero-bs-crm'),true),
+	                'due_date'          => zeroBSCRM_slashOut(__('Due date', 'zero-bs-crm'),true),
 	                'frequency'         => zeroBSCRM_slashOut(__('Frequency', 'zero-bs-crm'),true),
 	                'update'            => zeroBSCRM_slashOut(__('Update', 'zero-bs-crm'),true),
 	                'remove'            => zeroBSCRM_slashOut(__('Remove', 'zero-bs-crm'),true),
 	                'biz_info'          => zeroBSCRM_slashOut(__('Your business information', 'zero-bs-crm'),true),
 	                'add_edit'          => zeroBSCRM_slashOut(__('Edit '.jpcrm_label_company().' Details', 'zero-bs-crm'),true),
 	                'add_logo'          => zeroBSCRM_slashOut(__('Add your logo', 'zero-bs-crm'),true),
-	                'send_to'           => zeroBSCRM_slashOut(__('Assign Invoice to', 'zero-bs-crm'),true),
+	                'send_to'           => zeroBSCRM_slashOut(__('Assign invoice to', 'zero-bs-crm'),true),
 	                'customise'         => zeroBSCRM_slashOut(__('Customise', 'zero-bs-crm'),true),
 	                'hours'             => zeroBSCRM_slashOut(__('Hours', 'zero-bs-crm'),true),
 	                'quantity'          => zeroBSCRM_slashOut(__('Quantity', 'zero-bs-crm'),true),
@@ -5210,8 +5254,8 @@ function zeroBSCRM_get_invoice_defaults( $obj_id = -1 ) {
 	                'price'             => zeroBSCRM_slashOut(__('Price', 'zero-bs-crm'),true),
 	                'rate'              => zeroBSCRM_slashOut(__('Rate', 'zero-bs-crm'),true),
 	                'tax'               => zeroBSCRM_slashOut(__('Tax', 'zero-bs-crm'),true),
-	                'add_row'           => zeroBSCRM_slashOut(__('Add Row', 'zero-bs-crm'),true),
-	                'remove_row'        => zeroBSCRM_slashOut(__('Remove Row', 'zero-bs-crm'),true),
+	                'add_row'           => zeroBSCRM_slashOut(__('Add row', 'zero-bs-crm'),true),
+	                'remove_row'        => zeroBSCRM_slashOut(__('Remove row', 'zero-bs-crm'),true),
 	                'amount'            => zeroBSCRM_slashOut(__('Amount', 'zero-bs-crm'),true),
 	                'discount'          => zeroBSCRM_slashOut(__('Discount', 'zero-bs-crm'),true),
 	                'shipping'          => zeroBSCRM_slashOut(__('Shipping', 'zero-bs-crm'),true),
@@ -5232,35 +5276,35 @@ function zeroBSCRM_get_invoice_defaults( $obj_id = -1 ) {
 	                'edit_record'       => zeroBSCRM_slashOut(__('Edit record', 'zero-bs-crm'),true),
 	                'no_tax'            => zeroBSCRM_slashOut(__('None', 'zero-bs-crm'),true),
 	                'taxgrouplabel'		=> zeroBSCRM_slashOut(__('Rates', 'zero-bs-crm'),true),
-	                'sub_total'         => zeroBSCRM_slashOut(__('Sub total', 'zero-bs-crm'),true),
+	                'subtotal'         => zeroBSCRM_slashOut(__('Subtotal', 'zero-bs-crm'),true),
 	                'total'             => zeroBSCRM_slashOut(__('Total', 'zero-bs-crm'),true),
-	                'amount_due'        => zeroBSCRM_slashOut(__('Amount Due', 'zero-bs-crm'),true),
+	                'amount_due'        => zeroBSCRM_slashOut(__('Amount due', 'zero-bs-crm'),true),
 	                'partial_table'     => zeroBSCRM_slashOut(__('Payments', 'zero-bs-crm'),true),
 	                'incomplete'     => zeroBSCRM_slashOut(__('Incomplete', 'zero-bs-crm'),true),
-	                'rowtitleplaceholder' => zeroBSCRM_slashOut(__('Item Title', 'zero-bs-crm'),true),
-	                'rowdescplaceholder' => zeroBSCRM_slashOut(__('Item Description', 'zero-bs-crm'),true),
+	                'rowtitleplaceholder' => zeroBSCRM_slashOut(__('Item title', 'zero-bs-crm'),true),
+	                'rowdescplaceholder' => zeroBSCRM_slashOut(__('Item description', 'zero-bs-crm'),true),
 	                'noname' => zeroBSCRM_slashOut(__('Unnamed', 'zero-bs-crm'),true), // no name on typeahead,
 	                'noemail' => zeroBSCRM_slashOut(__('No email', 'zero-bs-crm'),true), // no email on typeahead,
 	                'contact' => zeroBSCRM_slashOut(__('Contact', 'zero-bs-crm'),true), // contact view button (if assigned)
 	                'company' => zeroBSCRM_slashOut(jpcrm_label_company(),true), // contact view button (if assigned)
 	                'view' => zeroBSCRM_slashOut(__('View', 'zero-bs-crm'),true),
-	                'addnewcontact' => zeroBSCRM_slashOut(__('Add New Contact', 'zero-bs-crm'),true),
-	                'newcompany' => zeroBSCRM_slashOut(__('New '.jpcrm_label_company(), 'zero-bs-crm'),true),
+	                'addnewcontact' => zeroBSCRM_slashOut(__('Add new contact', 'zero-bs-crm'),true),
+	                'newcompany' => zeroBSCRM_slashOut(__('new '.jpcrm_label_company(), 'zero-bs-crm'),true),
 	                'or' => zeroBSCRM_slashOut(__('or', 'zero-bs-crm'),true),
 
 	                // send email modal
-	                'send_email'        => zeroBSCRM_slashOut(__('Email Invoice', 'zero-bs-crm'),true),
+	                'send_email'        => zeroBSCRM_slashOut(__('Email invoice', 'zero-bs-crm'),true),
 	                'sendthisemail'        => zeroBSCRM_slashOut(__('Send this invoice via email:', 'zero-bs-crm'),true),
-	                'toemail'        => zeroBSCRM_slashOut(__('To Email:', 'zero-bs-crm'),true),
+	                'toemail'        => zeroBSCRM_slashOut(__('To email:', 'zero-bs-crm'),true),
 	                'toemailplaceholder'        => zeroBSCRM_slashOut(__('e.g. mike@gmail.com', 'zero-bs-crm'),true),
 	                'attachassoc'        => zeroBSCRM_slashOut(__('Attach associated files', 'zero-bs-crm'),true),
 	                'attachpdf'        => zeroBSCRM_slashOut(__('Attach as PDF', 'zero-bs-crm'),true),
 	                'sendthemail'        => zeroBSCRM_slashOut(__('Send', 'zero-bs-crm'),true),
-	                'sendneedsassignment'        => zeroBSCRM_slashOut(__('To send an email, this invoice needs to be assigned to a contact or company with a valid email address', 'zero-bs-crm'),true),
-	                'sendingemail'        => zeroBSCRM_slashOut(__('Sending Email...', 'zero-bs-crm'),true),
-	                'senttitle'        => zeroBSCRM_slashOut(__('Invoice Sent', 'zero-bs-crm'),true),
-	                'sent'        => zeroBSCRM_slashOut(__('Your Invoice has been sent by Email', 'zero-bs-crm'),true),
-	                'senderrortitle'        => zeroBSCRM_slashOut(__('Error Sending', 'zero-bs-crm'),true),
+	                'sendneedsassignment'        => zeroBSCRM_slashOut(__('To send an email, this invoice needs to be assigned to a contact or company with a valid email address.', 'zero-bs-crm'),true),
+	                'sendingemail'        => zeroBSCRM_slashOut(__('Sending email...', 'zero-bs-crm'),true),
+	                'senttitle'        => zeroBSCRM_slashOut(__('Invoice sent', 'zero-bs-crm'),true),
+	                'sent'        => zeroBSCRM_slashOut(__('Your invoice has been sent by email', 'zero-bs-crm'),true),
+	                'senderrortitle'        => zeroBSCRM_slashOut(__('Error sending', 'zero-bs-crm'),true),
 	                'senderror'        => zeroBSCRM_slashOut(__('There was an error sending this invoice via email.', 'zero-bs-crm'),true),
 
 
@@ -6084,7 +6128,20 @@ function zeroBSCRM_invoicing_getInvoiceData( $invID = -1 ) {
 				            # TAG obj (if exists) - clean etc here too 
 				            if (isset($transactionTags) && is_array($transactionTags)){
 
-									$transactionTags = filter_var_array($transactionTags,FILTER_SANITIZE_STRING); 
+									$transactionTags = filter_var_array($transactionTags,FILTER_UNSAFE_RAW); 
+									// Formerly this used FILTER_SANITIZE_STRING, which is now deprecated as it was fairly broken. This is basically equivalent.
+									// @todo Replace this with something more correct.
+									foreach ( $transactionTags as $k => $v ) {
+										$transactionTags[$k] = strtr(
+											strip_tags( $v ),
+											array(
+												"\0" => '',
+												'"' => '&#34;',
+												"'" => '&#39;',
+												"<" => '',
+											)
+										);
+									}
 
 				                	$args['data']['tags'] = array();
 									foreach($transactionTags as $tTag){
@@ -7392,57 +7449,60 @@ function zeroBSCRM_invoicing_getInvoiceData( $invID = -1 ) {
 
 // ===============================================================================
 // =======================  Tax Table Helpers ====================================
-   function zeroBS___________TaxTableHelpers(){return;}
 
-   // takes a subtotal and a (potential csv) of ID's of taxtable lines
-   // returns a £0 net value of the tax to be applied
-   function zeroBSCRM_taxRates_getTaxValue($subtotal=0.0,$taxRateIDCSV=''){
+// takes a subtotal and a (potential csv) of ID's of taxtable lines
+// returns a £0 net value of the tax to be applied
+function zeroBSCRM_taxRates_getTaxValue( $subtotal = 0.0, $taxRateIDCSV = '' ) {
 
-   		if ($subtotal > 0){
+	$tax = 0.0;
 
-   			$tax = 0.0;
+	// retrieve tax rate(s)
+	if ( !empty( $taxRateIDCSV ) ) {
 
-   			// retrieve tax rate(s)
-   			if (!empty($taxRateIDCSV)){
+		$taxRateTable = zeroBSCRM_taxRates_getTaxTableArr( true );
 
-   				$taxRateTable = zeroBSCRM_taxRates_getTaxTableArr(true);
+		// get (multiple) id's
+		$taxRatesToApply = array();
+		if ( strpos( $taxRateIDCSV, ',' ) ) {
 
-   				// get (multiple) id's
-   				$taxRatesToApply = array();
-   				if (strpos($taxRateIDCSV,',')){
+			$taxRateIDs = explode( ',', $taxRateIDCSV );
+			if ( !is_array( $taxRateIDs ) ) {
+				$taxRatesToApply = array();
+			} else {
+				$taxRatesToApply = $taxRateIDs;
+			}
 
-   					$taxRateIDs = explode(',', $taxRateIDCSV);
-   					if (!is_array($taxRateIDs)) 
-   						$taxRatesToApply = array();
-   					else
-   						$taxRatesToApply = $taxRateIDs;
+		} else {
+			$taxRatesToApply[] = (int)$taxRateIDCSV;
+		}
 
-   				} else $taxRatesToApply[] = (int)$taxRateIDCSV;
+		if ( is_array( $taxRatesToApply ) ) {
+			foreach ( $taxRatesToApply as $taxRateID ) {
 
-   				if (is_array($taxRatesToApply)) foreach ($taxRatesToApply as $taxRateID){
+				$rateID = (int)$taxRateID;
+				if ( isset( $taxRateTable[$rateID] ) ) {
 
-   					$rateID = (int)$taxRateID;
-   					if (isset($taxRateTable[$rateID])){
+					// get rate
+					$rate = 0.0;
+					if ( isset( $taxRateTable[$rateID]['rate'] ) ) {
+						$rate = (float)$taxRateTable[$rateID]['rate'];
+					}
 
-   						// get rate
-   						$rate = 0.0; if (isset($taxRateTable[$rateID]['rate'])) $rate = (float)$taxRateTable[$rateID]['rate'];
+					// calc + add
+					$tax += round( $subtotal * ( $rate / 100 ), 2 );
 
-   						// calc + add
-   						$tax += round(($subtotal*($rate/100)),2);
+				} // else not set?
 
-   					} // else not set?
+			} // / foreach tax rate to apply
+		}
 
-   				} // / foreach tax rate to apply
+		return $tax;
 
-   				return $tax;
+	}
 
-   			}
+	return 0.0;
 
-   		}
-
-   		return 0.0;
-
-   }
+}
 
    // gets single tax rate by id
    function zeroBSCRM_taxRates_getTaxRate($taxRateID=''){
@@ -8745,18 +8805,28 @@ function zeroBSCRM_GenerateTempHash($str=-1,$length=20){
 		}
 	}
 
-	// quick linking to edit pages etc. Imperitive as used to Translate DAL1->DAL2
-	/* use to generate an admin_url for any of our pages (ALWAYS use)
-		
+	/**
+	 * Backward compat - `zbsLink` got renamed to `jpcrm_esc_link` in 5.5
+	 **/
+	function zbsLink( $key = '', $id = -1, $type = 'zerobs_customer', $prefixOnly = false, $taxonomy = false ){
+
+		return jpcrm_esc_link( $key, $id, $type, $prefixOnly, $taxonomy );
+
+	}
+
+	/**
+	 * Core Link building function
+	 * Produces escaped raw URLs for links within wp-admin based CRM areas
+	 * 
 		Examples:
-		echo '<a href="'.zbsLink('edit',-1,'contact',false,false).'">New Contact</a>';
-		echo '<a href="'.zbsLink('edit',$id,'contact',false,false).'">Edit Contact</a>';
+		echo '<a href="'.jpcrm_esc_link('edit',-1,'contact',false,false).'">New Contact</a>';
+		echo '<a href="'.jpcrm_esc_link('edit',$id,'contact',false,false).'">Edit Contact</a>';
 
-		Notes:
-		- accepts new (contact,ZBS_TYPE_CONTACT) or old (zerobs_customer) references (but use NEW going forward)
-
-	*/
-	function zbsLink($key='',$id=-1,$type='zerobs_customer',$prefixOnly=false,$taxonomy=false){
+	 * Notes:
+	 * - accepts new (contact,ZBS_TYPE_CONTACT) or old (zerobs_customer) references (but use NEW going forward)
+	 * - previously called `zbsLink`
+	 **/
+	function jpcrm_esc_link( $key = '', $id = -1, $type = 'zerobs_customer', $prefixOnly = false, $taxonomy = false ){
 		
 		global $zbs;
 
@@ -8768,23 +8838,25 @@ function zeroBSCRM_GenerateTempHash($str=-1,$length=20){
 
 			case 'list':
 
+				$url = admin_url('admin.php?page='.$zbs->slugs['dash']);
+
 				// switch based on type.
 				switch ($objTypeID){
 
-					case ZBS_TYPE_CONTACT: return admin_url('admin.php?page='.$zbs->slugs['managecontacts']); break;
-					case ZBS_TYPE_COMPANY: return admin_url('admin.php?page='.$zbs->slugs['managecompanies']); break;
-					case ZBS_TYPE_QUOTE: return admin_url('admin.php?page='.$zbs->slugs['managequotes']); break;
-					case ZBS_TYPE_INVOICE: return admin_url('admin.php?page='.$zbs->slugs['manageinvoices']); break;
-					case ZBS_TYPE_TRANSACTION: return admin_url('admin.php?page='.$zbs->slugs['managetransactions']); break;
-					case ZBS_TYPE_FORM: return admin_url('admin.php?page='.$zbs->slugs['manageformscrm']); break;
-					case ZBS_TYPE_EVENT: return admin_url('admin.php?page='.$zbs->slugs['manage-events']); break;
-					case ZBS_TYPE_SEGMENT: return admin_url('admin.php?page='.$zbs->slugs['segments']); break;
-					case ZBS_TYPE_QUOTETEMPLATE: return admin_url('admin.php?page='.$zbs->slugs['quote-templates']); break;
+					case ZBS_TYPE_CONTACT: $url = admin_url( 'admin.php?page='.$zbs->slugs['managecontacts'] ); break;
+					case ZBS_TYPE_COMPANY: $url = admin_url( 'admin.php?page='.$zbs->slugs['managecompanies'] ); break;
+					case ZBS_TYPE_QUOTE: $url = admin_url( 'admin.php?page='.$zbs->slugs['managequotes'] ); break;
+					case ZBS_TYPE_INVOICE: $url = admin_url( 'admin.php?page='.$zbs->slugs['manageinvoices'] ); break;
+					case ZBS_TYPE_TRANSACTION: $url = admin_url( 'admin.php?page='.$zbs->slugs['managetransactions'] ); break;
+					case ZBS_TYPE_FORM: $url = admin_url( 'admin.php?page='.$zbs->slugs['manageformscrm'] ); break;
+					case ZBS_TYPE_EVENT: $url = admin_url( 'admin.php?page='.$zbs->slugs['manage-events'] ); break;
+					case ZBS_TYPE_SEGMENT: $url = admin_url( 'admin.php?page='.$zbs->slugs['segments'] ); break;
+					case ZBS_TYPE_QUOTETEMPLATE: $url = admin_url( 'admin.php?page='.$zbs->slugs['quote-templates'] ); break;
 
 				}
 
-				// rather than return admin.php?page=list, send to dash if not these ^
-				return admin_url('admin.php?page='.$zbs->slugs['dash']); 
+				// rather than return admin.php?page=list, send to dash if not these ^ 
+				return esc_url_raw( $url );
 
 				break;
 
@@ -8796,12 +8868,12 @@ function zeroBSCRM_GenerateTempHash($str=-1,$length=20){
 					if ($id > 0) {
 
 						// view with actual ID
-						return admin_url('admin.php?page=zbs-add-edit&action=view&zbstype='.$zbs->DAL->objTypeKey($objTypeID).'&zbsid='.$id);
+						return esc_url_raw( admin_url( 'admin.php?page=zbs-add-edit&action=view&zbstype=' . $zbs->DAL->objTypeKey( $objTypeID ) . '&zbsid=' . $id ) );
 
 					} else if ($prefixOnly){
 
 						// prefix only
-						return admin_url('admin.php?page=zbs-add-edit&action=view&zbstype='.$zbs->DAL->objTypeKey($objTypeID).'&zbsid=');
+						return esc_url_raw( admin_url( 'admin.php?page=zbs-add-edit&action=view&zbstype=' . $zbs->DAL->objTypeKey( $objTypeID ) . '&zbsid=' ) );
 
 					}
 
@@ -8816,12 +8888,12 @@ function zeroBSCRM_GenerateTempHash($str=-1,$length=20){
 					if ($id > 0) {
 
 						// view with actual ID
-						return admin_url('admin.php?page=zbs-add-edit&action=edit&zbstype='.$zbs->DAL->objTypeKey($objTypeID).'&zbsid='.$id);
+						return esc_url_raw( admin_url( 'admin.php?page=zbs-add-edit&action=edit&zbstype=' . $zbs->DAL->objTypeKey( $objTypeID ) . '&zbsid=' . $id ) );
 
-					} else if ($prefixOnly){
+					} else if ( $prefixOnly ){
 
 						// prefix only
-						return admin_url('admin.php?page=zbs-add-edit&action=edit&zbstype='.$zbs->DAL->objTypeKey($objTypeID).'&zbsid=');
+						return esc_url_raw( admin_url( 'admin.php?page=zbs-add-edit&action=edit&zbstype=' . $zbs->DAL->objTypeKey( $objTypeID ) . '&zbsid=' ) ) ;
 
 					}
 
@@ -8830,16 +8902,16 @@ function zeroBSCRM_GenerateTempHash($str=-1,$length=20){
 			case 'create':
 
 				// create page (returns for all obj types)
-				if ($objTypeID > 0){
+				if ( $objTypeID > 0 ){
 
-					return admin_url('admin.php?page=zbs-add-edit&action=edit&zbstype='.$zbs->DAL->objTypeKey($objTypeID));
+					return esc_url_raw( admin_url( 'admin.php?page=zbs-add-edit&action=edit&zbstype=' . $zbs->DAL->objTypeKey( $objTypeID ) ) );
 
 				} // / got objType
 
 				// mail campaigns specific catch
 				if ($type == 'mailcampaign' || $type == 'mailsequence'){
 					global $zeroBSCRM_MailCampaignsslugs; if (isset($zeroBSCRM_MailCampaignsslugs)){
-						return admin_url('admin.php?page='.$zeroBSCRM_MailCampaignsslugs['editcamp']);
+						return esc_url_raw( admin_url( 'admin.php?page=' . $zeroBSCRM_MailCampaignsslugs['editcamp'] ) );
 					}
 				}
 
@@ -8848,17 +8920,17 @@ function zeroBSCRM_GenerateTempHash($str=-1,$length=20){
 			case 'delete':
 
 				// delete page
-				if ($objTypeID > 0){
+				if ( $objTypeID > 0 ){
 
-					if ($id > 0) {
+					if ( $id > 0 ) {
 
 						// view with actual ID
-						return admin_url('admin.php?page=zbs-add-edit&action=delete&zbstype='.$zbs->DAL->objTypeKey($objTypeID).'&zbsid='.$id);
+						return esc_url_raw( admin_url( 'admin.php?page=zbs-add-edit&action=delete&zbstype=' . $zbs->DAL->objTypeKey( $objTypeID ) . '&zbsid=' . $id ) );
 
 					} else if ($prefixOnly){
 
 						// prefix only
-						return admin_url('admin.php?page=zbs-add-edit&action=delete&zbstype='.$zbs->DAL->objTypeKey($objTypeID).'&zbsid=');
+						return esc_url_raw( admin_url( 'admin.php?page=zbs-add-edit&action=delete&zbstype=' . $zbs->DAL->objTypeKey( $objTypeID).'&zbsid=' ) );
 
 					}
 
@@ -8867,9 +8939,9 @@ function zeroBSCRM_GenerateTempHash($str=-1,$length=20){
 			case 'tags':
 
 				// Tag manager page (returns for all obj types)
-				if ($objTypeID > 0){
+				if ( $objTypeID > 0 ){
 
-					return admin_url('admin.php?page='.$zbs->slugs['tagmanager'].'&tagtype='.$zbs->DAL->objTypeKey($objTypeID));
+					return esc_url_raw( admin_url( 'admin.php?page=' . $zbs->slugs['tagmanager'] . '&tagtype=' . $zbs->DAL->objTypeKey( $objTypeID ) ) );
 
 				} // / got objType
 
@@ -8878,35 +8950,35 @@ function zeroBSCRM_GenerateTempHash($str=-1,$length=20){
 			case 'listtagged':
 
 				// List view -> tagged (returns for all obj types)
-				if ($objTypeID > 0){
+				if ( $objTypeID > 0 ){
 
 					// exception: event tags
 					if ( $objTypeID == ZBS_TYPE_EVENT ) {
 
-						return admin_url( 'admin.php?page=' . $zbs->slugs['manage-events-list'] . '&zbs_tag=' . $taxonomy );
+						return esc_url_raw( admin_url( 'admin.php?page=' . $zbs->slugs['manage-events-list'] . '&zbs_tag=' . $taxonomy ) );
 
 					}
 
-					return admin_url('admin.php?page='.$zbs->DAL->listViewSlugFromObjID($objTypeID).'&zbs_tag='.$taxonomy);
+					return esc_url_raw( admin_url( 'admin.php?page=' . $zbs->DAL->listViewSlugFromObjID( $objTypeID ) . '&zbs_tag=' . $taxonomy ) );
 
 				} // / got objType
 				break;
 
 			case 'email':
 
-				switch ($objTypeID){
+				switch ( $objTypeID ){
 
 					case ZBS_TYPE_CONTACT:
 
 						if ($id > 0) {
 
 							// email with actual ID
-							return zeroBSCRM_getAdminURL($zbs->slugs['emails']).'&zbsprefill='.$id;
+							return esc_url_raw( zeroBSCRM_getAdminURL( $zbs->slugs['emails'] ) . '&zbsprefill=' . $id );
 
-						} else if ($prefixOnly){
+						} else if ( $prefixOnly ){
 
 							// page only
-							return zeroBSCRM_getAdminURL($zbs->slugs['emails']).'&zbsprefill=';
+							return esc_url_raw( zeroBSCRM_getAdminURL( $zbs->slugs['emails'] ) . '&zbsprefill=' );
 
 						}
 						
@@ -8920,11 +8992,10 @@ function zeroBSCRM_GenerateTempHash($str=-1,$length=20){
 		
 
 		// if $key isn't in switch, assume it's a slug :)
-		return admin_url('admin.php?page='.$key);
+		return esc_url_raw( admin_url( 'admin.php?page=' . $key ) );
 
 		// none? DASH then!
-		//return admin_url('admin.php?page=zerobscrm-dash');
-
+		// return esc_url_raw( admin_url('admin.php?page=zerobscrm-dash') );
 	}
 
 	#} This is run by main init :) (Installs Quote Templates etc.)

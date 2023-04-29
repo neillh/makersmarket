@@ -66,7 +66,7 @@
                     'updated'=> array("locked" => true,"label" => __("Updated","zero-bs-crm"), "ico" => "fa-pencil-square-o"),
                     'quote_created'=> array("locked" => true,"label" => __("Quote Created","zero-bs-crm"), "ico" => "fa-plus-circle"),                    
                     'invoice_created'=> array("locked" => true,"label" => __("Invoice Created","zero-bs-crm"), "ico" => "fa-plus-circle"),
-                    'event_created'=> array("locked" => true,"label" => __("Event Created","zero-bs-crm"), "ico" => "fa-calendar"),
+			'event_created' => array('locked' => true, 'label' => __( 'Task Created', 'zero-bs-crm' ), 'ico' => 'fa-calendar' ), // phpcs:ignore WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound, WordPress.Arrays.MultipleStatementAlignment.DoubleArrowNotAligned
                     'task_created'=> array("locked" => true,"label" => __("Task Created","zero-bs-crm"), "ico" => "fa-calendar"),
                     'transaction_created'=> array("locked" => true,"label" => __("Transaction Created","zero-bs-crm"), "ico" => "fa-credit-card"),
                     'transaction_updated'=> array("locked" => true,"label" => __("Transaction Updated","zero-bs-crm"), "ico" => "fa-credit-card"),
@@ -80,6 +80,8 @@
                     'contact_changed_details_via_portal'=> array("locked" => true,"label" => __("Contact Changed via Portal","zero-bs-crm"), "ico" => "fa-id-card"),
                     'contact_changed_details_via_wpprofile'=> array("locked" => true,"label" => __("Contact Changed via WordPress Profile","zero-bs-crm"), "ico" => "fa-id-card"),
                     'contact_changed_details_via_woomyacc'=> array("locked" => true,"label" => __("Contact Changed via WooCommerce My Account","zero-bs-crm"), "ico" => "fa-id-card"),
+                    'contact_changed_details_via_mailpoet'=> array("locked" => true,"label" => __("Contact Changed via MailPoet","zero-bs-crm"), "ico" => "fa-id-card"),
+                    'subscriber_deleted_in_mailpoet'=> array("locked" => true,"label" => __("Subscriber deleted in MailPoet","zero-bs-crm"), "ico" => "fa-times"),
                     'contact_change_details_attempt'=> array("locked" => true,"label" => __("Attempted Contact detail change","zero-bs-crm"), "ico" => "fa-id-card")
 
         ),
@@ -204,13 +206,13 @@ class zeroBS__Metabox_LogsV2 extends zeroBS__Metabox {
 
             
             ?>
-            <?php #} AJAX NONCE ?><script type="text/javascript">var zbscrmjs_logsSecToken = '<?php echo wp_create_nonce( "zbscrmjs-ajax-nonce-logs" ); ?>';</script><?php # END OF NONCE ?>
+            <script type="text/javascript">var zbscrmjs_logsSecToken = '<?php echo esc_js( wp_create_nonce( 'zbscrmjs-ajax-nonce-logs' ) ); ?>';</script>
 
                 <table class="form-table wh-metatab wptbp" id="wptbpMetaBoxLogs">
                     
                     <tr>
-                        <td><h2><span id="zbsActiveLogCount"><?php echo zeroBSCRM_prettifyLongInts(count($zbsLogs)); ?></span> <?php _e("Logs","zero-bs-crm");?></h2></td>
-                        <td><button type="button" class="ui primary button button-primary button-large" id="zbscrmAddLog"><?php _e("Add Log","zero-bs-crm");?></button></td>
+                        <td><h2><span id="zbsActiveLogCount"><?php echo esc_html( zeroBSCRM_prettifyLongInts(count($zbsLogs)) ); ?></span> <?php esc_html_e("Logs","zero-bs-crm");?></h2></td>
+                        <td><button type="button" class="ui primary button button-primary button-large" id="zbscrmAddLog"><?php esc_html_e("Add Log","zero-bs-crm");?></button></td>
                     </tr>
 
                     <!-- this line will pop/close with "add log" button -->
@@ -224,7 +226,7 @@ class zeroBS__Metabox_LogsV2 extends zeroBS__Metabox {
                                 <i class="fa fa-sticky-note-o" aria-hidden="true"></i>
                             </div>
 
-                            <label for="zbsAddLogType"><?php _e("Activity Type","zero-bs-crm");?>:</label>
+                            <label for="zbsAddLogType"><?php esc_html_e("Activity Type","zero-bs-crm");?>:</label>
                             <select id="zbsAddLogType" class="form-control zbsUpdateTypeAdd">
                                 <?php global $zeroBSCRM_logTypes; 
                                 if (isset($zeroBSCRM_logTypes[$this->postType]) && count($zeroBSCRM_logTypes[$this->postType]) > 0) foreach ($zeroBSCRM_logTypes[$this->postType] as $logKey => $logType){
@@ -233,7 +235,7 @@ class zeroBS__Metabox_LogsV2 extends zeroBS__Metabox {
                                     if (isset($logType['locked']) && $logType['locked']){
                                         // nope
                                     } else {
-                                        ?><option value="<?php echo $logKey; ?>"><?php _e($logType['label'],"zero-bs-crm"); ?></option><?php 
+                                        ?><option value="<?php echo esc_attr( $logKey ); ?>"><?php esc_html_e($logType['label'],"zero-bs-crm"); ?></option><?php 
                                     }
                                 } 
 
@@ -274,19 +276,19 @@ class zeroBS__Metabox_LogsV2 extends zeroBS__Metabox {
 
                             <br />
 
-                            <label for="zbsAddLogMainDesc"><?php _e("Activity Description","zero-bs-crm")?>:</label>
-                            <input type="text" class="form-control" id="zbsAddLogMainDesc" placeholder="e.g. <?php _e('Called and talked to Todd about service x, seemed keen',"zero-bs-crm");?>" autocomplete="zbslog-<?php echo time(); ?>" />
+                            <label for="zbsAddLogMainDesc"><?php esc_html_e("Activity Description","zero-bs-crm")?>:</label>
+                            <input type="text" class="form-control" id="zbsAddLogMainDesc" placeholder="e.g. <?php esc_attr_e('Called and talked to Todd about service x, seemed keen',"zero-bs-crm");?>" autocomplete="zbslog-<?php echo esc_attr( time() ); ?>" />
 
-                            <label for="zbsAddLogDetailedDesc"><?php _e("Activity Detailed Notes","zero-bs-crm");?>:</label>
-                            <textarea class="form-control" id="zbsAddLogDetailedDesc" autocomplete="zbslog-<?php echo time(); ?>"></textarea>
+                            <label for="zbsAddLogDetailedDesc"><?php esc_html_e("Activity Detailed Notes","zero-bs-crm");?>:</label>
+                            <textarea class="form-control" id="zbsAddLogDetailedDesc" autocomplete="zbslog-<?php echo esc_attr( time() ); ?>"></textarea>
 
                             <label for="zbsAddLogPinNote"><?php esc_html_e( 'Pin note', 'zero-bs-crm' ); ?>:</label>
                             <input type="checkbox" id="zbsAddLogPinNote" />
 
                             <div id="zbsAddLogActions">
                                 <div id="zbsAddLogUpdateMsg"></div>
-                                <button type="button" class="ui red button button-info button-large" id="zbscrmAddLogCancel"><?php _e("Cancel","zero-bs-crm");?></button>
-                                <button type="button" class="ui green button button-primary button-large" id="zbscrmAddLogSave"><?php _e("Save Log","zero-bs-crm");?></button>
+                                <button type="button" class="ui red button button-info button-large" id="zbscrmAddLogCancel"><?php esc_html_e("Cancel","zero-bs-crm");?></button>
+                                <button type="button" class="ui green button button-primary button-large" id="zbscrmAddLogSave"><?php esc_html_e("Save Log","zero-bs-crm");?></button>
                             </div>
 
                         </div>
@@ -301,8 +303,8 @@ class zeroBS__Metabox_LogsV2 extends zeroBS__Metabox {
                                 <i class="fa fa-sticky-note-o" aria-hidden="true"></i>
                             </div>
 
-                            <label for="zbsEditLogType"><?php _e("Activity Type","zero-bs-crm");?>:</label>
-                            <select id="zbsEditLogType" class="form-control zbsUpdateTypeEdit" autocomplete="zbslog-<?php echo time(); ?>">
+                            <label for="zbsEditLogType"><?php esc_html_e("Activity Type","zero-bs-crm");?>:</label>
+                            <select id="zbsEditLogType" class="form-control zbsUpdateTypeEdit" autocomplete="zbslog-<?php echo esc_attr( time() ); ?>">
                                 <?php global $zeroBSCRM_logTypes; 
                                 if (isset($zeroBSCRM_logTypes[$this->postType]) && count($zeroBSCRM_logTypes[$this->postType]) > 0) foreach ($zeroBSCRM_logTypes[$this->postType] as $logKey => $logType){
 
@@ -310,7 +312,7 @@ class zeroBS__Metabox_LogsV2 extends zeroBS__Metabox {
                                     if (isset($logType['locked']) && $logType['locked']){
                                         // nope
                                     } else {
-                                        ?><option value="<?php echo $logKey; ?>"><?php echo $logType['label']; ?></option><?php 
+                                        ?><option value="<?php echo esc_attr( $logKey ); ?>"><?php echo esc_html( $logType['label'] ); ?></option><?php 
                                     }
                                 } 
 
@@ -349,19 +351,19 @@ class zeroBS__Metabox_LogsV2 extends zeroBS__Metabox {
 
                             <br />
 
-                            <label for="zbsEditLogMainDesc"><?php _e("Activity Description","zero-bs-crm");?>:</label>
-                            <input type="text" class="form-control" id="zbsEditLogMainDesc" placeholder="e.g. 'Called and talked to Todd about service x, seemed keen'" autocomplete="zbslog-<?php echo time(); ?>" />
+                            <label for="zbsEditLogMainDesc"><?php esc_html_e("Activity Description","zero-bs-crm");?>:</label>
+                            <input type="text" class="form-control" id="zbsEditLogMainDesc" placeholder="e.g. 'Called and talked to Todd about service x, seemed keen'" autocomplete="zbslog-<?php echo esc_attr( time() ); ?>" />
 
-                            <label for="zbsEditLogDetailedDesc"><?php _e("Activity Detailed Notes","zero-bs-crm");?>:</label>
-                            <textarea class="form-control" id="zbsEditLogDetailedDesc" autocomplete="zbslog-<?php echo time(); ?>"></textarea>
+                            <label for="zbsEditLogDetailedDesc"><?php esc_html_e("Activity Detailed Notes","zero-bs-crm");?>:</label>
+                            <textarea class="form-control" id="zbsEditLogDetailedDesc" autocomplete="zbslog-<?php echo esc_attr( time() ); ?>"></textarea>
 
                             <label for="zbsEditLogPinNote"><?php esc_html_e( 'Pin note', 'zero-bs-crm' ); ?>:</label>
                             <input type="checkbox" id="zbsEditLogPinNote" />
 
                             <div id="zbsEditLogActions">
                                 <div id="zbsEditLogUpdateMsg"></div>
-                                <button type="button" class="button button-info button-large" id="zbscrmEditLogCancel"><?php _e("Cancel","zero-bs-crm");?></button>
-                                <button type="button" class="button button-primary button-large" id="zbscrmEditLogSave"><?php _e("Save Log","zero-bs-crm");?></button>
+                                <button type="button" class="button button-info button-large" id="zbscrmEditLogCancel"><?php esc_html_e("Cancel","zero-bs-crm");?></button>
+                                <button type="button" class="button button-primary button-large" id="zbscrmEditLogSave"><?php esc_html_e("Save Log","zero-bs-crm");?></button>
                             </div>
 
                         </div>
@@ -397,7 +399,7 @@ class zeroBS__Metabox_LogsV2 extends zeroBS__Metabox {
 
                 var zbsLogPerms = <?php echo json_encode(array('addedit'=>zeroBSCRM_permsLogsAddEdit(),'delete'=>zeroBSCRM_permsLogsDelete())); ?>;
 
-                var zbsLogAgainstID = <?php echo $objid; ?>; var zbsLogProcessingBlocker = false;
+                var zbsLogAgainstID = <?php echo esc_html( $objid ); ?>; var zbsLogProcessingBlocker = false;
 
                 <?php if (isset($_GET['addlog']) && $_GET['addlog'] == "1"){
 
@@ -467,7 +469,7 @@ class zeroBS__Metabox_LogsV2 extends zeroBS__Metabox {
                         foreach ($zbsLogs as $zbsLog){
 
                             $retLine = $zbsLog;
-                            if (isset($retLine) && isset($retLine['longdesc'])) $retLine['longdesc'] = nl2br(zeroBSCRM_textExpose($retLine['longdesc']));
+                            if (isset($retLine) && isset($retLine['longdesc'])) $retLine['longdesc'] = wp_kses( html_entity_decode( $retLine['longdesc'], ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 ), $zbs->acceptable_restricted_html );
 
                             $zbsLogsExpose[] = $retLine;
 
@@ -546,7 +548,7 @@ class zeroBS__Metabox_LogsV2 extends zeroBS__Metabox {
                             */
 
                             // get / check data
-                            var data = {sec:window.zbscrmjs_logsSecToken,zbsnobjtype:'<?php echo $this->postType; ?>'}; var errs = 0;
+                            var data = {sec:window.zbscrmjs_logsSecToken,zbsnobjtype:'<?php echo esc_html( $this->postType ); ?>'}; var errs = 0;
                             if ((jQuery('#zbsAddLogType').val()).length > 0) data.zbsntype = jQuery('#zbsAddLogType').val();
                             if ((jQuery('#zbsAddLogMainDesc').val()).length > 0) data.zbsnshortdesc = jQuery('#zbsAddLogMainDesc').val();
                             if ((jQuery('#zbsAddLogDetailedDesc').val()).length > 0) 
@@ -772,7 +774,7 @@ class zeroBS__Metabox_LogsV2 extends zeroBS__Metabox {
 
                                 }
 
-                                var logEditElements = '<div class="zbsLogOutEdits"><i class="fa fa-pencil-square-o zbsLogActionEdit" title="<?php _e('Edit Log',"zero-bs-crm");?>"></i><i class="fa fa-thumb-tack jpcrm_log_pin" title="<?php _e('Pin log to contact', 'zero-bs-crm' ); ?>"></i><i class="fa fa-thumb-tack jpcrm_log_unpin" title="<?php _e('Unpin log from contact', 'zero-bs-crm' ); ?>"></i><i class="fa fa-trash-o zbsLogActionRemove last" title="<?php _e('Delete Log',"zero-bs-crm");?>"></i><span></span></div>';
+                                var logEditElements = '<div class="zbsLogOutEdits"><i class="fa fa-pencil-square-o zbsLogActionEdit" title="<?php esc_attr_e('Edit Log',"zero-bs-crm");?>"></i><i class="fa fa-thumb-tack jpcrm_log_pin" title="<?php esc_attr_e('Pin log to contact', 'zero-bs-crm' ); ?>"></i><i class="fa fa-thumb-tack jpcrm_log_unpin" title="<?php esc_attr_e('Unpin log from contact', 'zero-bs-crm' ); ?>"></i><i class="fa fa-trash-o zbsLogActionRemove last" title="<?php esc_attr_e('Delete Log',"zero-bs-crm");?>"></i><span></span></div>';
                                 thisLogHTML += '<div class="zbsLogOutTitle">' + thisTitle + logEditElements + '</div>';
 
                             // desc
@@ -851,7 +853,7 @@ class zeroBS__Metabox_LogsV2 extends zeroBS__Metabox {
 
                             // append "deleting"
                             jQuery(this).closest('.zbsLogOutEdits').addClass('stayhovered');
-                            jQuery('span',jQuery(this).closest('.zbsLogOutEdits')).html('<?php _e( 'Deleting', 'zero-bs-crm' ); ?>...');
+                            jQuery('span',jQuery(this).closest('.zbsLogOutEdits')).html('<?php esc_html_e( 'Deleting', 'zero-bs-crm' ); ?>...');
 
                             var noteID = parseInt(jQuery(this).closest('.zbsLogOut').attr('data-logid'));
 
@@ -907,7 +909,7 @@ class zeroBS__Metabox_LogsV2 extends zeroBS__Metabox {
 
                         // append "pinning"
                         jQuery(this).closest('.zbsLogOutEdits').addClass('stayhovered');
-                        jQuery('span',jQuery(this).closest('.zbsLogOutEdits')).html('<?php _e( 'Pinning', 'zero-bs-crm' ); ?>...');
+                        jQuery('span',jQuery(this).closest('.zbsLogOutEdits')).html('<?php esc_html_e( 'Pinning', 'zero-bs-crm' ); ?>...');
 
                         var noteID = parseInt(jQuery(this).closest('.zbsLogOut').attr('data-logid'));
 
@@ -923,7 +925,7 @@ class zeroBS__Metabox_LogsV2 extends zeroBS__Metabox {
                                     var nID = noteID;
 
                                     // append "pinned"
-                                    jQuery('span',jQuery(thisEle).closest('.zbsLogOutEdits')).html('<?php _e( 'Pinned', 'zero-bs-crm' ); ?>');
+                                    jQuery('span',jQuery(thisEle).closest('.zbsLogOutEdits')).html('<?php esc_html_e( 'Pinned', 'zero-bs-crm' ); ?>');
 
                                     var that = thisEle;
                                     setTimeout(function(){
@@ -954,7 +956,7 @@ class zeroBS__Metabox_LogsV2 extends zeroBS__Metabox {
 
                         // append "pinning"
                         jQuery(this).closest('.zbsLogOutEdits').addClass('stayhovered');
-                        jQuery('span',jQuery(this).closest('.zbsLogOutEdits')).html('<?php _e( 'Removing Pin', 'zero-bs-crm' ); ?>...');
+                        jQuery('span',jQuery(this).closest('.zbsLogOutEdits')).html('<?php esc_html_e( 'Removing Pin', 'zero-bs-crm' ); ?>...');
 
                         var noteID = parseInt(jQuery(this).closest('.zbsLogOut').attr('data-logid'));
 
@@ -970,7 +972,7 @@ class zeroBS__Metabox_LogsV2 extends zeroBS__Metabox {
                                     var nID = noteID;
 
                                     // append "pinned"
-                                    jQuery('span',jQuery(thisEle).closest('.zbsLogOutEdits')).html('<?php _e( 'Unpinned', 'zero-bs-crm' ); ?>');
+                                    jQuery('span',jQuery(thisEle).closest('.zbsLogOutEdits')).html('<?php esc_html_e( 'Unpinned', 'zero-bs-crm' ); ?>');
 
                                     var that = thisEle;
                                     setTimeout(function(){
@@ -1293,7 +1295,7 @@ class zeroBS__Metabox_LogsV2 extends zeroBS__Metabox {
                         window.zbsLogProcessingBlocker = true;
 
                         // msg
-                        jQuery('#zbsAddLogUpdateMsg').html('<?php _e('Saving...',"zero-bs-crm");?>');
+                        jQuery('#zbsAddLogUpdateMsg').html('<?php esc_html_e('Saving...',"zero-bs-crm");?>');
 
                          // Send 
                             jQuery.ajax({
@@ -1371,7 +1373,7 @@ class zeroBS__Metabox_LogsV2 extends zeroBS__Metabox {
                         window.zbsLogProcessingBlocker = true;
 
                         // msg
-                        jQuery('#zbsEditLogUpdateMsg').html('<?php _e('Saving...',"zero-bs-crm");?>');
+                        jQuery('#zbsEditLogUpdateMsg').html('<?php esc_html_e('Saving...',"zero-bs-crm");?>');
 
                          // Send 
                             jQuery.ajax({

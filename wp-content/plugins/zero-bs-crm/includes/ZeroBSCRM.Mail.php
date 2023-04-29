@@ -44,7 +44,7 @@ function zeroBSCRM_mailDelivery_accountDDL($selectedOption=-1,$id='zbs-mail-deli
 		if ($withSemanticWrap) echo '<div class="ui input">';
 
 		// none
-		?><select class="fluid" id="<?php echo $id; ?>" name="<?php echo $id; ?>"><option value="-1"><?php echo esc_html( $defaultDetails ); ?></option></select><?php
+		?><select class="fluid" id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $id ); ?>"><option value="-1"><?php echo esc_html( $defaultDetails ); ?></option></select><?php
 
 
 		if ($withSemanticWrap) echo '</div>';
@@ -83,7 +83,7 @@ function zeroBSCRM_mailDelivery_accountDDL($selectedOption=-1,$id='zbs-mail-deli
 
 		if ($withSemanticWrap) echo '<div class="ui input">';
 
-		?><select class="fluid" id="<?php echo $id; ?>" name="<?php echo $id; ?>"><?php foreach ($zbsSMTPAccs as $key => $acc){
+		?><select class="fluid" id="<?php echo esc_attr( $id ); ?>" name="<?php echo esc_attr( $id ); ?>"><?php foreach ($zbsSMTPAccs as $key => $acc){
 
 				#} account name etc.
 				$accStr = '';
@@ -105,7 +105,7 @@ function zeroBSCRM_mailDelivery_accountDDL($selectedOption=-1,$id='zbs-mail-deli
 				#} If default, add that
 				if ($key == $defaultMailOptionIndex) $accStr .= ' [Default]';
 
-			echo '<option value="'.$key.'"';
+			echo '<option value="'. esc_attr( $key ) .'"';
 			if ($selectedOption == $key) echo ' selected="selected"';
 			echo '>' . esc_html( $accStr ) . '</option>';
 
@@ -117,7 +117,7 @@ function zeroBSCRM_mailDelivery_accountDDL($selectedOption=-1,$id='zbs-mail-deli
 
 	if ($withSemanticWrap){
 
-		?><script type="text/javascript">jQuery(function(){ jQuery('#<?php echo $id; ?>').dropdown();});</script><?php
+		?><script type="text/javascript">jQuery(function(){ jQuery('#<?php echo esc_html( $id ); ?>').dropdown();});</script><?php
 
 	}
 
@@ -667,7 +667,7 @@ function zeroBSCRM_mailDelivery_sendViaSMTP($smtpHost='',$smtpPort='',$smtpUser=
 						if ($zbsDebug['return'])
 							$retDebugStr .= '===<br />PHP Level Warning '.$errno.': '.$errstr.' (L:'.$errline.' in '.$errfile.')<br />';
 						else
-							echo 'PHP Level Warning '.$errno.': '.$errstr.' (L:'.$errline.' in '.$errfile.')<br />';
+							echo 'PHP Level Warning '. esc_html( $errno.': '.$errstr ) .' (L:'. esc_html( $errline.' in '.$errfile ).')<br />';
 
 					}
 

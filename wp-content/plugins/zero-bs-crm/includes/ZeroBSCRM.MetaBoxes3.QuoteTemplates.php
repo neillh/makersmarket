@@ -85,7 +85,7 @@
                 $quoteTemplateContent = ''; if (is_array($quoteTemplate) && isset($quoteTemplate['content'])) $quoteTemplateContent = $quoteTemplate['content'];
                 
                 ?>
-                <?php #} AJAX NONCE ?><script type="text/javascript">var zbscrmjs_secToken = '<?php echo wp_create_nonce( "zbscrmjs-ajax-nonce" ); ?>';</script><?php # END OF NONCE ?>
+                <script type="text/javascript">var zbscrmjs_secToken = '<?php echo esc_js( wp_create_nonce( 'zbscrmjs-ajax-nonce' ) ); ?>';</script>
                 <?php
 
                 // pass specific placeholder list for WYSIWYG inserter
@@ -152,7 +152,7 @@
 
                         ##WLREMOVE
                         // template placeholder helper
-                        echo '<p style="text-align:right"><span class="ui basic blue label">'.__('Did you know: You can now use Quote Placeholders?','zero-bs-crm').' <a href="'.$zbs->urls['kbquoteplaceholders'].'" target="_blank">'.__('Read More','zero-bs-crm').'</a></span></p>';
+                        echo '<p style="text-align:right"><span class="ui basic blue label">'.esc_html__('Did you know: You can now use Quote Placeholders?','zero-bs-crm').' <a href="' . esc_url( $zbs->urls['kbquoteplaceholders'] ) . '" target="_blank">' . esc_html__('Read More','zero-bs-crm') . '</a></span></p>';
                         ##/WLREMOVE
 
                         #http://stackoverflow.com/questions/3493313/how-to-add-wysiwyg-editor-in-wordpress-meta-box
@@ -274,7 +274,7 @@
                 if (!empty($zbsJustInsertedMetaboxID) && $zbsJustInsertedMetaboxID > 0){
 
                     // redir
-                    wp_redirect( zbsLink('edit',$zbsJustInsertedMetaboxID,$this->objType) );
+                    wp_redirect( jpcrm_esc_link('edit',$zbsJustInsertedMetaboxID,$this->objType) );
                     exit;
 
                 }
@@ -341,7 +341,7 @@
 
             ?><div class="zbs-generic-save-wrap">
 
-                    <div class="ui medium dividing header"><i class="save icon"></i> <?php _e('Template','zero-bs-crm'); ?> <?php _e('Actions','zero-bs-crm'); ?></div>
+                    <div class="ui medium dividing header"><i class="save icon"></i> <?php esc_html_e('Template','zero-bs-crm'); ?> <?php esc_html_e('Actions','zero-bs-crm'); ?></div>
 
             <?php
 
@@ -356,7 +356,7 @@
 
                     <div class="zbs-quotetemplate-actions-bottom zbs-objedit-actions-bottom">
 
-                        <button class="ui button green" type="button" id="zbs-edit-save"><?php _e("Update","zero-bs-crm"); ?> <?php _e("Template","zero-bs-crm"); ?></button>
+                        <button class="ui button green" type="button" id="zbs-edit-save"><?php esc_html_e("Update","zero-bs-crm"); ?> <?php esc_html_e("Template","zero-bs-crm"); ?></button>
 
                         <?php
 
@@ -365,7 +365,7 @@
                          // for now just check if can modify, later better, granular perms.
                          if ( zeroBSCRM_permsQuotes() ) { 
                         ?><div id="zbs-quotetemplate-actions-delete" class="zbs-objedit-actions-delete">
-                             <a class="submitdelete deletion" href="<?php echo zbsLink('delete',$quoteTemplateID,'quotetemplate'); ?>"><?php _e('Delete Permanently', "zero-bs-crm"); ?></a>
+                             <a class="submitdelete deletion" href="<?php echo jpcrm_esc_link( 'delete', $quoteTemplateID, 'quotetemplate' ); ?>"><?php esc_html_e('Delete Permanently', "zero-bs-crm"); ?></a>
                         </div>
                         <?php } // can delete  ?>
                         
@@ -381,7 +381,7 @@
 
                     <div class="zbs-quotetemplate-actions-bottom zbs-objedit-actions-bottom">
                         
-                        <button class="ui button green" type="button" id="zbs-edit-save"><?php _e("Save","zero-bs-crm"); ?> <?php _e("Template","zero-bs-crm"); ?></button>
+                        <button class="ui button green" type="button" id="zbs-edit-save"><?php esc_html_e("Save","zero-bs-crm"); ?> <?php esc_html_e("Template","zero-bs-crm"); ?></button>
 
                     </div>
 

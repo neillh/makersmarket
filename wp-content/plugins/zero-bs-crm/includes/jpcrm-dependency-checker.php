@@ -215,7 +215,7 @@ class JPCRM_DependencyChecker {
       ?>
       <div class="ui segment jpcrm-error">
         <div class="content">
-          <b><?php _e( 'CRM dependency error', 'zero-bs-crm' ) ?></b><br>
+          <b><?php esc_html_e( 'CRM dependency error', 'zero-bs-crm' ) ?></b><br>
           <p><?php echo $error_msg; ?></p>
         </div>
       </div>

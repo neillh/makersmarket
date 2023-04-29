@@ -83,9 +83,9 @@ function jpcrm_settings_page_html_woosync_connection_edit() {
 
 		?>
 
-		<p><?php echo sprintf( __( 'From this page you can edit connection details for a connection between Jetpack CRM and one or more WooCommerce stores. <a href="%s" target="_blank">Read more about connecting Jetpack CRM to WooCommerce</a>.', 'zero-bs-crm' ), $zbs->urls['connect-multi-woo'] ); ?></p>
+		<p><?php echo wp_kses( sprintf( __( 'From this page you can edit connection details for a connection between Jetpack CRM and one or more WooCommerce stores. <a href="%s" target="_blank">Read more about connecting Jetpack CRM to WooCommerce</a>.', 'zero-bs-crm' ), esc_url( $zbs->urls['connect-multi-woo'] ) ), $zbs->acceptable_restricted_html ); ?></p>
 
-		<h3 style="text-align: center;" class="ui blue header"><?php echo sprintf( __( 'Edit %s WooCommerce Connection', 'zero-bs-crm' ), $site_title ); ?></h3>
+		<h3 style="text-align: center;" class="ui blue header"><?php echo sprintf( esc_html__( 'Edit %s WooCommerce Connection', 'zero-bs-crm' ), esc_html( $site_title ) ); ?></h3>
 		
 		<?php if ( isset( $connection_updated ) ){
 
@@ -110,20 +110,20 @@ function jpcrm_settings_page_html_woosync_connection_edit() {
 			<table class="table table-striped wtab">
 				<tbody>
 			        <tr>
-			            <td class="wfieldname"><label for="woosync_mode"><?php _e( 'Mode','zero-bs-crm' ); ?>:</label></td>
+			            <td class="wfieldname"><label for="woosync_mode"><?php esc_html_e( 'Mode','zero-bs-crm' ); ?>:</label></td>
 			            <td style="width:540px"><?php 
 
 							switch ( $sync_site['mode'] ){
 
 								case JPCRM_WOO_SYNC_MODE_LOCAL:
 
-									echo '<span class="ui label teal"><i class="home icon"></i> ' . __( 'Local', 'zero-bs-crm' ) . '</span>';
+									echo '<span class="ui label teal"><i class="home icon"></i> ' . esc_html__( 'Local', 'zero-bs-crm' ) . '</span>';
 
 									break;
 
 								case JPCRM_WOO_SYNC_MODE_API:
 
-									echo '<span class="ui label blue"><i class="plug icon"></i> ' . __( 'External', 'zero-bs-crm' ) . '</span>';
+									echo '<span class="ui label blue"><i class="plug icon"></i> ' . esc_html__( 'External', 'zero-bs-crm' ) . '</span>';
 
 									break;
 
@@ -132,8 +132,8 @@ function jpcrm_settings_page_html_woosync_connection_edit() {
 			            ?></td>
 			        </tr>
 			        <tr>
-			            <td class="wfieldname"><label for="woosync_domain"><?php _e( 'Store domain', 'zero-bs-crm' ); ?>:</label></td>
-			            <td style="width:540px"><?php echo $sync_site['domain']; ?></td>
+			            <td class="wfieldname"><label for="woosync_domain"><?php esc_html_e( 'Store domain', 'zero-bs-crm' ); ?>:</label></td>
+			            <td style="width:540px"><?php echo esc_html( $sync_site['domain'] ); ?></td>
 			        </tr><?php 
 
 							switch ( $sync_site['mode'] ){
@@ -145,8 +145,8 @@ function jpcrm_settings_page_html_woosync_connection_edit() {
 									?>
 					<tr style="display:none">
 			            <td colspan="2">
-			            	<input type="hidden" name="woosync_key" id="woosync_key" value="<?php if (isset($sync_site['key']) && !empty($sync_site['key'])) echo $sync_site['key']; ?>" />
-			            	<input type="hidden" name="woosync_secret" id="woosync_secret" value="<?php if (isset($sync_site['secret']) && !empty($sync_site['secret'])) echo $sync_site['secret']; ?>" />
+			            	<input type="hidden" name="woosync_key" id="woosync_key" value="<?php if (isset($sync_site['key']) && !empty($sync_site['key'])) echo esc_attr( $sync_site['key'] ); ?>" />
+			            	<input type="hidden" name="woosync_secret" id="woosync_secret" value="<?php if (isset($sync_site['secret']) && !empty($sync_site['secret'])) echo esc_attr( $sync_site['secret'] ); ?>" />
 			            </td>
 			        </tr>
 
@@ -159,12 +159,12 @@ function jpcrm_settings_page_html_woosync_connection_edit() {
 
 									?>
 					<tr>
-			            <td class="wfieldname"><label for="woosync_key"><?php _e( 'API Key', 'zero-bs-crm' ); ?>:</label></td>
-			            <td style="width:540px"><input type="text" class="winput form-control" name="woosync_key" id="woosync_key" value="<?php if (isset($sync_site['key']) && !empty($sync_site['key'])) echo $sync_site['key']; ?>" placeholder="e.g. ck_99966f77a8e9ace9efb689a6fa7f5334ac9ea645" /></td>
+			            <td class="wfieldname"><label for="woosync_key"><?php esc_html_e( 'API Key', 'zero-bs-crm' ); ?>:</label></td>
+			            <td style="width:540px"><input type="text" class="winput form-control" name="woosync_key" id="woosync_key" value="<?php if (isset($sync_site['key']) && !empty($sync_site['key'])) echo esc_attr( $sync_site['key'] ); ?>" placeholder="e.g. ck_99966f77a8e9ace9efb689a6fa7f5334ac9ea645" /></td>
 			        </tr>
 			       	<tr>
-			            <td class="wfieldname"><label for="woosync_secret"><?php _e( 'API Secret', 'zero-bs-crm' ); ?>:</label></td>
-			            <td style="width:540px"><input type="text" class="winput form-control" name="woosync_secret" id="woosync_secret" value="<?php if (isset($sync_site['secret']) && !empty($sync_site['secret'])) echo $sync_site['secret']; ?>" placeholder="e.g. cs_9994bcfb20e188073b609650487736196d841015" /></td>
+			            <td class="wfieldname"><label for="woosync_secret"><?php esc_html_e( 'API Secret', 'zero-bs-crm' ); ?>:</label></td>
+			            <td style="width:540px"><input type="text" class="winput form-control" name="woosync_secret" id="woosync_secret" value="<?php if (isset($sync_site['secret']) && !empty($sync_site['secret'])) echo esc_attr( $sync_site['secret'] ); ?>" placeholder="e.g. cs_9994bcfb20e188073b609650487736196d841015" /></td>
 			        </tr>
 
 		        				<?php
@@ -174,23 +174,23 @@ function jpcrm_settings_page_html_woosync_connection_edit() {
 
 			            ?>
 			       	<tr>
-			            <td class="wfieldname"><label for="woosync_prefix"><?php _e('Order Prefix','zero-bs-crm'); ?>:</label></td>
-			            <td style="width:540px"><input type="text" class="winput form-control" name="woosync_prefix" id="woosync_prefix" value="<?php if (isset($sync_site['prefix']) && !empty($sync_site['prefix'])) echo $sync_site['prefix']; ?>" placeholder="e.g. example_" /></td>
+			            <td class="wfieldname"><label for="woosync_prefix"><?php esc_html_e('Order Prefix','zero-bs-crm'); ?>:</label></td>
+			            <td style="width:540px"><input type="text" class="winput form-control" name="woosync_prefix" id="woosync_prefix" value="<?php if (isset($sync_site['prefix']) && !empty($sync_site['prefix'])) echo esc_attr( $sync_site['prefix'] ); ?>" placeholder="e.g. example_" /></td>
 			        </tr>
 				</tbody>
 				<tfoot>
 
 					<tr>
 						<td colspan="2" class="wmid" style="padding-top:1.5em">
-							<button class="ui blue button" id="jpcrm-woosync-save-connection-details" type="submit"><?php _e( 'Update Connection', 'zero-bs-crm' ); ?></button>
+							<button class="ui blue button" id="jpcrm-woosync-save-connection-details" type="submit"><?php esc_html_e( 'Update Connection', 'zero-bs-crm' ); ?></button>
 							<?php
 
 								echo sprintf(
 									'<a href="%s&tab=%s&subtab=%s" class="ui basic button" style="margin-top:1em">%s</a>',
-									zbsLink($zbs->slugs['settings']),
-									$zbs->modules->woosync->slugs['settings'],
-									$zbs->modules->woosync->slugs['settings_connections'],
-									__( 'Back to Store Connections', 'zero-bs-crm' )
+									jpcrm_esc_link( $zbs->slugs['settings'] ),
+									esc_attr( $zbs->modules->woosync->slugs['settings'] ),
+									esc_attr( $zbs->modules->woosync->slugs['settings_connections'] ),
+									esc_html__( 'Back to Store Connections', 'zero-bs-crm' )
 								);
 
 							?>

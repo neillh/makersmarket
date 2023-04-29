@@ -60,13 +60,13 @@ class zbsDAL_invoices extends zbsDAL_ObjectLayer {
                     // NOTE WH: when I hit this with column manager, loads didn't need to be shown
                     // so plz leave ,'nocolumn'=>true in tact :)
 
-                    //'name' => array('text','Quote Title','e.g. Chimney Rebuild'),
-                    'no' => array('text',__('Invoice Number',"zero-bs-crm"),'e.g. 123456', 'essential' => true), #} No is ignored by edit routines :)
-                    'val'=> array('hidden',__('Invoice Value',"zero-bs-crm"),'e.g. 500.00', 'essential' => true),
-                    'date' => array('date',__('Invoice Date',"zero-bs-crm"),'', 'essential' => true),
+                    //'name' => array('text','Quote title','e.g. Chimney Rebuild'),
+                    'no' => array('text',__('Invoice number',"zero-bs-crm"),'e.g. 123456', 'essential' => true), #} No is ignored by edit routines :)
+                    'val'=> array('hidden',__('Invoice value',"zero-bs-crm"),'e.g. 500.00', 'essential' => true),
+                    'date' => array('date',__('Invoice date',"zero-bs-crm"),'', 'essential' => true),
                     'notes' => array('textarea',__('Notes',"zero-bs-crm"),'','nocolumn'=>true),
-                    'ref' => array('text', __('Reference Number',"zero-bs-crm"), 'e.g. Ref-123'),
-                    'due' => array('text', __('Invoice Due',"zero-bs-crm"), ''),
+                    'ref' => array('text', __('Reference number',"zero-bs-crm"), 'e.g. Ref-123'),
+                    'due' => array('text', __('Invoice due',"zero-bs-crm"), ''),
                     'logo' => array('text', __('logo url',"zero-bs-crm"), 'e.g. URL','nocolumn'=>true),
 
                     'bill' => array('text',__('invoice to',"zero-bs-crm"), 'e.g. mike@epicplugins.com','nocolumn'=>true),
@@ -2038,6 +2038,39 @@ class zbsDAL_invoices extends zbsDAL_ObjectLayer {
                     'obj_type'       => ZBS_TYPE_INVOICE,
                     'obj_id'         => $id,
                     'obj_source'    => 'all',
+
+                ) );
+
+                // delete any links to contacts
+                $this->DAL()->deleteObjLinks( array(
+
+                    'objtypefrom'    => ZBS_TYPE_INVOICE,
+                    'objtypeto'      => ZBS_TYPE_CONTACT,
+                    'objtofrom'      => $id,
+
+                ) );
+
+                // delete any links to transactions
+                $this->DAL()->deleteObjLinks( array(
+
+                    'objtypefrom'    => ZBS_TYPE_TRANSACTION,
+                    'objtypeto'      => ZBS_TYPE_INVOICE,
+                    'objtoid'        => $id,
+
+                ) );
+
+                // delete all orphaned lineitems
+                $this->DAL()->lineitems->deleteLineItemsForObject( array(
+                    'objID'          => $id,
+                    'objType'        => ZBS_TYPE_INVOICE
+                ) );
+
+                // delete all orphaned line items obj links
+                $this->DAL()->deleteObjLinks( array(
+
+                    'objtypefrom'    => ZBS_TYPE_LINEITEM,
+                    'objtypeto'      => ZBS_TYPE_INVOICE,
+                    'objtoid'        => $id,
 
                 ) );
 

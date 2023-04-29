@@ -251,8 +251,8 @@ class JPCRM_Fonts {
 
 
 	/*
-	* Installs default fonts (which have already been downloaded, but are not marked installed)
-	* can use $this->retrieve_and_install_default_fonts() if from scratch (downloads + installs)
+	* Installs default fonts (which are extracted, but are not marked installed)
+	* can use $this->extract_and_install_default_fonts() if from scratch (extracts + installs)
 	*/
 	public function install_default_fonts( $force_reinstall = false ){
 
@@ -510,12 +510,11 @@ class JPCRM_Fonts {
 
 
 	/*
-	* Retrieve (and install) default fonts which dompdf uses to provide global lang supp
-	* Note: This is somewhat deprecated as we now package noto-sans within core version (`/includes/dompdf-fonts/*`)
-	* This function is therefor only used if somebody were to delete these default fonts.
+	* Extract (and install) default fonts which dompdf uses to provide global lang supp
+	* This function is used if somebody were to delete these default fonts from jpcrm-storage.
 	* Instead, use retrieve_and_install() to retrieve locale specific fonts (from v4.7.0)
 	*/
-	public function retrieve_and_install_default_fonts(){
+	public function extract_and_install_default_fonts(){
 
 		global $zbsExtensionInstallError;
 
@@ -537,21 +536,8 @@ class JPCRM_Fonts {
 			return $this->install_default_fonts();
 		}
 
-		// Create temp file in system temp dir where we'll download the zip to
-		$temp_path = tempnam( sys_get_temp_dir(), 'pdffonts' );
-
-		// Retrieve zip
-		global $zbs;
-		if ( !zeroBSCRM_retrieveFile( $zbs->urls['extdlrepo'] . 'pdffonts.zip', $temp_path ) ) {
-			// Something failed
-			$zbsExtensionInstallError = __('Jetpack CRM was not able to download the fonts it needs for the PDF Engine.',"zero-bs-crm").' '.__('(fonts)','zero-bs-crm');
-			unlink( $temp_path );
-			return false;
-		}
-
 		// Extract zip to fonts dir
-		$expanded = zeroBSCRM_expandArchive( $temp_path, $working_dir );
-		unlink( $temp_path );
+		$expanded = zeroBSCRM_expandArchive( ZEROBSCRM_PATH . 'data/pdffonts.zip', $working_dir );
 
 		// Check success?
 		if ( !$expanded || !file_exists( $working_dir . 'fonts-info.txt' ) ) {

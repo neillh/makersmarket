@@ -94,16 +94,16 @@ class Woo_Sync_My_Account_Integration {
 
 			if ( $this->check_customer_has_invoices() ) {
 				$invoices_endpoint = new \Automattic\JetpackCRM\Invoices_Endpoint( $zbs->modules->portal );
-				$invoices_endpoint->list_invoices_html_output();				
+				$invoices_endpoint->list_invoices_html_output();
 			} else {
 
-				echo __( 'No invoices available.', 'zero-bs-crm' );
+				echo esc_html__( 'No invoices available.', 'zero-bs-crm' );
 
 			}
 
 		} else {
 
-			echo __( 'This feature is disabled.', 'zero-bs-crm' );
+			echo esc_html__( 'This feature is disabled.', 'zero-bs-crm' );
 
 		}
 
@@ -188,7 +188,7 @@ class Woo_Sync_My_Account_Integration {
 			// Adds the public portal script with the daterangepicker locale inline (it retrieves the locale from our core function)
 			$locale_opt_for_daterangepicker = json_encode( zeroBSCRM_date_localeForDaterangePicker() );
 			wp_enqueue_script( 'jpcrm-public-bind-daterange-js', plugins_url( '/js/jpcrm-public-bind-daterange'.wp_scripts_get_suffix() . '.js', ZBS_ROOTFILE ), $zbs->version, true );
-			wp_add_inline_script( 'jpcrm-public-bind-daterange-js', 'const JPCRM_PUBLIC_LOCALE_OPT_FOR_DATERANGEPICKER = ' . $locale_opt_for_daterangepicker . ';', 'before' );
+			wp_add_inline_script( 'jpcrm-public-bind-daterange-js', 'var JPCRM_PUBLIC_LOCALE_OPT_FOR_DATERANGEPICKER = ' . $locale_opt_for_daterangepicker . ';', 'before' );
 		}
 
 	}
@@ -255,7 +255,7 @@ class Woo_Sync_My_Account_Integration {
 			$field_group_key    = '';
 
 			?>
-			<input type="hidden" name="zbs_customer_id" id="zbs_customer_id" value="<?php echo $contact_id; ?>" />
+			<input type="hidden" name="zbs_customer_id" id="zbs_customer_id" value="<?php echo esc_attr( $contact_id ); ?>" />
 			<?php
 
 			// Cycle through fields and op
@@ -284,16 +284,16 @@ class Woo_Sync_My_Account_Integration {
 							case 'text':
 
 								?>
-								<label for="<?php echo $field_key; ?>"><?php _e( $field_value[1], "zero-bs-crm" ); ?></label>
-								<input type="text" name="zbsc_<?php echo $field_key; ?>" id="<?php echo $field_key; ?>" class="input-text" style="width: 100%;padding: 15px;margin-bottom: 18px;" placeholder="<?php if (isset($field_value[2])) echo $field_value[2]; ?>" value="<?php if (isset($crm_contact[$field_key])) echo $crm_contact[$field_key]; ?>" autocomplete="zbscontact-<?php echo time(); ?>-<?php echo $field_key; ?>" />
+								<label for="<?php echo esc_attr( $field_key ); ?>"><?php esc_html_e( $field_value[1], "zero-bs-crm" ); ?></label>
+								<input type="text" name="zbsc_<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $field_key ); ?>" class="input-text" style="width: 100%;padding: 15px;margin-bottom: 18px;" placeholder="<?php if (isset($field_value[2])) echo esc_attr( $field_value[2] ); ?>" value="<?php if (isset($crm_contact[$field_key])) echo esc_attr( $crm_contact[$field_key] ); ?>" autocomplete="zbscontact-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $field_key ); ?>" />
 								<?php
 
 								break;
 
 							case 'price':
 
-								?><label for="<?php echo $field_key; ?>"><?php _e($field_value[1],"zero-bs-crm"); ?></label>
-									<?php echo zeroBSCRM_getCurrencyChr(); ?> <input style="width: 130px;display: inline-block;;" type="text" name="zbsc_<?php echo $field_key; ?>" id="<?php echo $field_key; ?>" class="form-control  numbersOnly" placeholder="<?php if (isset($field_value[2])) echo $field_value[2]; ?>" value="<?php if (isset($crm_contact[$field_key])) echo $crm_contact[$field_key]; ?>" autocomplete="zbscontact-<?php echo time(); ?>-<?php echo $field_key; ?>" />
+								?><label for="<?php echo esc_attr( $field_key ); ?>"><?php esc_html_e($field_value[1],"zero-bs-crm"); ?></label>
+									<?php echo esc_html( zeroBSCRM_getCurrencyChr() ); ?> <input style="width: 130px;display: inline-block;" type="text" name="zbsc_<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $field_key ); ?>" class="form-control  numbersOnly" placeholder="<?php if (isset($field_value[2])) echo esc_attr( $field_value[2] ); ?>" value="<?php if (isset($crm_contact[$field_key])) echo esc_attr( $crm_contact[$field_key] ); ?>" autocomplete="zbscontact-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $field_key ); ?>" />
 								<?php
 
 								break;
@@ -308,17 +308,17 @@ class Woo_Sync_My_Account_Integration {
 								}
 							?>
 								<p>
-									<label class='label' for="<?php echo $field_key; ?>">
-										<?php _e( $field_value[1], 'zero-bs-crm' ); ?>:
+									<label class='label' for="<?php echo esc_attr( $field_key ); ?>">
+										<?php esc_html_e( $field_value[1], 'zero-bs-crm' ); ?>:
 									</label>
 									<input
 										type="text"
-										name="zbsc_<?php echo $field_key; ?>"
-										id="zbsc_<?php echo $field_key; ?>"
+										name="zbsc_<?php echo esc_attr( $field_key ); ?>"
+										id="zbsc_<?php echo esc_attr( $field_key ); ?>"
 										class="form-control widetext zbs-date zbs-empty-start zbs-dc"
-										placeholder="<?php if ( isset( $field_value[2] ) ) echo __( $field_value[2], 'zero-bs-crm' ); ?>"
-										value="<?php echo $date_value; ?>"
-										autocomplete="zbs-<?php echo time(); ?>-<?php echo $field_key; ?>"
+										placeholder="<?php if ( isset( $field_value[2] ) ) echo esc_attr__( $field_value[2], 'zero-bs-crm' ); ?>"
+										value="<?php echo esc_attr( $date_value ); ?>"
+										autocomplete="zbs-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $field_key ); ?>"
 									/>
 								</p>
 							<?php
@@ -326,8 +326,8 @@ class Woo_Sync_My_Account_Integration {
 
 							case 'select':
 
-								?><label for="<?php echo $field_key; ?>"><?php _e($field_value[1],"zero-bs-crm"); ?></label>
-									<select name="zbsc_<?php echo $field_key; ?>" id="<?php echo $field_key; ?>" class="form-control zbs-watch-input" autocomplete="zbscontact-<?php echo time(); ?>-<?php echo $field_key; ?>">
+								?><label for="<?php echo esc_attr( $field_key ); ?>"><?php esc_html_e($field_value[1],"zero-bs-crm"); ?></label>
+									<select name="zbsc_<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $field_key ); ?>" class="form-control zbs-watch-input" autocomplete="zbscontact-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $field_key ); ?>">
 										<?php
 											// pre DAL 2 = $field_value[3], DAL2 = $field_value[2]
 											$options = array(); 
@@ -356,11 +356,11 @@ class Woo_Sync_My_Account_Integration {
 													echo ' selected="selected"';
 
 												}
-												echo '>' . __( 'Select', "zero-bs-crm" ) . '</option>';
+												echo '>' . esc_html__( 'Select', "zero-bs-crm" ) . '</option>';
 
 												foreach ($options as $opt){
 
-													echo '<option value="'.$opt.'"';
+													echo '<option value="' . esc_attr( $opt ) . '"';
 
 													if ( isset( $crm_contact[$field_key] ) && strtolower( $crm_contact[$field_key] ) == strtolower( $opt ) ){
 														
@@ -369,11 +369,11 @@ class Woo_Sync_My_Account_Integration {
 													}
 
 													// __ here so that things like country lists can be translated
-													echo '>' . __( $opt, "zero-bs-crm" ) . '</option>';
+													echo '>' . esc_html__( $opt, "zero-bs-crm" ) . '</option>';
 
 												}
 
-											} else echo '<option value="">' . __( 'No Options', "zero-bs-crm" ) . '!</option>';
+											} else echo '<option value="">' . esc_html__( 'No Options', "zero-bs-crm" ) . '!</option>';
 
 										?>
 									</select>
@@ -383,13 +383,13 @@ class Woo_Sync_My_Account_Integration {
 
 							case 'tel':
 
-								?><label for="<?php echo $field_key; ?>"><?php _e($field_value[1],"zero-bs-crm");?></label>
-									<input type="text" name="zbsc_<?php echo $field_key; ?>" id="<?php echo $field_key; ?>" class="form-control zbs-tel" placeholder="<?php if (isset($field_value[2])) echo $field_value[2]; ?>" value="<?php if (isset($crm_contact[$field_key])) echo $crm_contact[$field_key]; ?>" autocomplete="zbscontact-<?php echo time(); ?>-<?php echo $field_key; ?>" />
+								?><label for="<?php echo esc_attr( $field_key ); ?>"><?php esc_html_e($field_value[1],"zero-bs-crm");?></label>
+									<input type="text" name="zbsc_<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $field_key ); ?>" class="form-control zbs-tel" placeholder="<?php if (isset($field_value[2])) echo esc_attr( $field_value[2] ); ?>" value="<?php if (isset($crm_contact[$field_key])) echo esc_attr( $crm_contact[$field_key] ); ?>" autocomplete="zbscontact-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $field_key ); ?>" />
 									<?php
 
 									if ( $click2call == "1" && isset( $crm_contact[$field_key] ) && !empty( $crm_contact[$field_key] ) ) {
 										
-										echo '<a href="' . zeroBSCRM_clickToCallPrefix() . $crm_contact[$field_key] . '" class="button"><i class="fa fa-phone"></i> ' . $crm_contact[$field_key] . '</a>';
+										echo '<a href="' . esc_attr( zeroBSCRM_clickToCallPrefix() . $crm_contact[$field_key] ) . '" class="button"><i class="fa fa-phone"></i> ' . esc_html( $crm_contact[$field_key] ) . '</a>';
 									
 									}
 
@@ -410,7 +410,7 @@ class Woo_Sync_My_Account_Integration {
 										}
 										
 										if ( !empty( $contact_mobile) ){
-											echo '<a class="' . $sms_class . ' button" data-smsnum="' . $contact_mobile .'"><i class="mobile alternate icon"></i> ' . __( 'SMS', 'zero-bs-crm' ) . ': ' . $contact_mobile . '</a>';
+											echo '<a class="' . esc_attr( $sms_class ) . ' button" data-smsnum="' . esc_attr( $contact_mobile ) .'"><i class="mobile alternate icon"></i> ' . esc_html__( 'SMS', 'zero-bs-crm' ) . ': ' . esc_html( $contact_mobile ) . '</a>';
 										}
 
 									}
@@ -422,16 +422,16 @@ class Woo_Sync_My_Account_Integration {
 
 							case 'email':
 
-								?><label for="<?php echo $field_key; ?>"><?php _e( $field_value[1], "zero-bs-crm" ); ?>:</label>
-									<input type="text" name="zbsc_<?php echo $field_key; ?>" id="<?php echo $field_key; ?>" class="form-control zbs-email" placeholder="<?php if (isset($field_value[2])) echo $field_value[2]; ?>" value="<?php if (isset($crm_contact[$field_key])) echo $crm_contact[$field_key]; ?>" autocomplete="off" />
+								?><label for="<?php echo esc_attr( $field_key ); ?>"><?php esc_html_e( $field_value[1], "zero-bs-crm" ); ?>:</label>
+									<input type="text" name="zbsc_<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $field_key ); ?>" class="form-control zbs-email" placeholder="<?php if (isset($field_value[2])) echo esc_attr( $field_value[2] ); ?>" value="<?php if (isset($crm_contact[$field_key])) echo esc_attr( $crm_contact[$field_key] ); ?>" autocomplete="off" />
 								<?php
 
 								break;
 
 							case 'textarea':
 
-								?><label for="<?php echo $field_key; ?>"><?php _e( $field_value[1], "zero-bs-crm" ); ?>:</label>
-									<textarea name="zbsc_<?php echo $field_key; ?>" id="<?php echo $field_key; ?>" class="form-control" placeholder="<?php if (isset($field_value[2])) echo $field_value[2]; ?>" autocomplete="zbscontact-<?php echo time(); ?>-<?php echo $field_key; ?>"><?php if (isset($crm_contact[$field_key])) echo zeroBSCRM_textExpose($crm_contact[$field_key]); ?></textarea>
+								?><label for="<?php echo esc_attr( $field_key ); ?>"><?php esc_html_e( $field_value[1], "zero-bs-crm" ); ?>:</label>
+									<textarea name="zbsc_<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $field_key ); ?>" class="form-control" placeholder="<?php if (isset($field_value[2])) echo esc_attr( $field_value[2] ); ?>" autocomplete="zbscontact-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $field_key ); ?>"><?php if (isset($crm_contact[$field_key])) echo esc_textarea($crm_contact[$field_key]); ?></textarea>
 								<?php
 
 								break;
@@ -443,8 +443,8 @@ class Woo_Sync_My_Account_Integration {
 
 								if ( $show_address_country_field == "1" ){
 
-								?><label for="<?php echo $field_key; ?>"><?php _e( $field_value[1], "zero-bs-crm" ); ?></label>
-									<select name="zbsc_<?php echo $field_key; ?>" id="<?php echo $field_key; ?>" class="form-control" autocomplete="zbscontact-<?php echo time(); ?>-<?php echo $field_key; ?>">
+								?><label for="<?php echo esc_attr( $field_key ); ?>"><?php esc_html_e( $field_value[1], "zero-bs-crm" ); ?></label>
+									<select name="zbsc_<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $field_key ); ?>" class="form-control" autocomplete="zbscontact-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $field_key ); ?>">
 										<?php
 
 											// got countries?
@@ -459,14 +459,14 @@ class Woo_Sync_My_Account_Integration {
 													 echo ' selected="selected"';
 
 												}
-												echo '>' . __( 'Select', "zero-bs-crm" ) . '</option>';
+												echo '>' . esc_html__( 'Select', "zero-bs-crm" ) . '</option>';
 
 												foreach ($countries as $countryKey => $country){
 
 													// temporary fix for people storing "United States" but also "US"
 													// needs a migration to iso country code, for now, catch the latter (only 1 user via api)
 
-													echo '<option value="' . $country . '"';
+													echo '<option value="' . esc_attr( $country ) . '"';
 													if ( 
 														isset( $crm_contact[$field_key] ) 
 														&& 
@@ -481,11 +481,11 @@ class Woo_Sync_My_Account_Integration {
 
 													}
 
-													echo '>' . $country . '</option>';
+													echo '>' . esc_html( $country ) . '</option>';
 
 												}
 
-											} else echo '<option value="">' . __( 'No Countries Loaded', "zero-bs-crm" ) . '!</option>';
+											} else echo '<option value="">' . esc_html__( 'No Countries Loaded', "zero-bs-crm" ) . '!</option>';
 
 										?>
 									</select><?php
@@ -494,7 +494,144 @@ class Woo_Sync_My_Account_Integration {
 
 								break;
 
+							// auto number - can't actually edit autonumbers, so its just outputting :)
+							case 'autonumber':
 
+								?>
+								<label for="<?php echo esc_attr( $field_key ); ?>"><?php esc_html_e( $field_value[1], "zero-bs-crm" ); ?></label>
+								<?php
+									// output any saved autonumber for this obj
+									$value = $field_value[2];
+									$str   = '';
+									if ($value !== -99) {
+										$str = $value;
+									}
+
+									// we strip the hashes saved in db for easy separation later
+									$str = str_replace('#','',$str);
+
+									// then output...
+									if ( empty( $str ) ) {
+										echo '~';
+									} else {
+										echo esc_html( $str );
+									}
+
+									break;
+
+							case 'numberint':
+								$value = isset( $crm_contact[$field_key] ) ? $crm_contact[$field_key] : -99;
+
+								?>
+								<label for="<?php echo esc_attr( $field_key ); ?>"><?php esc_html_e( $field_value[1], "zero-bs-crm" ); ?></label>
+								<input style="width: 130px;display: inline-block;" type="text" name="zbsc_<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $field_key ); ?>" class="form-control intOnly zbs-dc zbs-custom-field" placeholder="<?php if (isset($field_value[2])) echo esc_attr__($field_value[2],'zero-bs-crm'); ?>" value="<?php if ($value !== -99) echo esc_attr( $value ); else echo esc_attr( $default ); ?>" autocomplete="zbs-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $field_key ); ?>" />
+								<?php
+
+									break;
+
+							case 'numberfloat':
+								$value = isset( $crm_contact[$field_key] ) ? $crm_contact[$field_key] : -99;
+
+								?>
+								<label for="<?php echo esc_attr( $field_key ); ?>"><?php esc_html_e( $field_value[1], "zero-bs-crm" ); ?></label>
+								<input style="width: 130px;display: inline-block;" type="text" name="zbsc_<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $field_key ); ?>" class="form-control numbersOnly zbs-dc zbs-custom-field" placeholder="<?php if (isset($field_value[2])) echo esc_attr__($field_value[2],'zero-bs-crm'); ?>" value="<?php if ($value !== -99) echo esc_attr( $value ); else echo esc_attr( $default ); ?>" autocomplete="zbs-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $field_key ); ?>" />
+								<?php
+
+									break;
+
+							case 'checkbox':
+									$value = isset( $crm_contact[$field_key] ) ? $crm_contact[$field_key] : -99;
+
+								?>
+								<label for="<?php echo esc_attr( $field_key ); ?>"><?php esc_html_e( $field_value[1], "zero-bs-crm" ); ?></label>
+								<?php
+									// pre DAL 2 = $fieldV[3], DAL2 = $fieldV[2]
+									$options = false; 
+									if ( isset( $field_value[3] ) && is_array( $field_value[3] ) ) {
+										$options = $field_value[3];
+									} else if ( isset( $field_value[2] ) ) {
+										// DAL2 these don't seem to be auto-decompiled?
+										// doing here for quick fix, maybe fix up the chain later.
+										$options = explode( ',', $field_value[2] );
+									}
+
+									// split fields (multi select)
+									$data_options = array();
+									if ( $value !== -99 && ! empty( $value ) ) {
+										$data_options = explode(',', $value);
+									}
+
+									if (
+										isset( $options ) 
+										&& is_array( $options ) 
+										&& count( $options ) > 0 
+										&& $options[0] != ''
+									) {
+										$option_index = 0;
+
+										foreach ( $options as $opt ) {
+											echo '<div class="ui checkbox"><input type="checkbox" name="zbsc_' . esc_attr( $field_key . '-' . $option_index ) . '" id="' . esc_attr( $field_key . '-' . $option_index ) . '" value="' . esc_attr( $opt ) . '"';
+											if ( in_array( $opt, $data_options ) ) {
+												echo ' checked="checked"';
+											}
+											echo ' /><label for="' . esc_attr( $field_key . '-' . $option_index ) . '">' . esc_html( $opt ) . '</label></div>';
+
+											$option_index++;
+										}
+
+									} else {
+										echo '<label for="' . esc_attr( $field_key ) . '-0">' . esc_html__( 'No Options', 'zero-bs-crm' ) . '!</label>';
+									}
+								?>
+								<input type="hidden" name="zbsc_<?php echo esc_attr( $field_key ); ?>_dirtyflag" id="zbsc_<?php echo esc_attr( $field_key ); ?>_dirtyflag" value="0" />
+								<?php
+
+									break;
+
+							case 'radio':
+									$value = isset( $crm_contact[$field_key] ) ? $crm_contact[$field_key] : -99;
+
+									?>
+									<label for="<?php echo esc_attr( $field_key ); ?>"><?php esc_html_e( $field_value[1], "zero-bs-crm" ); ?></label>
+									<div class="zbs-field-radio-wrap">
+									<?php
+										// pre DAL 2 = $fieldV[3], DAL2 = $fieldV[2]
+										$options = false; 
+										if ( isset( $field_value[3] ) && is_array( $field_value[3] ) ) {
+											$options = $field_value[3];
+										} else if ( isset( $field_value[2] ) ) {
+											// DAL2 these don't seem to be auto-decompiled?
+											// doing here for quick fix, maybe fix up the chain later.
+											$options = explode( ',', $field_value[2] );
+										}
+
+										if (
+											isset( $options ) 
+											&& is_array( $options )
+											&& count( $options ) > 0 
+											&& $options[0] != ''
+										) {
+											$option_index = 0;
+
+											foreach ( $options as $opt ) {
+												echo '<div class="zbs-radio"><input type="radio" name="zbsc_' . esc_attr( $field_key ) . '" id="' . esc_attr( $field_key . '-' . $option_index ) . '" value="' . esc_attr( $opt ) . '"';
+
+												if ($value !== -99 && $value == $opt) echo ' checked="checked"'; 
+												echo ' /> <label for="' . esc_attr( $field_key . '-' . $option_index ) . '">' . esc_html( $opt ) . '</label></div>';
+
+												$option_index++;
+											}
+
+										} else {
+											echo '<label for="' . esc_attr( $field_key ) . '-0">' . esc_html__( 'No Options', 'zero-bs-crm' ) . '!</label>';
+										}
+
+									?>
+										</div>
+										<input type="hidden" name="zbsc_<?php echo esc_attr( $field_key ); ?>_dirtyflag" id="zbsc_<?php echo esc_attr( $field_key ); ?>_dirtyflag" value="0" />
+									<?php
+
+									break;
 						}
 
 					}

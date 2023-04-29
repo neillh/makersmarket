@@ -12,6 +12,7 @@ use Automattic\Jetpack\Connection\REST_Connector;
 use Automattic\Jetpack\Constants;
 use Automattic\Jetpack\Device_Detection\User_Agent_Info;
 use Automattic\Jetpack\Identity_Crisis;
+use Automattic\Jetpack\IP\Utils as IP_Utils;
 use Automattic\Jetpack\Licensing;
 use Automattic\Jetpack\Licensing\Endpoints as Licensing_Endpoints;
 use Automattic\Jetpack\My_Jetpack\Initializer as My_Jetpack_Initializer;
@@ -54,10 +55,10 @@ class Jetpack_Redux_State_Helper {
 		// Preparing translated fields for JSON encoding by transforming all HTML entities to
 		// respective characters.
 		foreach ( $modules as $slug => $data ) {
-			$modules[ $slug ]['name']              = html_entity_decode( $data['name'] );
-			$modules[ $slug ]['description']       = html_entity_decode( $data['description'] );
-			$modules[ $slug ]['short_description'] = html_entity_decode( $data['short_description'] );
-			$modules[ $slug ]['long_description']  = html_entity_decode( $data['long_description'] );
+			$modules[ $slug ]['name']              = html_entity_decode( $data['name'], ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 );
+			$modules[ $slug ]['description']       = html_entity_decode( $data['description'], ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 );
+			$modules[ $slug ]['short_description'] = html_entity_decode( $data['short_description'], ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 );
+			$modules[ $slug ]['long_description']  = html_entity_decode( $data['long_description'], ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 );
 		}
 
 		// "mock" a block module in order to get it searchable in the settings.
@@ -186,7 +187,10 @@ class Jetpack_Redux_State_Helper {
 				'support'   => array(
 					'infinite-scroll' => current_theme_supports( 'infinite-scroll' ) || in_array( $current_theme->get_stylesheet(), $inf_scr_support_themes, true ),
 					'widgets'         => current_theme_supports( 'widgets' ),
-					'webfonts'        => WP_Theme_JSON_Resolver::theme_has_support() && function_exists( 'wp_register_webfont_provider' ) && function_exists( 'wp_register_webfonts' ),
+					'webfonts'        => (
+						// @todo Remove conditional once we drop support for WordPress 6.1
+						function_exists( 'wp_theme_has_theme_json' ) ? wp_theme_has_theme_json() : WP_Theme_JSON_Resolver::theme_has_support()
+					) && function_exists( 'wp_register_webfont_provider' ) && function_exists( 'wp_register_webfonts' ),
 				),
 			),
 			'jetpackStateNotices'         => array(
@@ -196,7 +200,7 @@ class Jetpack_Redux_State_Helper {
 				'messageContent'   => Jetpack::state( 'display_update_modal' ) ? self::get_update_modal_data() : null,
 			),
 			'tracksUserData'              => Jetpack_Tracks_Client::get_connected_user_tracks_identity(),
-			'currentIp'                   => function_exists( 'jetpack_protect_get_ip' ) ? jetpack_protect_get_ip() : false,
+			'currentIp'                   => IP_Utils::get_ip(),
 			'lastPostUrl'                 => esc_url( $last_post ),
 			'externalServicesConnectUrls' => self::get_external_services_connect_urls(),
 			'calypsoEnv'                  => Jetpack::get_calypso_env(),
@@ -215,6 +219,7 @@ class Jetpack_Redux_State_Helper {
 			// Check if WooCommerce plugin is active (based on https://docs.woocommerce.com/document/create-a-plugin/).
 			'isWooCommerceActive'         => in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', Jetpack::get_active_plugins() ), true ),
 			'useMyJetpackLicensingUI'     => My_Jetpack_Initializer::is_licensing_ui_enabled(),
+			'isOdysseyStatsEnabled'       => Stats_Options::get_option( 'enable_odyssey_stats' ),
 		);
 	}
 
@@ -272,7 +277,7 @@ class Jetpack_Redux_State_Helper {
 
 		$post_thumbnail = isset( $post['post_thumbnail'] ) ? $post['post_thumbnail'] : null;
 		if ( ! empty( $post_thumbnail ) ) {
-			jetpack_require_lib( 'class.jetpack-photon-image' );
+			require_once JETPACK__PLUGIN_DIR . '_inc/lib/class.jetpack-photon-image.php';
 			$photon_image = new Jetpack_Photon_Image(
 				array(
 					'file'   => jetpack_photon_url( $post_thumbnail['URL'] ),
@@ -360,7 +365,7 @@ class Jetpack_Redux_State_Helper {
 	 */
 	public static function get_external_services_connect_urls() {
 		$connect_urls = array();
-		jetpack_require_lib( 'class.jetpack-keyring-service-helper' );
+		require_once JETPACK__PLUGIN_DIR . '_inc/lib/class.jetpack-keyring-service-helper.php';
 		// phpcs:disable
 		foreach ( Jetpack_Keyring_Service_Helper::SERVICES as $service_name => $service_info ) {
 			// phpcs:enable
@@ -401,6 +406,8 @@ class Jetpack_Redux_State_Helper {
 		return wp_generate_password( 12, false );
 	}
 }
+
+// phpcs:disable Universal.Files.SeparateFunctionsFromOO.Mixed -- TODO: Move these functions to some other file.
 
 /**
  * Gather data about the current user.

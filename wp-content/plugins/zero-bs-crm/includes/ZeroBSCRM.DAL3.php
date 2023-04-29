@@ -183,23 +183,26 @@ class zbsDAL {
             ZBS_TYPE_QUOTETEMPLATE => 'zerobs_quo_template',
     );
 
-    // retrieve via DAL->typeStr(1)
-    private $typeNames = array(
-
-            ZBS_TYPE_CONTACT =>         array('Contact','Contacts'),
-            ZBS_TYPE_COMPANY =>         array('Company','Companies'),
-            ZBS_TYPE_QUOTE =>           array('Quote','Quotes'),
-            ZBS_TYPE_INVOICE =>         array('Invoice','Invoices'),
-            ZBS_TYPE_TRANSACTION =>     array('Transaction','Transactions'),
-            ZBS_TYPE_EVENT =>           array('Event','Events'),
-            ZBS_TYPE_FORM =>            array('Form','Forms'),
-            ZBS_TYPE_SEGMENT =>         array('Segment','Segments'),
-            ZBS_TYPE_LOG =>             array('Log','Logs'),
-            ZBS_TYPE_LINEITEM =>        array('Line Item','Line Items'),
-            ZBS_TYPE_EVENTREMINDER =>   array('Event Reminder','Event Reminders'),
-            ZBS_TYPE_QUOTETEMPLATE =>   array('Quote Template','Quote Templates'),
-            ZBS_TYPE_ADDRESS =>         array('Address','Addresses')
-    );
+	/**
+	 * Retrieve via DAL->typeStr(1).
+	 *
+	 * @var array
+	 */
+	private $typeNames = array( // phpcs:ignore WordPress.NamingConventions.ValidVariableName.PropertyNotSnakeCase
+		ZBS_TYPE_CONTACT       => array( 'Contact', 'Contacts' ),
+		ZBS_TYPE_COMPANY       => array( 'Company', 'Companies' ),
+		ZBS_TYPE_QUOTE         => array( 'Quote', 'Quotes' ),
+		ZBS_TYPE_INVOICE       => array( 'Invoice', 'Invoices' ),
+		ZBS_TYPE_TRANSACTION   => array( 'Transaction', 'Transactions' ),
+		ZBS_TYPE_EVENT         => array( 'Task', 'Tasks' ),
+		ZBS_TYPE_FORM          => array( 'Form', 'Forms' ),
+		ZBS_TYPE_SEGMENT       => array( 'Segment', 'Segments' ),
+		ZBS_TYPE_LOG           => array( 'Log', 'Logs' ),
+		ZBS_TYPE_LINEITEM      => array( 'Line Item', 'Line Items' ),
+		ZBS_TYPE_EVENTREMINDER => array( 'Task Reminder', 'Task Reminders' ),
+		ZBS_TYPE_QUOTETEMPLATE => array( 'Quote Template', 'Quote Templates' ),
+		ZBS_TYPE_ADDRESS       => array( 'Address', 'Addresses' ),
+	);
 
     // List View refs
     private $listViewRefs = array(
@@ -403,9 +406,7 @@ class zbsDAL {
 
         if ( $global_var_name !== -1){
 
-            global ${$global_var_name};
-
-            return ${$global_var_name};
+            return isset( $GLOBALS[ $global_var_name ] ) ? $GLOBALS[ $global_var_name ] : null;
 
         }
 
@@ -7059,6 +7060,7 @@ class zbsDAL {
 
         // if it thinks str is json, it'll decode + return obj, otherwise returns str
         // this only works with arr/obj
+        // Note that `[]` doesn't hydrate into array with this
         public function decodeIfJSON($str=''){
 
             if (zeroBSCRM_isJson($str)) return json_decode($str,true); // true req. https://stackoverflow.com/questions/22878219/json-encode-turns-array-into-an-object

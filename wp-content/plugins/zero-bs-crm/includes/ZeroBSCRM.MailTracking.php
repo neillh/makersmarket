@@ -442,9 +442,9 @@ function zeroBSCRM_mailDelivery_getTemplateStats($ID){
 		$sent = $r[0]->zbs_sent;
 		$open = round(100*($r[0]->zbs_opened / $r[0]->zbs_sent),0);
 		$click = round(100*($r[0]->zbs_clicked / $r[0]->zbs_sent),0);
-		_e($sent . " SENT, ".$open."% OPENED", 'zero-bs-crm');
+		esc_html_e($sent . " SENT, ".$open."% OPENED", 'zero-bs-crm');
 	}else{
-		_e("0 SENT, 0% OPENED", 'zero-bs-crm');		
+		esc_html_e("0 SENT, 0% OPENED", 'zero-bs-crm');		
 	}
 }
 

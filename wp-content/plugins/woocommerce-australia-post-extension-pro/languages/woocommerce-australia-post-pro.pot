@@ -1,0 +1,569 @@
+# Copyright (C) 2019 WPRuby
+# This file is distributed under the same license as the Australia Post WooCommerce core PRO plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Australia Post WooCommerce core PRO 2.4.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/woocommerce-australia-post-extension-pro\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2019-04-01T22:31:45+02:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.1.0\n"
+"X-Domain: woocommerce-australia-post-pro\n"
+
+#. Plugin Name of the plugin
+msgid "Australia Post WooCommerce core PRO"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://wpruby.com/plugin/australia-post-woocommerce-extension-pro/"
+msgstr ""
+
+#. Description of the plugin
+msgid "The PRO version of WooCommerce Australian Post Shipping Method."
+msgstr ""
+
+#. Author of the plugin
+msgid "WPRuby"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://wpruby.com"
+msgstr ""
+
+#: includes/class-australia-post-seperated-fees.php:102
+#: class-australian-post.php:436
+msgid "Extra Cover"
+msgstr ""
+
+#: includes/class-australia-post-seperated-fees.php:107
+#: includes/class-australia-post-seperated-fees.php:176
+#: class-australian-post.php:429
+msgid "Signature on Delivery"
+msgstr ""
+
+#: includes/class-australia-post-tracking.php:45
+msgid "Australia Post Tracking"
+msgstr ""
+
+#: includes/class-australia-post-tracking.php:61
+msgid "Tracking number"
+msgstr ""
+
+#: includes/class-australia-post-tracking.php:65
+msgid "Shipping date"
+msgstr ""
+
+#: includes/class-australia-post-tracking.php:109
+msgid "Click here to track your order"
+msgstr ""
+
+#: includes/class-australia-post-tracking.php:134
+msgid "Track"
+msgstr ""
+
+#: includes/admin-options.php:1
+msgid "Australia Post Settings"
+msgstr ""
+
+#: includes/admin-options.php:4
+msgid "Australia Post debug mode is activated, only administrators can use it."
+msgstr ""
+
+#: includes/admin-options.php:24
+msgid "Plugin Support"
+msgstr ""
+
+#: includes/admin-options.php:30
+msgid "Got a Question, Idea, Problem or Praise?"
+msgstr ""
+
+#: includes/admin-options.php:32
+msgid "Add/Update Your license"
+msgstr ""
+
+#: includes/admin-options.php:33
+msgid "Support Request"
+msgstr ""
+
+#: includes/admin-options.php:34
+msgid "Documentation and Common issues"
+msgstr ""
+
+#: includes/admin-options.php:35
+msgid "Our Plugins Shop"
+msgstr ""
+
+#: includes/admin-options.php:44
+msgid "WPRuby Blog"
+msgstr ""
+
+#: includes/views/satchels_html.php:3
+msgid "Using Australia Post Satchels"
+msgstr ""
+
+#: includes/views/satchels_html.php:10
+msgid "Regular Parcel Post"
+msgstr ""
+
+#: includes/views/satchels_html.php:11
+msgid "Express Post"
+msgstr ""
+
+#: includes/views/satchels_html.php:12
+msgid "Courier Post"
+msgstr ""
+
+#: includes/views/satchels_html.php:27
+#: includes/views/satchels_html.php:57
+msgid "Small satchel"
+msgstr ""
+
+#: includes/views/satchels_html.php:28
+#: includes/views/satchels_html.php:58
+msgid "(Holds up to 500g 355 x 220mm)"
+msgstr ""
+
+#: includes/views/satchels_html.php:34
+#: includes/views/satchels_html.php:64
+msgid "1Kg satchel"
+msgstr ""
+
+#: includes/views/satchels_html.php:35
+#: includes/views/satchels_html.php:65
+msgid "(Holds up to 1kg 385 x 265mm)"
+msgstr ""
+
+#: includes/views/satchels_html.php:41
+#: includes/views/satchels_html.php:71
+#: includes/views/satchels_html.php:86
+msgid "Medium satchel"
+msgstr ""
+
+#: includes/views/satchels_html.php:42
+#: includes/views/satchels_html.php:72
+#: includes/views/satchels_html.php:87
+msgid "(Holds up to 3kg 405 x 310mm)"
+msgstr ""
+
+#: includes/views/satchels_html.php:48
+#: includes/views/satchels_html.php:78
+msgid "Large satchel"
+msgstr ""
+
+#: includes/views/satchels_html.php:49
+#: includes/views/satchels_html.php:79
+msgid "(Holds up to 5kg 510 x 435mm)"
+msgstr ""
+
+#: includes/views/satchels_html.php:92
+msgid "Domestic satchels make sending easy, giving you a fixed price upfront so you'll always know your postage costs."
+msgstr ""
+
+#: includes/views/custom_boxes_html.php:11
+msgid "Add your own boxes"
+msgstr ""
+
+#: includes/views/custom_boxes_html.php:18
+msgid "Box Name"
+msgstr ""
+
+#: includes/views/custom_boxes_html.php:19
+msgid "Outer Length"
+msgstr ""
+
+#: includes/views/custom_boxes_html.php:20
+msgid "Outer Width"
+msgstr ""
+
+#: includes/views/custom_boxes_html.php:21
+msgid "Outer Height"
+msgstr ""
+
+#: includes/views/custom_boxes_html.php:22
+msgid "Empty Weight"
+msgstr ""
+
+#: includes/views/custom_boxes_html.php:23
+msgid "Inner Length"
+msgstr ""
+
+#: includes/views/custom_boxes_html.php:24
+msgid "Inner Width"
+msgstr ""
+
+#: includes/views/custom_boxes_html.php:25
+msgid "Inner Height"
+msgstr ""
+
+#: includes/views/custom_boxes_html.php:26
+msgid "Maximum Weight"
+msgstr ""
+
+#: includes/views/custom_boxes_html.php:50
+msgid "Add New Box"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:3
+msgid "Custom Shipping Titles"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:10
+#: class-australian-post.php:353
+msgid "Domestic Options"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:11
+#: class-australian-post.php:361
+msgid "International Options"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:15
+msgid "Australia Post Regular Post"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:16
+msgid "Australia Post Economy Air"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:19
+msgid "Australia Post Express Post"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:20
+msgid "Australia Post Economy Sea"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:23
+msgid "Australia Post Courier Post"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:24
+msgid "Australia Post Standard International"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:28
+msgid "Australia Post Courier International"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:32
+msgid "Australia Post Express International"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:36
+#: class-australian-post.php:415
+msgid "Domestic Letters Options"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:41
+msgid "Regular Small Letter"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:42
+msgid "Regular Large Letter"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:45
+msgid "Express Post Small Envelope"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:46
+msgid "Express Post Medium Letter"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:49
+msgid "Express Post Large Envelope"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:53
+msgid "Regular Large Light Letter"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:54
+msgid "Regular Large Medium Letter"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:57
+msgid "Regular Large Heavy Letter"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:58
+msgid "Priority Small Letter"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:61
+msgid "Priority Large Light Letter"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:62
+msgid "Priority Large Medium Letter"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:65
+msgid "Priority Large Heavy Letter"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:71
+#: class-australian-post.php:422
+msgid "International Letters Options"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:76
+msgid "Standard Letter"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:77
+msgid "Express Letter"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:80
+msgid "Courier Letter"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:81
+msgid "Registered Small Letter"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:84
+msgid "Registered Large Letter"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:85
+msgid "Registered Small Envelope"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:89
+msgid "Registered Large Envelope"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:90
+msgid "Economy Air Light Letter"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:94
+msgid "Economy Air Medium Letter"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:95
+msgid "Economy Air Heavy Letter"
+msgstr ""
+
+#: includes/views/custom_titles_html.php:98
+msgid "You can customize shipping options titles in cart and checkout pages, but delivery times can not be customized because they are constantly changed by Australia Post."
+msgstr ""
+
+#: includes/metaboxes/packaging.php:20
+msgid "How to package this order."
+msgstr ""
+
+#: includes/metaboxes/packaging.php:244
+msgid "Package"
+msgstr ""
+
+#: includes/metaboxes/packaging.php:245
+msgid "Content"
+msgstr ""
+
+#: includes/metaboxes/packaging.php:246
+msgid "Total Weight"
+msgstr ""
+
+#: includes/metaboxes/packaging.php:247
+msgid "Best Possible Size"
+msgstr ""
+
+#: includes/metaboxes/packaging.php:248
+msgid "From PostCode"
+msgstr ""
+
+#: includes/metaboxes/packaging.php:374
+#: includes/metaboxes/packaging.php:380
+#: includes/metaboxes/packaging.php:383
+msgid "Large Satchel"
+msgstr ""
+
+#: includes/metaboxes/packaging.php:377
+#: includes/metaboxes/packaging.php:389
+#: includes/metaboxes/packaging.php:395
+msgid "Medium Satchel"
+msgstr ""
+
+#: includes/metaboxes/packaging.php:392
+#: includes/metaboxes/packaging.php:401
+msgid "Small Satchel"
+msgstr ""
+
+#: australian-post.php:104
+msgid "Dropshipper Postcode"
+msgstr ""
+
+#: australian-post.php:106
+msgid "The shipping cost of this product will be calculated based on this postcode, leave it empty to use your shop postcode."
+msgstr ""
+
+#: class-australian-post.php:233
+msgid "Australia Post Pro"
+msgstr ""
+
+#: class-australian-post.php:234
+msgid "Australia Post"
+msgstr ""
+
+#: class-australian-post.php:301
+msgid "Method Title"
+msgstr ""
+
+#: class-australian-post.php:303
+msgid "This controls the title"
+msgstr ""
+
+#: class-australian-post.php:304
+msgid "Australia Post Shipping"
+msgstr ""
+
+#: class-australian-post.php:308
+msgid "Enable Debug Mode"
+msgstr ""
+
+#: class-australian-post.php:310
+#: class-australian-post.php:384
+#: class-australian-post.php:391
+msgid "Enable "
+msgstr ""
+
+#: class-australian-post.php:315
+msgid "API Key"
+msgstr ""
+
+#: class-australian-post.php:317
+msgid "You can get your own key from <a href=\"https://developers.auspost.com.au/apis/pacpcs-registration\" target=\"_blank\">here</a>, or you can keep using this one."
+msgstr ""
+
+#: class-australian-post.php:321
+msgid "Shop Origin Post Code"
+msgstr ""
+
+#: class-australian-post.php:324
+msgid "Enter your Shop postcode."
+msgstr ""
+
+#: class-australian-post.php:328
+msgid "Handling Fees"
+msgstr ""
+
+#: class-australian-post.php:331
+msgid "(Optional) Enter an amount e.g. 3.5 or a percentage e.g. 3% PS: you can use negative values e.g -3.5"
+msgstr ""
+
+#: class-australian-post.php:335
+msgid "Default Package Weight"
+msgstr ""
+
+#: class-australian-post.php:339
+msgid "Weight unit: "
+msgstr ""
+
+#: class-australian-post.php:346
+msgid "Fallback Price"
+msgstr ""
+
+#: class-australian-post.php:350
+msgid "The plugin will display this price in case Australia Post service doesn't return any prices. Leave it blank to disable the fallback price functionality."
+msgstr ""
+
+#: class-australian-post.php:368
+msgid "Rates "
+msgstr ""
+
+#: class-australian-post.php:371
+msgid "Choose whether the plugin shows the cheapest rate or all rates to the customer."
+msgstr ""
+
+#: class-australian-post.php:373
+msgid "Show All The Options"
+msgstr ""
+
+#: class-australian-post.php:374
+msgid "Show only the cheapest option"
+msgstr ""
+
+#: class-australian-post.php:382
+msgid "De-emphasize Satchels Dimensions"
+msgstr ""
+
+#: class-australian-post.php:386
+msgid "Enable this option if you think the plugin should ignore the pre-paid satchel max dimensions in order to make their calculations more flexible."
+msgstr ""
+
+#: class-australian-post.php:389
+msgid "Delivery Time"
+msgstr ""
+
+#: class-australian-post.php:393
+msgid "Show Delivery Time Estimation on the Cart and Checkout pages. PS: Delivery time is only available for domestic shipping."
+msgstr ""
+
+#: class-australian-post.php:396
+msgid "Enable Packing Table"
+msgstr ""
+
+#: class-australian-post.php:398
+#: class-australian-post.php:405
+#: class-australian-post.php:432
+#: class-australian-post.php:439
+#: class-australian-post.php:446
+#: class-australian-post.php:453
+msgid "Enable"
+msgstr ""
+
+#: class-australian-post.php:400
+msgid "This feature is under testing. Enabling the option will show/hide the packing guide table on the order details page of WooCommerce. "
+msgstr ""
+
+#: class-australian-post.php:403
+msgid "Enable Letters Shipping for small products."
+msgstr ""
+
+#: class-australian-post.php:433
+#: class-australian-post.php:440
+msgid "Hint: Enabling this option will charge the extra shipping cost to the customer"
+msgstr ""
+
+#: class-australian-post.php:443
+msgid "Separate Extra Services"
+msgstr ""
+
+#: class-australian-post.php:447
+msgid "Hint: Enabling this option will separate the Extra Cover and Signature on Delivery costs. Users will be able to choose whether they want this extra services or not."
+msgstr ""
+
+#: class-australian-post.php:450
+msgid "Remove GST"
+msgstr ""
+
+#: class-australian-post.php:454
+msgid "Hint: Enabling this option will strip the GST(tax) value (10%) from the shipping prices coming from Australia Post."
+msgstr ""
+
+#: class-australian-post.php:491
+msgid "Australia Post debug mode is on - to hide these messages, turn debug mode off in the plugin's settings page."
+msgstr ""
+
+#: class-australian-post.php:1565
+msgid "Default Package Size"
+msgstr ""
+
+#: class-australian-post.php:1569
+msgid "Length"
+msgstr ""
+
+#: class-australian-post.php:1570
+msgid "Width"
+msgstr ""
+
+#: class-australian-post.php:1571
+msgid "Height"
+msgstr ""

@@ -334,7 +334,7 @@ html, body {
   max-width: 90%;
   margin-left: 5%;
 }
-#zbs-email-body .zbs-date {
+#zbs-email-body .zbs-email-date {
   color: #ccc;
 }
 #zbs-email-body .zbs-email-subject {

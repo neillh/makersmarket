@@ -40,7 +40,7 @@ $cID = zeroBS_getCustomerIDWithEmail($uinfo->user_email);
 				$page_title = __("Welcome to your Dashboard","zero-bs-crm");
 				$page_title = apply_filters('zbs_portal_dashboard_title', $page_title);
 			?>
-		<h2><?php echo $page_title; ?></h2>
+		<h2><?php echo esc_html( $page_title ); ?></h2>
 		<div class='zbs-entry-content' style="position:relative;">
 			<p>
 				<?php

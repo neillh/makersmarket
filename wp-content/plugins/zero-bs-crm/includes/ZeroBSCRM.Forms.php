@@ -157,14 +157,14 @@ class ZBS_Form_Widget extends WP_Widget {
         }
         ?>
         <p>
-        <label for="<?php echo $this->get_field_name( 'title' ); ?>"><?php _e( 'Title:', 'zero-bs-crm' ); ?></label>
-        <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+        <label for="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'zero-bs-crm' ); ?></label>
+        <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
         </p>
 
 		<p>
-	      <label for="<?php echo $this->get_field_id('text'); ?>">Style: 
-	        <select class='widefat' id="<?php echo $this->get_field_id('style'); ?>"
-	                name="<?php echo $this->get_field_name('style'); ?>" type="text">
+	      <label for="<?php echo esc_attr( $this->get_field_id('text') ); ?>">Style: 
+	        <select class='widefat' id="<?php echo esc_attr( $this->get_field_id('style') ); ?>"
+	                name="<?php echo esc_attr( $this->get_field_name('style') ); ?>" type="text">
 	          <option value='naked'<?php echo ($style=='naked')?'selected':''; ?>>
 	            Naked
 	          </option>
@@ -179,8 +179,8 @@ class ZBS_Form_Widget extends WP_Widget {
 	     </p>
 
         <p>
-        <label for="<?php echo $this->get_field_name( 'id' ); ?>"><?php _e( 'Form ID:', 'zero-bs-crm' ); ?></label>
-        <input class="widefat" id="<?php echo $this->get_field_id( 'id' ); ?>" name="<?php echo $this->get_field_name( 'id' ); ?>" type="text" value="<?php echo esc_attr( $id ); ?>" />
+        <label for="<?php echo esc_attr( $this->get_field_name( 'id' ) ); ?>"><?php esc_html_e( 'Form ID:', 'zero-bs-crm' ); ?></label>
+        <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'id' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'id' ) ); ?>" type="text" value="<?php echo esc_attr( $id ); ?>" />
         </p>
 
         <?php
@@ -272,31 +272,31 @@ function jpcrm_simple_form_html( $formid = -1, $formObject = array() ) {
 	ob_start();
 
 	?>
-		<div class="zbscrmFrontEndForm" id="zbs_form_<?php echo $formid; ?>">
+		<div class="zbscrmFrontEndForm" id="zbs_form_<?php echo esc_attr( $formid ); ?>">
 			<div id="zbs_form_ajax_action" data-zbsformajax="<?php echo esc_url( admin_url('admin-ajax.php') ); ?>"></div>
 			<div class="embed">
 				<div class="simple" style="border:0px !important">
 					<div class="content">
-						<h1><?php echo !empty($formObject['label_header']) ? $formObject['label_header'] : __("Want to find out more?",'zero-bs-crm'); ?></h1>
-						<h3><?php echo !empty($formObject['label_subheader']) ? $formObject['label_subheader'] : __("Drop us a line. We follow up on all contacts",'zero-bs-crm'); ?></h3>
+						<h1><?php echo !empty($formObject['label_header']) ? esc_html( $formObject['label_header'] ) : esc_html__("Want to find out more?",'zero-bs-crm'); ?></h1>
+						<h3><?php echo !empty($formObject['label_subheader']) ? esc_html( $formObject['label_subheader'] ) : esc_html__("Drop us a line. We follow up on all contacts",'zero-bs-crm'); ?></h3>
 						<div class="form-wrapper zbsFormWrap">
-							<input class="input" type="text" id="zbs_email" name="zbs_email" placeholder="<?php echo !empty($formObject['label_email']) ? esc_attr( $formObject['label_email'] ) : __("Email Address",'zero-bs-crm'); ?>" value=""/>
+							<input class="input" type="text" id="zbs_email" name="zbs_email" placeholder="<?php echo !empty($formObject['label_email']) ? esc_attr( $formObject['label_email'] ) : esc_attr__("Email Address",'zero-bs-crm'); ?>" value=""/>
 							<input class="input" type="hidden" id="zbs_hpot_email" name="zbs_hpot_email" value=""/>
-							<input class="input" type="hidden" class="zbs_form_view_id" id="zbs_form_view_id" name="zbs_form_id" value="<?php echo $formid; ?>" />
+							<input class="input" type="hidden" class="zbs_form_view_id" id="zbs_form_view_id" name="zbs_form_id" value="<?php echo esc_attr( $formid ); ?>" />
 							<input class="input" type="hidden" id="zbs_form_style" name="zbs_form_style" value="zbs_simple" />
 							<input type="hidden" name="action" value="zbs_lead_form">
 							<?php echo zeroBSCRM_forms_getRecaptcha(); ?>
-							<input class="send" type="submit" value="<?php echo !empty($formObject['label_button']) ? esc_html( $formObject['label_button'] ) : __("Submit",'zero-bs-crm'); ?>"/>
+							<input class="send" type="submit" value="<?php echo !empty($formObject['label_button']) ? esc_attr( $formObject['label_button'] ) : esc_attr__("Submit",'zero-bs-crm'); ?>"/>
 							<div class="clear"></div>
-							<div class="trailer"><?php echo !empty($formObject['label_spammsg']) ? esc_html( $formObject['label_spammsg'] ) : __("We will not send you spam. Our team will be in touch within 24 to 48 hours Mon-Fri (but often much quicker)",'zero-bs-crm'); ?></div>
+							<div class="trailer"><?php echo !empty($formObject['label_spammsg']) ? esc_html( $formObject['label_spammsg'] ) : esc_html__("We will not send you spam. Our team will be in touch within 24 to 48 hours Mon-Fri (but often much quicker)",'zero-bs-crm'); ?></div>
 						</div>
-						<div class="zbsForm_success"><?php echo !empty($formObject['label_successmsg']) ? esc_html( $formObject['label_successmsg'] ) : __("Thanks. We will be in touch.",'zero-bs-crm'); ?></div>
+						<div class="zbsForm_success"><?php echo !empty($formObject['label_successmsg']) ? esc_html( $formObject['label_successmsg'] ) : esc_html__("Thanks. We will be in touch.",'zero-bs-crm'); ?></div>
 						<?php
 							##WLREMOVE
 							global $zbs;
 							$showpoweredby_public = $zbs->settings->get( 'showpoweredby_public' ) === 1 ? true : false;
 							if( $showpoweredby_public ) {
-								?><div class="zbs_poweredby" style="font-size:11px;">Powered by <a href="<?php echo $zbs->urls['home']; ?>" target="_blank">Jetpack CRM</a></div><?php
+								?><div class="zbs_poweredby" style="font-size:11px;">Powered by <a href="<?php echo esc_url( $zbs->urls['home'] ); ?>" target="_blank">Jetpack CRM</a></div><?php
 							}
 							##/WLREMOVE
 						?>
@@ -320,30 +320,30 @@ function jpcrm_naked_form_html( $formid = -1, $formObject = array() ) {
 	ob_start();
 
 	?>
-		<div class="zbscrmFrontEndForm" id="zbs_form_<?php echo $formid; ?>">
+		<div class="zbscrmFrontEndForm" id="zbs_form_<?php echo esc_attr( $formid ); ?>">
 			<div id="zbs_form_ajax_action" data-zbsformajax="<?php echo esc_url( admin_url('admin-ajax.php') ); ?>"></div>
 			<div class="embed">
 				<div class="naked" style="border:0px !important">
 					<div class="content">
 						<div class="form-wrapper zbsFormWrap">
-							<input class="input" type="text" id="zbs_fname" name="zbs_fname" placeholder="<?php echo !empty($formObject['label_firstname']) ? esc_attr( $formObject['label_firstname'] ) : __("First Name",'zero-bs-crm'); ?>" value=""/>
-							<input class="input" type="text" id="zbs_email" name="zbs_email" placeholder="<?php echo !empty($formObject['label_email']) ? esc_attr( $formObject['label_email'] ) : __("Email Address",'zero-bs-crm'); ?>" value=""/>
+							<input class="input" type="text" id="zbs_fname" name="zbs_fname" placeholder="<?php echo !empty($formObject['label_firstname']) ? esc_attr( $formObject['label_firstname'] ) : esc_attr__("First Name",'zero-bs-crm'); ?>" value=""/>
+							<input class="input" type="text" id="zbs_email" name="zbs_email" placeholder="<?php echo !empty($formObject['label_email']) ? esc_attr( $formObject['label_email'] ) : esc_attr__("Email Address",'zero-bs-crm'); ?>" value=""/>
 							<input class="input" type="hidden" id="zbs_hpot_email" name="zbs_hpot_email" value=""/>
-							<input class="input" type="hidden" class="zbs_form_view_id" id="zbs_form_view_id" name="zbs_form_id" value="<?php echo $formid; ?>" />
+							<input class="input" type="hidden" class="zbs_form_view_id" id="zbs_form_view_id" name="zbs_form_id" value="<?php echo esc_attr( $formid ); ?>" />
 							<input class="input" type="hidden" id="zbs_form_style" name="zbs_form_style" value="zbs_naked" />
 							<input type="hidden" name="action" value="zbs_lead_form">
 							<?php echo zeroBSCRM_forms_getRecaptcha(); ?>
-							<input class="send" type="submit" value="<?php echo !empty($formObject['label_button']) ? esc_attr( $formObject['label_button'] ) : __("Submit",'zero-bs-crm'); ?>"/>
+							<input class="send" type="submit" value="<?php echo !empty($formObject['label_button']) ? esc_attr( $formObject['label_button'] ) : esc_attr__("Submit",'zero-bs-crm'); ?>"/>
 							<div class="clear"></div>
-							<div class="trailer"><?php echo !empty($formObject['label_spammsg']) ? esc_html( $formObject['label_spammsg'] ) : __("We will not send you spam. Our team will be in touch within 24 to 48 hours Mon-Fri (but often much quicker)",'zero-bs-crm'); ?></div>
+							<div class="trailer"><?php echo !empty($formObject['label_spammsg']) ? esc_html( $formObject['label_spammsg'] ) : esc_html__("We will not send you spam. Our team will be in touch within 24 to 48 hours Mon-Fri (but often much quicker)",'zero-bs-crm'); ?></div>
 						</div>
-						<div class="zbsForm_success"><?php echo !empty($formObject['label_successmsg']) ? esc_html( $formObject['label_successmsg'] ) : __("Thanks. We will be in touch.",'zero-bs-crm'); ?></div>
+						<div class="zbsForm_success"><?php echo !empty($formObject['label_successmsg']) ? esc_html( $formObject['label_successmsg'] ) : esc_html__("Thanks. We will be in touch.",'zero-bs-crm'); ?></div>
 						<?php
 							##WLREMOVE
 							global $zbs;
 							$showpoweredby_public = $zbs->settings->get( 'showpoweredby_public' ) === 1 ? true : false;
 							if( $showpoweredby_public ) {
-								?><div class="zbs_poweredby" style="font-size:11px;">Powered by <a href="<?php echo $zbs->urls['home']; ?>" target="_blank">Jetpack CRM</a></div><?php
+								?><div class="zbs_poweredby" style="font-size:11px;">Powered by <a href="<?php echo esc_url( $zbs->urls['home'] ); ?>" target="_blank">Jetpack CRM</a></div><?php
 							}
 							##/WLREMOVE
 						?>
@@ -366,34 +366,34 @@ function jpcrm_content_form_html( $formid = -1, $formObject = array() ) {
 	ob_start();
 
 	?>
-		<div class="zbscrmFrontEndForm" id="zbs_form_<?php echo $formid; ?>">
+		<div class="zbscrmFrontEndForm" id="zbs_form_<?php echo esc_attr( $formid ); ?>">
 			<div id="zbs_form_ajax_action" data-zbsformajax="<?php echo esc_url( admin_url('admin-ajax.php') ); ?>"></div>
 			<div class="embed">
 				<div class="cgrab" style="border:0px !important">
 					<div class="content">
-						<h1><?php echo !empty($formObject['label_header']) ? $formObject['label_header'] : __("Want to find out more?",'zero-bs-crm'); ?></h1>
-						<h3><?php echo !empty($formObject['label_subheader']) ? $formObject['label_subheader'] : __("Drop us a line. We follow up on all contacts",'zero-bs-crm'); ?></h3>
+						<h1><?php echo !empty($formObject['label_header']) ? esc_html( $formObject['label_header'] ) : esc_html__("Want to find out more?",'zero-bs-crm'); ?></h1>
+						<h3><?php echo !empty($formObject['label_subheader']) ? esc_html( $formObject['label_subheader'] ) : esc_html__("Drop us a line. We follow up on all contacts",'zero-bs-crm'); ?></h3>
 						<div class="form-wrapper zbsFormWrap">
-							<input class="input" type="text" id="zbs_fname" name="zbs_fname" placeholder="<?php echo !empty($formObject['label_firstname']) ? esc_attr( $formObject['label_firstname'] ) : __("First Name",'zero-bs-crm'); ?>" value=""/>
-							<input class="input" type="text" id="zbs_lname" name="zbs_lname" placeholder="<?php echo !empty($formObject['label_lastname']) ? esc_attr( $formObject['label_lastname'] ) : __("Last Name",'zero-bs-crm'); ?>" value=""/>
-							<input class="input" type="text" id="zbs_email" name="zbs_email" placeholder="<?php echo !empty($formObject['label_email']) ? esc_attr( $formObject['label_email'] ) : __("Email Address",'zero-bs-crm'); ?>" value=""/>
-							<textarea class="textarea" id="zbs_notes" name="zbs_notes" placeholder="<?php echo !empty($formObject['label_message']) ? esc_attr( $formObject['label_message'] ) : __("Your Message",'zero-bs-crm'); ?>"></textarea>
+							<input class="input" type="text" id="zbs_fname" name="zbs_fname" placeholder="<?php echo !empty($formObject['label_firstname']) ? esc_attr( $formObject['label_firstname'] ) : esc_attr__("First Name",'zero-bs-crm'); ?>" value=""/>
+							<input class="input" type="text" id="zbs_lname" name="zbs_lname" placeholder="<?php echo !empty($formObject['label_lastname']) ? esc_attr( $formObject['label_lastname'] ) : esc_attr__("Last Name",'zero-bs-crm'); ?>" value=""/>
+							<input class="input" type="text" id="zbs_email" name="zbs_email" placeholder="<?php echo !empty($formObject['label_email']) ? esc_attr( $formObject['label_email'] ) : esc_attr__("Email Address",'zero-bs-crm'); ?>" value=""/>
+							<textarea class="textarea" id="zbs_notes" name="zbs_notes" placeholder="<?php echo !empty($formObject['label_message']) ? esc_attr( $formObject['label_message'] ) : esc_attr__("Your Message",'zero-bs-crm'); ?>"></textarea>
 							<input class="input" type="hidden" id="zbs_hpot_email" name="zbs_hpot_email" value=""/>
-							<input class="input" type="hidden" class="zbs_form_view_id" id="zbs_form_view_id" name="zbs_form_id" value="<?php echo $formid; ?>" />
+							<input class="input" type="hidden" class="zbs_form_view_id" id="zbs_form_view_id" name="zbs_form_id" value="<?php echo esc_attr( $formid ); ?>" />
 							<input class="input" type="hidden" id="zbs_form_style" name="zbs_form_style" value="zbs_cgrab" />
 							<input type="hidden" name="action" value="zbs_lead_form">
 							<?php echo zeroBSCRM_forms_getRecaptcha(); ?>
-							<input class="send" type="submit" value="<?php echo !empty($formObject['label_button']) ? esc_attr( $formObject['label_button'] ) : __("Submit",'zero-bs-crm'); ?>"/>
+							<input class="send" type="submit" value="<?php echo !empty($formObject['label_button']) ? esc_attr( $formObject['label_button'] ) : esc_attr__("Submit",'zero-bs-crm'); ?>"/>
 							<div class="clear"></div>
-							<div class="trailer"><?php echo !empty($formObject['label_spammsg']) ? esc_html( $formObject['label_spammsg'] ) : __("We will not send you spam. Our team will be in touch within 24 to 48 hours Mon-Fri (but often much quicker)",'zero-bs-crm'); ?></div>
+							<div class="trailer"><?php echo !empty($formObject['label_spammsg']) ? esc_html( $formObject['label_spammsg'] ) : esc_html__("We will not send you spam. Our team will be in touch within 24 to 48 hours Mon-Fri (but often much quicker)",'zero-bs-crm'); ?></div>
 						</div>
-						<div class="zbsForm_success"><?php echo !empty($formObject['label_successmsg']) ? esc_html( $formObject['label_successmsg'] ) : __("Thanks. We will be in touch.",'zero-bs-crm'); ?></div>
+						<div class="zbsForm_success"><?php echo !empty($formObject['label_successmsg']) ? esc_html( $formObject['label_successmsg'] ) : esc_html__("Thanks. We will be in touch.",'zero-bs-crm'); ?></div>
 						<?php
 							##WLREMOVE
 							global $zbs;
 							$showpoweredby_public = $zbs->settings->get( 'showpoweredby_public' ) === 1 ? true : false;
 							if( $showpoweredby_public ) {
-								?><div class="zbs_poweredby" style="font-size:11px;">Powered by <a href="<?php echo $zbs->urls['home']; ?>" target="_blank">Jetpack CRM</a></div><?php
+								?><div class="zbs_poweredby" style="font-size:11px;">Powered by <a href="<?php echo esc_url( $zbs->urls['home'] ); ?>" target="_blank">Jetpack CRM</a></div><?php
 							}
 							##/WLREMOVE
 						?>

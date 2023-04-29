@@ -246,7 +246,7 @@ if ( ! defined('ABSPATH') ) exit;
                         $export_data[$schema->ID]['post']      = (array)$schema;                    
                         $post_meta                             = get_post_meta($schema->ID);    
 
-                        if($post_meta){
+                        if(!empty($post_meta)){
 
                             foreach ($post_meta as $key => $meta){
 
@@ -631,7 +631,7 @@ if ( ! defined('ABSPATH') ) exit;
         
                     global $wpdb;
         
-                    $schema_types = array('Event', 'Person', 'Product', 'Recipe', 'Article', 'Service', 'VideoObject', 'SoftwareApplication');
+                    $schema_types = array('Event', 'Person', 'Product', 'Recipe', 'Article', 'ScholarlyArticle', 'Service', 'VideoObject', 'SoftwareApplication');
                                        
                     $args_event   = get_option('bsf_event');
                     $args_person  = get_option('bsf_person');
@@ -734,6 +734,16 @@ if ( ! defined('ABSPATH') ) exit;
                                  $fixed_text['saswp_article_organization_logo']    = $args_article["article_publisher_logo"];
                                  
                                  break;
+                            case 'ScholarlyArticle':
+                                                            
+                                $fixed_text['saswp_scholarlyarticle_image']                = $args_article["scholarlyarticle_name"];
+                                $fixed_text['saswp_scholarlyarticle_headline']             = $args_article["snippet_title"];                                                                  
+                                $fixed_text['saswp_scholarlyarticle_description']          = $args_article["scholarlyarticle_desc"];
+                                $fixed_text['saswp_scholarlyarticle_author_name']          = $args_article["scholarlyarticle_author"];
+                                $fixed_text['saswp_scholarlyarticle_organization_name']    = $args_article["scholarlyarticle_publisher"];
+                                $fixed_text['saswp_scholarlyarticle_organization_logo']    = $args_article["scholarlyarticle_publisher_logo"];
+                                
+                                break;
                              case 'Service':
                                  
                                  $fixed_text['saswp_service_schema_name']          = $args_service["snippet_title"];
@@ -1947,42 +1957,44 @@ if ( ! defined('ABSPATH') ) exit;
      */
     function saswp_get_attachment_details($attachments, $post_id = null) {
         
-        $response = array();
-        
         $cached_data = get_transient('saswp_imageobject_' .$post_id); 
         
         if (empty($cached_data)) {
-                       
-            foreach ($attachments as $url){
-             
-                $image_data = array();    
-
-                $image = @getimagesize($url);
-
-                if(is_array($image)){
-
-                    $image_data[0] =  $image[0]; //width
-                    $image_data[1] =  $image[1]; //height
-
-                }                                 
-            
-                if(empty($image) || $image == false){
-                    
-                    $img_id           = attachment_url_to_postid($url);
-                    $imageDetail      = wp_get_attachment_image_src( $img_id , 'full');
-
-                    if($imageDetail && is_array($imageDetail)){
-
-                        $image_data[0]    = $imageDetail[1]; // width
-                        $image_data[1]    = $imageDetail[2]; // height
-
-                    }                    
-                    
-                }
+            $response = array();        
+            if(!empty($attachments)){
+                foreach ($attachments as $url){
                 
-              $response[] = $image_data;  
-            }
-                                  
+                    if($url && $url != ""){
+
+                            $image_data = array();    
+
+                            $image = @getimagesize($url);
+
+                            if(is_array($image)){
+
+                                $image_data[0] =  $image[0]; //width
+                                $image_data[1] =  $image[1]; //height
+
+                            }                                 
+                        
+                            if(empty($image) || $image == false){
+                                
+                                $img_id           = attachment_url_to_postid($url);
+                                $imageDetail      = wp_get_attachment_image_src( $img_id , 'full');
+
+                                if($imageDetail && is_array($imageDetail)){
+
+                                    $image_data[0]    = $imageDetail[1]; // width
+                                    $image_data[1]    = $imageDetail[2]; // height
+
+                                }                    
+                                
+                            }
+                            
+                            $response[] = $image_data;  
+                    }
+                }
+            }                    
             set_transient('saswp_imageobject_' .$post_id, $response,  24*30*HOUR_IN_SECONDS );   
 
             $cached_data = $response;
@@ -2387,12 +2399,15 @@ if ( ! defined('ABSPATH') ) exit;
         }
 
         if(saswp_remove_warnings($sd_data, 'saswp-rankmath', 'saswp_string') == 1 && class_exists('RankMath\Post')){
-                        
-            $c_title = RankMath\Post::get_meta( 'title', get_the_ID() );
-        
-            if(empty($c_title)){
-                $c_title = RankMath\Paper\Paper::get()->get_title();
-            }
+                                            
+            if( is_tag() || is_tax() || is_category() ){
+                $c_title = RankMath\Post::get_meta( 'title', get_the_ID() );
+            }else{
+                $c_title = RankMath\Post::get_meta( 'title', get_the_ID() );
+                if(empty($c_title)){
+                    $c_title = RankMath\Paper\Paper::get()->get_title();
+                }
+            }            
 
             if($c_title){
 
@@ -2424,99 +2439,244 @@ if ( ! defined('ABSPATH') ) exit;
         global $post, $sd_data;
 
         $author_details = array();            
-
-        $author_id          = get_the_author_meta('ID');
-        $author_name 	    = get_the_author();
-        $author_desc        = get_the_author_meta( 'user_description' );     
-
-        if(!$author_name && is_object($post)){
-            $author_id    = get_post_field ( 'post_author', $post->ID);
-            $author_name  = get_the_author_meta( 'display_name' , $author_id );             
+        $is_multiple_authors = 0;
+        if(isset($sd_data['saswp-publish-press-authors']) && $sd_data['saswp-publish-press-authors'] == 1){
+            $multiple_authors = get_post_meta(get_the_ID(), 'ppma_authors_name');
+            if(!empty($multiple_authors) && isset($multiple_authors[0])){
+                $explode_authors = explode(',', $multiple_authors[0]);
+                if(count($explode_authors) > 1){
+                    $is_multiple_authors = 1;
+                }
+            }
         }
+        if($is_multiple_authors == 0){
+            $author_id          = get_the_author_meta('ID');
+            $author_name 	    = get_the_author();
+            $author_desc        = get_the_author_meta( 'user_description' );     
 
-        $author_meta =  get_user_meta($author_id);
-
-        $author_url   = get_author_posts_url( $author_id ); 
-        $same_as      = array();
-
-        $social_links = array('url', 'facebook', 'twitter', 'instagram', 'linkedin', 'myspace', 'pinterest', 'soundcloud', 'tumblr', 'youtube', 'wikipedia', 'jabber', 'yim', 'aim');
-
-        foreach($social_links as $links){
-
-            $url  = get_the_author_meta($links, $author_id );
-
-            if($url){
-                $same_as[] = $url;
+            if(!$author_name && is_object($post)){
+                $author_id    = get_post_field ( 'post_author', $post->ID);
+                $author_name  = get_the_author_meta( 'display_name' , $author_id );             
             }
 
-        }
-                        
-        $author_image = array();
-        
-        if(function_exists('get_avatar_data')){
-            $author_image	= get_avatar_data($author_id);
-        }
+            $author_meta =  get_user_meta($author_id);
+
+            $author_url   = get_author_posts_url( $author_id ); 
+            $same_as      = array();
+
+            $social_links = array('url', 'facebook', 'twitter', 'instagram', 'linkedin', 'myspace', 'pinterest', 'soundcloud', 'tumblr', 'youtube', 'wikipedia', 'jabber', 'yim', 'aim');
+
+            foreach($social_links as $links){
+
+                $url  = get_the_author_meta($links, $author_id );
+
+                if($url){
+                    $same_as[] = $url;
+                }
+
+            }
+                            
+            $author_image = array();
+            
+            if(function_exists('get_avatar_data')){
+                $author_image	= get_avatar_data($author_id);
+            }
+                    
+            $author_details['@type']           = 'Person';
+            $author_details['name']            = esc_attr($author_name);
+            if(!empty($author_desc)){
+                $author_details['description']     = wp_strip_all_tags(strip_shortcodes($author_desc)); 
+            }else{
+                if(!empty($author_meta['author_bio'][0])){
+                    $author_details['description'] =   $author_meta['author_bio'][0];
+                }
+            }
+            $author_details['url']             = esc_url($author_url);
+            $author_details['sameAs']          = $same_as;
+
+            if(!empty($author_meta['knowsabout'][0])){
+                $author_details['knowsAbout'] =   explode(',', $author_meta['knowsabout'][0]);
+            }
+
+            if(!empty($author_meta['honorificsuffix'][0])){
+                $author_details['honorificSuffix'] =  $author_meta['honorificsuffix'][0];
+            }
+
+            if(!empty($author_meta['alumniof'][0])){
+                $str =  $author_meta['alumniof'][0];
+                $itemlist = explode(",", $str);
+                if(!empty($itemlist)){
+                    foreach ($itemlist as $key => $list){
+                        $vnewarr['@type'] = 'Organization';
+                        $vnewarr['Name']   = $list;   
+                        $author_details['alumniOf'][] = $vnewarr;
+                    }
+                }
                 
-        $author_details['@type']           = 'Person';
-        $author_details['name']            = esc_attr($author_name);
-        if(!empty($author_desc)){
-            $author_details['description']     = wp_strip_all_tags(strip_shortcodes($author_desc)); 
-        }else{
-            if(!empty($author_meta['author_bio'][0])){
-                $author_details['description'] =   $author_meta['author_bio'][0];
             }
-        }
-        $author_details['url']             = esc_url($author_url);
-        $author_details['sameAs']          = $same_as;
 
-        if(!empty($author_meta['knowsabout'][0])){
-            $author_details['knowsAbout'] =   explode(',', $author_meta['knowsabout'][0]);
-        }
-
-        if(!empty($author_meta['honorificsuffix'][0])){
-            $author_details['honorificSuffix'] =  $author_meta['honorificsuffix'][0];
-        }
-
-        if(!empty($author_meta['alumniof'][0])){
-            $str =  $author_meta['alumniof'][0];
-            $itemlist = explode(",", $str);
-            foreach ($itemlist as $key => $list){
-                $vnewarr['@type'] = 'Organization';
-                $vnewarr['Name']   = $list;   
-                $author_details['alumniOf'][] = $vnewarr;
-            }
-        }
-
-        if(!empty($author_meta['author_image'][0])){
-            $author_image =  wp_get_attachment_image_src($author_meta['author_image'][0]);
-           
-            $author_details['image']['@type']  = 'ImageObject';
-            $author_details['image']['url']    = $author_image[0];
-            $author_details['image']['height'] = $author_image[1];
-            $author_details['image']['width']  = $author_image[2];
-
-        }elseif(isset($author_image['url']) && isset($author_image['height']) && isset($author_image['width'])){
-
-            $author_details['image']['@type']  = 'ImageObject';
-            $author_details['image']['url']    = $author_image['url'];
-            $author_details['image']['height'] = $author_image['height'];
-            $author_details['image']['width']  = $author_image['width'];
-        }
-        if(isset($sd_data['saswp-simple-author-box']) && $sd_data['saswp-simple-author-box'] == 1 && function_exists('sab_fs') ){
-
-            $sab_image = get_the_author_meta( 'sabox-profile-image', $author_id );
-
-            if($sab_image){
-
-                $image = @getimagesize($sab_image);
-
-                if($image){
+            if(!empty($author_meta['author_image'][0])){
+                $author_image =  wp_get_attachment_image_src($author_meta['author_image'][0]);
+                if(!empty($author_image)){
                     $author_details['image']['@type']  = 'ImageObject';
-                    $author_details['image']['url']    = $sab_image;
-                    $author_details['image']['height'] = $image[1];
-                    $author_details['image']['width']  = $image[0];
-                }                
-                                 
+                    $author_details['image']['url']    = $author_image[0];
+                    $author_details['image']['height'] = $author_image[1];
+                    $author_details['image']['width']  = $author_image[2];
+                }
+            }elseif(isset($author_image['url']) && isset($author_image['height']) && isset($author_image['width'])){
+
+                $author_details['image']['@type']  = 'ImageObject';
+                $author_details['image']['url']    = $author_image['url'];
+                $author_details['image']['height'] = $author_image['height'];
+                $author_details['image']['width']  = $author_image['width'];
+            }
+            if(isset($sd_data['saswp-simple-author-box']) && $sd_data['saswp-simple-author-box'] == 1 && function_exists('sab_fs') ){
+
+                $sab_image = get_the_author_meta( 'sabox-profile-image', $author_id );
+
+                if($sab_image){
+
+                    $image = @getimagesize($sab_image);
+
+                    if($image){
+                        $author_details['image']['@type']  = 'ImageObject';
+                        $author_details['image']['url']    = $sab_image;
+                        $author_details['image']['height'] = $image[1];
+                        $author_details['image']['width']  = $image[0];
+                    }                
+                                     
+                }
+            }
+        }else{
+            $author_details = saswp_get_multiple_author_details($author_details);
+        }    
+        return $author_details;
+    }
+    /**
+     * since @1.13
+     * Get the multiple author details 
+     * @global type $post
+     * @return type array
+     */
+    function saswp_get_multiple_author_details($author_details)
+    {
+        global $post, $sd_data, $wpdb;
+
+        if(isset($sd_data['saswp-publish-press-authors']) && $sd_data['saswp-publish-press-authors'] == 1){
+            $multiple_authors = get_post_meta(get_the_ID(), 'ppma_authors_name');
+            if(!empty($multiple_authors) && isset($multiple_authors[0])){
+                $explode_authors = explode(',', $multiple_authors[0]);
+                if(!empty($explode_authors) && is_array($explode_authors)){
+                    $auth_cnt = 0;
+                    $author_details = array(); 
+                    foreach ($explode_authors as $ea_key => $ea_value) {
+                        $table_name = $wpdb->prefix."users";
+                        $query = $wpdb->prepare("SELECT * FROM $table_name WHERE display_name = %s",trim($ea_value));
+                        $user_results = $wpdb->get_results($query, ARRAY_A);
+                        
+                        if(!empty($user_results) && isset($user_results[0])){
+                            if(isset($user_results[0]['ID'])){
+                                $author_id = $user_results[0]['ID'];  
+                                $author_name        = $ea_value;  
+                                $author_desc        = get_the_author_meta( 'user_description', $author_id);
+
+                                $author_meta =  get_user_meta($author_id);
+                                $author_url   = get_author_posts_url( $author_id ); 
+                                $same_as      = array();
+
+                                $social_links = array('url', 'facebook', 'twitter', 'instagram', 'linkedin', 'myspace', 'pinterest', 'soundcloud', 'tumblr', 'youtube', 'wikipedia', 'jabber', 'yim', 'aim');
+
+                                foreach($social_links as $links){
+
+                                    $url  = get_the_author_meta($links, $author_id );
+
+                                    if($url){
+                                        $same_as[] = $url;
+                                    }
+
+                                }
+
+                                $author_image = array();
+            
+                                if(function_exists('get_avatar_data')){
+                                    $author_image   = get_avatar_data($author_id);
+                                }
+                                        
+                                $author_details[$auth_cnt]['@type']           = 'Person';
+                                $author_details[$auth_cnt]['name']            = esc_attr($author_name);
+                                if(!empty($author_desc)){
+                                    $author_details[$auth_cnt]['description']     = wp_strip_all_tags(strip_shortcodes($author_desc)); 
+                                }else{
+                                    if(!empty($author_meta['author_bio'][0])){
+                                        $author_details[$auth_cnt]['description'] =   $author_meta['author_bio'][0];
+                                    }
+                                }
+                                $author_details[$auth_cnt]['url']             = esc_url($author_url);
+                                $author_details[$auth_cnt]['sameAs']          = $same_as;
+
+                                if(!empty($author_meta['knowsabout'][0])){
+                                    $author_details[$auth_cnt]['knowsAbout'] =   explode(',', $author_meta['knowsabout'][0]);
+                                }
+
+                                if(!empty($author_meta['honorificsuffix'][0])){
+                                    $author_details[$auth_cnt]['honorificSuffix'] =  $author_meta['honorificsuffix'][0];
+                                }
+
+                                if(!empty($author_meta['alumniof'][0])){
+                                    $str =  $author_meta['alumniof'][0];
+                                    $itemlist = explode(",", $str);
+                                    if(!empty($itemlist)){
+                                        foreach ($itemlist as $key => $list){
+                                            $vnewarr['@type'] = 'Organization';
+                                            $vnewarr['Name']   = $list;   
+                                            $author_details[$auth_cnt]['alumniOf'][] = $vnewarr;
+                                        }
+                                    }
+                                    
+                                }
+
+                                if(!empty($author_meta['author_image'][0])){
+                                    $author_image =  wp_get_attachment_image_src($author_meta['author_image'][0]);
+                                    if(!empty($author_image)){
+                                        $author_details[$auth_cnt]['image']['@type']  = 'ImageObject';
+                                        $author_details[$auth_cnt]['image']['url']    = $author_image[0];
+                                        $author_details[$auth_cnt]['image']['height'] = $author_image[1];
+                                        $author_details[$auth_cnt]['image']['width']  = $author_image[2];
+                                    }
+                                }elseif(isset($author_image['url']) && isset($author_image['height']) && isset($author_image['width'])){
+
+                                    $author_details[$auth_cnt]['image']['@type']  = 'ImageObject';
+                                    $author_details[$auth_cnt]['image']['url']    = $author_image['url'];
+                                    $author_details[$auth_cnt]['image']['height'] = $author_image['height'];
+                                    $author_details[$auth_cnt]['image']['width']  = $author_image['width'];
+                                }
+
+                                if(!empty(get_the_author_meta('user_email', $author_id))){
+                                    $author_details[$auth_cnt]['email']  = get_the_author_meta('user_email', $author_id);
+                                }
+
+                                if(isset($sd_data['saswp-simple-author-box']) && $sd_data['saswp-simple-author-box'] == 1 && function_exists('sab_fs') ){
+
+                                    $sab_image = get_the_author_meta( 'sabox-profile-image', $author_id );
+
+                                    if($sab_image){
+
+                                        $image = @getimagesize($sab_image);
+
+                                        if($image){
+                                            $author_details[$auth_cnt]['image']['@type']  = 'ImageObject';
+                                            $author_details[$auth_cnt]['image']['url']    = $sab_image;
+                                            $author_details[$auth_cnt]['image']['height'] = $image[1];
+                                            $author_details[$auth_cnt]['image']['width']  = $image[0];
+                                        }                
+                                                         
+                                    }
+                                }
+                                $auth_cnt++;
+                            }
+                        }
+                    }
+                }
             }
         }
 
@@ -2706,10 +2866,10 @@ function saswp_on_activation(){
 
 function saswp_context_url(){
     
-    $url = 'http://schema.org';
+    $url = 'http://schema.org/';
     
     if(is_ssl()){
-        $url = 'https://schema.org';
+        $url = 'https://schema.org/';
     }
     
     return $url;
@@ -3094,6 +3254,7 @@ function saswp_get_field_note($pname){
             'event_on'                    => saswp_t_string('Event On').' <a target="_blank" href="https://www.myeventon.com/">Event On</a>',
             'wordlift'                    => saswp_t_string('Requires').' <a target="_blank" href="https://wordpress.org/plugins/wordlift/">WordLift</a>',
             'ampforwp'                    => saswp_t_string('Requires').' <a target="_blank" href="https://wordpress.org/plugins/accelerated-mobile-pages/">AMP for WP</a>',
+            'bunyadamp'                   => saswp_t_string('Requires').' <a target="_blank" href="https://wordpress.org/plugins/accelerated-mobile-pages/">Bunyad AMP</a>',
             'quickandeasyfaq'             => saswp_t_string('Requires').' <a target="_blank" href="https://wordpress.org/plugins/quick-and-easy-faqs/">Quick and Easy FAQs</a>',
             'accordionfaq'                => saswp_t_string('Requires').' <a target="_blank" href="https://wordpress.org/plugins/responsive-accordion-and-collapse">Accordion FAQ</a>',
             'webfaq10'                    => saswp_t_string('Requires').' <a target="_blank" href="https://wordpress.org/plugins/faq-wd/">10WebFAQ</a>',
@@ -3166,6 +3327,7 @@ function saswp_get_field_note($pname){
             'senseilms'                   => saswp_t_string('Requires').' <a target="_blank" href="https://wordpress.org/plugins/sensei-lms/">Sensei LMS</a>',
             'wplms'                       => saswp_t_string('Requires').' <a target="_blank" href="https://themeforest.net/item/wplms-learning-management-system/6780226">WPLMS</a>',
             'wp_event_manager'            => saswp_t_string('Requires').' <a target="_blank" href="https://wordpress.org/plugins/wp-event-manager/">WP Event Manager</a>',
+            'wp_event_solution'           => saswp_t_string('Requires').' <a target="_blank" href="https://wordpress.org/plugins/wp-event-solution/">Event Manager, Event Calendar, Event Tickets for WooCommerce – Eventin</a>',
             'events_manager'              => saswp_t_string('Requires').' <a target="_blank" href="https://wordpress.org/plugins/events-manager/">Events Manager</a>',
             'event_calendar_wd'           => saswp_t_string('Requires').' <a target="_blank" href="https://wordpress.org/plugins/event-calendar-wd/">Event Calendar WD</a>',
             'event_organiser'             => saswp_t_string('Requires').' <a target="_blank" href="https://wordpress.org/plugins/event-organiser/">Event Organiser</a>',
@@ -3195,7 +3357,8 @@ function saswp_get_field_note($pname){
             'easy_testimonials'           => saswp_t_string('Requires').' <a target="_blank" href="https://wordpress.org/plugins/easy-testimonials">Easy Testimonials</a>',
             'bne_testimonials'            => saswp_t_string('Requires').' <a target="_blank" href="https://wordpress.org/plugins/bne-testimonials/">BNE Testimonials</a>',
             'testimonial_pro'             => saswp_t_string('Requires').' <a target="_blank" href="https://shapedplugin.com/plugin/testimonial-pro/">Testimonial Pro</a>',
-            'tevolution_events'           => saswp_t_string('Requires').' <a target="_blank" href="https://templatic.com/wordpress-plugins/tevolution/">Tevolution Events</a>'
+            'tevolution_events'           => saswp_t_string('Requires').' <a target="_blank" href="https://templatic.com/wordpress-plugins/tevolution/">Tevolution Events</a>',
+            'publishpress_authors'                     => saswp_t_string('Requires').' <a target="_blank" href="https://wordpress.org/plugins/publishpress-authors"> Publish Press Authors </a>',
         
         );
           
@@ -3480,6 +3643,49 @@ function saswp_get_video_metadata($content = ''){
                 $content = $post->post_content;
             }    
         }
+  
+
+    
+   
+        if(function_exists('has_block')){
+            if( has_block('presto-player/youtube') ){
+                $attributes = saswp_get_gutenberg_multiple_block_data('presto-player/youtube');    
+                if(!empty($attributes)){  $attributes = $attributes;  }else{   $attributes = "";  }    
+            }else{
+                $attributes = "";
+            }
+            
+            if(!empty($attributes)){
+                $temp_aray = array(); 
+               
+                foreach($attributes as $match){
+                    if(!empty($match['attrs']['src'])){
+                        $vurl = $match['attrs']['src'];
+                        if(strpos($vurl,'type') == true || strpos($vurl,'className') == true){
+                            continue;
+                        }
+                        if(isset($sd_data['saswp-youtube-api']) && $sd_data['saswp-youtube-api'] != ''){
+                            $vid = saswp_get_youtube_vid($vurl);
+                            $video_meta = SASWP_Youtube::getVideoInfo($vid, $sd_data['saswp-youtube-api']);
+        
+                            if(!empty($video_meta)){
+                                $metadata['title']      = $video_meta['title'];
+                                $metadata['description']      = $video_meta['description'];
+                                $metadata['viewCount']      = $video_meta['viewCount'];
+                                $metadata['duration']      = $video_meta['duration'];
+                                $metadata['uploadDate']      = $video_meta['uploadDate'];
+                                $metadata['thumbnail_url'] = $video_meta['thumbnail']['sdDefault'];
+                            }
+                        }
+                        
+                        if(!empty($vurl)){
+                            $metadata['video_url'] = $vurl;                    
+                            $response[] = $metadata;
+                        }
+                    } 
+                }
+            }
+        }
 
         if(function_exists('has_block')){
             if( has_block('acf/video') ){
@@ -3507,6 +3713,8 @@ function saswp_get_video_metadata($content = ''){
                 }
             }
         }
+
+      
                                                            
          preg_match_all( '/\[video(.*?)\[\/video]/s', $content, $matches, PREG_SET_ORDER);
          
@@ -3564,52 +3772,43 @@ function saswp_get_video_metadata($content = ''){
                           
             }
            
-           @preg_match_all( '@(https?://)?(?:www\.)?(youtu(?:\.be/([-\w]+)|be\.com/watch\?v=([-\w]+)))\S*@im', $content, $matches, PREG_SET_ORDER );
-           
-           if($matches){
-           
-               foreach($matches as $match){
-                  $vurl     = trim($match[0], '"');
-
-                  if(strpos($vurl,'type') == true || strpos($vurl,'className') == true){
-                    continue;
-                  }
-                  $metadata = array();  
-                  if(isset($sd_data['saswp-youtube-api']) && $sd_data['saswp-youtube-api'] != ''){
-
-                    $vid = saswp_get_youtube_vid($vurl);
-                    
-                    $video_meta = SASWP_Youtube::getVideoInfo($vid, $sd_data['saswp-youtube-api']);
-
-                    if(!empty($video_meta)){
-                        $metadata['title']      = $video_meta['title'];
-                        $metadata['description']      = $video_meta['description'];
-                        $metadata['viewCount']      = $video_meta['viewCount'];
-
-                        $metadata['duration']      = $video_meta['duration'];
-
-                        $metadata['uploadDate']      = $video_meta['uploadDate'];
-
-                        $metadata['thumbnail_url'] = $video_meta['thumbnail']['sdDefault'];
-                    }
-
-                  }else{
-                    $rulr     = 'https://www.youtube.com/oembed?url='.esc_attr($vurl).'&format=json';  
-                    $result   = @wp_remote_get($rulr);                                                        
-
-                    if(wp_remote_retrieve_response_code($result) == 200) {
-                            $metadata = json_decode(wp_remote_retrieve_body($result),true);
-                    }  
-                  }  
+            preg_match_all( '/src\=\"(.*?)youtube(.*?)\"/s', $content, $youtubematches, PREG_SET_ORDER );
+             
+            if(!empty($youtubematches)){
+             
+                foreach($youtubematches as $match){
+                   $vurl = trim($match[1].'youtu.be'.$match[2], '"');     
+                   if(strpos($vurl,'type') == true || strpos($vurl,'className') == true){
+                     continue;
+                   }             
+                   $metadata   = array();  
                   
-                  $metadata['video_url'] = $vurl;
-                  if(strpos($metadata['video_url'],'type') == false){
-                    $response[] = $metadata;
-                  }
-                 
-               }       /* end for */  
-           }/* end if */
-           
+                   if(isset($sd_data['saswp-youtube-api']) && $sd_data['saswp-youtube-api'] != ''){
+ 
+                     $vid = saswp_get_youtube_vid($vurl);
+ 
+                     $video_meta = SASWP_Youtube::getVideoInfo($vid, $sd_data['saswp-youtube-api']);
+ 
+                     if(!empty($video_meta)){
+                         $metadata['title']      = $video_meta['title'];
+                         $metadata['description']      = $video_meta['description'];
+                         $metadata['viewCount']      = $video_meta['viewCount'];
+                         $metadata['duration']      = $video_meta['duration'];
+                         $metadata['uploadDate']      = $video_meta['uploadDate'];
+                         $metadata['thumbnail_url'] = $video_meta['thumbnail']['sdDefault'];
+                     }
+ 
+                   }else{
+                     $rulr     = 'https://www.youtube.com/oembed?url='.esc_attr($vurl).'&format=json';  
+                     $result   = @wp_remote_get($rulr);                                    
+                     $metadata = json_decode(wp_remote_retrieve_body($result),true);
+                   }
+                   
+                   $metadata['video_url'] = $vurl;          
+                   $response[] = $metadata;
+                }/* end for */  
+            } /* end if */
+
            preg_match_all( '/src\=\"(.*?)youtu\.be(.*?)\"/s', $content, $youtubematches, PREG_SET_ORDER );
              
            if(!empty($youtubematches)){
@@ -3673,7 +3872,7 @@ function saswp_get_video_metadata($content = ''){
                             }
                            
                             $metadata = array();
-                            $metadata['video_url'] = $vurl; 
+                          
                             if(isset($sd_data['saswp-youtube-api']) && $sd_data['saswp-youtube-api'] != ''){
                                $vid = saswp_get_youtube_vid($vurl);
                                 $video_meta = SASWP_Youtube::getVideoInfo($vid, $sd_data['saswp-youtube-api']);
@@ -3690,28 +3889,114 @@ function saswp_get_video_metadata($content = ''){
                                 $result   = @wp_remote_get($rulr);                                    
                                 $metadata = json_decode(wp_remote_retrieve_body($result),true); 
                             }
-                                              
+                            $metadata['video_url'] = $vurl;                  
                             $response[] = $metadata;
                             
                         }
                     }
                     
                 }
-            }
-           
+            }            
+    
+        // if elementor video is not found then this code checks for it
+        // This is the solution for issue #1882
+        $parse_content = wp_extract_urls($content);
+        if(!empty($parse_content)){
+            if(is_array($parse_content)){
+                foreach ($parse_content as $parse_key => $parse_value) {
+                    if(!empty($parse_value)){
+                        $explode_url = explode("https://", $parse_value);
+                        if(isset($explode_url) && !empty(is_array($explode_url))){
+                            foreach ($explode_url as $eu_key => $eu_value) {
+                                if(!empty($eu_value)){
+                                    $video_url = "https://".$eu_value;
+                                    $is_video_exist = 0;
+                                    if(!empty($response)){
+                                        foreach ($response as $res_key => $res_value) {
+                                            if($res_value['video_url'] == $video_url){
+                                                if(isset($res_value['thumbnail_url'])){
+                                                    $is_video_exist = 1;
+                                                }
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if($is_video_exist == 0){
+                                        preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $video_url, $video_url_match);
+                                        if(!empty($video_url_match) && is_array($video_url_match)){
+                                            $metadata = array();
+                                            if(isset($sd_data['saswp-youtube-api']) && $sd_data['saswp-youtube-api'] != ''){
+                                                $vid = saswp_get_youtube_vid($video_url);
+                                                $video_meta = SASWP_Youtube::getVideoInfo($vid, $sd_data['saswp-youtube-api']);
+                                                if(!empty($video_meta)){
+                                                    $metadata['title']      = $video_meta['title'];
+                                                    $metadata['description']      = $video_meta['description'];
+                                                    $metadata['viewCount']      = $video_meta['viewCount'];
+                                                    $metadata['duration']      = $video_meta['duration'];
+                                                    $metadata['uploadDate']      = $video_meta['uploadDate'];
+                                                    $metadata['thumbnail_url'] = $video_meta['thumbnail']['sdDefault'];
+                                                }
+                                            }else{
+                                                $rulr     = 'https://www.youtube.com/oembed?url='.esc_attr($video_url).'&format=json';  
+                                                $result   = @wp_remote_get($rulr);                                    
+                                                $metadata = json_decode(wp_remote_retrieve_body($result),true); 
+                                            } 
+                                            $metadata['video_url'] = $video_url;                  
+                                            $response[] = $metadata;
+                                        }
+
+                                        preg_match('/^.*dailymotion.com\/(?:video|hub)\/([^_]+)[^#]*(#video=([^_&]+))?/', $video_url, $daily_url_match);
+                                        if(!empty($daily_url_match) && is_array($daily_url_match)){
+                                            $metadata = array();
+                                            if(isset($daily_url_match[0]) && !empty($daily_url_match[0])){
+                                                $daily_id = substr(parse_url($video_url, PHP_URL_PATH), 1);
+                                                if(isset($daily_url_match[1]) && !empty($daily_url_match[1])){
+                                                    $daily_id = 'video/'.$daily_url_match[1];
+                                                }
+                                                $remote_url = "https://api.dailymotion.com/".$daily_id.'?fields=id,title,description,created_time,thumbnail_url';
+                                                $daily_video_details = wp_remote_get( $remote_url);
+                                                $daily_video_details = json_decode(wp_remote_retrieve_body($daily_video_details),true);
+                                                
+                                                if(isset($daily_video_details) && !empty($daily_video_details)){
+                                                    $metadata['title']      = isset($daily_video_details['title'])?$daily_video_details['title']:'';
+                                                    $metadata['description']      = isset($daily_video_details['description'])?$daily_video_details['description']:'';
+                                                    $metadata['viewCount']      = 0;
+                                                    $metadata['uploadDate']      = isset($daily_video_details['created_time'])?date('Y-m-d H:i:s',$daily_video_details['created_time']):'';
+                                                    $metadata['thumbnail_url'] = isset($daily_video_details['thumbnail_url'])?$daily_video_details['thumbnail_url']:'';
+                                                    $metadata['author_name']      = 'Dailymotion';
+                                                    $metadata['type']      = 'video';
+                                                    $metadata['video_url'] = $video_url;
+                                                    $response[] = $metadata;
+                                                }  
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        } // parse_value if end
+                    } // parse_value if end
+                } // parse_content foreach end
+            } // parse_content if end
+        } // parse_content if end
         $result = saswp_unique_multidim_array($response,'video_url');
-      
         return $result;
 }
 
-function saswp_unique_multidim_array($array, $key) { 
+function saswp_unique_multidim_array($array, $key) {
+   
     $temp_array = array(); 
     $i = 0; 
     $key_array = array(); 
     if(!empty($array) && !empty($key)){
         foreach($array as $val) { 
-            if(isset($val[$key])){    
+            if(!empty($val[$key])){   
                 $checked = saswp_youtube_check_validate_url($val[$key]);
+                if(empty($checked)){
+                    $checked = saswp_vimeo_check_validate_url($val);
+                }
+                if(empty($checked)){
+                    $checked = saswp_dailymototion_check_validate_url($val);
+                }
                 if (!empty($checked)) {
                     if (!in_array($val[$key], $key_array)) { 
                         $key_array[$i] = $val[$key]; 
@@ -3726,9 +4011,53 @@ function saswp_unique_multidim_array($array, $key) {
 }
 
 function saswp_youtube_check_validate_url($yt_url) { 
-    $url_parsed_arr = parse_url($yt_url);
-    if ($url_parsed_arr['host'] == "youtu.be" || $url_parsed_arr['host'] == "www.youtube.com" || $url_parsed_arr['path'] == "/watch" || substr($url_parsed_arr['query'], 0, 2) == "v=") {
-       return $yt_url;
+    if(!empty($yt_url) && isset($yt_url)){
+        $url_parsed_arr = parse_url($yt_url);
+        if (
+            (isset($url_parsed_arr['host']) && ($url_parsed_arr['host'] == "youtu.be" || $url_parsed_arr['host'] == "www.youtube.com"))
+            || 
+            (isset($url_parsed_arr['path']) && ($url_parsed_arr['path'] == "/watch")) 
+        ) {
+            return $yt_url;
+        }else{
+            return "";
+        }  
+    }else{
+        return "";
+    }
+}
+
+function saswp_vimeo_check_validate_url($yt_url) { 
+    if(!empty($yt_url) && isset($yt_url)){
+        if(isset($yt_url['thumbnail_url']) && !empty($yt_url['thumbnail_url'])){
+            $url_parsed_arr = parse_url($yt_url['video_url']);
+            if ((isset($url_parsed_arr['host']) && ($url_parsed_arr['host'] == "vimeo.com" || $url_parsed_arr['host'] == "www.vimeo.com"))) {
+                return $yt_url;
+            }else{
+                return "";
+            }  
+        }else{
+            return "";
+        }
+    }else{
+        return "";
+    }
+}
+
+function saswp_dailymototion_check_validate_url($yt_url) { 
+    if(!empty($yt_url) && isset($yt_url)){
+        if(isset($yt_url['thumbnail_url']) && !empty($yt_url['thumbnail_url'])){
+            $url_parsed_arr = parse_url($yt_url['video_url']);
+            if ((isset($url_parsed_arr['host']) && ($url_parsed_arr['host'] == "dailymotion.com" || $url_parsed_arr['host'] == "www.dailymotion.com"))) {
+                return $yt_url;
+            }else{
+                return "";
+            }  
+        }else{
+            return "";
+        }
+    }else{
+        return "";
     }
 }
   
@@ -4534,4 +4863,19 @@ function saswp_sanitize_textarea_field( $str ) {
 	}
 
 	return $filtered;
+}
+
+if(!function_exists('saswp_revalidate_product_description')){
+    function saswp_revalidate_product_description($product_description)
+    {
+        global $sd_data;
+        if(isset($sd_data['saswp-truncate-product-description']) && $sd_data['saswp-truncate-product-description'] == 1){
+            if((isset($sd_data['saswp-woocommerce']) && $sd_data['saswp-woocommerce'] == 1) && !empty($product_description)){
+                if (mb_strlen($product_description, 'UTF-8') > 5000){
+                    $product_description = mb_substr($product_description, 0, 5000, 'UTF-8');
+                }
+            }
+        }
+        return $product_description;  
+    }
 }

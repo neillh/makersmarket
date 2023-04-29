@@ -455,7 +455,7 @@ class zbsDAL_lineitems extends zbsDAL_ObjectLayer {
             foreach ($lineItems as $lineItem){
 
                 // got any taxes on ?
-                if (isset($lineItem['net']) && $lineItem['net'] > 0 && isset($lineItem['taxes'])){
+                if (isset($lineItem['net']) && isset($lineItem['taxes'])){
 
                     $taxRatesToApply = array();
 

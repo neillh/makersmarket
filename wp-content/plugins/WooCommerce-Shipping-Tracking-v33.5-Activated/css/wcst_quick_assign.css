@@ -1,0 +1,19 @@
+.js-data-orders-ajax
+{
+	width: 90%;
+}
+.wcst_loading_text
+{
+	display: block;
+	margin: 20px;
+	font-size: 16px;
+	font-weight: bold;
+}
+.select2-selection.select2-selection--multiple {
+	overflow: hidden;
+	height: auto;
+}
+.select2-results__option 
+{
+	cursor: pointer;
+}

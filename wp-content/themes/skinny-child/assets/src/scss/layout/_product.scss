@@ -1,0 +1,63 @@
+.product-template-default .entry-summary .woocommerce-Price-amount {
+	color: #FF4400;
+	font-size: 1.9rem;
+	font-weight: bold;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+
+#mc_signup .mc_email_format,
+#mc_signup .mc_email_options,
+#mc-indicates-required {
+	display: none;
+}
+
+
+.woocommerce {
+	ul.categories {
+		margin-bottom: 50px;
+		border-bottom: 1px solid;
+		padding-top: 40px;
+		@include respond-below(md) {
+			padding-top: 60px;
+		}
+		&:before {
+			content: 'Categories';
+			margin-bottom: 30px;
+			top: -60px;
+			left: 0;
+			font-family: var(--skinny--type-heading);
+				font-weight: normal;
+			font-size: 2.5rem;
+			font-weight: bold;
+		}
+		&> li:first-child:before {
+			@include respond-below(md) {
+			top: -65px;
+			left: 50px;
+			}
+		}
+	}
+
+	ul.products {
+		li.product {
+			a {
+				@include respond-below(md) {
+					text-decoration: none;
+					display: grid;
+					grid-template-columns: 1fr 1fr;
+				}
+			}
+			.woocommerce-loop-category__title {
+				font-size: 1.8rem;
+				@include respond-below(md) {
+					font-size: 1.2rem;
+					text-align: left;
+					padding-left: 10px;
+				}
+			}
+		}
+		li.product-category .woocommerce-loop-category__meta .count {
+			text-align: left;
+		}
+	}
+}

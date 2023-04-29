@@ -1,0 +1,79 @@
+#satchels_table{
+	background: #ffffff;
+}
+#satchels_table small{
+	display: block;
+}
+#satchels_table tr th{
+	padding: 5px;
+}
+
+#satchels_table tr td{
+	vertical-align: top;
+	padding: 5px;
+}
+#aupost_custom_titles{
+	width: 85%;
+}
+#aupost_custom_titles input{
+	width: 90%;
+}
+.auspost-small{
+	width:60px !important;
+}
+#auspost_custom_boxes_table .boxes_units_lbl{
+	font-style: italic;
+	font-size: 8pt;
+	display: inline;
+}
+#auspost_custom_boxes_table{
+	width:80%;
+}
+
+.wpruby-hidden{
+	display:none;
+}
+
+.wpruby-table {
+	width:100%;
+	border: solid 1px #b39aab;
+	border-collapse: collapse;
+	border-spacing: 0;
+	font: normal 13px Arial, sans-serif;
+}
+.wpruby-table thead th {
+	background-color: #b39aab;
+	border: solid 1px #b39aab;
+	color: #fffff8;
+	padding: 10px;
+	text-align: left;
+}
+.wpruby-table tbody td {
+	border: solid 1px #b39aab;
+	color: #2f2f2f;
+	padding: 10px;
+	text-shadow: 1px 1px 1px #fff;
+}
+.wpruby-small{
+	width:60px;
+}
+
+.action-group{
+	display:none;
+}
+
+#label-actions .button{
+	margin: 5px;
+}
+
+#labels-errors{
+	display: none;
+}
+
+#aupost_custom_titles input{
+	padding: 10px;
+}
+
+#aupost_default_dimensions label{
+	padding-top: 7px;
+}

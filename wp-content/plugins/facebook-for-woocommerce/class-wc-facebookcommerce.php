@@ -12,15 +12,19 @@
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/includes/fbutils.php';
 
+use Automattic\WooCommerce\Admin\Features\Features as WooAdminFeatures;
 use Automattic\WooCommerce\Admin\Features\OnboardingTasks\TaskLists;
 use WooCommerce\Facebook\Admin\Tasks\Setup;
+use WooCommerce\Facebook\Admin\Notes\SettingsMoved;
 use WooCommerce\Facebook\Framework\Api\Exception as ApiException;
 use WooCommerce\Facebook\Framework\Helper;
+use WooCommerce\Facebook\Framework\Plugin\Compatibility;
 use WooCommerce\Facebook\Integrations\Bookings as BookingsIntegration;
 use WooCommerce\Facebook\Lifecycle;
 use WooCommerce\Facebook\ProductSync\ProductValidator as ProductSyncValidator;
 use WooCommerce\Facebook\Utilities\Background_Handle_Virtual_Products_Variations;
 use WooCommerce\Facebook\Utilities\Background_Remove_Duplicate_Visibility_Meta;
+use WooCommerce\Facebook\Utilities\DebugTools;
 use WooCommerce\Facebook\Utilities\Heartbeat;
 
 class WC_Facebookcommerce extends WooCommerce\Facebook\Framework\Plugin {
@@ -99,6 +103,16 @@ class WC_Facebookcommerce extends WooCommerce\Facebook\Framework\Plugin {
 	/** @var WooCommerce\Facebook\Utilities\Heartbeat */
 	public $heartbeat;
 
+	/** @var WooCommerce\Facebook\ExternalVersionUpdate */
+	private $external_version_update;
+
+	/**
+	 * The Debug tools instance.
+	 *
+	 * @var WooCommerce\Facebook\Utilities\DebugTools
+	 */
+	private $debug_tools;
+
 	/**
 	 * Constructs the plugin.
 	 *
@@ -129,6 +143,7 @@ class WC_Facebookcommerce extends WooCommerce\Facebook\Framework\Plugin {
 
 		// Hook the setup task. The hook admin_init is not triggered when the WC fetches the tasks using the endpoint: wp-json/wc-admin/onboarding/tasks and hence hooking into init.
 		add_action( 'init', array( $this, 'add_setup_task' ), 20 );
+		add_action( 'admin_notices', array( $this, 'add_inbox_notes' ) );
 
 		// Product Set breadcrumb filters
 		add_filter( 'woocommerce_navigation_is_connected_page', array( $this, 'is_current_page_conected_filter' ), 99, 2 );
@@ -156,6 +171,7 @@ class WC_Facebookcommerce extends WooCommerce\Facebook\Framework\Plugin {
 			$this->product_sets_sync_handler = new WooCommerce\Facebook\ProductSets\Sync();
 			$this->commerce_handler          = new WooCommerce\Facebook\Commerce();
 			$this->fb_categories             = new WooCommerce\Facebook\Products\FBCategories();
+			$this->external_version_update   = new WooCommerce\Facebook\ExternalVersionUpdate\Update();
 
 			if ( wp_doing_ajax() ) {
 				$this->ajax = new WooCommerce\Facebook\AJAX();
@@ -182,9 +198,12 @@ class WC_Facebookcommerce extends WooCommerce\Facebook\Framework\Plugin {
 			$this->job_manager = new WooCommerce\Facebook\Jobs\JobManager();
 			add_action( 'init', [ $this->job_manager, 'init' ] );
 
+			// Instantiate the debug tools.
+			$this->debug_tools = new DebugTools();
+
 			// load admin handlers, before admin_init
 			if ( is_admin() ) {
-				$this->admin_settings = new WooCommerce\Facebook\Admin\Settings();
+				$this->admin_settings = new WooCommerce\Facebook\Admin\Settings( $this->connection_handler->is_connected() );
 			}
 		}
 	}
@@ -207,6 +226,23 @@ class WC_Facebookcommerce extends WooCommerce\Facebook\Framework\Plugin {
 		);
 	}
 
+	/**
+	 * Add Inbox notes.
+	 */
+	public function add_inbox_notes() {
+		if ( Compatibility::is_enhanced_admin_available() ) {
+			if ( class_exists( WooAdminFeatures::class ) ) {
+				$is_marketing_enabled = WooAdminFeatures::is_enabled( 'marketing' );
+			} else {
+				$is_marketing_enabled = is_callable( '\Automattic\WooCommerce\Admin\Loader::is_feature_enabled' )
+					&& \Automattic\WooCommerce\Admin\Loader::is_feature_enabled( 'marketing' );
+			}
+
+			if ( $is_marketing_enabled && class_exists( '\Automattic\WooCommerce\Admin\Notes\Note' ) ) { // Checking for Note class is for backward compatibility.
+				SettingsMoved::possibly_add_or_delete_note();
+			}
+		}
+	}
 
 	/**
 	 * Gets deprecated and removed hooks.
@@ -798,4 +834,3 @@ class WC_Facebookcommerce extends WooCommerce\Facebook\Framework\Plugin {
 function facebook_for_woocommerce() {
 	return \WC_Facebookcommerce::instance();
 }
-

@@ -2,8 +2,6 @@
  * Jetpack CRM Extension: WooCommerce Contact Tabs
  * https://jetpackcrm.com
  * V1.0
- *
- * Copyright 2017-2019+ Zero BS Software Limited
  */
 .woo-sync-subs .label, .woo-sync-mem .label, .woo-sync-book .label {
   text-transform: capitalize !important;

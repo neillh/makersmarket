@@ -163,6 +163,17 @@ function saswp_schema_markup_output(){
         echo "\n\n";
         
     }
+    if(!empty($saswp_json_ld['saswp_user_custom_json_ld'])){
+        
+        echo "\n";
+        if(isset($sd_data['saswp_remove_version_tag']) && $sd_data['saswp_remove_version_tag'] != 1){
+            echo '<!-- Schema & Structured Data For WP Custom Markup v'.esc_attr(SASWP_VERSION).' - -->';
+        }
+        echo "\n";
+        echo $saswp_json_ld['saswp_user_custom_json_ld'];
+        echo "\n\n";
+        
+    }
 
     //Other schema markup compile with SASWP
 
@@ -203,8 +214,10 @@ function saswp_get_all_schema_markup_output() {
         
         $response_html = '';
         $custom_output = '';
+        $user_custom_output = '';
        
         $custom_markup            = '';
+        $user_custom_markup       = '';
         $output                   = '';        
         $schema_output            = array();
         $kb_schema_output         = array(); 
@@ -280,11 +293,11 @@ function saswp_get_all_schema_markup_output() {
         }
                  
         $custom_markup             = saswp_taxonomy_schema_output();  
-
-        if(is_singular()){
+        $user_custom_markup        = saswp_fetched_user_custom_schema();  
+        if( is_singular() && is_object($post) ){
             $custom_markup         = get_post_meta($post->ID, 'saswp_custom_schema_field', true);
-        }
-   
+        }        
+         
         $schema_output              = saswp_schema_output();                  
         
 	if(saswp_global_option()) {
@@ -480,7 +493,7 @@ function saswp_get_all_schema_markup_output() {
             
                     $output_schema_type_id[] = $soutput['@type'];
                     
-                    if($soutput['@type'] == 'BlogPosting'|| $soutput['@type'] == 'Article' || $soutput['@type'] == 'TechArticle' || $soutput['@type'] == 'NewsArticle'){
+                    if($soutput['@type'] == 'BlogPosting'|| $soutput['@type'] == 'Article' || $soutput['@type'] == 'ScholarlyArticle' || $soutput['@type'] == 'TechArticle' || $soutput['@type'] == 'NewsArticle'){
                         
                     
                     $final_output = array();
@@ -663,22 +676,41 @@ function saswp_get_all_schema_markup_output() {
                         }       
                 
             }
-                        
             if($custom_markup){    
                 
+                $cus_regex = '/\<script type\=\"application\/ld\+json\"\>/';
+                preg_match( $cus_regex, $custom_markup, $match );
+                
+                if(empty($match)){
+                    
+                    $custom_output .= '<script type="application/ld+json" class="saswp-custom-schema-markup-output">';                            
+                    $custom_output .= $custom_markup;                            
+                    $custom_output .= '</script>';
+                    
+                }else{
+                    
+                    $custom_output = $custom_markup;
+                    $custom_output = preg_replace($cus_regex, '<script type="application/ld+json" class="saswp-custom-schema-markup-output">', $custom_output);
+                    
+                }
+                                                                                                                
+                                                                                                              
+            }            
+            if($user_custom_markup){    
+                
                         $cus_regex = '/\<script type\=\"application\/ld\+json\"\>/';
-                        preg_match( $cus_regex, $custom_markup, $match );
+                        preg_match( $cus_regex, $user_custom_markup, $match );
                         
                         if(empty($match)){
                             
-                            $custom_output .= '<script type="application/ld+json" class="saswp-custom-schema-markup-output">';                            
-                            $custom_output .= $custom_markup;                            
-                            $custom_output .= '</script>';
+                            $user_custom_output .= '<script type="application/ld+json" class="saswp-user-custom-schema-markup-output">';                            
+                            $user_custom_output .= $user_custom_markup;                            
+                            $user_custom_output .= '</script>';
                             
                         }else{
                             
-                            $custom_output = $custom_markup;
-                            $custom_output = preg_replace($cus_regex, '<script type="application/ld+json" class="saswp-custom-schema-markup-output">', $custom_output);
+                            $user_custom_output = $user_custom_markup;
+                            $user_custom_output = preg_replace($cus_regex, '<script type="application/ld+json" class="saswp-user-custom-schema-markup-output">', $user_custom_output);
                             
                         }
                                                                                                                         
@@ -698,7 +730,11 @@ function saswp_get_all_schema_markup_output() {
             $response_html.= '</script>';            
         }
         
-        return array('saswp_json_ld' => $response_html, 'saswp_custom_json_ld' => $custom_output);
+        return array(
+                    'saswp_json_ld'        => $response_html, 
+                    'saswp_custom_json_ld' => $custom_output,
+                    'saswp_user_custom_json_ld' => $user_custom_output,
+                );
                 
 }
 
@@ -1294,7 +1330,7 @@ function saswp_get_comments($post_id){
         
         $comments[] = array (
                 '@type'         => 'Comment',
-                'id'            => trailingslashit(get_permalink()).'comment-'.$comment->comment_ID,
+                'id'            => get_permalink().'comment-'.$comment->comment_ID,
                 'dateCreated'   => $is_bbpress ? $comment->comment_date : saswp_format_date_time($comment->comment_date),
                 'description'   => strip_tags($comment->comment_content),
                 'upvoteCount'   => $likes,
@@ -1431,6 +1467,7 @@ function saswp_list_items_generator(){
 		global $sd_data;
 		$bc_titles = array();
 		$bc_links  = array();
+        $settings = saswp_defaultSettings(); 
 
         if(empty($sd_data['links'])){
             saswp_custom_breadcrumbs();
@@ -1455,13 +1492,19 @@ function saswp_list_items_generator(){
                                     if(array_key_exists($i, $bc_links) && array_key_exists($i, $bc_titles)){
                                     
                                         if($bc_links[$i] != '' && $bc_titles[$i] != '' ){
+                                           
+                                            if($j == 1 && !empty($settings['saswp_breadcrumb_home_page_title'])){
+                                               $titles = $settings['saswp_breadcrumb_home_page_title'];
+                                            }else{
+                                               $titles = $bc_titles[$i];
+                                            }
 
                                             $breadcrumbslist[] = array(
                                                 '@type'			=> 'ListItem',
                                                 'position'		=> $j,
                                                 'item'			=> array(
                                                     '@id'		=> $bc_links[$i],
-                                                    'name'		=> $bc_titles[$i],
+                                                    'name'		=> $titles,
                                                     ),
                                               );
                                             
@@ -1485,12 +1528,18 @@ function saswp_list_items_generator(){
         
                                     if($bc_links[$i] !='' && $bc_titles[$i] != ''){
 
+                                        if($j == 1 && !empty($settings['saswp_breadcrumb_home_page_title'])){
+                                            $titles = $settings['saswp_breadcrumb_home_page_title'];
+                                        }else{
+                                            $titles = $bc_titles[$i];
+                                        }
+
                                         $breadcrumbslist[] = array(
                                             '@type'			=> 'ListItem',
                                             'position'		=> $j,
                                             'item'			=> array(
                                                 '@id'		=> $bc_links[$i],
-                                                'name'		=> $bc_titles[$i],
+                                                'name'		=> $titles,
                                                 ),
                                         );
     
@@ -1515,12 +1564,18 @@ function saswp_list_items_generator(){
                                                
                         if($bc_links[$i] != '' && $bc_titles[$i] !=''){
 
+                            if($j == 1 && !empty($settings['saswp_breadcrumb_home_page_title'])){
+                                $titles = $settings['saswp_breadcrumb_home_page_title'];
+                            }else{
+                                $titles = $bc_titles[$i];
+                            }
+
                             $breadcrumbslist[] = array(
                                 '@type'		=> 'ListItem',
                                 'position'	=> $j,
                                 'item'		=> array(
                                         '@id'		=> $bc_links[$i],
-                                        'name'		=> $bc_titles[$i],
+                                        'name'		=> $titles,
                                         ),
                                 );
                             $j++;
@@ -1621,6 +1676,18 @@ function saswp_remove_microdata($content){
 
             if(isset($match[1])){
                 $content = preg_replace($regex, '<div class="ub_howto"'.$match[1].' </div>', $content);        
+            }
+            
+        }
+
+        if(isset($sd_data['saswp-ultimate-blocks']) && $sd_data['saswp-ultimate-blocks'] == 1 ){
+            
+            $regex = '/<div class\=\"ub_review_block\"(.*?)<\/div><script type=\"application\/ld\+json\">(.*?)<\/script>/s';
+          
+            preg_match( $regex, $content, $match);
+
+            if(isset($match[1])){
+                $content = preg_replace($regex, '<div class="ub_review_block"'.$match[1].' </div>', $content);        
             }
             
         }
@@ -2736,12 +2803,11 @@ function saswp_get_mainEntity($schema_id){
                 
                 if($matches){
                     foreach($matches as $match){
-                        $listitem[] = $match[1];
+                        $listitem[] = wp_strip_all_tags($match[1]);
                     }
                 }
-                
             }
-                                    
+               
             if($listitem){
                              
                     $response['@type'] = 'ItemList';
@@ -2832,7 +2898,7 @@ function saswp_explod_by_semicolon($data){
 
             foreach ($explod as $val){
 
-                $response[] = $val;  
+                $response[] = wp_strip_all_tags($val);  
 
             }
 
@@ -3337,8 +3403,7 @@ function saswp_render_breadcrumbs_html($atts){
 
     $hide_post_title = ($attr['hide_post_title']) ? $attr['hide_post_title'] : 0;
     $get_current_post_title = get_post_field('post_title',$post->ID);
-    $breadcrumbs = '';
-    // echo "<pre>";print_r($get_current_post_title);echo "</pre>";
+    $breadcrumbs = '';    
     if(!empty($sd_data['titles'])){
 
         $breadcrumbs .= '<style>';
@@ -3384,7 +3449,8 @@ function saswp_render_breadcrumbs_html($atts){
 function saswp_default_video_object_scjhema(){
 
     $input1 = array();
-    $video_links      = saswp_get_video_metadata();    
+    $video_links      = saswp_get_video_metadata();  
+    
     if(!empty($video_links)){
         $Conditionals = saswp_get_all_schema_posts(); 
         $countVideoObjSchema = [];
@@ -3407,21 +3473,22 @@ function saswp_default_video_object_scjhema(){
         }  
         $date 		        = get_the_date("c");
         $modified_date 	    = get_the_modified_date("c"); 
-        
+          
         if(count($video_links) > 1){
-            if(isset($v_val['video_url']) && !empty($v_val['video_url'])){    
+                
 
-                $input1['@type'] = "ItemList"; 
-                $i = 1; 
-                foreach($video_links as $vkey => $v_val){
+            $input1['@type'] = "ItemList"; 
+            $i = 1; 
+            foreach($video_links as $vkey => $v_val){
+                if(isset($v_val['video_url']) && !empty($v_val['video_url'])){
                     $vnewarr = array(
                         '@type'				            => 'VideoObject',
                         "position"                      => $vkey+1,
-                        "@id"                           => trailingslashit(saswp_get_permalink()).'#'.$i++,
+                        "@id"                           => saswp_get_permalink().'#'.$i++,
                         'name'				            => isset($v_val['title'])? $v_val['title'] : saswp_get_the_title(),
                         'datePublished'                 => esc_html($date),
                         'dateModified'                  => esc_html($modified_date),
-                        'url'				            => trailingslashit(saswp_get_permalink()),
+                        'url'				            => saswp_get_permalink(),
                         'interactionStatistic'          => array(
                             "@type" => "InteractionCounter",
                             "interactionType" => array("@type" => "WatchAction" ),
@@ -3459,12 +3526,13 @@ function saswp_default_video_object_scjhema(){
                 }
             }
         }else{
+          
             if(isset($video_links[0]['video_url']) && !empty($video_links[0]['video_url'])){  
                 $input1 = array(
                     '@context'			            => saswp_context_url(),
                     '@type'				            => 'VideoObject',
-                    '@id'                           => trailingslashit(saswp_get_permalink()).'#videoobject',        
-                    'url'				            => trailingslashit(saswp_get_permalink()),
+                    '@id'                           => saswp_get_permalink().'#videoobject',        
+                    'url'				            => saswp_get_permalink(),
                     'headline'			            => saswp_get_the_title(),
                     'datePublished'                 => esc_html($date),
                     'dateModified'                  => esc_html($modified_date),

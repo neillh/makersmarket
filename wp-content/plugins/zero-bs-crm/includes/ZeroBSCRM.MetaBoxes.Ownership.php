@@ -155,7 +155,7 @@
                     // for checks
                     if (is_array($zbsThisOwner) && isset($zbsThisOwner['ID'])) $zbsThisOwner['ID'] = (int)$zbsThisOwner['ID'];
                 ?>
-                    <input type="hidden" name="meta_box_ids[]" value="<?php echo $metabox['id']; ?>" />
+                    <input type="hidden" name="meta_box_ids[]" value="<?php echo esc_attr($metabox['id']); ?>" />
                     <?php wp_nonce_field( 'save_' . $metabox['id'], $metabox['id'] . '_nonce' ); ?>
                     
                     <table class="form-table wh-metatab wptbp" id="wptbpMetaBoxOwnership">
@@ -169,7 +169,7 @@
                                 <?php if ($zbsThisOwner['ID'] !== -1) 
                                             echo esc_html( $zbsThisOwner['OBJ']->display_name );
                                         else
-                                            echo __('None',"zero-bs-crm"); ?>
+                                            echo esc_html__('None',"zero-bs-crm"); ?>
                             </td></tr><?php # .' ('.esc_html( $zbsThisOwner['OBJ']->user_login ).')'
 
                         } else {
@@ -178,10 +178,10 @@
 
                             ?><tr><td>
                                 <select class="" id="zerobscrm-owner" name="zerobscrm-owner">
-                                    <option value="-1"><?php _e('None',"zero-bs-crm");?></option>
+                                    <option value="-1"><?php esc_html_e('None',"zero-bs-crm");?></option>
                                     <?php if (count($zbsPossibleOwners) > 0) foreach ($zbsPossibleOwners as $possOwner){
 
-                                        ?><option value="<?php echo $possOwner->ID; ?>"<?php 
+                                        ?><option value="<?php echo esc_attr($possOwner->ID); ?>"<?php 
                                         if ($possOwner->ID == $zbsThisOwner['ID']) echo ' selected="selected"';
                                         ?>><?php echo esc_html( $possOwner->display_name ); ?></option><?php # .' ('.esc_html( $possOwner->user_login ).')';
 
@@ -213,11 +213,11 @@
 
                     #} Gross hide :/
 
-                    ?><style type="text/css">#wpzbscownership_itemdetails_<?php echo $postType; ?> {display:none;}</style><?php
+                    ?><style type="text/css">#wpzbscownership_itemdetails_<?php echo esc_html($postType); ?> {display:none;}</style><?php
 
                     #} But include this for save... quick fix 2.2
                     ?>
-                    <input type="hidden" name="meta_box_ids[]" value="<?php echo $metabox['id']; ?>" />
+                    <input type="hidden" name="meta_box_ids[]" value="<?php echo esc_attr($metabox['id']); ?>" />
                     <?php wp_nonce_field( 'save_' . $metabox['id'], $metabox['id'] . '_nonce' ); ?>
                     <?php
 
@@ -367,10 +367,10 @@
 
                             ?><div style="text-align:center">
                                 <select class="" id="zerobscrm-owner" name="zerobscrm-owner">
-                                    <option value="-1"><?php _e('None',"zero-bs-crm");?></option>
+                                    <option value="-1"><?php esc_html_e('None',"zero-bs-crm");?></option>
                                     <?php if (count($zbsPossibleOwners) > 0) foreach ($zbsPossibleOwners as $possOwner){
 
-                                        ?><option value="<?php echo $possOwner->ID; ?>"<?php 
+                                        ?><option value="<?php echo esc_attr($possOwner->ID); ?>"<?php 
                                         if (isset($zbsThisOwner['ID']) && $possOwner->ID == $zbsThisOwner['ID']) echo ' selected="selected"';
                                         ?>><?php echo esc_html( $possOwner->display_name ); ?></option><?php # .' ('.esc_html( $possOwner->user_login ).')';
                                     

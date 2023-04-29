@@ -264,9 +264,9 @@ function zeroBSCRM_scriptStyles_enqueueJSRoot(){
 	// GENERIC links for building view/edit links in JS globally:
 
 		// v3.0+ - returns a link with _TYPE_ instead of 'contact' etc. used by js func zeroBSCRMJS_obj_viewLink (globally avail)
-		$generic_view_link = str_replace('contact','_TYPE_',zbsLink('view',-1,'zerobs_customer',true));
+		$generic_view_link = str_replace('contact','_TYPE_',jpcrm_esc_link('view',-1,'zerobs_customer',true));
 		// v3.0+ - returns a link with _TYPE_ instead of 'contact' etc. used by js func zeroBSCRMJS_obj_editLink (globally avail)
-		$generic_edit_link = str_replace('contact','_TYPE_',zbsLink('edit',-1,'zerobs_customer',true));
+		$generic_edit_link = str_replace('contact','_TYPE_',jpcrm_esc_link('edit',-1,'zerobs_customer',true));
 
         $jpcrm_root['links'] = array(
         	'generic_view' => $generic_view_link,
@@ -359,6 +359,7 @@ function zeroBSCRM_scriptStyles_admin_formBuilder(){
 #} === Unsorted Styles from pre v3.0
 #} ===============================================================================
 function zeroBSCRM_global_admin_styles(){
+
 	global $zbs;
 
 	// It seems we've got this firing multiple times, (WH spotted 2.4), so am putting this lame protection place. 
@@ -428,21 +429,23 @@ function zeroBSCRM_email_styles() {
 	do_action( 'zbs_extra_email_script_styles' );
 }
 function zeroBSCRM_admin_styles_ui2_listview(){
+
+	// semantic 2.2.11 (EVENTUALLY these PROBS shouldn't be global)
+	wp_enqueue_style( 'zerobscrmlistview' );
+	wp_enqueue_script( 'semanticuijs');
+	// Removed at request of plugin reviewers. (used wp core ver) wp_enqueue_script( 'zerobscrmadmjqui');
+	wp_enqueue_script('jquery-ui-sortable');
+
+	// our list view css
+	wp_enqueue_script( 'zerobscrmlistviewjs');
 	
-	//enqueue these (via the admin_print_styles-{$page})
+	// 2.97.9 - wh updated moment
+	//wp_enqueue_script('wh-moment-v2-1-3-js', ZEROBSCRM_URL .'/js/lib/moment.min.js', array('jquery'));
+	zeroBSCRM_enqueue_libs_js_momentdatepicker();
 
-			// semantic 2.2.11 (EVENTUALLY these PROBS shouldn't be global)
-			wp_enqueue_style( 'zerobscrmlistview' );
-			wp_enqueue_script( 'semanticuijs');
-			// Removed at request of plugin reviewers. (used wp core ver) wp_enqueue_script( 'zerobscrmadmjqui');
-			wp_enqueue_script('jquery-ui-sortable');
+	// hook to allow modules etc. to add list view stylesheets
+	do_action( 'jpcrm_enqueue_styles_listview' );
 
-			// our list view css
-			wp_enqueue_script( 'zerobscrmlistviewjs');
-			
-			// 2.97.9 - wh updated moment
-			//wp_enqueue_script('wh-moment-v2-1-3-js', ZEROBSCRM_URL .'/js/lib/moment.min.js', array('jquery'));
-			zeroBSCRM_enqueue_libs_js_momentdatepicker();
 }
 function zeroBSCRM_admin_styles_ui2_editview(){
 	

@@ -100,6 +100,7 @@ function saswp_admin_interface_render(){
 	
 	?>
 <div class="saswp-settings-container">
+        
 	<div class="wrap saswp-settings-form saswp-settings-first-div" style="<?php echo( saswp_ext_installed_status()? 'width:100%;':''); ?>">	
         <?php
         if ( class_exists('SASWPPROExtensionManager') ) {
@@ -502,10 +503,10 @@ function saswp_admin_interface_render(){
 			?>
 		</div>
 			<div class="button-wrapper">
-				<?php
-				// Output save settings button
-                                submit_button( saswp_t_string('Save Settings') );
-				?>
+                                <?php
+                                // Output save settings button
+                                submit_button( $text = saswp_t_string('Save Settings'), $type = 'button button-primary', $name = 'saswp_settings_save',  $wrap = true );
+                                ?>
 			</div>  
                     <input type="hidden" name="sd_data[sd_initial_wizard_status]" value="1">
 		</form>
@@ -648,20 +649,6 @@ function saswp_settings_init(){
  * @access private
  * @static
 */
-function saswp_inlineAdminOccasionalAdsPopUpCSS_JS() {
-        $inlineAdminOccasionalAdsPopUpCCS = <<<INLINEOCCASIONALADSPOPUSCCS
-details#saswp-ocassional-pop-up-container{position:fixed;right:1rem;bottom:1rem;margin-top:2rem;color:#6b7280;display:flex;flex-direction:column;z-index:99999}details#saswp-ocassional-pop-up-container div.saswp-ocassional-pop-up-contents{background-color:#1e1e27;box-shadow:0 5px 10px rgba(0,0,0,.15);padding:25px 25px 10px;border-radius:8px;position:absolute;max-height:calc(100vh - 100px);width:325px;max-width:calc(100vw - 2rem);bottom:calc(100% + 1rem);right:0;overflow:auto;transform-origin:100% 100%;color:#95a3b9;margin-bottom:44px}details#saswp-ocassional-pop-up-container div.saswp-ocassional-pop-up-contents::-webkit-scrollbar{width:15px;background-color:#1e1e27}details#saswp-ocassional-pop-up-container div.saswp-ocassional-pop-up-contents::-webkit-scrollbar-thumb{width:5px;border-radius:99em;background-color:#95a3b9;border:5px solid #1e1e27}details#saswp-ocassional-pop-up-container div.saswp-ocassional-pop-up-contents>*+*{margin-top:.75em}details#saswp-ocassional-pop-up-container div.saswp-ocassional-pop-up-contents p>code{font-size:1rem;font-family:monospace}details#saswp-ocassional-pop-up-container div.saswp-ocassional-pop-up-contents pre{white-space:pre-line;border:1px solid #95a3b9;border-radius:6px;font-family:monospace;padding:.75em;font-size:.875rem;color:#fff}details#saswp-ocassional-pop-up-container[open] div.saswp-ocassional-pop-up-contents{bottom:0;-webkit-animation:.25s ez_toc_ocassional_pop_up_scale;animation:.25s ez_toc_ocassional_pop_up_scale}details#saswp-ocassional-pop-up-container span.saswp-promotion-close-btn{font-weight:400;font-size:20px;background:#37474f;font-family:sans-serif;border-radius:30px;color:#fff;position:absolute;right:-10px;z-index:99999;padding:0 8px;top:-331px;cursor:pointer;line-height:28px}details#saswp-ocassional-pop-up-container div.saswp-ocassional-pop-up-contents img.saswp-promotion-surprise-icon{width:40px;float:left;margin-right:10px}details#saswp-ocassional-pop-up-container div.saswp-ocassional-pop-up-contents p.saswp-ocassional-pop-up-headline{font-size:22px;margin:0;line-height:47px;font-weight:500;color:#fff}details#saswp-ocassional-pop-up-container div.saswp-ocassional-pop-up-contents p.saswp-ocassional-pop-up-headline span{color:#12addd;font-weight:700}details#saswp-ocassional-pop-up-container div.saswp-ocassional-pop-up-contents p.saswp-ocassional-pop-up-second-headline{font-size:16px;color:#fff}details#saswp-ocassional-pop-up-container div.saswp-ocassional-pop-up-contents a.saswp-ocassional-pop-up-offer-btn{background:#12addd;padding:13px 38px 14px;color:#fff;text-align:center;border-radius:60px;font-size:18px;display:inline-flex;align-items:center;margin:0 auto 15px;text-decoration:none;line-height:1.2;transform:perspective(1px) translateZ(0);box-shadow:0 0 20px 5px rgb(0 0 0 / 6%);transition:.3s ease-in-out;box-shadow:3px 5px .65em 0 rgb(0 0 0 / 15%);display:inherit}details#saswp-ocassional-pop-up-container div.saswp-ocassional-pop-up-contents p.saswp-ocassional-pop-up-last-line{font-size:12px;color:#a6a6a6}details#saswp-ocassional-pop-up-container summary{display:inline-flex;margin-left:auto;margin-right:auto;justify-content:center;align-items:center;font-weight:600;padding:.5em 1.25em;border-radius:99em;color:#fff;background-color:#185adb;box-shadow:0 5px 15px rgba(0,0,0,.1);list-style:none;text-align:center;cursor:pointer;transition:.15s;position:relative;font-size:.9rem;z-index:99999}details#saswp-ocassional-pop-up-container summary::-webkit-details-marker{display:none}details#saswp-ocassional-pop-up-container summary:hover,summary:focus{background-color:#1348af}details#saswp-ocassional-pop-up-container summary svg{width:25px;margin-left:5px;vertical-align:baseline}@-webkit-keyframes ez_toc_ocassional_pop_up_scale{0%{transform:ez_toc_ocassional_pop_up_scale(0)}100%{transform:ez_toc_ocassional_pop_up_scale(1)}}@keyframes ez_toc_ocassional_pop_up_scale{0%{transform:ez_toc_ocassional_pop_up_scale(0)}100%{transform:ez_toc_ocassional_pop_up_scale(1)}}
-INLINEOCCASIONALADSPOPUSCCS;
-                                                        
-        wp_add_inline_style( 'saswp-main-css', $inlineAdminOccasionalAdsPopUpCCS );
-                        
-        $inlineAdminOccasionalAdsPopUpJS = <<<INLINEOCCASIONALADSPOPUSJS
-function saswp_set_admin_occasional_ads_pop_up_cookie(){var o=new Date;o.setFullYear(o.getFullYear()+1),document.cookie="saswp_hide_admin_occasional_ads_pop_up_cookie_feedback=1; expires="+o.toUTCString()+"; path=/"}function saswp_delete_admin_occasional_ads_pop_up_cookie(){document.cookie="saswp_hide_admin_occasional_ads_pop_up_cookie_feedback=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;"}function saswp_get_admin_occasional_ads_pop_up_cookie(){for(var o="saswp_hide_admin_occasional_ads_pop_up_cookie_feedback=",a=decodeURIComponent(document.cookie).split(";"),e=0;e<a.length;e++){for(var c=a[e];" "==c.charAt(0);)c=c.substring(1);if(0==c.indexOf(o))return c.substring(o.length,c.length)}return""}jQuery(function(o){var a=saswp_get_admin_occasional_ads_pop_up_cookie();void 0!==a&&""!==a&&o("details#saswp-ocassional-pop-up-container").attr("open",!1),o("details#saswp-ocassional-pop-up-container span.saswp-promotion-close-btn").click(function(a){o("details#saswp-ocassional-pop-up-container summary").click()}),o("details#saswp-ocassional-pop-up-container summary").click(function(a){var e=o(this).parents("details#saswp-ocassional-pop-up-container"),c=o(e).attr("open");void 0!==c&&!1!==c?saswp_set_admin_occasional_ads_pop_up_cookie():saswp_delete_admin_occasional_ads_pop_up_cookie()})});      
-INLINEOCCASIONALADSPOPUSJS;
-                                        
-        wp_add_inline_script( 'saswp-main-js', $inlineAdminOccasionalAdsPopUpJS );
-}
-
 function saswp_custom_upload_mimes($mimes = array()) {
 	
         $mimes['json'] = "application/json";
@@ -941,7 +928,8 @@ function saswp_amp_page_callback(){
                 is_plugin_active('amp/amp.php') || 
                 is_plugin_active('better-amp/better-amp.php')  ||
                 is_plugin_active('wp-amp/wp-amp.php') ||
-                is_plugin_active('amp-wp/amp-wp.php')
+                is_plugin_active('amp-wp/amp-wp.php') ||
+                is_plugin_active('bunyad-amp/bunyad-amp.php') 
                         
                 ) {                         
         }else{
@@ -949,10 +937,11 @@ function saswp_amp_page_callback(){
             $non_amp_enable_field['attributes'] = array(
                  'disabled' => 'disabled'
              );
-             $non_amp_enable_field['note'] = saswp_t_string('Requires'). ' <a target="_blank" href="https://wordpress.org/plugins/accelerated-mobile-pages/">AMP for WP</a> or <a target="_blank" href="https://wordpress.org/plugins/amp/">AMP</a> or <a target="_blank" href="https://wordpress.org/plugins/better-amp/">Better AMP</a> or <a target="_blank" href="https://codecanyon.net/item/wp-amp-accelerated-mobile-pages-for-wordpress-and-woocommerce/16278608">WP AMP</a>';
+             $non_amp_enable_field['note'] = saswp_t_string('Requires'). ' <a target="_blank" href="https://wordpress.org/plugins/accelerated-mobile-pages/">AMP for WP</a> or <a target="_blank" href="https://wordpress.org/plugins/amp/">AMP</a> or <a target="_blank" href="https://wordpress.org/plugins/better-amp/">Better AMP</a> or <a target="_blank" href="https://codecanyon.net/item/wp-amp-accelerated-mobile-pages-for-wordpress-and-woocommerce/16278608">WP AMP</a> or <a target="_blank" href="https://theme-sphere.com/themes/smart-mag/">Bunyad AMP</a>';
              $settings['saswp-for-amp'] = 0;	
             
         }
+
                 
         $meta_fields = array(
             $non_amp_enable_field,
@@ -1025,10 +1014,18 @@ function saswp_general_page_callback(){
                 'class'   => 'saswp_archive_schema_type_class',
                 'type'    => 'select',
                 'options' => array(                                
-                                'Article'          => 'Article',                                     
+                                'Article'          => 'Article',     
+                                'ScholarlyArticle' => 'ScholarlyArticle',                                     
                                 'BlogPosting'      => 'BlogPosting',                                     
-                                'NewsArticle'      => 'NewsArticle',                                                                                                                                                                                                                                                                   
-                                'WebPage'          => 'WebPage' 
+                                'NewsArticle'      => 'NewsArticle',          
+                                'AnalysisNewsArticle' => 'AnalysisNewsArticle',    
+                                'AskPublicNewsArticle' => 'AskPublicNewsArticle',      
+                                'BackgroundNewsArticle' => 'BackgroundNewsArticle',       
+                                'OpinionNewsArticle' => 'OpinionNewsArticle',   
+                                'ReportageNewsArticle' => 'ReportageNewsArticle',     
+                                'ReviewNewsArticle' => 'ReviewNewsArticle',                                                                                                                                                                                                                                                  
+                                'WebPage'          => 'WebPage',
+                                'ItemPage'         => 'ItemPage'
                 )
         );
         if(is_plugin_active('woocommerce/woocommerce.php')){
@@ -1058,6 +1055,15 @@ function saswp_general_page_callback(){
                         'name' => 'sd_data[saswp_breadcrumb_schema]',                             
                 )
         );
+        $meta_fields_default[] = array(
+                'label'  => 'Home Page Title',
+                'id'     => 'saswp_breadcrumb_home_page_title_text', 
+                'name'   => 'sd_data[saswp_breadcrumb_home_page_title_text]',
+                'type'   => 'text',
+                'class'  => 'text saswp-text',  
+                'default'=>  get_bloginfo(), 
+        );
+        
         $meta_fields_default[] = array(
                 'label'  => 'Exclude Category',
                 'id'     => 'saswp_breadcrumb_remove_cat_checkbox', 
@@ -1135,7 +1141,10 @@ function saswp_general_page_callback(){
               <h2><?php echo saswp_t_string('General Settings'); ?></h2>              
             </div>
             <p><?php echo saswp_t_string('This is a global schema settings, to display about, contact, website, archive, breadcrumbs, comments and site navigation schema type.') ?> <a target="_blank" href="http://structured-data-for-wp.com/docs/article/what-is-general-settings-in-schema/"><?php echo saswp_t_string('Learn More') ?></a></p>   
-        <ul><li><div class="saswp-about-contact-page-tooltip"><label class="saswp-tooltip">
+        <ul><li><div class="saswp-about-contact-page-tooltip">
+        <input  id="saswp_breadcrumb_home_page_title" name="sd_data[saswp_breadcrumb_home_page_title]" type="hidden" value="<?php if(!empty($settings['saswp_breadcrumb_home_page_title'])){ echo $settings['saswp_breadcrumb_home_page_title']; }else{ echo get_bloginfo(); } ?>">
+        
+        <label class="saswp-tooltip">
         <?php echo saswp_t_string('About') ?>
                 <span class="saswp-tooltiptext"><?php echo saswp_t_string('Set the about page of of your website') ?></span>
                 </label>
@@ -1485,7 +1494,6 @@ function saswp_general_page_callback(){
             
 	);
         
-        
         if(is_plugin_active('woocommerce/woocommerce.php')){
                               
                 $meta_fields_default[] = array(
@@ -1695,7 +1703,19 @@ function saswp_import_callback(){
                                 'id'   => 'saswp-full-heading',
                                 'name' => 'sd_data[saswp-full-heading]',                             
                         )
-                )                  
+                ),
+                array(
+                        'label'  => 'Truncate Product Description',
+                        'id'     => 'saswp-truncate-product-description-checkbox', 
+                        'name'   => 'saswp-truncate-product-description-checkbox',
+                        'type'   => 'checkbox',
+                        'class'  => 'checkbox saswp-checkbox',                        
+                        'note'   => 'Google only allows to keep 5000 or less characters in product description. We initially allow full product description. This option will truncate the product description and limit description to 5000 characters.',
+                        'hidden' => array(
+                                'id'   => 'saswp-truncate-product-description',
+                                'name' => 'sd_data[saswp-truncate-product-description]',                             
+                        )  
+                )                
                 
 	);   
         
@@ -2299,9 +2319,9 @@ function saswp_get_license_section_html($on, $license_key, $license_status, $lic
             elseif ( $license_status_msg !='active' && $on ==  'Reviews') {
 
                 $response.= '<span class="saswp-sts-deactive-reviews '.strtolower($on).'_addon">
-                <label class="saswp-sts-txt"><span class="inactive_Reviews">'.saswp_t_string('Status').':</span><span class="inactive_status_'.strtolower($on).'">'.saswp_t_string('Inactive').'
+                <label class="saswp-sts-txt"><span class="saswp_inactive_Reviews">'.saswp_t_string('Status').':</span><span class="saswp_inactive_status_'.strtolower($on).'">'.saswp_t_string('Inactive').'
                 </span>
-                <input type="text" class="reviewslicense_key_input_inactive '.strtolower($on).'_addon_inactive" placeholder="Enter License Key" name="sd_data['.strtolower($on).'_addon_license_key]" id="'.strtolower($on).'_addon_license_key" value="">
+                <input type="text" class="saswp_reviewslicense_key_input_inactive '.strtolower($on).'_addon_inactive" placeholder="Enter License Key" name="sd_data['.strtolower($on).'_addon_license_key]" id="'.strtolower($on).'_addon_license_key" value="">
                  <a license-status="active" add-on="'.strtolower($on).'" class="button button-default saswp_license_activation Reviews '.$on.'" id="saswp_license_activation">'.saswp_t_string('Activate').'</a>
                  </label>
                  </span>';
@@ -2555,6 +2575,18 @@ function saswp_compatibility_page_callback(){
                                 'name' => 'sd_data[saswp-ampforwp]',                             
                         )
 		);
+        $bunyadamp = array(
+                'label'  => 'BunyadAMP',
+                'id'     => 'saswp-bunyadamp-checkbox',                        
+                'name'   => 'saswp-bunyadamp-checkbox',
+                'type'   => 'checkbox',
+                'class'  => 'checkbox saswp-checkbox',
+                'note'   => saswp_get_field_note('bunyadamp'),
+                'hidden' => array(
+                        'id'   => 'saswp-bunyadamp',
+                        'name' => 'sd_data[saswp-bunyadamp]',                             
+                )
+        );
         $ampbyautomatic = array(
 			'label'  => 'AMP By Automatic',
 			'id'     => 'saswp-ampbyautomatic-checkbox',                        
@@ -2603,7 +2635,9 @@ function saswp_compatibility_page_callback(){
                         'id'   => 'saswp-cmp',
                         'name' => 'sd_data[saswp-cmp]',                             
                 )
-        );        
+        );
+        
+        
         $wpecommerce = array(
                 'label'  => 'WP eCommerce',
                 'id'     => 'saswp-wpecommerce-checkbox',                        
@@ -3502,6 +3536,19 @@ function saswp_compatibility_page_callback(){
                                 'name' => 'sd_data[saswp-wp-event-manager]',                             
                 )
 	);
+
+        $wp_event_solution = array(
+                        'label'  => 'Eventin',
+                        'id'     => 'saswp-wp-event-solution-checkbox', 
+                        'name'   => 'saswp-wp-event-solution-checkbox',
+                        'type'   => 'checkbox',
+                        'class'  => 'checkbox saswp-checkbox',      
+                        'note'   => saswp_get_field_note('wp_event_solution'),
+                        'hidden' => array(
+                                'id'   => 'saswp-wp-event-solution',
+                                'name' => 'sd_data[saswp-wp-event-solution]',                             
+                        )
+        );
         
         $events_manager = array(
 			'label'  => 'Events Manager',
@@ -4127,6 +4174,19 @@ function saswp_compatibility_page_callback(){
                              'name' => 'sd_data[saswp-flexmlx-compativility]',                             
                         )
 		);
+
+        $publishpress_authors = array(
+                'label'  => 'PublishPress Authors',
+                'id'     => 'saswp-publish-press-authors-checkbox',                        
+                'name'   => 'saswp-publish-press-authors-checkbox',
+                'type'   => 'checkbox',
+                'class'  => 'checkbox saswp-checkbox',
+                'note'   => saswp_get_field_note('publishpress_authors'),
+                'hidden' => array(
+                        'id'   => 'saswp-publish-press-authors',
+                        'name' => 'sd_data[saswp-publish-press-authors]',                             
+                )
+        ); 
                 
         if(!is_plugin_active('woocommerce-compatibility-for-schema/woocommerce-compatibility-for-schema.php')){
                       
@@ -4213,13 +4273,14 @@ function saswp_compatibility_page_callback(){
                 $sabaidiscuss['note'] = saswp_t_string('This feature requires').' <a target="_blank" href="https://structured-data-for-wp.com/qanda-schema/">Q&A Schema Compatibility Addon</a>';                        
                 $wpqa_builder['note'] = saswp_t_string('This feature requires').' <a target="_blank" href="https://structured-data-for-wp.com/qanda-schema/">Q&A Schema Compatibility Addon</a>';                        
          }
-         
+       
          if(!is_plugin_active('event-schema-for-saswp/event-schema-for-saswp.php')){
                           
              $ameliabooking['note']               = saswp_t_string('This feature requires').' <a target="_blank" href="https://structured-data-for-wp.com/event-schema/">Event Schema Addon</a>';
              $the_events_calendar['note']         = saswp_t_string('This feature requires').' <a target="_blank" href="https://structured-data-for-wp.com/event-schema/">Event Schema Addon</a>';
              $events_calendar_wd['note']          = saswp_t_string('This feature requires').' <a target="_blank" href="https://structured-data-for-wp.com/event-schema/">Event Schema Addon</a>';
              $wp_event_manager['note']            = saswp_t_string('This feature requires').' <a target="_blank" href="https://structured-data-for-wp.com/event-schema/">Event Schema Addon</a>';
+             $wp_event_solution['note']           = saswp_t_string('This feature requires').' <a target="_blank" href="https://structured-data-for-wp.com/event-schema/">Event Schema Addon</a>';
              $events_manager['note']              = saswp_t_string('This feature requires').' <a target="_blank" href="https://structured-data-for-wp.com/event-schema/">Event Schema Addon</a>';
              $event_organiser['note']             = saswp_t_string('This feature requires').' <a target="_blank" href="https://structured-data-for-wp.com/event-schema/">Event Schema Addon</a>';
              $modern_events_calendar['note']      = saswp_t_string('This feature requires').' <a target="_blank" href="https://structured-data-for-wp.com/event-schema/">Event Schema Addon</a>';
@@ -4255,6 +4316,7 @@ function saswp_compatibility_page_callback(){
         
         $meta_fields = array(
                 $ampforwp,
+                $bunyadamp,
                 $ampbyautomatic,
                 $cmp,
                 $betteramp,
@@ -4336,6 +4398,7 @@ function saswp_compatibility_page_callback(){
                 $ameliabooking,
                 $the_events_calendar,
                 $wp_event_manager,
+                $wp_event_solution,
                 $events_manager,
                 $events_calendar_wd,
                 $event_organiser,
@@ -4380,7 +4443,8 @@ function saswp_compatibility_page_callback(){
                 $helpiefaq,
                 $mooberrybm,
                 $novelist,
-                $flex_lmx
+                $flex_lmx,
+                $publishpress_authors
                 
 	);  
                 
@@ -4436,7 +4500,7 @@ function saswp_compatibility_page_callback(){
             $act_meta_fields = $meta_fields;
              
             $active_plugins = saswp_compatible_active_list();
-             
+
             foreach ($act_meta_fields as $key => $field){
                                   
                  if($field['hidden']['id'] == 'saswp-woocommerce-booking' || $field['hidden']['id'] == 'saswp-woocommerce-membership'){
@@ -4653,7 +4717,8 @@ function saswp_enqueue_style_js( $hook ) {
         $data = apply_filters('saswp_localize_filter',$data,'saswp_localize_data');
 	// Color picker CSS
 	// @refer https://make.wordpress.org/core/2012/11/30/new-color-picker-in-wp-3-5/
-        wp_enqueue_style( 'wp-color-picker' );	
+        wp_enqueue_style( 'wp-color-picker' );
+        wp_enqueue_script( 'wp-color-picker' );	
 	// Everything needed for media upload
         wp_enqueue_media();
         
@@ -4670,22 +4735,26 @@ function saswp_enqueue_style_js( $hook ) {
                 wp_enqueue_style( 'jquery-ui' ); 
 
         }
-                                        
+       
+        wp_enqueue_script( 'wp-color-picker-alpha', SASWP_PLUGIN_URL . 'admin_section/js/wp-color-picker-alpha.min.js', array( 'wp-color-picker' ), SASWP_VERSION, true );
+                       
         wp_enqueue_script( 'saswp-functions-list', SASWP_PLUGIN_URL . 'admin_section/js/'.(SASWP_ENVIRONMENT == 'production' ? 'functions-list.min.js' : 'functions-list.js'), false, SASWP_VERSION );
         
-        wp_register_script( 'saswp-main-js', SASWP_PLUGIN_URL . 'admin_section/js/'.(SASWP_ENVIRONMENT == 'production' ? 'main-script.min.js' : 'main-script.js'), array('jquery'), SASWP_VERSION , true );
+        wp_register_script( 'saswp-main-js', SASWP_PLUGIN_URL . 'admin_section/js/'.(SASWP_ENVIRONMENT == 'production' ? 'main-script.min.js' : 'main-script.js'), array('jquery','wp-color-picker'), SASWP_VERSION , true );
                         
         wp_localize_script( 'saswp-main-js', 'saswp_localize_data', $data );
         
         wp_enqueue_script( 'saswp-main-js' );
         
         wp_enqueue_style( 'saswp-main-css', SASWP_PLUGIN_URL . 'admin_section/css/'.(SASWP_ENVIRONMENT == 'production' ? 'main-style.min.css' : 'main-style.css'), false , SASWP_VERSION );
-                        
+        
+        // wp_enqueue_style( 'saswp-frontend-css', SASWP_PLUGIN_URL . 'admin_section/css/'.(SASWP_ENVIRONMENT == 'production' ? 'saswp-frontend.min.css' : 'saswp-frontend.css'), false , SASWP_VERSION );	
+        // wp_enqueue_script( 'saswp-rateyo-front-js', SASWP_PLUGIN_URL . 'admin_section/js/jquery.rateyo.min.js', array('jquery', 'jquery-ui-core'), SASWP_VERSION , true );                                                                                        
+        // wp_enqueue_style( 'jquery-rateyo-min-css', SASWP_PLUGIN_URL . 'admin_section/css/'.(SASWP_ENVIRONMENT == 'production' ? 'jquery.rateyo.min.css' : 'jquery.rateyo.min.css'), false, SASWP_VERSION );
+        
         wp_style_add_data( 'saswp-main-css', 'rtl', 'replace' );
         
         apply_filters('saswp_wp_enqueue_more_script', '');
-
-        saswp_inlineAdminOccasionalAdsPopUpCSS_JS();
 
         }                
         

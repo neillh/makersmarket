@@ -1,12 +1,13 @@
-<?php 
-/*!
+<?php
+/*
+!
  * System Assistant: Assistant page
  */
 
 global $zbs;
 
 // render title
-jpcrm_render_system_title( __( 'System Assistant', 'zero-bs-crm' ) ); 
+jpcrm_render_system_title( __( 'System Assistant', 'zero-bs-crm' ) );
 
 // render page
 jpcrm_render_system_assistant_page();
@@ -25,13 +26,12 @@ jpcrm_render_system_assistant_page();
  *   'button_txt'      => '', // text for button that leads to the above; if omitted it defaults to 'Read Guide'
  *   'state'           => true, // condition that triggers a bool response; complete = true, incomplete = false
  * ),
- *
  */
 function jpcrm_render_system_assistant_page() {
 
 	global $zbs;
 
-	?><p><?php _e( 'Welcome to the CRM System Assistant. This page provides an admin overview of the progress through setup of your CRM systems.', 'zero-bs-crm' ); ?></p>
+	?><p><?php esc_html_e( 'Welcome to the CRM System Assistant. This page provides an admin overview of the progress through setup of your CRM systems.', 'zero-bs-crm' ); ?></p>
 
 	<div class="ui segment">
 		<?php
@@ -66,8 +66,6 @@ function jpcrm_render_system_assistant_page() {
 
 		);
 
-
-
 		// try invoicing
 		$job_list['try_invoicing'] = array(
 
@@ -94,7 +92,6 @@ function jpcrm_render_system_assistant_page() {
 				'state'           => zeroBS_invCount() > 0,
 
 			);
-
 
 		}
 
@@ -145,7 +142,7 @@ function jpcrm_render_system_assistant_page() {
 			'desc_complete'   => __( 'Good job, your core CRM is up to date.', 'zero-bs-crm' ),
 			'button_url'      => admin_url( 'update-core.php' ),
 			'button_txt'      => __( 'View Updates', 'zero-bs-crm' ),
-			'state'           => !$has_update,
+			'state'           => ! $has_update,
 
 		);
 
@@ -159,17 +156,15 @@ function jpcrm_render_system_assistant_page() {
 
 	</div>
 	<?php
-
 }
-
 
 /**
  * Render a single system assistant job
  */
-function jpcrm_render_system_assistant_job( $job = array() ){
+function jpcrm_render_system_assistant_job( $job = array() ) {
 
 	// if no help txt, use default:
-	if ( !isset( $job['button_txt'] ) ) {
+	if ( ! isset( $job['button_txt'] ) ) {
 
 		$job['button_txt'] = __( 'Read Guide', 'zero-bs-crm' );
 
@@ -183,13 +178,12 @@ function jpcrm_render_system_assistant_job( $job = array() ){
 				<i class="check circle outline icon green state-complete"></i>
 			</div>
 			<div class="fourteen wide column">
-				<h4 class="ui header"><i class="<?php echo $job['icon']; ?> icon"></i> <?php echo $job['title']; ?></h4>
-				<p class="job-desc state-incomplete"><?php echo $job['desc_incomplete']; ?></p>
-				<p class="job-desc state-complete"><?php echo $job['desc_complete']; ?></p>
-				<p class="job-help"><a href="<?php echo $job['button_url']; ?>" target="_blank" class="ui button"><?php echo $job['button_txt']; ?></a></p>
+				<h4 class="ui header"><i class="<?php echo esc_attr( $job['icon'] ); ?> icon"></i> <?php echo esc_html( $job['title'] ); ?></h4>
+				<p class="job-desc state-incomplete"><?php echo esc_html( $job['desc_incomplete'] ); ?></p>
+				<p class="job-desc state-complete"><?php echo esc_html( $job['desc_complete'] ); ?></p>
+				<p class="job-help"><a href="<?php echo esc_url( $job['button_url'] ); ?>" target="_blank" class="ui button"><?php echo esc_html( $job['button_txt'] ); ?></a></p>
 			</div>
 			</div>
 		</div>
 	<?php
-
 }

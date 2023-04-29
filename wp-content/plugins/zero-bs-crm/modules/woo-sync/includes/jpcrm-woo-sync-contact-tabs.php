@@ -37,12 +37,12 @@ class Woo_Sync_Contact_Tabs {
     /**
      * Main Class Instance.
      *
-     * Ensures only one instance of Woo_Sync_Background_Sync is loaded or can be loaded.
+     * Ensures only one instance of Woo_Sync_Contact_Tabs is loaded or can be loaded.
      *
      * @since 2.0
      * @static
      * @see 
-     * @return Woo_Sync_Background_Sync main instance
+     * @return Woo_Sync_Contact_Tabs main instance
      */
     public static function instance(){
         if ( is_null( self::$_instance ) ) {

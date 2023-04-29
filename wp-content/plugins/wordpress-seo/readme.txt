@@ -5,7 +5,7 @@ License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl.html
 Tags: SEO, XML sitemap, Content analysis, Readability, Schema
 Tested up to: 6.1
-Stable tag: 19.10
+Stable tag: 20.3
 Requires PHP: 5.6.20
 
 Improve your WordPress SEO: Write better content and have a fully optimized WordPress site using the Yoast SEO plugin.
@@ -56,7 +56,7 @@ We know content is king, that's why Yoast SEO is famous for its **state-of-the-a
 * **[Premium]** An orphaned content filter to detect posts that have no links pointing towards them!
 * **[Premium]** SEO workouts to make working on your site as easy as ABC. These SEO workflows will get your site into shape in no time!
 * **[Premium]** **New!** Yoast SEO Premium comes with a new word complexity feature that gives you actionable feedback on using difficult words. This feature is in beta and English only for now.
-* **[Premium]** **New!** Yoast SEO Premium comes with a new inclusive language analysis that helps you write inclusive content. This feature is opt-in, in beta and English only for now.
+* **New!** Yoast SEO Free and Premium come with a new inclusive language analysis that helps you write inclusive content. This feature is opt-in and English-only for now.
 
 #### KEEP YOUR SITE IN PERFECT SHAPE
 
@@ -236,62 +236,81 @@ Your question has most likely been answered on our help center: [yoast.com/help/
 
 == Screenshots ==
 
-1. The Yoast SEO plugin general meta box. You'll see this on edit post pages, for posts, pages and custom post types.
-2. Example of the SEO analysis functionality.
-3. Example of the readability analysis functionality.
-4. Overview of site-wide SEO problems and possible improvements.
-5. Control over which features you want to use.
-6. Easily import SEO data from other SEO plugins like All In One SEO pack, HeadSpace2 SEO and wpSEO.de.
+1. The modern interface makes Yoast SEO easy to work with.
+2. Easily manage how your posts and pages appear in SERPs.
+3. Yoast SEO Premium has extra crawl optimization options.
+4. Yoast SEO integrates with tools like Semrush and Wincher.
+5. The famous SEO and readability analyses in Yoast SEO.
+6. See what your post looks like in Google.
+7. The First-time configuration helps you get started quickly.
+8. The inclusive language analysis in Yoast SEO.
 
 == Changelog ==
 
-= 19.10 =
-Release Date: November 8th, 2022
+= 20.3 =
 
-Yoast SEO 19.10 is out today. This release mostly consists of bug fixes and enhancements. In addition, we're getting our WordPress plugins ready for the upcoming High Performance Order Storage feature in WooCommerce 7.1+. Update now! Read more about what's new in Yoast SEO 19.9 in [our release post in English](https://yoa.st/release-8-11-22) or [our release post in Spanish](https://yoa.st/release-8-11-22-spanish)!
+Release date: 2023-03-14
 
-Enhancements:
+Yoast SEO 20.3 is out and comes with several enhancements, fixes, and improvements. With an improved highlighting feature and enhanced support for the Portuguese language, Yoast SEO 20.3 helps you find where you need to make SEO edits quickly and easily. Upgrade now and take your website's SEO to the next level! Find out more about what's new in Yoast SEO 20.3 in [our release post](https://yoa.st/release-14-3-23)!
 
-* Improves the call-to-action feedback string of the _Flesch Reading Ease_ insight when the text is recognized as fairly difficult.
+#### Enhancements
 
-Bugfixes:
+* Allows the highlighting feature to highlight content in captions of _Audio_, _Embed_, _Gallery_, _Image_, _Table_, and _Video_ blocks in the Block editor.
+* Allows the highlighting feature to highlight content in _FAQ_ and _How-to_ blocks in the Block editor.
+* Improves the detection of participles in the _passive voice_ assessment for Portuguese.
+* Improves the _transition words_ assessment for Portuguese by adding new transition words. Props to [mathiasribeiro](https://github.com/mathiasribeiro).
 
-* Fixes a bug where a fatal error would be thrown in the classic editor in combination with certain plugins that misuse metabox hooks.
-* Fixes a bug where users with site-wide basic access authentication would be prompted to insert their credentials when saving a post in Elementor if they didn't have the `manage_options` capability.
-* Fixes a bug where Yoast SEO-related post meta data would not be saved if a user without the `manage_options` capability would save a post in Elementor.
+#### Bugfixes
 
-Other:
+* Fixes a bug where a fatal error would appear in oEmbed pages for media pages when those were disabled from Yoast settings.
+* Fixes a bug where editing text in Classic editor while the highlighting feature is enabled would make the text unfocused and the cursor jump to the beginning of the text.
+* Fixes a bug where self-closing break tags (`</br>`) would not be removed when analyzing content.
+* Fixes a bug where shortcodes in the Block editor would be treated as words when analyzing content.
+* Fixes a bug where the color and line height in the _Google preview_ modal would be shown incorrectly when editing in Elementor.
+* Fixes a bug where the `fetchpriority` attribute of the rating stars image was mistyped. Props to [fellyph](https://github.com/fellyph).
+* Fixes a bug where the `get_head` REST endpoint would return wrong values for some meta tags when called with the homepage URL as an argument.
+* Fixes a bug where the query parameters would be added in the middle of canonical and previous and next links in paginated pages. Props to [andreas-pa](https://github.com/andreas-pa).
 
-* Deprecates the hooks used to add custom content to the Yoast SEO settings pages, in preparation for future releases. The following hooks have been deprecated: `wpseo_tools_overview_list_items`, `wpseo_settings_tab_crawl_cleanup`, `wpseo_settings_tab_site_analysis`, `Yoast\WP\SEO\admin_author_archives_meta`, `Yoast\WP\SEO\admin_date_archives_meta`, `Yoast\WP\SEO\admin_post_types_beforearchive`, `Yoast\WP\SEO\admin_post_types_archive`, `Yoast\WP\SEO\admin_taxonomies_meta`, `wpseo_admin_other_section`, `wpseo_admin_opengraph_section`, `wpseo_admin_pinterest_section`, `wpseo_admin_twitter_section`, `wpseo_import_other_plugins`.
-* Ensures compatibility with the _High Performance Order Storage_ feature in WooCommerce 7.1+.
-* Sets the WordPress tested up to version to 6.1.
+#### Other
 
-= 19.9 =
-Release Date: October 25th, 2022
+* Avoids issuing a PHP warning because of a wrong variable type.
+* Removes the beta badge for the _inclusive language_ assessment.
 
-Yoast SEO 19.9 is out today. Yoast SEO already supports the Schema necessary for Google's Site Names update, but we've expanded support for it in this release. In addition, we give users more control over what names they can add, including an alternate title. Of course, there's a lot more, so check it out! Read more about what's new in Yoast SEO 19.9 in [our release post in English](https://yoa.st/release-25-10-22) or [our release post in Spanish](https://yoa.st/release-25-10-22-spanish)!
+= 20.2.1 =
 
-Enhancements:
+Release date: 2023-03-02
 
-* Adds input fields to overwrite the site name, as well as an extra input field for a (potentially shorter) alternate name. Google introduced new support for [site names in Google Search](https://developers.google.com/search/blog/2022/10/introducing-site-names-on-search). Yoast SEO already outputs this value correctly, using the WordPress site name. With these changes, we have increased the control site owners have over this value.
-* Improves the Schema output for Organization by no longer putting out an empty array if no social profiles have been added for it.
-* Adds immediate keyphrase tracking after connecting to Wincher.
+#### Bugfixes
 
-Bugfixes:
+* Fixes a security issue in the post editor.
 
-* Fixes a bug where a fatal error would be thrown when using the `wpseo_breadcrumb_links` filter in the wrong way on PHP 8.0+.
-* Fixes a bug where social or canonical URLs containing `@` would lead to encoding issues. Props to [@stodorovic](https://github.com/stodorovic).
-* Fixes a bug where the buttons in the _FAQ_ and in the _how-to_ block would be hardly visible when using a dark theme.
-* Fixes a bug where the number of words would be counted incorrectly when using Cyrillic script. Props to [kudinovfedor](https://github.com/kudinovfedor).
-* Fixes a bug where the _previously used keyphrase_ assessment would also appear under the readability analysis tab when the cornerstone content toggle would be switched on.
-* Fixes a bug where the SEO optimization routine would give an error when an image file of an image linked in a post could not be retrieved.
-* Fixes a bug where the wrong canonical URL would be set on attachment pages.
+= 20.2 =
 
-Other:
+Release date: 2023-02-28
 
-* Adds taxonomy information to breadcrumbs of type "term" to be able to filter them better with the `wpseo_breadcrumb_links` filter. Props to [@svenvonarx](https://github.com/svenvonarx).
-* Adds a `wpseo_primary_category_admin_pages` filter to enable the use of the primary category in the post URL of additional admin pages besides the default ones. Props to [@ssvet](https://github.com/ssvet).
-* Reinstates the `wpseo_twitter_card_type` filter that was wrongly deprecated in 19.8.
+In Yoast SEO 20.2, we've improved our innovative indexables technology. We've developed a faster and more reliable way of indexing your site's data. In turn, we make better use of this data to improve your site's SEO. Find out more about what's new in Yoast SEO 20.2 in [our release post](https://yoa.st/release-28-2-23)!
+
+#### Enhancements
+
+* Stops creating indexables for attachments when attachment pages are disabled, thus decreasing the size of the database.
+* Improves the indexables creation mechanism by avoiding duplicate `unindexed` entries when multiple invalid posts and terms are being used.
+* Changes replacement variable name from `Page number` to `Page` in the `Settings` page.
+* Changes the copy for notices in social profiles for person.
+* Improves accessibility for the extra other profiles in the Settings' Site representation when Organization is selected.
+* Improves the performance of image schema creation for really large images.
+* Improves the Settings' search modal accessibility.
+* Removes person's social profiles form from first time configuration.
+
+#### Bugfixes
+
+* Fixes a bug where a fatal error would be thrown when building a hierarchy indexable when the parent indexable did not exists.
+* Fixes a bug where a fatal error would be thrown when the post type `posts` was excluded and the post overview was visited.
+* Fixes a bug where the settings page of a post type would not load when a special character like ט was added as permalink.
+
+#### Other
+
+* Adds a `wpseo_indexable_forced_included_post_types` filter to force creation of indexables for post types.
+* Hides \"Enable SEO controls and assessments\" option from taxonomies that has no standard WP UI.
 
 = Earlier versions =
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/yoast-seo-changelog).

@@ -218,10 +218,56 @@ class Woo_Sync {
 	/**
 	 * Retrieve Settings
 	 */
-	public function get_settings( ) {
-		
+	public function get_settings() {
 		return $this->settings->getAll();
 
+	}
+
+	/**
+	 * Retrieve WooCommerce Order statuses
+	 */
+	public function get_woo_order_statuses() {
+		$woo_order_statuses = array(
+			'wcpending'       => __( 'Pending', 'zero-bs-crm' ),
+			'wcprocessing'    => __( 'Processing', 'zero-bs-crm' ),
+			'wconhold'        => __( 'On hold', 'zero-bs-crm' ),
+			'wccompleted'     => __( 'Completed', 'zero-bs-crm' ),
+			'wccancelled'     => __( 'Cancelled', 'zero-bs-crm' ),
+			'wcrefunded'      => __( 'Refunded', 'zero-bs-crm' ),
+			'wcfailed'        => __( 'Failed', 'zero-bs-crm' ),
+			'wccheckoutdraft' => __( 'Draft', 'zero-bs-crm' ),
+		);
+		return apply_filters( 'zbs-woo-additional-status', $woo_order_statuses );
+	}
+
+	/**
+	 * Retrieve available WooCommerce Order mapping to different CRM fields.
+	 * This mapping is stored in the settings in the settings, more specifically
+	 * in $settings[ $type_prefix . $woo_order_status_key ].
+	 * 
+	 * @return array Array with mapping types for contacts, invoices and transactions.
+	 */
+	function get_woo_order_mapping_types() {
+		$contact_statuses     = zeroBSCRM_getCustomerStatuses( true );
+		$invoice_statuses     = zeroBSCRM_getInvoicesStatuses();
+		$transaction_statuses = zeroBSCRM_getTransactionsStatuses( true );
+		return array(
+			'contact' => array(
+				'label'    => __( 'Contact status', 'zero-bs-crm' ), 
+				'prefix'   => 'order_contact_map_',
+				'statuses' => $contact_statuses,
+			),
+			'invoice' => array(
+				'label'    => __( 'Invoice status', 'zero-bs-crm' ), 
+				'prefix'   => 'order_invoice_map_',
+				'statuses' => $invoice_statuses,
+			),
+			'transaction' => array(
+				'label'    => __( 'Transaction status', 'zero-bs-crm' ), 
+				'prefix'   => 'order_transaction_map_',
+				'statuses' => $transaction_statuses,
+			),
+		);
 	}
 
 	/**
@@ -618,8 +664,8 @@ class Woo_Sync {
 			'title'      => 'WooSync',
 			'url'        => $this->slugs['hub'],
 			'perms'      => 'admin_zerobs_manage_options',
-			'order'      => 1.1,
-			'wpposition' => 1.1,
+			'order'      => 10,
+			'wpposition' => 10,
 			'callback'   => 'jpcrm_woosync_render_hub_page',
 			'stylefuncs' => array( 'zeroBSCRM_global_admin_styles', 'jpcrm_woosync_hub_page_styles_scripts' ),
 		);
@@ -1103,7 +1149,7 @@ class Woo_Sync {
 			$latest_synced_transaction_text .= '<br />';
 
 			// build a 'latest order' string
-			$latest_synced_transaction_text .= __( 'Latest import:', 'zero-bs-crm' ) . ' <a href="' . zbsLink( 'edit', $latest_synced_transaction['id'], ZBS_TYPE_TRANSACTION ) . '" target="_blank">' . $latest_synced_transaction['ref'] . '</a> ';
+			$latest_synced_transaction_text .= __( 'Latest import:', 'zero-bs-crm' ) . ' <a href="' . jpcrm_esc_link( 'edit', $latest_synced_transaction['id'], ZBS_TYPE_TRANSACTION ) . '" target="_blank">' . $latest_synced_transaction['ref'] . '</a> ';
 			if ( !empty( $latest_synced_transaction['title'] ) ) {
 
 				$latest_synced_transaction_text .= '- ' . $latest_synced_transaction['title'] . ' ';
@@ -1334,7 +1380,7 @@ class Woo_Sync {
 		}
 
 		$app_name = sprintf( __( 'CRM: %s', 'zero-bs-crm' ), site_url() );
-		$return_url = zbsLink( $zbs->slugs['settings'] . '&tab=' . $zbs->modules->woosync->slugs['settings'] . '&subtab=' . $this->slugs['settings_connections'] );	
+		$return_url = jpcrm_esc_link( $zbs->slugs['settings'] . '&tab=' . $zbs->modules->woosync->slugs['settings'] . '&subtab=' . $this->slugs['settings_connections'] );	
 
 		##WLREMOVE
 		$app_name = sprintf( __( 'Jetpack CRM: %s', 'zero-bs-crm' ), site_url() );
@@ -1476,6 +1522,28 @@ class Woo_Sync {
 	}
 
 	/**
+	 * Translates a WooCommerce order status to the equivalent settings key
+	 *
+	 * @param string $crm_type The type of CRM object: [ 'contact', 'invoice', 'transaction' ]
+	 *
+	 * @return array The associated settings key array [ $order_status => $settings_key ]
+	 */
+	public function woo_order_status_mapping( $crm_type ) {
+		$setting_prefix = $this->get_woo_order_mapping_types()[ $crm_type ]['prefix'];
+
+		return array(
+			'completed'      => $setting_prefix . 'wccompleted',
+			'on-hold'        => $setting_prefix . 'wconhold',
+			'cancelled'      => $setting_prefix . 'wccancelled',
+			'processing'     => $setting_prefix . 'wcprocessing',
+			'refunded'       => $setting_prefix . 'wcrefunded',
+			'failed'         => $setting_prefix . 'wcfailed',
+			'pending'        => $setting_prefix . 'wcpending',
+			'checkout-draft' => $setting_prefix . 'wccheckoutdraft',
+		);
+	}
+
+	/**
 	 * Translates a WooCommerce order status to a CRM contact resultant status
 	 *  previously `apply_status`
 	 *
@@ -1491,21 +1559,20 @@ class Woo_Sync {
 	    // retrieve default status
 	    $default_status = zeroBSCRM_getSetting( 'defaultstatus' );
 
+	    // retrieve contact_statuses to ensure we are getting a valid one
+	    $contact_statuses = zeroBSCRM_getCustomerStatuses( true );
+
 	    // mappings
-	    $zeroBSCRM_orderTosetting = array(
-	        'completed'  => 'wccompleted',
-	        'on-hold'    => 'wconhold',
-	        'cancelled'  => 'wccancelled',
-	        'processing' => 'wcprocessing',
-	        'refunded'   => 'wcrefunded',
-	        'failed'     => 'wcfailed',
-	        'pending'    => 'wcpending',
-	    );
+	    $woo_order_status_mapping = $this->woo_order_status_mapping( 'contact' );
 
 	    // get the mapping setting from woocommerce
-	    if ( array_key_exists( $order_status, $zeroBSCRM_orderTosetting ) && isset( $settings[$zeroBSCRM_orderTosetting[$order_status]] ) ){
+	    if ( 
+	        array_key_exists( $order_status, $woo_order_status_mapping ) 
+	        && isset( $settings[ $woo_order_status_mapping[ $order_status ] ] )
+	        && in_array( $settings[ $woo_order_status_mapping[ $order_status ] ], $contact_statuses )
+	    ) {
 
-	        $order_status = $settings[$zeroBSCRM_orderTosetting[$order_status]];
+	        $order_status = $settings[ $woo_order_status_mapping[ $order_status ] ];
 
 	    } else {
 
@@ -1513,7 +1580,7 @@ class Woo_Sync {
 
 	    }
 
-	    if ( !isset($order_status) || $order_status == -1 ) {
+	    if ( ! isset( $order_status ) || $order_status == -1 ) {
 
 	        return $default_status;
 
@@ -2274,7 +2341,7 @@ class Woo_Sync {
 
 	    global $zbs;
 
-	    $positions['woosync'] = 5;
+	    $positions['woosync'] = 10;
 
 	    return $positions;
 

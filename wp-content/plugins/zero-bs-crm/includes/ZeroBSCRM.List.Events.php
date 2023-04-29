@@ -57,7 +57,7 @@ class zeroBSCRM_Events_List extends WP_List_Table {
 
     
     public function no_items() {
-        _e( 'No Tasks avaliable.', 'zero-bs-crm' );
+        esc_html_e( 'No Tasks avaliable.', 'zero-bs-crm' );
     }
 
 
@@ -287,7 +287,7 @@ function zeroBSCRM_render_eventscalendar_page(){
                                     'title' => zeroBSCRM_textExpose($event['title']),
                                     'start' => zeroBSCRM_date_forceEN($event['start']),
                                     'end' => zeroBSCRM_date_forceEN($event['end']),
-                                    'url' => zbsLink('edit',$event['id'],ZBS_TYPE_EVENT),
+                                    'url' => jpcrm_esc_link('edit',$event['id'],ZBS_TYPE_EVENT),
                                     'owner' => $event['owner'],
                                     'avatar' => '', // default
                                     'showonCal' => 'hide', // default
@@ -403,8 +403,8 @@ function zeroBSCRM_render_eventscalendar_page(){
                                 center: 'title',
                                 right: 'year, month,agendaWeek, agendaDay,listMonth'
                             },
-                            defaultDate: '<?php echo date('Y-m-d'); ?>',
-                            defaultView: '<?php echo $fullCalendarView; ?>',
+                            defaultDate: '<?php echo esc_html( date('Y-m-d') ); ?>',
+                            defaultView: '<?php echo esc_html( $fullCalendarView ); ?>',
                             navLinks: true, // can click day/week names to navigate views
                        //     editable: true,
                             eventLimit: true, // allow "more" link when too many events

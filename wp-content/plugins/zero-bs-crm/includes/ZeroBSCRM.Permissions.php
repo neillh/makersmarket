@@ -164,7 +164,7 @@
 		    #} Jetpack Customer Manager
 			$result = add_role(
 				'zerobs_customermgr',
-				__( 'Jetpack CRM Customer Manager', 'zero-bs-crm' ),
+				__( 'Jetpack CRM Contact Manager', 'zero-bs-crm' ),
 
 				array(
 
@@ -389,7 +389,7 @@
 		    #} Jetpack Customer
 			$result = add_role(
 				'zerobs_customer',
-				__( 'Jetpack CRM Customer', 'zero-bs-crm' ),
+				__( 'Jetpack CRM Contact', 'zero-bs-crm' ),
 
 				array(
 
@@ -841,6 +841,88 @@
 		}
 
 		return false;
+
+	}
+
+	/**
+	 * Checks a user object (or current user if false passed)
+	 * has roles in first array, and none of the roles in second array
+	 **/
+	function jpcrm_role_check( $user_object = false, $has_roles = array(), $hasnt_roles = array(), $only_these_roles = array() ){
+
+		// load current user if not passed
+		if ( !$user_object ){
+
+			$user_object = wp_get_current_user();
+		
+		}
+
+		// got object?
+		if ( !$user_object ){
+
+				return false;
+
+		}
+
+		// verify has_roles
+		if ( count( $has_roles ) > 0 ){
+
+				foreach ( $has_roles as $role ){
+
+						if ( !in_array( $role, $user_object->roles ) ) {
+
+							return false;
+
+						}
+
+				}
+
+		}
+
+		// verify hasnt_roles
+		if ( count( $hasnt_roles ) > 0 ){
+
+				foreach ( $hasnt_roles as $role ){
+
+						if ( in_array( $role, $user_object->roles ) ) {
+
+							return false;
+
+						}
+
+				}
+
+		}
+
+		// verify only_roles
+		if ( count( $only_these_roles ) > 0 ){
+
+				$role_match_count = 0;
+
+				foreach ( $user_object->roles as $role ){
+
+						if ( !in_array( $role, $only_these_roles ) ) {
+
+							return false;
+
+						} else {
+
+								$role_match_count++;
+
+						}
+
+				}
+
+				if ( $role_match_count != count( $only_these_roles ) ){
+
+						return false;
+
+				}
+
+		}
+
+
+		return true;
 
 	}
 

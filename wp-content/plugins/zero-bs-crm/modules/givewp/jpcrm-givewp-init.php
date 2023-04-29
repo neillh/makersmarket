@@ -20,6 +20,7 @@ function jpcrm_sniff_feature_givewp() {
 			'feature_slug'   => 'givewp',
 			'plugin_slug'    => 'give/give.php',
 			'more_info_link' => $zbs->urls['kb_givewp'],
+			'is_module'      => true,
 		)
 	);
 }

@@ -127,11 +127,11 @@
               ?><table class="ui celled table" id="zbs-tag-manager" style="margin-top:0;">
                   <thead>
                       <tr>
-                        <th><?php _e('Name',"zero-bs-crm"); ?></th>
-                        <th><?php _e('Slug',"zero-bs-crm"); ?></th>
+                        <th><?php esc_html_e('Name',"zero-bs-crm"); ?></th>
+                        <th><?php esc_html_e('Slug',"zero-bs-crm"); ?></th>
                         <?php /* this shows 1 date as DAL2 migration...<th><?php _e('First Used',"zero-bs-crm"); ?></th> */ ?>
-                        <th class="center aligned"><?php _e('Count',"zero-bs-crm"); ?></th>
-                        <th class="center aligned"><?php _e('Action','zero-bs-crm'); ?></th>
+                        <th class="center aligned"><?php esc_html_e('Count',"zero-bs-crm"); ?></th>
+                        <th class="center aligned"><?php esc_html_e('Action','zero-bs-crm'); ?></th>
                       </tr>
                   </thead>
                   <tbody>
@@ -139,14 +139,14 @@
                         if (count($tags) > 0){ 
                           foreach ($tags as $tag){
 
-                            $link = zbsLink('listtagged',-1,$this->postType,-1,$tag['id']);
+                            $link = jpcrm_esc_link('listtagged',-1,$this->postType,-1,$tag['id']);
                             ?>
                             <tr>
-                              <td><?php if (isset($tag['name'])) echo '<a href="'.$link.'" class="ui large blue label">'.$tag['name'].'</a>'; ?></td>
-                              <td><?php if (isset($tag['slug'])) echo $tag['slug']; ?></td>
+                              <td><?php if (isset($tag['name'])) echo '<a href="' . esc_url( $link ) . '" class="ui large blue label">' . esc_html( $tag['name'] ) . '</a>'; ?></td>
+                              <td><?php if (isset($tag['slug'])) echo esc_html( $tag['slug'] ); ?></td>
                               <?php /* this shows 1 date as DAL2 migration... <td><?php if (isset($tag['created']) && !empty($tag['created']) && $tag['created'] !== -1) echo zeroBSCRM_locale_utsToDate($tag['created']); ?></td> */ ?>
-                              <td class="center aligned"><?php if (isset($tag['count'])) echo '<a href="'.$link.'">'.zeroBSCRM_prettifyLongInts($tag['count']).'</a>'; ?></td>
-                              <td class="center aligned"><button type="button" class="ui mini button orange zbs-delete-tag" data-tagid="<?php echo $tag['id']; ?>"><i class="trash alternate icon"></i> <?php _e('Delete','zero-bs-crm'); ?></button></td>
+                              <td class="center aligned"><?php if (isset($tag['count'])) echo '<a href="' . esc_url( $link ) . '">' . esc_html( zeroBSCRM_prettifyLongInts($tag['count']) ) . '</a>'; ?></td>
+                              <td class="center aligned"><button type="button" class="ui mini button orange zbs-delete-tag" data-tagid="<?php echo esc_attr( $tag['id'] ); ?>"><i class="trash alternate icon"></i> <?php esc_html_e('Delete','zero-bs-crm'); ?></button></td>
                             </tr>
                             <?php
                           }
@@ -160,7 +160,7 @@
 
                 ?><script type="text/javascript">
             <?php #} Nonce for AJAX
-                echo 'var zbscrmjs_secToken = \''.wp_create_nonce( "zbscrmjs-ajax-nonce" ).'\';';  ?>
+                echo "var zbscrmjs_secToken = '" . esc_js( wp_create_nonce( 'zbscrmjs-ajax-nonce' ) ) . "';";  ?>
 
                 var zbsTagListLang = {
 

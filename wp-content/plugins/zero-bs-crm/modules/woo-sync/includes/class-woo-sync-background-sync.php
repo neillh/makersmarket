@@ -601,7 +601,8 @@ class Woo_Sync_Background_Sync {
 					// Also delete any woo-created associated invoice
 					if ( $invoice_id > 0 ) {
 						$zbs->DAL->invoices->deleteInvoice( array(
-							'id' => $invoice_id
+							'id'            => $invoice_id,
+							'saveOrphans'   => false
 						));
 					}
 

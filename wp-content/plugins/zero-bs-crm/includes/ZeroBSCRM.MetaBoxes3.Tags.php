@@ -75,9 +75,9 @@ class zeroBS__Metabox_Tags extends zeroBS__Metabox {
                     ?><div id="zbs-add-tags">
                         <div class="ui action left icon fluid input">
                           <i class="tags icon"></i>
-                          <input id="zbs-add-tag-value" type="text" placeholder="<?php _e( 'Enter tags', 'zero-bs-crm' ); ?>">
+                          <input id="zbs-add-tag-value" type="text" placeholder="<?php esc_attr_e( 'Enter tags', 'zero-bs-crm' ); ?>">
                           <button id="zbs-add-tag-action" type="button" class="ui mini blue button">
-                            <?php _e('Add',"zero-bs-crm"); ?>
+                            <?php esc_html_e('Add',"zero-bs-crm"); ?>
                           </button>
                         </div>
                     </div>
@@ -124,7 +124,7 @@ class zeroBS__Metabox_Tags extends zeroBS__Metabox {
                                 */
                             if (is_array($tagSuggestions) && count($tagSuggestions) > 0){ ?>
                         <div id="zbs-tags-suggestions-wrap">
-                            <div class="ui horizontal divider zbs-tags-suggestions-title"><?php _e('Suggested Tags','zero-bs-crm').':'; ?></div>
+                            <div class="ui horizontal divider zbs-tags-suggestions-title"><?php esc_html_e('Suggested Tags','zero-bs-crm').':'; ?></div>
                             <div id="zbs-tags-suggestions">
                                 <?php 
 
@@ -133,12 +133,12 @@ class zeroBS__Metabox_Tags extends zeroBS__Metabox {
 
                                         if ($suggestionIndx == 5 && count($tagSuggestions) > 5){
 
-                                            ?><div class="ui horizontal divider" id="zbs-tag-suggestions-show-more"><i class="search plus icon"></i> <?php _e('Show More','zero-bs-crm'); ?></div>
+                                            ?><div class="ui horizontal divider" id="zbs-tag-suggestions-show-more"><i class="search plus icon"></i> <?php esc_html_e('Show More','zero-bs-crm'); ?></div>
                                             <div id="zbs-tag-suggestions-more-wrap"><?php
                                         }
 
                                         // brutal out
-                                        ?><div class="ui small basic blue teal label zbsTagSuggestion" title="<?php _e('Add Tag','zero-bs-crm'); ?>"><?php echo $tagSuggest['name']; ?></div><?php
+                                        ?><div class="ui small basic blue teal label zbsTagSuggestion" title="<?php esc_attr_e('Add Tag','zero-bs-crm'); ?>"><?php echo esc_html( $tagSuggest['name'] ); ?></div><?php
 
 
                                         $suggestionIndx++;
@@ -146,7 +146,7 @@ class zeroBS__Metabox_Tags extends zeroBS__Metabox {
 
                                     if (count($tagSuggestions) > 5){
 
-                                        ?><div class="ui horizontal divider" id="zbs-tag-suggestions-show-less"><i class="search minus icon"></i> <?php _e('Show Less','zero-bs-crm'); ?></div></div><?php // close 'more';
+                                        ?><div class="ui horizontal divider" id="zbs-tag-suggestions-show-less"><i class="search minus icon"></i> <?php esc_html_e('Show Less','zero-bs-crm'); ?></div></div><?php // close 'more';
                                     }
 
                                 ?>

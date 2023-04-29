@@ -30,7 +30,7 @@ function jpcrm_woosync_render_hub_page() {
 		// Show message: are you sure?
 		$html = '<p>' . __( 'This will restart syncing your WooCommerce orders from scratch, using your current settings.', 'zero-bs-crm' ) . '</p>';
 		$html .= '<p>' . __( 'This will not remove any existing orders or data, but it will update objects if they are reimported and have since changed.', 'zero-bs-crm' ) . '</p>';
-		$html .= '<p><a href="' . zbsLink( $zbs->modules->woosync->slugs['hub'] . '&definitely_restart_sync=1' ) . '" class="ui button teal">' . __( 'Yes, do a full resync', 'zero-bs-crm' ) . '</a>&nbsp;&nbsp;<a href="' . zbsLink( $zbs->modules->woosync->slugs['hub'] ) . '" class="ui button red">' . __( 'No, cancel and go back to hub', 'zero-bs-crm' ) . '</a></p>';
+		$html .= '<p><a href="' . jpcrm_esc_link( $zbs->modules->woosync->slugs['hub'] . '&definitely_restart_sync=1' ) . '" class="ui button teal">' . __( 'Yes, do a full resync', 'zero-bs-crm' ) . '</a>&nbsp;&nbsp;<a href="' . jpcrm_esc_link( $zbs->modules->woosync->slugs['hub'] ) . '" class="ui button red">' . __( 'No, cancel and go back to hub', 'zero-bs-crm' ) . '</a></p>';
 
 		echo zeroBSCRM_UI2_messageHTML( 'warning', __( 'Want to restart your sync?', 'zero-bs-crm' ), $html, 'info' );
 		exit();
@@ -68,8 +68,8 @@ function jpcrm_woosync_render_hub_page() {
 	}
 
 	$settings = $zbs->modules->woosync->settings->getAll();
-	$settings_page_url = zbsLink( $zbs->slugs['settings'] . '&tab=' . $zbs->modules->woosync->slugs['settings'] );
-	$connections_page_url = zbsLink( $zbs->slugs['settings'] . '&tab=' . $zbs->modules->woosync->slugs['settings'] . '&subtab=' . $zbs->modules->woosync->slugs['settings_connections'] );
+	$settings_page_url = jpcrm_esc_link( $zbs->slugs['settings'] . '&tab=' . $zbs->modules->woosync->slugs['settings'] );
+	$connections_page_url = jpcrm_esc_link( $zbs->slugs['settings'] . '&tab=' . $zbs->modules->woosync->slugs['settings'] . '&subtab=' . $zbs->modules->woosync->slugs['settings_connections'] );
 
 	// retrieve current counts
 	$jpcrm_woo_latest_stats = $zbs->modules->woosync->get_jpcrm_woo_latest_stats();
@@ -210,9 +210,9 @@ function jpcrm_woosync_render_hub_page() {
 	?>
 	<div id="jpcrm-woosync-hub-page">
 		<div id="jpcrm-woo-logo">
-			<img id="jpcrm-woosync-jpcrm-logo" src="<?php echo ZEROBSCRM_URL; ?>i/jpcrm-logo-horizontal-black.png" alt="" />
+			<img id="jpcrm-woosync-jpcrm-logo" src="<?php echo esc_url( ZEROBSCRM_URL ); ?>i/jpcrm-logo-horizontal-black.png" alt="" />
 			<i class="plus icon"></i>
-			<img id="jpcrm-woosync-woo-logo" src="<?php echo ZEROBSCRM_URL; ?>i/woocommerce-logo-color-black@2x.png" alt="" />
+			<img id="jpcrm-woosync-woo-logo" src="<?php echo esc_url( ZEROBSCRM_URL ); ?>i/woocommerce-logo-color-black@2x.png" alt="" />
 		</div>
 		<?php
 
@@ -247,18 +247,18 @@ function jpcrm_woosync_render_hub_page() {
 				<h2 class="ui header">
 					<i id="jpcrm-woosync-status-icon" class="icon hourglass half green"></i>
 					<div class="content">
-						<?php echo __( 'Status: ', 'zero-bs-crm' ) . __( 'Not yet connected', 'zero-bs-crm' ); ?>
+						<?php echo esc_html__( 'Status: ', 'zero-bs-crm' ) . esc_html__( 'Not yet connected', 'zero-bs-crm' ); ?>
 
 						<div class="sub header">
 							<p class="jpcrm-woosync-recap">
-								<?php echo __( 'Setup Type: ', 'zero-bs-crm' ) . __( 'No connection', 'zero-bs-crm' ); ?>
+								<?php echo esc_html__( 'Setup Type: ', 'zero-bs-crm' ) . esc_html__( 'No connection', 'zero-bs-crm' ); ?>
 							</p>
 							<br>
-							<span id="jpcrm-woosync-status-long-text"><?php echo sprintf( __( 'To get started with WooSync please <a href="%s">Connect to a Store</a>.', 'zero-bs-crm' ), $connections_page_url ); ?></span>
+							<span id="jpcrm-woosync-status-long-text"><?php echo wp_kses( sprintf( __( 'To get started with WooSync please <a href="%s">Connect to a Store</a>.', 'zero-bs-crm' ), $connections_page_url ), $zbs->acceptable_restricted_html ); ?></span>
 							<i style="display:none" id="jpcrm_failed_ajax" class="grey exclamation circle icon"></i>
 							<script>
 								var jpcrm_woo_connect_initiate_ajax_sync = false;
-								var jpcrm_woosync_nonce = '<?php echo wp_create_nonce( 'jpcrm_woosync_hubsync' ); ?>';
+								var jpcrm_woosync_nonce = '<?php echo esc_js( wp_create_nonce( 'jpcrm_woosync_hubsync' ) ); ?>';
 							</script>
 
 						</div>
@@ -285,23 +285,23 @@ function jpcrm_woosync_render_hub_page() {
 				<h2 class="ui header">
 					<i id="jpcrm-woosync-status-icon" class="icon hourglass half green"></i>
 					<div class="content">
-						<?php _e( 'Status: ', 'zero-bs-crm' ); ?>
-						<span id="jpcrm-woosync-status-short-text" class="status green"><?php echo $syncing_biline; ?></span>
+						<?php esc_html_e( 'Status: ', 'zero-bs-crm' ); ?>
+						<span id="jpcrm-woosync-status-short-text" class="status green"><?php echo esc_html( $syncing_biline ); ?></span>
 
 						<div class="sub header">
 							<p class="jpcrm-woosync-recap">
-								<?php _e( 'Setup Type:', 'zero-bs-crm' ); ?> 
-								<?php echo $wc_setup_type_text; ?>
+								<?php esc_html_e( 'Setup Type:', 'zero-bs-crm' ); ?> 
+								<?php echo esc_html( $wc_setup_type_text ); ?>
 								<span id="jpcrm-woosync-stat-last-order-synced"><?php echo $jpcrm_woo_latest_stats['last_order_synced']; ?></span>
 							</p>
 							<br>
-							<span id="jpcrm-woosync-status-long-text"><?php echo $initial_action; ?></span>
+							<span id="jpcrm-woosync-status-long-text"><?php echo esc_html( $initial_action ); ?></span>
 							<i style="display:none" id="jpcrm_failed_ajax" class="grey exclamation circle icon"></i>
 							<script>
 								var jpcrm_woo_connect_initiate_ajax_sync = true;
-								var jpcrm_woosync_nonce = '<?php echo wp_create_nonce( 'jpcrm_woosync_hubsync' ); ?>';
+								var jpcrm_woosync_nonce = '<?php echo esc_js( wp_create_nonce( 'jpcrm_woosync_hubsync' ) ); ?>';
 							</script>
-							<div class="ui inline loader" id="jpcrm_firing_ajax" title="<?php _e( 'Keeping this page open will improve the background sync speed when synchronising.', 'zero-bs-crm' ); ?>"></div>
+							<div class="ui inline loader" id="jpcrm_firing_ajax" title="<?php esc_attr_e( 'Keeping this page open will improve the background sync speed when synchronising.', 'zero-bs-crm' ); ?>"></div>
 
 						</div>
 					</div>
@@ -312,16 +312,16 @@ function jpcrm_woosync_render_hub_page() {
 				<?php if ( $jpcrm_woo_latest_stats['contacts_synced'] < 1 && $has_woosync_errors ) { ?>
 				<div id="jpcrm-woo-stats-nothing-yet" class="ui active dimmer">
 					<div>
-						<p><?php _e( "You don't have any data synced from WooCommerce yet.", 'zero-bs-crm' ); ?></p>
+						<p><?php esc_html_e( "You don't have any data synced from WooCommerce yet.", 'zero-bs-crm' ); ?></p>
 						<p>
-							<a href="<?php echo $settings_page_url; ?>" target="_blank" class="ui small button">
+							<a href="<?php echo esc_url( $settings_page_url ); ?>" target="_blank" class="ui small button">
 								<i class="cog icon"></i> 
-								<?php _e( 'Change Settings', 'zero-bs-crm' ); ?>
+								<?php esc_html_e( 'Change Settings', 'zero-bs-crm' ); ?>
 							</a>
 							<?php ##WLREMOVE ?> 
-							<a href="<?php echo $zbs->urls['kb-woosync-home']; ?>" target="_blank" class="ui small blue button">
+							<a href="<?php echo esc_url( $zbs->urls['kb-woosync-home'] ); ?>" target="_blank" class="ui small blue button">
 								<i class="file text outline icon"></i> 
-								<?php _e( 'Visit Setup Guide', 'zero-bs-crm' ); ?>
+								<?php esc_html_e( 'Visit Setup Guide', 'zero-bs-crm' ); ?>
 							</a>
 							<?php ##/WLREMOVE ?> 
 						</p>
@@ -331,7 +331,7 @@ function jpcrm_woosync_render_hub_page() {
 				<div class="ui grid" id="jpcrm-woosync-stats-container">
 					<div class="five wide column">
 						<div class="jpcrm-woosync-stat ui inverted segment blue">
-							<div class="jpcrm-woosync-stat-container jpcrm-clickable" data-href="<?php echo zeroBSCRM_getAdminURL( $zbs->slugs['managecontacts'] . '&quickfilters=woo_customer' ); ?>"<?php
+							<div class="jpcrm-woosync-stat-container jpcrm-clickable" data-href="<?php echo esc_attr( zeroBSCRM_getAdminURL( $zbs->slugs['managecontacts'] . '&quickfilters=woo_customer' ) ); ?>"<?php
 
 								// basic style scaling for large numbers.
 								// On refining this hub page we should rethink
@@ -344,14 +344,14 @@ function jpcrm_woosync_render_hub_page() {
 
 							?>>
 								<i class="user circle icon"></i><br />
-								<span id="jpcrm-woosync-stat-contacts-synced"><?php echo $jpcrm_woo_latest_stats['contacts_synced']; ?></span>
-								<div class="jpcrm-woosync-stat-label"><?php _e( 'Contacts', 'zero-bs-crm' ); ?></div>
+								<span id="jpcrm-woosync-stat-contacts-synced"><?php echo esc_html( $jpcrm_woo_latest_stats['contacts_synced'] ); ?></span>
+								<div class="jpcrm-woosync-stat-label"><?php esc_html_e( 'Contacts', 'zero-bs-crm' ); ?></div>
 							</div>
 						</div>
 					</div>
 					<div class="five wide column">
 						<div class="jpcrm-woosync-stat ui inverted segment blue">
-							<div class="jpcrm-woosync-stat-container jpcrm-clickable" data-href="<?php echo zeroBSCRM_getAdminURL( $zbs->slugs['managetransactions'] . '&quickfilters=woo_transaction' ); ?>"<?php
+							<div class="jpcrm-woosync-stat-container jpcrm-clickable" data-href="<?php echo esc_attr( zeroBSCRM_getAdminURL( $zbs->slugs['managetransactions'] . '&quickfilters=woo_transaction' ) ); ?>"<?php
 								// basic style scaling for large numbers.
 								// On refining this hub page we should rethink
 								if ( strlen( $jpcrm_woo_latest_stats['transactions_synced'] ) > 9 ) {
@@ -363,8 +363,8 @@ function jpcrm_woosync_render_hub_page() {
 
 							?>>
 								<i class="exchange icon"></i><br />
-								<span id="jpcrm-woosync-stat-transactions-synced"><?php echo $jpcrm_woo_latest_stats['transactions_synced']; ?></span>
-								<div class="jpcrm-woosync-stat-label"><?php _e( 'Transactions', 'zero-bs-crm' ); ?></div>
+								<span id="jpcrm-woosync-stat-transactions-synced"><?php echo esc_html( $jpcrm_woo_latest_stats['transactions_synced'] ); ?></span>
+								<div class="jpcrm-woosync-stat-label"><?php esc_html_e( 'Transactions', 'zero-bs-crm' ); ?></div>
 							</div>
 						</div>
 					</div>
@@ -383,8 +383,8 @@ function jpcrm_woosync_render_hub_page() {
 
 							?>>
 								<i class="money bill alternate icon"></i><br />
-								<span id="jpcrm-woosync-stat-transaction-total"><?php echo $jpcrm_woo_latest_stats['transaction_total']; ?></span>
-								<div class="jpcrm-woosync-stat-label"><?php _e( 'WooCommerce Transaction Total', 'zero-bs-crm' ); ?></div>
+								<span id="jpcrm-woosync-stat-transaction-total"><?php echo esc_html( $jpcrm_woo_latest_stats['transaction_total'] ); ?></span>
+								<div class="jpcrm-woosync-stat-label"><?php esc_html_e( 'WooCommerce Transaction Total', 'zero-bs-crm' ); ?></div>
 							</div>
 						</div>
 					</div>
@@ -393,16 +393,16 @@ function jpcrm_woosync_render_hub_page() {
 		</div>
 
 		<div id="jpcrm-woosync-quiet-restart-link">
-			<?php _e( 'Admin Tools:', 'zero-bs-crm' );
+			<?php esc_html_e( 'Admin Tools:', 'zero-bs-crm' );
 
 			// settings link
 			if ( zeroBSCRM_isZBSAdminOrAdmin() ) {
-				?> <a href="<?php echo $settings_page_url; ?>"><?php _e( 'WooSync Settings', 'zero-bs-crm' ); ?></a> <?php
-				?>| <a href="<?php echo $connections_page_url; ?>"><?php _e( 'WooSync Connections', 'zero-bs-crm' ); ?></a> <?php
+				?> <a href="<?php echo esc_url( $settings_page_url ); ?>"><?php esc_html_e( 'WooSync Settings', 'zero-bs-crm' ); ?></a> <?php
+				?>| <a href="<?php echo esc_url( $connections_page_url ); ?>"><?php esc_html_e( 'WooSync Connections', 'zero-bs-crm' ); ?></a> <?php
 			}
 			?>
-			| <a href="<?php echo zbsLink( $zbs->modules->woosync->slugs['hub'] . '&restart_sync=1' ); ?>"><?php _e( 'Restart Sync', 'zero-bs-crm' ); ?></a>
-			| <a href="<?php echo zbsLink( $zbs->modules->woosync->slugs['hub'] . '&debug_sync=1' ); ?>"><?php _e( 'Run Sync debug', 'zero-bs-crm' ); ?></a>
+			| <a href="<?php echo jpcrm_esc_link( $zbs->modules->woosync->slugs['hub'] . '&restart_sync=1' ); ?>"><?php esc_html_e( 'Restart Sync', 'zero-bs-crm' ); ?></a>
+			| <a href="<?php echo jpcrm_esc_link( $zbs->modules->woosync->slugs['hub'] . '&debug_sync=1' ); ?>"><?php esc_html_e( 'Run Sync debug', 'zero-bs-crm' ); ?></a>
 		</div>
 	</div>
 		<?php
@@ -461,9 +461,9 @@ function jpcrm_woosync_render_hub_page_debug_mode(){
 
 	?><div id="jpcrm-woosync-hub-page">
 		<div id="jpcrm-woo-logo">
-			<img id="jpcrm-woosync-jpcrm-logo" src="<?php echo ZEROBSCRM_URL; ?>i/jpcrm-logo-horizontal-black.png" alt="" />
+			<img id="jpcrm-woosync-jpcrm-logo" src="<?php echo esc_url( ZEROBSCRM_URL ); ?>i/jpcrm-logo-horizontal-black.png" alt="" />
 			<i class="plus icon"></i>
-			<img id="jpcrm-woosync-woo-logo" src="<?php echo ZEROBSCRM_URL; ?>i/woocommerce-logo-color-black@2x.png" alt="" />
+			<img id="jpcrm-woosync-woo-logo" src="<?php echo esc_url( ZEROBSCRM_URL ); ?>i/woocommerce-logo-color-black@2x.png" alt="" />
 		</div>
 		<div class="ui segment" id="jpcrm-woosync-page-body">
 			<h2>Debug Mode:</h2>
@@ -479,7 +479,7 @@ function jpcrm_woosync_render_hub_page_debug_mode(){
 
 			?></div>
 		</div>
-		<p style="text-align: center;margin-top:2em"><a href="<?php echo zbsLink( $zbs->modules->woosync->slugs['hub'] ) ?>" class="ui button green"><?php _e( 'Go back to WooSync Hub', 'zero-bs-crm' ); ?></a>
+		<p style="text-align: center;margin-top:2em"><a href="<?php echo jpcrm_esc_link( $zbs->modules->woosync->slugs['hub'] ) ?>" class="ui button green"><?php esc_html_e( 'Go back to WooSync Hub', 'zero-bs-crm' ); ?></a>
 	</div><?php
 
 }

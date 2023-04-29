@@ -159,7 +159,7 @@
                         }
                     }  
                 </style>
-                <?php #} AJAX NONCE ?><script type="text/javascript">var zbscrmjs_secToken = '<?php echo wp_create_nonce( "zbscrmjs-ajax-nonce" ); ?>';</script><?php # END OF NONCE ?>
+                <script type="text/javascript">var zbscrmjs_secToken = '<?php echo esc_js( wp_create_nonce( 'zbscrmjs-ajax-nonce' ) ); ?>';</script>
 
                 <?php #} Pass this if it's a new customer (for internal automator) - note added this above with DEFINE for simpler.
 
@@ -174,9 +174,9 @@
                     # ... further hacked
 
                     if ($zbsShowID == "1" && $companyID > 0) { ?>
-                    <tr class="wh-large"><th><label><?php echo $this->coOrgLabel.' '; _e("ID","zero-bs-crm");?>:</label></th>
+                    <tr class="wh-large"><th><label><?php echo esc_html( $this->coOrgLabel ) . ' '; esc_html_e("ID","zero-bs-crm");?>:</label></th>
                     <td style="font-size: 20px;color: green;vertical-align: top;">
-                        #<?php echo $companyID; ?>
+                        #<?php echo esc_html( $companyID ); ?>
                     </td></tr>
                     <?php } ?>
 
@@ -290,15 +290,15 @@
 
 
                                     #} add group div + label
-                                    if ($zbsOpenTable) echo '<tr class="wh-large zbs-field-group-tr '.$zbsLineClass.'"><td colspan="2">';
+                                    if ($zbsOpenTable) echo '<tr class="wh-large zbs-field-group-tr '.esc_attr($zbsLineClass).'"><td colspan="2">';
 
                                     if( $fieldV['area'] == 'Second Address' ) {
-                                        echo '<div class="zbs-field-group zbs-fieldgroup-'.$fieldGroupLabel.' '. $zbsGroupClass .'"><label class="zbs-field-group-label">'. esc_html( $second_address_label ) .'</label>';
+                                        echo '<div class="zbs-field-group zbs-fieldgroup-'.esc_attr($fieldGroupLabel).' '. esc_attr($zbsGroupClass) .'"><label class="zbs-field-group-label">'. esc_html( $second_address_label ) .'</label>';
                                     } else {
-                                        echo '<div class="zbs-field-group zbs-fieldgroup-'.$fieldGroupLabel.' '. $zbsGroupClass .'"><label class="zbs-field-group-label">'. __( $fieldV['area'], 'zero-bs-crm' ).'</label>';
+                                        echo '<div class="zbs-field-group zbs-fieldgroup-'.esc_attr($fieldGroupLabel).' '. esc_attr($zbsGroupClass) .'"><label class="zbs-field-group-label">'. esc_html__( $fieldV['area'], 'zero-bs-crm' ).'</label>';
                                     }
 
-                                    echo '<table class="form-table wh-metatab wptbp" id="wptbpMetaBoxGroup-'.$fieldGroupLabel.'">';
+                                    echo '<table class="form-table wh-metatab wptbp" id="wptbpMetaBoxGroup-'.esc_attr($fieldGroupLabel).'">';
                                     
                                     #} Set this (need to close)
                                     $zbsOpenGroup = true;
@@ -546,7 +546,7 @@
 
             global $zbs;
 
-            $viewHTML = ' <a href="'.zbsLink('view',$otherCompanyID,$this->objType).'" target="_blank">'.__('View','zero-bs-crm').' '.$this->coOrgLabel.'</a>';
+            $viewHTML = ' <a href="'.jpcrm_esc_link('view',$otherCompanyID,$this->objType).'" target="_blank">'.__('View','zero-bs-crm').' '.$this->coOrgLabel.'</a>';
 
             $msg = zeroBSCRM_UI2_messageHTML('info orange mini',__('Email could not be updated. (A record already exists with this email address).',"zero-bs-crm").$viewHTML,'','address book outline','companyNotUpdated');
 
@@ -650,7 +650,7 @@ class zeroBS__Metabox_CompanyContacts extends zeroBS__Metabox{
                                 echo zeroBS_getCustomerIcoHTML($contact['id']);
 
                                 #} new view link
-                                $url = zbsLink('view',$contact['id'],'zerobs_customer');
+                                $url = jpcrm_esc_link('view',$contact['id'],'zerobs_customer');
 
                                 echo '<strong><a href="'.$url.'">'.zeroBS_customerName($contact['id'],$contact,false,false).'</a></strong><br />';
 
@@ -662,10 +662,10 @@ class zeroBS__Metabox_CompanyContacts extends zeroBS__Metabox{
 
                             echo '<div id="zbs-co-contacts" class="ui cards">';
 
-                            foreach ($contacts as $contact){                                
+                            foreach ($contacts as $contact){
 
                                 #} new view link
-                                $contactUrl = zbsLink('view',$contact['id'],'zerobs_customer');
+                                $contactUrl = jpcrm_esc_link('view',$contact['id'],'zerobs_customer');
 
                                 #} Name
                                 $contactName = zeroBS_customerName($contact['id'],$contact,false,false);
@@ -677,7 +677,7 @@ class zeroBS__Metabox_CompanyContacts extends zeroBS__Metabox{
 
                                 ?><div class="card">
                                   <div class="content">
-                                    <div class="center aligned header"><?php echo '<a href="'.$contactUrl.'">'.$contactName.'</a>'; ?></div>
+                                    <div class="center aligned header"><?php echo '<a href="'.esc_attr($contactUrl).'">'.esc_html($contactName).'</a>'; ?></div>
                                     <?php if (!empty($contactDesc)){ ?>
                                     <div class="center aligned description">
                                       <p><?php echo $contactDesc; ?></p>
@@ -688,7 +688,7 @@ class zeroBS__Metabox_CompanyContacts extends zeroBS__Metabox{
                                     <div class="center aligned author">
                                       <?php
                                             #} Img or ico 
-                                            echo zeroBS_getCustomerIcoHTML($contact['id'],'ui avatar image').' '.$contactFirstName;
+                                            echo zeroBS_getCustomerIcoHTML($contact['id'],'ui avatar image').' '. esc_html( $contactFirstName );
                                         ?>
                                     </div>
                                   </div>
@@ -701,7 +701,7 @@ class zeroBS__Metabox_CompanyContacts extends zeroBS__Metabox{
                         } else {
 
                             echo '<div style="margin-left:auto;margin-right:auto;display:inline-block">';
-                            _e('No contacts found at',"zero-bs-crm"); echo ' '.$this->coOrgLabel;
+                            esc_html_e('No contacts found at',"zero-bs-crm"); echo ' ' . esc_html( $this->coOrgLabel );
                             echo '</div>';
 
                         }
@@ -825,13 +825,13 @@ class zeroBS__Metabox_CompanyTags extends zeroBS__Metabox_Tags{
 
                     #} Any existing
                     if (is_array($zbsFiles) && count($zbsFiles) > 0){ 
-                      ?><tr class="wh-large zbsFileDetails"><th class="zbsFilesTitle"><label><?php echo '<span>'.count($zbsFiles).'</span> '.__('File(s)','zero-bs-crm').':'; ?></label></th>
+                      ?><tr class="wh-large zbsFileDetails"><th class="zbsFilesTitle"><label><?php echo '<span>'.count($zbsFiles).'</span> '.esc_html__('File(s)','zero-bs-crm').':'; ?></label></th>
                                 <td id="zbsFileWrapOther">
                                     <table class="ui celled table" id="zbsFilesTable">
                                       <thead>
                                         <tr>
-                                            <th><?php _e("File", 'zero-bs-crm');?></th>
-                                            <th class="collapsing center aligned"><?php _e("Actions", 'zero-bs-crm');?></th>
+                                            <th><?php esc_html_e("File", 'zero-bs-crm');?></th>
+                                            <th class="collapsing center aligned"><?php esc_html_e("Actions", 'zero-bs-crm');?></th>
                                         </tr>
                                     </thead><tbody>
                                                 <?php $fileLineIndx = 1; foreach($zbsFiles as $zbsFile){
@@ -847,8 +847,8 @@ class zeroBS__Metabox_CompanyTags extends zeroBS__Metabox_Tags{
 
                                                     $fileEditUrl = admin_url('admin.php?page='.$zbs->slugs['editfile']) . "&company=".$companyID."&fileid=" . ($fileLineIndx-1);
 
-                                                    echo '<tr class="zbsFileLineTR" id="zbsFileLineTRCustomer'.$fileLineIndx.'">';
-                                                    echo '<td><div class="zbsFileLine" id="zbsFileLineCustomer'.$fileLineIndx.'"><a href="' . esc_url( $zbsFile['url'] ) . '" target="_blank">' . esc_html( $file ) . '</a></div>';
+                                                    echo '<tr class="zbsFileLineTR" id="zbsFileLineTRCustomer'.esc_attr($fileLineIndx).'">';
+                                                    echo '<td><div class="zbsFileLine" id="zbsFileLineCustomer'.esc_attr($fileLineIndx).'"><a href="' . esc_url( $zbsFile['url'] ) . '" target="_blank">' . esc_html( $file ) . '</a></div>';
 
                                                     // if using portal.. state shown/hidden
                                                     // this is also shown in each file slot :) if you change any of it change that too
@@ -861,7 +861,7 @@ class zeroBS__Metabox_CompanyTags extends zeroBS__Metabox_Tags{
                                                     }*/
 
                                                     echo '</td>';
-                                                    echo '<td class="collapsing center aligned"><span class="zbsDelFile ui button basic" data-delurl="' . esc_attr( $zbsFile['url'] ) . '"><i class="trash alternate icon"></i> '.__('Delete','zero-bs-crm').'</span></td></tr>'; // <a href="'.$fileEditUrl.'" target="_blank" class="ui button basic"><i class="edit icon"></i> '.__('Edit','zero-bs-crm').'</a>
+                                                    echo '<td class="collapsing center aligned"><span class="zbsDelFile ui button basic" data-delurl="' . esc_attr( $zbsFile['url'] ) . '"><i class="trash alternate icon"></i> '.esc_html__('Delete','zero-bs-crm').'</span></td></tr>'; // <a href="'.$fileEditUrl.'" target="_blank" class="ui button basic"><i class="edit icon"></i> '.__('Edit','zero-bs-crm').'</a>
                                                     $fileLineIndx++;
 
                                                 } ?>
@@ -875,7 +875,7 @@ class zeroBS__Metabox_CompanyTags extends zeroBS__Metabox_Tags{
                              
                             $html .= '<input type="file" id="zbs_file_attachment" name="zbs_file_attachment" size="25" class="zbs-dc">';
                             
-                            ?><tr class="wh-large"><th><label><?php _e('Add File',"zero-bs-crm");?>:</label><br />(<?php _e('Optional',"zero-bs-crm");?>)<br /><?php _e('Accepted File Types',"zero-bs-crm");?>:<br /><?php echo zeroBS_acceptableFileTypeListStr(); ?></th>
+                            ?><tr class="wh-large"><th><label><?php esc_html_e('Add File',"zero-bs-crm");?>:</label><br />(<?php esc_html_e('Optional',"zero-bs-crm");?>)<br /><?php esc_html_e('Accepted File Types',"zero-bs-crm");?>:<br /><?php echo esc_html( zeroBS_acceptableFileTypeListStr() ); ?></th>
                                 <td><?php
                             wp_nonce_field(plugin_basename(__FILE__), 'zbs_file_attachment_nonce');
                             echo $html;
@@ -894,8 +894,8 @@ class zeroBS__Metabox_CompanyTags extends zeroBS__Metabox_Tags{
                     var zbsCurrentlyDeleting = false;
                     var zbsMetaboxFilesLang = {
 
-                        'error': '<?php echo zeroBSCRM_slashOut(__('Error','zero-bs-crm')); ?>',
-                        'unabletodelete': '<?php echo zeroBSCRM_slashOut(__('Unable to delete this file.','zero-bs-crm')); ?>'
+                        'error': '<?php echo esc_html( zeroBSCRM_slashOut(__('Error','zero-bs-crm')) ); ?>',
+                        'unabletodelete': '<?php echo esc_html( zeroBSCRM_slashOut(__('Unable to delete this file.','zero-bs-crm')) ); ?>'
                     };
 
                     jQuery(function(){
@@ -918,9 +918,9 @@ class zeroBS__Metabox_CompanyTags extends zeroBS__Metabox_Tags{
                                       // postbag!
                                       var data = {
                                         'action': 'delFile',
-                                        'zbsfType': '<?php echo $this->objType; ?>',
+                                        'zbsfType': '<?php echo esc_html( $this->objType ); ?>',
                                         'zbsDel':  delUrl, // could be csv, never used though
-                                        'zbsCID': <?php echo $companyID; ?>,
+                                        'zbsCID': <?php echo esc_html( $companyID ); ?>,
                                         'sec': window.zbscrmjs_secToken
                                       };
 
@@ -1000,7 +1000,7 @@ class zeroBS__Metabox_CompanyTags extends zeroBS__Metabox_Tags{
 
         public function save_data( $companyID, $company ) {
 
-            global $zbsc_justUploadedFile;
+            global $zbs, $zbsc_justUploadedFile;
 
 
             if(!empty($_FILES['zbs_file_attachment']['name']) && 
@@ -1010,70 +1010,33 @@ class zeroBS__Metabox_CompanyTags extends zeroBS__Metabox_Tags{
                 ) {
 
 
-            /* --- security verification --- */
-            if(!wp_verify_nonce($_POST['zbs_file_attachment_nonce'], plugin_basename(__FILE__))) {
-              return $id;
-            } // end if
-
-
-            if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-              return $id;
-            } // end if
-               
-            /* Switched out for WH Perms model 19/02/16 
-            if('page' == $_POST['post_type']) { 
-              if(!current_user_can('edit_page', $id)) {
-                return $id;
-              } // end if
-            } else { 
-                if(!current_user_can('edit_page', $id)) { 
-                    return $id;
+                /* --- security verification --- */
+                if(!wp_verify_nonce($_POST['zbs_file_attachment_nonce'], plugin_basename(__FILE__))) {
+                  return $id;
                 } // end if
-            } // end if */
-            if (!zeroBSCRM_permsCustomers()){
-                return $companyID;
-            }
-            /* - end security verification - */
-
-            #} Blocking repeat-upload bug
-            $zbsc_justUploadedFile = $_FILES['zbs_file_attachment']['name'];
 
 
+                if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+                  return $id;
+                } // end if
+                   
+                if (!zeroBSCRM_permsCustomers()){
+                    return $companyID;
+                }
+                /* - end security verification - */
 
-                $supported_types = zeroBS_acceptableFileTypeMIMEArr(); //$supported_types = array('application/pdf');
-                $arr_file_type = wp_check_filetype(basename($_FILES['zbs_file_attachment']['name']));
-                $uploaded_type = $arr_file_type['type'];
+                #} Blocking repeat-upload bug
+                $zbsc_justUploadedFile = $_FILES['zbs_file_attachment']['name'];
 
-                if(in_array($uploaded_type, $supported_types) || (isset($supported_types['all']) && $supported_types['all'] == 1)) {
-                    $upload = wp_upload_bits($_FILES['zbs_file_attachment']['name'], null, file_get_contents($_FILES['zbs_file_attachment']['tmp_name']));
+                // verify file extension and mime type
+                if ( jpcrm_file_check_mime_extension( $_FILES['zbs_file_attachment'] ) ){
+
+                    $company_dir_info = jpcrm_storage_dir_info_for_company( $companyID );
+                    $upload           = jpcrm_save_admin_upload_to_folder( 'zbs_file_attachment', $company_dir_info['files'] );
 
                     if(isset($upload['error']) && $upload['error'] != 0) {
-                        wp_die('There was an error uploading your file. The error is: ' . $upload['error']);
+                        wp_die('There was an error uploading your file. The error is: ' . esc_html( $upload['error'] ));
                     } else {
-                        //update_post_meta($id, 'zbsc_file_attachment', $upload);
-
-                            // v2.13 - also privatise the file (move to our asset store)
-                            // $upload will have 'file' and 'url'
-                            $fileName = basename($upload['file']);
-                            $fileDir = dirname($upload['file']);
-                            $privateThatFile = zeroBSCRM_privatiseUploadedFile($fileDir,$fileName);
-                            if (is_array($privateThatFile) && isset($privateThatFile['file'])){ 
-
-                                // successfully moved to our store
-
-                                    // modify URL + file attributes
-                                    $upload['file'] = $privateThatFile['file'];
-                                    $upload['url'] = $privateThatFile['url'];
-
-                                    // add this extra identifier if in privatised sys
-                                    $upload['priv'] = true;
-
-                            } else {
-
-                                // couldn't move to store, leave in uploaded for now :)
-
-                            }
-
                             // w mod - adds to array :)
                             $zbsCompanyFiles = zeroBSCRM_files_getFiles('company',$companyID);//zeroBSCRM_getCustomerFiles($companyID);
 
@@ -1095,8 +1058,7 @@ class zeroBS__Metabox_CompanyTags extends zeroBS__Metabox_Tags{
                             // Fire any 'post-upload-processing' (e.g. CPP makes thumbnails of pdf, jpg, etc.)
                             do_action('zbs_post_upload_company',$upload);
                     }
-                }
-                else {
+                } else {
                     wp_die("The file type that you've uploaded is not an accepted file format.");
                 }
             }
@@ -1153,7 +1115,7 @@ class zeroBS__Metabox_CompanyTags extends zeroBS__Metabox_Tags{
 
             ?><div class="zbs-generic-save-wrap">
 
-                    <div class="ui medium dividing header"><i class="save icon"></i> <?php echo jpcrm_label_company(); ?> <?php _e('Actions','zero-bs-crm'); ?></div>
+                    <div class="ui medium dividing header"><i class="save icon"></i> <?php echo esc_html( jpcrm_label_company() ); ?> <?php esc_html_e('Actions','zero-bs-crm'); ?></div>
 
             <?php
 
@@ -1167,11 +1129,11 @@ class zeroBS__Metabox_CompanyTags extends zeroBS__Metabox_Tags{
 
                 ?>
                 <div>
-                    <label for="zbsco_status"><?php echo $this->coOrgLabel.' '.__('Status',"zero-bs-crm"); ?>: </label>
+                    <label for="zbsco_status"><?php echo esc_html($this->coOrgLabel).' '.esc_html__('Status',"zero-bs-crm"); ?>: </label>
                     <select id="zbsco_status" name="zbsco_status">
                             <?php foreach($potentialStatuses as $z){
                                 if($z == $status){$sel = ' selected'; }else{ $sel = '';}
-                                echo '<option value="'.$z.'"'. $sel .'>'.__($z,"zero-bs-crm").'</option>';
+                                echo '<option value="'. esc_attr( $z ) .'"'. esc_attr( $sel ) .'>'.esc_html__($z,"zero-bs-crm").'</option>';
                             } ?>
                     </select>
                 </div>
@@ -1188,7 +1150,7 @@ class zeroBS__Metabox_CompanyTags extends zeroBS__Metabox_Tags{
 
                     <div class="zbs-company-actions-bottom zbs-objedit-actions-bottom">
 
-                        <button  class="ui button green" type="button" id="zbs-edit-save"><?php _e("Update","zero-bs-crm"); ?> <?php echo $this->coOrgLabel; ?></button>
+                        <button  class="ui button green" type="button" id="zbs-edit-save"><?php esc_html_e("Update","zero-bs-crm"); ?> <?php echo esc_html( $this->coOrgLabel ); ?></button>
 
                         <?php
 
@@ -1197,7 +1159,7 @@ class zeroBS__Metabox_CompanyTags extends zeroBS__Metabox_Tags{
                          // for now just check if can modify, later better, granular perms.
                          if ( zeroBSCRM_permsQuotes() ) { 
                         ?><div id="zbs-company-actions-delete" class="zbs-objedit-actions-delete">
-                             <a class="submitdelete deletion" href="<?php echo zbsLink('delete',$companyID,'company'); ?>"><?php _e('Delete Permanently', "zero-bs-crm"); ?></a>
+                             <a class="submitdelete deletion" href="<?php echo jpcrm_esc_link( 'delete', $companyID, 'company' ); ?>"><?php esc_html_e('Delete Permanently', "zero-bs-crm"); ?></a>
                         </div>
                         <?php } // can delete  ?>
                         
@@ -1213,7 +1175,7 @@ class zeroBS__Metabox_CompanyTags extends zeroBS__Metabox_Tags{
 
                     <div class="zbs-company-actions-bottom zbs-objedit-actions-bottom">
                         
-                        <button  class="ui button green" type="button" id="zbs-edit-save"><?php _e("Save","zero-bs-crm"); ?> <?php echo $this->coOrgLabel; ?></button>
+                        <button  class="ui button green" type="button" id="zbs-edit-save"><?php esc_html_e("Save","zero-bs-crm"); ?> <?php echo esc_html( $this->coOrgLabel ); ?></button>
 
                     </div>
 

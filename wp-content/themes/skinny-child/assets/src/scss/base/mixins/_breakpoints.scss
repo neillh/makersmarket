@@ -1,0 +1,104 @@
+//  MEDIA QUERIES
+
+// breakpoints.
+$breakpoints: (
+  sm: 782px,
+  md: 960px,
+  lg: 1128px
+);
+
+
+//
+//  RESPOND ABOVE : min-width
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+@mixin respond-above($breakpoint) {
+
+  // If the breakpoint exists in the map.
+  @if map-has-key($breakpoints, $breakpoint) {
+
+    // Get the breakpoint value.
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+
+    @media (min-width: $breakpoint-value) {
+      @content;
+    }
+
+  }
+
+  @else {
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  }
+}
+
+
+//
+//  RESPOND BELOW : max-width
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+@mixin respond-below($breakpoint) {
+
+  // If the breakpoint exists in the map.
+  @if map-has-key($breakpoints, $breakpoint) {
+
+    $breakpoint-value: map-get($breakpoints, $breakpoint);
+
+    @media (max-width: ($breakpoint-value - 1)) {
+      @content;
+    }
+
+  }
+
+  @else {
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  }
+}
+
+
+//
+//  RESPOND BETWEEN
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+
+@mixin respond-between($lower, $upper) {
+
+  // If both the lower and upper breakpoints exist in the map.
+  @if map-has-key($breakpoints, $lower) and map-has-key($breakpoints, $upper) {
+
+    $lower-breakpoint: map-get($breakpoints, $lower);
+    $upper-breakpoint: map-get($breakpoints, $upper);
+
+    @media (min-width: $lower-breakpoint) and (max-width: ($upper-breakpoint - 1)) {
+      @content;
+    }
+
+  }
+
+  @else {
+
+    // lower breakpoint
+    @if (map-has-key($breakpoints, $lower)==false) {
+
+      // Log a warning.
+      @warn 'Your lower breakpoint was invalid: #{$lower}.';
+    }
+
+    // upper breakpoint
+    @if (map-has-key($breakpoints, $upper)==false) {
+
+      @warn 'Your upper breakpoint was invalid: #{$upper}.';
+    }
+  }
+}
+
+
+// Uses Example 1
+// @include respond-above(sm) {...}
+
+// OUTPUT:
+// @media (min-width: 768px) {...}
+
+// Uses Example 2
+// @include respond-between(sm, md) {...}
+
+// OUTPUT
+// @media (min-width: 768px) and (max-width: 991px) {...}

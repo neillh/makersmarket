@@ -43,7 +43,7 @@ class Client_Portal_Render_Helper {
 		if ( $showpoweredby_public ) {
 			?>
 			<div class="zerobs-portal-poweredby" style="font-size:11px;position:absolute;bottom:25px;right:50px;font-size:12px;">
-				<?php echo sprintf( __( 'Client Portal by <a href="%s" target="_blank">Jetpack CRM</a>', 'zero-bs-crm' ), $zbs->urls['home'] ); ?>
+				<?php echo wp_kses( sprintf( __( 'Client Portal by <a href="%s" target="_blank">Jetpack CRM</a>', 'zero-bs-crm' ), esc_url( $zbs->urls['home'] ) ), $zbs->acceptable_restricted_html ); ?>
 			</div>
 			<?php
 		}
@@ -60,11 +60,11 @@ class Client_Portal_Render_Helper {
 		?><div class='wrapper' style="padding-left:20px;padding-right:20px;padding-bottom:20px;">
 			
 			<div class='alert alert-info'>
-				<?php _e('You are viewing the Client Portal as an admin','zero-bs-crm'); ?>
+				<?php esc_html_e('You are viewing the Client Portal as an admin','zero-bs-crm'); ?>
 				<br />
-				[<?php _e('This message is only shown to admins','zero-bs-crm'); ?>]
+				[<?php esc_html_e('This message is only shown to admins','zero-bs-crm'); ?>]
 				<?php ##WLREMOVE ?>
-				<br /><a style="color:orange;font-size:18px;" href="<?php echo $zbs->urls['kbclientportal']; ?>" target="_blank"><?php _e('Learn more about the client portal','zero-bs-crm'); ?></a>
+				<br /><a style="color:orange;font-size:18px;" href="<?php echo esc_url( $zbs->urls['kbclientportal'] ); ?>" target="_blank"><?php esc_html_e('Learn more about the client portal','zero-bs-crm'); ?></a>
 				<?php ##/WLREMOVE ?>
 			</div>
 

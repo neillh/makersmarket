@@ -122,7 +122,7 @@ function jpcrm_retrieve_template( $template_file = '', $load = true ) {
 
 		            try {
 
-		                $template_contents = file_get_contents( $template_file_path );			                
+		                $template_contents = file_get_contents( $template_file_path );
 						return $template_contents;
 
 
@@ -130,7 +130,7 @@ function jpcrm_retrieve_template( $template_file = '', $load = true ) {
 
 		                // Nada 
 						// basic dialog
-						_doing_it_wrong( __FUNCTION__, sprintf( '<code>%s</code> could not be retrieved.', $template_file_path ), '4.5.0' );
+						_doing_it_wrong( __FUNCTION__, sprintf( '<code>%s</code> could not be retrieved.', esc_html( $template_file_path ) ), '4.5.0' );
 						
 						// add admin notification
 						if ( zeroBSCRM_isZBSAdminOrAdmin() ){

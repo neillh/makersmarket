@@ -113,7 +113,7 @@
                 // Debug echo 'Quote:<pre>'.print_r($quote,1).'</pre>';
     
                 ?>                
-                <?php #} AJAX NONCE ?><script type="text/javascript">var zbscrmjs_secToken = '<?php echo wp_create_nonce( "zbscrmjs-ajax-nonce" ); ?>';</script><?php # END OF NONCE ?>
+                <script type="text/javascript">var zbscrmjs_secToken = '<?php echo esc_js( wp_create_nonce( 'zbscrmjs-ajax-nonce' ) ); ?>';</script>
                 <?php
 
                 #} retrieve
@@ -150,10 +150,10 @@
                     if ($useQuoteBuilder == 1 && isset($quote['template'])) echo '<input type="hidden" name="zbscrm_templated" id="zbscrm_templated" value="1" />';
 
                     #} Nonce used for loading quote template, left in for now, could be centralised to normal sec nonce
-                    echo '<input type="hidden" name="quo-ajax-nonce" id="quo-ajax-nonce" value="' . wp_create_nonce( 'quo-ajax-nonce' ) . '" />';
+                    echo '<input type="hidden" name="quo-ajax-nonce" id="quo-ajax-nonce" value="' . esc_attr( wp_create_nonce( 'quo-ajax-nonce' ) ) . '" />';
 
                     // we pass the hash along the chain here too :)
-                    echo '<input type="hidden" name="zbscq_hash" id="zbscq_hash" value="' . (isset($quote['hash']) ? $quote['hash'] : '') . '" />';
+                    echo '<input type="hidden" name="zbscq_hash" id="zbscq_hash" value="' . (isset($quote['hash']) ? esc_attr( $quote['hash'] ) : '') . '" />';
                 ?>
                 <style>
                     @media all and (max-width:699px){
@@ -170,22 +170,22 @@
                     if (!empty($quoteID) && $quoteID > 0){
 
                         // QUOTE ID is seperate / unchangable
-                        ?><tr class="wh-large"><th><label><?php _e('Quote (ID)',"zero-bs-crm");?>:</label></th>
+                        ?><tr class="wh-large"><th><label><?php esc_html_e('Quote (ID)',"zero-bs-crm");?>:</label></th>
                         <td>
                             <div class="zbs-prominent"><?php 
 
                             if (empty($quoteID)) $quoteID = zeroBSCRM_getNextQuoteID();
 
-                            echo $quoteID;
+                            echo esc_html( $quoteID );
 
-                            ?><input type="hidden" name="zbsquoteid" value="<?php echo $quoteID; ?>" /></div>
+                            ?><input type="hidden" name="zbsquoteid" value="<?php echo esc_attr( $quoteID ); ?>" /></div>
                         </td></tr><?php
 
                     }
 
 
                     #} ALSO customer assigning is seperate:
-                    ?><tr class="wh-large"><th><label><?php _e('Contact',"zero-bs-crm");?>:</label></th>
+                    ?><tr class="wh-large"><th><label><?php esc_html_e('Contact',"zero-bs-crm");?>:</label></th>
                     <td><?php
 
                         #} 27/09/16 - switched select for typeahead
@@ -201,7 +201,7 @@
                             echo zeroBSCRM_CustomerTypeList('zbscrmjs_quoteCustomerSelect',$prefillStr,true,'zbscrmjs_quote_unsetCustomer');
 
                             #} Output input which will pass the value via post
-                            ?><input type="hidden" name="zbscq_customer" id="zbscq_customer" value="<?php echo $quoteContactID; ?>" /><?php
+                            ?><input type="hidden" name="zbscq_customer" id="zbscq_customer" value="<?php echo esc_attr( $quoteContactID ); ?>" /><?php
 
                             #} Output function which will copy over value - maybe later move to js
                             ?><script type="text/javascript">
@@ -279,7 +279,7 @@
                                                 jQuery('#zbs-customer-title').prepend(html); */
 
                                                 // ALSO show in header bar, if so
-                                                var navButton = '<a target="_blank" style="margin-left:6px;" class="zbs-quote-quicknav-contact ui icon button blue mini labeled" href="<?php echo zbsLink('edit',-1,'zerobs_customer',true); ?>' + contactID + '"><i class="user icon"></i> <?php  zeroBSCRM_slashOut(__('Contact','zero-bs-crm')); ?></a>';
+                                                var navButton = '<a target="_blank" style="margin-left:6px;" class="zbs-quote-quicknav-contact ui icon button blue mini labeled" href="<?php echo jpcrm_esc_link( 'edit', -1, 'zerobs_customer', true ); ?>' + contactID + '"><i class="user icon"></i> <?php  zeroBSCRM_slashOut(__('Contact','zero-bs-crm')); ?></a>';
                                                 jQuery('#zbs-quote-learn-nav').append(navButton);
 
                                                 // bind
@@ -307,12 +307,12 @@
                                 <div class="zbs-move-on-wrap">
 
                                     <!-- infoz -->
-                                    <h3><?php _e('Publish this Quote',"zero-bs-crm");?></h3>
-                                    <p><?php _e('Do you want to use the Quote Builder to publish this quote? (This lets you email it to a client directly, for approval)',"zero-bs-crm");?></p>
+                                    <h3><?php esc_html_e('Publish this Quote',"zero-bs-crm");?></h3>
+                                    <p><?php esc_html_e('Do you want to use the Quote Builder to publish this quote? (This lets you email it to a client directly, for approval)',"zero-bs-crm");?></p>
 
-                                    <input type="hidden" name="zbs_quote_template_id_used" id="zbs_quote_template_id_used" value="<?php if (isset($templateUsed) && !empty($templateUsed)) echo $templateUsed; ?>" />
+                                    <input type="hidden" name="zbs_quote_template_id_used" id="zbs_quote_template_id_used" value="<?php if (isset($templateUsed) && !empty($templateUsed)) echo esc_attr( $templateUsed ); ?>" />
                                     <select class="form-control" name="zbs_quote_template_id" id="zbs_quote_template_id">
-                                        <option value="" disabled="disabled"><?php _e('Select a template',"zero-bs-crm");?>:</option>
+                                        <option value="" disabled="disabled"><?php esc_html_e('Select a template',"zero-bs-crm");?>:</option>
                                         <?php
 
                                             $templates = zeroBS_getQuoteTemplates(true,100,0);
@@ -325,20 +325,20 @@
                                                 $templateName = __('Template','zero-bs-crm').' '.$template['id']; 
                                                 if (isset($template['title']) && !empty($template['title'])) $templateName = $template['title'].' ('.$template['id'].')';
 
-                                                echo '<option value="'.$template['id'].'"';
+                                                echo '<option value="' . esc_attr( $template['id'] ) . '"';
                                                 #if (isset())
-                                                echo '>'.$templateName.'</option>';
+                                                echo '>' . esc_html( $templateName ) . '</option>';
 
                                             }
 
                                         ?>
-                                        <option value=""><?php _e("Blank Template","zero-bs-crm");?></option>
+                                        <option value=""><?php esc_html_e("Blank Template","zero-bs-crm");?></option>
                                     </select>
                                     <br />
-                                    <p><?php _e('Create additional quote templates',"zero-bs-crm"); ?> <a href="<?php echo zbsLink($zbs->slugs['quote-templates']);?>"><?php _e('here',"zero-bs-crm");?></a></p>
-                                    <button type="button" id="zbsQuoteBuilderStep2" class="button button-primary button-large xl"<?php if (!isset($quoteContactID) || empty($quoteContactID)){ echo ' disabled="disabled"'; } ?>><?php _e('Use Quote Builder',"zero-bs-crm");?></button>
+                                    <p><?php esc_html_e('Create additional quote templates',"zero-bs-crm"); ?> <a href="<?php echo jpcrm_esc_link( $zbs->slugs['quote-templates'] ); ?>"><?php esc_html_e('here',"zero-bs-crm");?></a></p>
+                                    <button type="button" id="zbsQuoteBuilderStep2" class="button button-primary button-large xl"<?php if (!isset($quoteContactID) || empty($quoteContactID)){ echo ' disabled="disabled"'; } ?>><?php esc_html_e('Use Quote Builder',"zero-bs-crm");?></button>
                                     <?php if (!isset($quoteContactID) || empty($quoteContactID)){ ?>
-                                    <p id="zbsQuoteBuilderStep2info">(<?php _e("You'll need to assign this Quote to a customer to use this","zero-bs-crm");?>);</p>
+									<p id="zbsQuoteBuilderStep2info">(<?php esc_html_e( "You'll need to assign this Quote to a contact to use this", 'zero-bs-crm' ); ?>);</p>
                                     <?php } ?>
 
                                 </div>
@@ -408,7 +408,7 @@
                     if (isset($_POST['zbs_quote_content'])) {
 
                         #} Save content
-                        //$data=htmlspecialchars($_POST['zbs_quote_content']);
+                        //$data=htmlspecialchars($_POST['zbs_quote_content'], ENT_COMPAT);
                         $quote['content'] = zeroBSCRM_io_WPEditor_WPEditorToDB($_POST['zbs_quote_content']);                        
 
                         #} update templated vars
@@ -568,7 +568,7 @@
                 if (!empty($zbsJustInsertedMetaboxID) && $zbsJustInsertedMetaboxID > 0){
 
                     // redir
-                    wp_redirect( zbsLink('edit',$zbsJustInsertedMetaboxID,$this->objType) );
+                    wp_redirect( jpcrm_esc_link('edit',$zbsJustInsertedMetaboxID,$this->objType) );
                     exit;
 
                 }
@@ -723,10 +723,10 @@
                             <div class="zbs-move-on-wrap" style="padding-top:30px;">
 
                                 <!-- infoz -->
-                                <h3><?php _e("Publish this Quote","zero-bs-crm");?></h3>
-                                <p><?php _e("When you've finished writing your Quote, save it here before sending on to your customer","zero-bs-crm");?>:</p>
+                                <h3><?php esc_html_e("Publish this Quote","zero-bs-crm");?></h3>
+								<p><?php esc_html_e( "When you've finished writing your Quote, save it here before sending on to your contact", 'zero-bs-crm' ); ?>:</p>
 
-                                <button type="button" id="zbsQuoteBuilderStep3" class="button button-primary button-large xl"><?php _e("Save Quote","zero-bs-crm");?></button>
+                                <button type="button" id="zbsQuoteBuilderStep3" class="button button-primary button-large xl"><?php esc_html_e("Save Quote","zero-bs-crm");?></button>
 
                             </div>
 
@@ -739,9 +739,9 @@
                     if (!zeroBSCRM_isExtensionInstalled('portal')){
                         ?>
                             <div class="ui message red" style="font-size:18px;">
-                                <b><i class="ui icon warning"></i><?php _e("Client Portal Deactivated","zero-bs-crm");?></b>
-                                <?php _e('<p>You have uninstalled the Client Portal. The only way you will be able to send your Quote to your contact is by downloading a PDF (needs PDF invoicing installed) and then emailing it to them manually.</p>','zero-bs-crm'); ?>
-                                <a class="ui button blue" href="<?php echo admin_url('admin.php?page=zerobscrm-extensions');?>"><?php _e("Enable Client Portal","zero-bs-crm"); ?></a>
+                                <b><i class="ui icon warning"></i><?php esc_html_e("Client Portal Deactivated","zero-bs-crm");?></b>
+                                <p><?php esc_html_e('You have uninstalled the Client Portal. The only way you will be able to send your Quote to your contact is by downloading a PDF (needs PDF invoicing installed) and then emailing it to them manually.','zero-bs-crm'); ?></p>
+                                <a class="ui button blue" href="<?php echo esc_url( admin_url('admin.php?page=zerobscrm-extensions') );?>"><?php esc_html_e("Enable Client Portal","zero-bs-crm"); ?></a>
                             </div>
                         <?php
                     }else{
@@ -759,21 +759,21 @@
                                 <div class="zbs-move-on-wrap" style="padding-top:30px;">
                                     <?php 
                                         #} Add nonce
-                                        echo '<script type="text/javascript">var zbscrmjs_secToken = \''.wp_create_nonce( "zbscrmjs-ajax-nonce" ).'\';</script>';
+                                        echo '<script type="text/javascript">var zbscrmjs_secToken = \'' . esc_js( wp_create_nonce( 'zbscrmjs-ajax-nonce' ) ) . '\';</script>';
                                     ?>
 
                                     <!-- infoz -->
-                                    <h3><?php _e("Email or Share","zero-bs-crm");?></h3>
-                                    <p><?php _e("Great! Your Quote has been published. You can now email it to your customer, or share the link directly","zero-bs-crm");?>:</p>
+                                    <h3><?php esc_html_e("Email or Share","zero-bs-crm");?></h3>
+									<p><?php esc_html_e( 'Great! Your Quote has been published. You can now email it to your contact, or share the link directly', 'zero-bs-crm' ); ?>:</p>
 
                                     <?php do_action('zbs_quote_actions'); ?>
 
                                     <div class="zbsEmailOrShare">
-                                        <h4><?php _e("Email to Customer","zero-bs-crm");?>:</h4>
+										<h4><?php esc_html_e( 'Email to Contact', 'zero-bs-crm' ); ?>:</h4>
                                         <!-- todo -->                                    
-                                        <p><input type="text" class="form-control" id="zbsQuoteBuilderEmailTo" value="<?php echo $contactEmail; ?>" placeholder="<?php _e('e.g. customer@yahoo.com','zero-bs-crm'); ?>" data-quoteid="<?php echo $quoteID; ?>" /></p>
-                                        <p><button type="button" id="zbsQuoteBuilderSendNotification" class="button button-primary button-large"><?php _e("Send Quote","zero-bs-crm");?></button></p>
-                                        <p class="small" id="zbsQuoteBuilderEmailToErr" style="display:none"><?php _e("An Email Address to send to is required","zero-bs-crm");?>!</p>
+                                        <p><input type="text" class="form-control" id="zbsQuoteBuilderEmailTo" value="<?php echo esc_attr( $contactEmail ); ?>" placeholder="<?php esc_attr_e('e.g. customer@yahoo.com','zero-bs-crm'); ?>" data-quoteid="<?php echo esc_attr( $quoteID ); ?>" /></p>
+                                        <p><button type="button" id="zbsQuoteBuilderSendNotification" class="button button-primary button-large"><?php esc_html_e("Send Quote","zero-bs-crm");?></button></p>
+                                        <p class="small" id="zbsQuoteBuilderEmailToErr" style="display:none"><?php esc_html_e("An Email Address to send to is required","zero-bs-crm");?>!</p>
                                     </div>
 												<?php
 														if ( property_exists( $zbs->modules, 'portal' ) ) :
@@ -783,7 +783,7 @@
 
 ?>
                                     <div class="zbsEmailOrShare">
-                                            <h4><?php _e("Share the Link or","zero-bs-crm"); ?> <a href="<?php echo esc_url($preview_url);  ?>" target="_blank"><?php _e("preview","zero-bs-crm");?></a>:</h4>
+                                            <h4><?php esc_html_e("Share the Link or","zero-bs-crm"); ?> <a href="<?php echo esc_url($preview_url);  ?>" target="_blank"><?php esc_html_e("preview","zero-bs-crm");?></a>:</h4>
                                             <p><input type="text" class="form-control" id="zbsQuoteBuilderURL" value="<?php echo esc_url($preview_url);  ?>" /></p>
                                     </div>  
 <?php
@@ -797,9 +797,9 @@
                                                 #} PDF Invoicing is installed
                                                 ?>
                                                 <div class="zbsEmailOrShare">
-                                                <h4><?php _e("Download PDF","zero-bs-crm");?></h4>
+                                                <h4><?php esc_html_e("Download PDF","zero-bs-crm");?></h4>
                                                 <p><i class="file pdf outline icon red" style="font-size:30px;margin-top:10px;"></i></p>
-                                                <input type="button" name="jpcrm_quote_download_pdf" id="jpcrm_quote_download_pdf" class="ui button green" value="<?php _e("Download PDF","zero-bs-crm");?>" />
+                                                <input type="button" name="jpcrm_quote_download_pdf" id="jpcrm_quote_download_pdf" class="ui button green" value="<?php esc_attr_e("Download PDF","zero-bs-crm");?>" />
                                                
                                                 </div>
                                                 <script type="text/javascript">
@@ -808,7 +808,7 @@
                                                     // add your form to the end of body (outside <form>)
                                                     var formHTML = '<form target="_blank" method="post" id="jpcrm_quote_download_pdf_form" action="">';
                                                         formHTML += '<input type="hidden" name="jpcrm_quote_download_pdf" value="1" />';
-                                                        formHTML += '<input type="hidden" name="jpcrm_quote_id" value="<?php echo $quoteID; ?>" />';
+                                                        formHTML += '<input type="hidden" name="jpcrm_quote_id" value="<?php echo esc_attr( $quoteID ); ?>" />';
                                                         formHTML += '<input type="hidden" name="jpcrm_quote_pdf_gen_nonce" value="<?php echo esc_attr( wp_create_nonce( 'jpcrm-quote-pdf-gen' ) ); ?>" />';
                                                         formHTML += '</form>';
                                                     jQuery('#wpbody').append(formHTML);
@@ -841,11 +841,11 @@
 
                                 <div class="zbs-move-on-wrap" style="padding-top:30px;">
 
-                                    <h3><?php _e("Email or Share","zero-bs-crm");?></h3>
+                                    <h3><?php esc_html_e("Email or Share","zero-bs-crm");?></h3>
                                     <div class="zbsEmailOrShare">
-                                        <h4><?php _e("Add Contact's Email","zero-bs-crm");?>:</h4>
-                                        <p><?php _e('To proceed, edit the contact and add their email address, that way we can then send them this quote online.','zero-bs-crm'); ?></p>
-                                        <p><a href="<?php echo zbsLink('edit',$quoteContactID,'zerobs_customer',true); ?>" class="button button-primary button-large"><?php _e("Edit Contact","zero-bs-crm");?></a></p>
+                                        <h4><?php esc_html_e("Add Contact's Email","zero-bs-crm");?>:</h4>
+                                        <p><?php esc_html_e('To proceed, edit the contact and add their email address, that way we can then send them this quote online.','zero-bs-crm'); ?></p>
+                                        <p><a href="<?php echo jpcrm_esc_link( 'edit', $quoteContactID, 'zerobs_customer', true ); ?>" class="button button-primary button-large"><?php esc_html_e("Edit Contact","zero-bs-crm");?></a></p>
                                     </div>              
 
                                 </div>
@@ -856,10 +856,10 @@
 
                                 <div class="zbs-move-on-wrap" style="padding-top:30px;">
 
-                                    <h3><?php _e("Email or Share","zero-bs-crm");?></h3>
+                                    <h3><?php esc_html_e("Email or Share","zero-bs-crm");?></h3>
                                     <div class="zbsEmailOrShare">
-                                        <h4><?php _e("Assign to Contact","zero-bs-crm");?>:</h4>
-                                        <p><?php _e('To proceed, assign this quote to a contact and save it.','zero-bs-crm'); ?></p>
+                                        <h4><?php esc_html_e("Assign to Contact","zero-bs-crm");?>:</h4>
+                                        <p><?php esc_html_e('To proceed, assign this quote to a contact and save it.','zero-bs-crm'); ?></p>
                                     </div>              
 
                                 </div>
@@ -940,13 +940,13 @@
 
                         #} Any existing
                         if (is_array($zbsFiles) && count($zbsFiles) > 0){ 
-                          ?><tr class="wh-large"><th><label><?php printf( _n( '%s associated file', '%s associated files', count($zbsFiles), 'text-domain' ), number_format_i18n( count($zbsFiles) ) ); ?></label></th>
+                          ?><tr class="wh-large"><th><label><?php printf( esc_html( _n( '%s associated file', '%s associated files', count($zbsFiles), 'text-domain' ) ), esc_html( number_format_i18n( count($zbsFiles) ) ) ); ?></label></th>
                                     <td id="zbsFileWrapInvoices">
                                         <?php $fileLineIndx = 1; foreach($zbsFiles as $zbsFile){
                                             
                                             $file = zeroBSCRM_files_baseName($zbsFile['file'],isset($zbsFile['priv']));
 
-                                            echo '<div class="zbsFileLine" id="zbsFileLineQuote'.$fileLineIndx.'"><a href="'.$zbsFile['url'].'" target="_blank">'.$file.'</a> (<span class="zbsDelFile" data-delurl="'.$zbsFile['url'].'"><i class="fa fa-trash"></i></span>)</div>';
+                                            echo '<div class="zbsFileLine" id="zbsFileLineQuote' . esc_attr( $fileLineIndx ) . '"><a href="' . esc_url( $zbsFile['url'] ) . '" target="_blank">' . esc_html( $file ) . '</a> (<span class="zbsDelFile" data-delurl="' . esc_attr( $zbsFile['url'] ) . '"><i class="fa fa-trash"></i></span>)</div>';
                                             $fileLineIndx++;
 
                                         } ?>
@@ -959,7 +959,7 @@
                              
                             $html .= '<input type="file" id="zbsobj_file_attachment" name="zbsobj_file_attachment" size="25" class="zbs-dc">';
                             
-                            ?><tr class="wh-large"><th><label><?php _e('Add File',"zero-bs-crm");?>:</label><br />(<?php _e('Optional',"zero-bs-crm");?>)<br /><?php _e('Accepted File Types',"zero-bs-crm");?>:<br /><?php echo zeroBS_acceptableFileTypeListStr(); ?></th>
+                            ?><tr class="wh-large"><th><label><?php esc_html_e('Add File',"zero-bs-crm");?>:</label><br />(<?php esc_html_e('Optional',"zero-bs-crm");?>)<br /><?php esc_html_e('Accepted File Types',"zero-bs-crm");?>:<br /><?php echo esc_html( zeroBS_acceptableFileTypeListStr() ); ?></th>
                                 <td><?php
                             wp_nonce_field(plugin_basename(__FILE__), 'zbsobj_file_attachment_nonce');
                             echo $html;
@@ -970,8 +970,8 @@
 
                 var zbsQuotesCurrentlyDeleting = false;
                 var zbsMetaboxFilesLang = {
-                    'err': '<?php echo zeroBSCRM_slashOut(__('Error',"zero-bs-crm")); ?>',
-                    'unabletodel' : '<?php echo zeroBSCRM_slashOut(__('Unable to delete this file',"zero-bs-crm")); ?>',
+                    'err': '<?php echo esc_html( zeroBSCRM_slashOut(__('Error',"zero-bs-crm")) ); ?>',
+                    'unabletodel' : '<?php echo esc_html( zeroBSCRM_slashOut(__('Unable to delete this file',"zero-bs-crm")) ); ?>',
 
                 }
 
@@ -996,7 +996,7 @@
                                     'action': 'delFile',
                                     'zbsfType': 'quotes',
                                     'zbsDel':  delUrl, // could be csv, never used though
-                                    'zbsCID': <?php echo $quoteID; ?>,
+                                    'zbsCID': <?php echo esc_html( $quoteID ); ?>,
                                     'sec': window.zbscrmjs_secToken
                                   };
 
@@ -1060,69 +1060,33 @@
                 ) {
 
 
-            /* --- security verification --- */
-            if(!wp_verify_nonce($_POST['zbsobj_file_attachment_nonce'], plugin_basename(__FILE__))) {
-              return $id;
-            } // end if
-
-
-            if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-              return $id;
-            } // end if
-               
-            /* Switched out for WH Perms model 19/02/16 
-            if('page' == $_POST['post_type']) { 
-              if(!current_user_can('edit_page', $id)) {
-                return $id;
-              } // end if
-            } else { 
-                if(!current_user_can('edit_page', $id)) { 
-                    return $id;
+                /* --- security verification --- */
+                if(!wp_verify_nonce($_POST['zbsobj_file_attachment_nonce'], plugin_basename(__FILE__))) {
+                  return $id;
                 } // end if
-            } // end if */
-            if (!zeroBSCRM_permsQuotes()){
-                return $id;
-            }
-            /* - end security verification - */
 
-            #} Blocking repeat-upload bug
-            $zbsobj_justUploadedObjFile = $_FILES['zbsobj_file_attachment']['name'];
 
-                // proceed
-                $supported_types = zeroBS_acceptableFileTypeMIMEArr(); //$supported_types = array('application/pdf');
-                $arr_file_type = wp_check_filetype(basename($_FILES['zbsobj_file_attachment']['name']));
-                $uploaded_type = $arr_file_type['type'];
+                if(defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+                  return $id;
+                } // end if
+                   
+                if (!zeroBSCRM_permsQuotes()){
+                    return $id;
+                }
+                /* - end security verification - */
 
-                if(in_array($uploaded_type, $supported_types) || (isset($supported_types['all']) && $supported_types['all'] == 1)) {
-                    $upload = wp_upload_bits($_FILES['zbsobj_file_attachment']['name'], null, file_get_contents($_FILES['zbsobj_file_attachment']['tmp_name']));
+                // Blocking repeat-upload bug
+                $zbsobj_justUploadedObjFile = $_FILES['zbsobj_file_attachment']['name'];
 
-                    if(isset($upload['error']) && $upload['error'] != 0) {
-                        wp_die('There was an error uploading your file. The error is: ' . $upload['error']);
+                // verify file extension and mime type
+                if ( jpcrm_file_check_mime_extension( $_FILES['zbsobj_file_attachment'] ) ){
+               
+                    $quote_dir_info = jpcrm_storage_dir_info_for_quotes( $quoteID );
+                    $upload         = jpcrm_save_admin_upload_to_folder( 'zbsobj_file_attachment', $quote_dir_info['files'] );
+
+                    if ( isset( $upload['error'] ) && $upload['error'] != 0 ) {
+                        wp_die( 'There was an error uploading your file. The error is: ' . esc_html( $upload['error'] ) );
                     } else {
-                        //update_post_meta($id, 'zbsobj_file_attachment', $upload);
-
-                            // v2.13 - also privatise the file (move to our asset store)
-                            // $upload will have 'file' and 'url'
-                            $fileName = basename($upload['file']);
-                            $fileDir = dirname($upload['file']);
-                            $privateThatFile = zeroBSCRM_privatiseUploadedFile($fileDir,$fileName);
-                            if (is_array($privateThatFile) && isset($privateThatFile['file'])){ 
-
-                                // successfully moved to our store
-
-                                    // modify URL + file attributes
-                                    $upload['file'] = $privateThatFile['file'];
-                                    $upload['url'] = $privateThatFile['url'];
-
-                                    // add this extra identifier if in privatised sys
-                                    $upload['priv'] = true;
-
-                            } else {
-
-                                // couldn't move to store, leave in uploaded for now :)
-
-                            }
-
                             // w mod - adds to array :)
                             $zbsFiles = zeroBSCRM_files_getFiles('quote',$quoteID);
                
@@ -1144,8 +1108,7 @@
                             // Fire any 'post-upload-processing' (e.g. CPP makes thumbnails of pdf, jpg, etc.)
                             // not req invoicing: do_action('zbs_post_upload_contact',$upload);
                     }
-                }
-                else {
+                } else {
                     wp_die("The file type that you've uploaded is not an accepted file format.");
                 }
             }
@@ -1225,8 +1188,8 @@
                 ?>
 
                         <table class="wh-metatab-side wptbp" id="wptbpMetaBoxQuoteStatus">
-                            <tr><td style="text-align:center;color:green"><strong><?php _e('Accepted',"zero-bs-crm"); ?> <?php echo $acceptedDate; ?></strong></td></tr>
-                            <?php if (!empty($acceptedBy)) { ?><tr><td style="text-align:center"><?php _e('By: ',"zero-bs-crm"); ?> <a href="mailto:<?php echo $acceptedBy; ?>" target="_blank"<?php if (!empty($acceptedIP)) { echo ' title="IP address:'.$acceptedIP.'"'; } ?>><?php echo $acceptedBy; ?></a></td></tr><?php } ?>                            
+                            <tr><td style="text-align:center;color:green"><strong><?php esc_html_e('Accepted',"zero-bs-crm"); ?> <?php echo esc_html( $acceptedDate ); ?></strong></td></tr>
+                            <?php if (!empty($acceptedBy)) { ?><tr><td style="text-align:center"><?php esc_html_e('By: ',"zero-bs-crm"); ?> <a href="mailto:<?php echo esc_attr( $acceptedBy ); ?>" target="_blank"<?php if (!empty($acceptedIP)) { echo ' title="IP address:' . esc_attr( $acceptedIP ) . '"'; } ?>><?php echo esc_html( $acceptedBy ); ?></a></td></tr><?php } ?>                            
                         </table>   
 
                 <?php
@@ -1238,7 +1201,7 @@
 
                         <table class="wh-metatab-side wptbp" id="wptbpMetaBoxQuoteStatus">
                             <tr>
-                            <td style="text-align:center"><strong><?php _e('Not Yet Accepted',"zero-bs-crm"); ?></td></tr>
+                            <td style="text-align:center"><strong><?php esc_html_e('Not Yet Accepted',"zero-bs-crm"); ?></td></tr>
                         </table>  
 
                     <?php
@@ -1345,7 +1308,7 @@ class zeroBS__Metabox_QuoteTags extends zeroBS__Metabox_Tags{
 
             ?><div class="zbs-generic-save-wrap">
 
-                    <div class="ui medium dividing header"><i class="save icon"></i> <?php _e('Quote Actions','zero-bs-crm'); ?></div>
+                    <div class="ui medium dividing header"><i class="save icon"></i> <?php esc_html_e('Quote Actions','zero-bs-crm'); ?></div>
 
             <?php
 
@@ -1382,13 +1345,13 @@ class zeroBS__Metabox_QuoteTags extends zeroBS__Metabox_Tags{
                     */
                     ?>
                     <div>
-                        <label for="quote_status"><?php _e('Status',"zero-bs-crm"); ?>: </label>
+                        <label for="quote_status"><?php esc_html_e('Status',"zero-bs-crm"); ?>: </label>
                         <select id="quote_status" name="quote_status">
                             <?php foreach($acceptableQuoteStatuses as $statusOpt => $statusStr){
 
                                 $sel = '';
                                 if ($statusStr == $status) $sel = ' selected="selected"';
-                                echo '<option value="'.$statusOpt.'"'. $sel .'>'.__($statusStr,"zero-bs-crm").'</option>';
+                                echo '<option value="' . esc_attr( $statusOpt ) . '"'. esc_attr( $sel ) .'>'.esc_html__($statusStr,"zero-bs-crm").'</option>';
 
                             } ?>
                         </select>
@@ -1399,7 +1362,7 @@ class zeroBS__Metabox_QuoteTags extends zeroBS__Metabox_Tags{
 
                     <div class="zbs-quote-actions-bottom zbs-objedit-actions-bottom">
 
-                        <button class="ui button green" type="button" id="zbs-edit-save"><?php _e("Update","zero-bs-crm"); ?> <?php _e("Quote","zero-bs-crm"); ?></button>
+                        <button class="ui button green" type="button" id="zbs-edit-save"><?php esc_html_e("Update","zero-bs-crm"); ?> <?php esc_html_e("Quote","zero-bs-crm"); ?></button>
 
                         <?php
 
@@ -1408,7 +1371,7 @@ class zeroBS__Metabox_QuoteTags extends zeroBS__Metabox_Tags{
                          // for now just check if can modify, later better, granular perms.
                          if ( zeroBSCRM_permsQuotes() ) { 
                         ?><div id="zbs-quote-actions-delete" class="zbs-objedit-actions-delete">
-                             <a class="submitdelete deletion" href="<?php echo zbsLink('delete',$quoteID,'quote'); ?>"><?php _e('Delete Permanently', "zero-bs-crm"); ?></a>
+                             <a class="submitdelete deletion" href="<?php echo jpcrm_esc_link( 'delete', $quoteID, 'quote' ); ?>"><?php esc_html_e('Delete Permanently', "zero-bs-crm"); ?></a>
                         </div>
                         <?php } // can delete  ?>
                         
@@ -1422,7 +1385,7 @@ class zeroBS__Metabox_QuoteTags extends zeroBS__Metabox_Tags{
 
                     // NEW quote ?>
 
-                    <button class="ui button green" type="button" id="zbs-edit-save"><?php _e("Save","zero-bs-crm"); ?> <?php _e("Quote","zero-bs-crm"); ?></button>
+                    <button class="ui button green" type="button" id="zbs-edit-save"><?php esc_html_e("Save","zero-bs-crm"); ?> <?php esc_html_e("Quote","zero-bs-crm"); ?></button>
 
                  <?php
 

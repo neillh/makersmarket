@@ -2,9 +2,9 @@
 Contributors: magazine3
 Tags: Schema, Structured Data, Google Snippets, Rich Snippets, Schema.org, SEO, AMP
 Requires at least: 3.0
-Tested up to: 6.1
+Tested up to: 6.2
 Requires PHP: 5.6.20
-Stable tag: 1.9.105
+Stable tag: 1.13
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -120,6 +120,114 @@ Yes, Absolutely! We would suggest you send your feature request by creating an i
 You can contact us from [here](http://structured-data-for-wp.com/contact-us/)
 
 == Changelog ==
+
+
+= 1.13 (12 April 2023) =
+
+* Added: Need to add compatibility for "https://abia.com.au/" to fetch reviews #1827
+* Fixed: When we add the YouTube video through the elementor in the schema, the video is not showing in the rich result #1882
+* Fixed: Image Caption is not showing for inside Post Attachment Images #1893
+* Added: Add compatibility with the plugin PublishPress Authors #1894
+* Fixed: It says 404 page not found while adding the ID to the FAQ schema  #1898
+* Fixed: PHP Notice: Undefined variable #1901
+* Fixed: Test with WP 6.2 and update readme.txt tested up to field #1903
+
+
+= 1.12 (27 March 2023) =
+
+* Fixed: Restoring schema post type from trash does not retain all data what it was earlier #1860
+* Fixed: PHP Recoverable Error: Uncaught exception 'ValueError' with message 'Path cannot be empty #1868
+* Fixed: When we install the Opn Payments plugin, schema seeting is not saving. #1881
+* Fixed: Getting fatal error due to Server crash #1887
+* Fixed: Fatal error while uploading .csv file in review section #1885
+* Fixed: Change the property "PostalCode" to "postalcode" as an error is occurring due to it #1883
+* Fixed: Issues with rank math compatibilty #1889
+* Added: Add Image Caption option to Newsarticle #1850
+
+
+= 1.11 (06 March 2023) =
+
+* Enhancement: Remove trailingslash from url and @id schema properties for all the schema types #1852
+* Enhancement: ScholarlyArticle #1854
+* Fixed: Platform Icon is missing in reviews list #1857
+* Fixed: Broke Webiste last version #1858
+* Fixed: Error after last update #1859
+* Enhancement: User want to user profile custom filed in schema #1865
+* Enhancement: An option to change breadcrumb homepage title #1847
+* Fixed: Getting fatal errors with PHP 8.0 #1866
+* Fixed: PHP Warning: Attempt to read property "ID" on bool in /app/web/wp-content/plugins/schema-and-structured-data-for-wp/output/output.php on line 3268 #1867
+* Fixed: Warnings appearing on the frontend #1869
+* Feature: Need to create an Itempage Schema. #1851
+* Fixed: Need to fix the error generated in Query Monitor #1819
+* Fixed: While using the schema plugin, there is an error in the query monitor plugin. #1875
+* Fixed: When a user creates a Google review and clicks on it, the google review link goes to the wrong URL #1876
+
+= 1.10.1 (12 Feb 2023) =
+
+* Fixed: Broke Webiste last version #1858
+* Fixed: Platform Icon is missing in reviews list #1857
+
+
+= 1.10 (11 Feb 2023) =
+
+* Enhancement: Improvement required in Product schema #1848
+* Fixed: tempt to read property “ID” on null error #1820
+* Fixed: To remove HTML tags from schema #1832
+* Enhancement: Ultimate Block plugin compatibility issue #1828
+* Feature: Add new functionality to disable the Breadcrumbs schema on a specific post. #1831
+* Feature: Add new functionality to add the custom schema to the WordPress User. #1829
+* Fixed: Deprecated: Hook elementor/widgets/widgets_registered #1836
+* Enhancement: Add new functionality to fetch the author name from the taxonomy. #1839
+* Enhancement: In the WebPage schema, we should add a new property called inLanguage. #1840
+* Enhancement: tempt A new property called "Alternative Headline" should be added to the news article scheme.  #1837
+* Fixed: When we use the boolean value for the directApply property in the job posting schema, that value should be automatically added to other job posts. #1845
+* Feature: Errors in video object schema #1841
+* Fixed: Product reviews are not geeting fetch #1838
+* Fixed: Need to fix the warnings in error log #1849
+
+= 1.9.109.1 (17 Jan 2023) =
+
+* Added: Set no image modified value to remove image completely from schema markup #1834
+* Fixed: Attempt to read property “ID” on null error in php 8 #1833
+
+= 1.9.109 (16 Jan 2023) =
+
+* Enhancement: Enable disable message update on page edit schema options on #1815
+* Fixed: When we add reviews for the services schema, they do not appear in the page sources. #1818
+* Enhancement: Organization schema fetching wrong details #1823
+* Fixed: Conflict issue with Power builder plugin #1822
+* Fixed: Gutenberg howto schema block breaks layout due to missing closing div #1824
+* Fixed: Remove 40% offer banner #1826
+* Feature: In the Event schema, add compatibility with the "EventIn" plugin #1825
+* Fixed: Need to remove trailingslashit from News Article schema #1830
+
+= 1.9.108 (27 Dec 2022) =
+
+* Fixed: PHP notice generated Line: 3722 in admin_section/common-function.php #1813
+* Fixed: When a user creates a product review and clicks on it, the product review link goes to the wrong URL. #1812
+* Enhancement: Need to add some new schema types. ( AdvertiserContentArticle, AnalysisNewsArticle, AskPublicNewsArticle, BackgroundNewsArticle, OpinionNewsArticle, ReviewNewsArticle ) #1811
+* Enhancement: Collection UI Improvemnt #1809
+* Fixed: Fatal error on blank review collection creation #1806
+* Fixed: Product schema conflicts with the FAQ in the post section. #1803
+* Enhancement: Add compatibility with the plugin Bunyad AMP. #1799
+
+= 1.9.107 (16 Dec 2022) =
+
+* Enhancement: Need to create an option of a green star in the collection  #1791
+* Fixed: Reviews pro API key Activate button is not visible. #1797
+* Fixed: VideoObject schema is getting added even if only the "href" link is present. #1802
+* Fixed: Add videoobject schema only if video available option does not work. #1801
+* Fixed: When we create a collection and add the URL for the collection, it opens to the wrong URL. #1800
+* Fixed: Warning: Undefined variable #1805
+
+= 1.9.106 (03 Dec 2022) =
+
+* Fixed: Remove the span Id from the Article schema.  #1788
+* Fixed: FAQs are not shown in the classic editor front end. #1785
+* Fixed: There is an error while adding the productreview.com.au reviews. #1757
+* Fixed: Warning: Undefined variable $pagenow #1793
+* Enhancement: In the FAQ and HOW TO schemas, "about property" should be added.  #1794
+* Fixed: Activate plugin wp-admin side crashes #1796
 
 = 1.9.105 (28 Nov 2022) =
 

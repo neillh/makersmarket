@@ -52,15 +52,3 @@ require_once get_parent_theme_file_path( 'inc/wordpress-shims.php' );
 Skinny\Core\setup();
 Skinny\Customizer\setup();
 Skinny\WooCommerce\setup();
-
-
-function add_content_after_addtocart() {
-	$current_product_id = get_the_ID();
-	$product = wc_get_product( $current_product_id );
-	$checkout_url = wc_get_checkout_url();
-
-	if ( $product->is_type( 'simple' ) ) {
-		echo '<button class="buy-now button"><a href="'.$checkout_url.'?add-to-cart='.$current_product_id.'" class="">Buy Now</a></button>';
-	}
-}
-add_action( 'woocommerce_after_add_to_cart_button', 'add_content_after_addtocart' );

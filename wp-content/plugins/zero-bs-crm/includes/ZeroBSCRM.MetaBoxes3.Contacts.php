@@ -228,7 +228,7 @@
                         }
                     }  
                 </style>
-                <?php #} AJAX NONCE ?><script type="text/javascript">var zbscrmjs_secToken = '<?php echo wp_create_nonce( "zbscrmjs-ajax-nonce" ); ?>';</script><?php # END OF NONCE ?>
+                <script type="text/javascript">var zbscrmjs_secToken = '<?php echo esc_js( wp_create_nonce( 'zbscrmjs-ajax-nonce' ) ); ?>';</script>
 
                 <?php #} Pass this if it's a new customer (for internal automator) - note added this above with DEFINE for simpler.
 
@@ -239,14 +239,41 @@
 
 
                 <table class="form-table wh-metatab wptbp" id="wptbpMetaBoxMainItem">
+                    <?php
+                       $avatar_mode = zeroBSCRM_getSetting( 'avatarmode' );
+							  // The only mode allowed to change images is Custom Images
+                       // (avatar_mode == "2") => Custom Images mode
+                       if ( $avatar_mode == "2" ) :
+                    ?>
+                    <tr class="wh-large"><th style="vertical-align: middle;"><label><?php esc_html_e('Profile Picture',"zero-bs-crm");?>:</label></th>
+                    <td class="zbs-field-id">
+                    <?php
+                        $avatar_url       = isset( $contact['id'] ) ? $zbs->DAL->contacts->getContactAvatar( $contact['id'] ) : zeroBSCRM_getDefaultContactAvatar();
+                        $empty_avatar_url = zeroBSCRM_getDefaultContactAvatar();
+                    ?>
+                    <div class="jpcrm-customer-profile-picture-container" style="margin-right:10px;">
+                        <img src="<?php echo esc_attr( $avatar_url ); ?>" id="profile-picture-img" class="jpcrm-customer-profile-picture" />
+                        <img src="<?php echo esc_attr( $empty_avatar_url ); ?>" id="empty-profile-picture" class="jpcrm-customer-profile-picture" style="display:none;" />
+                    <br />
+                    <label for="zbsc_profile-picture-file" class="jpcrm-customer-file-upload">
+                        <?php esc_html_e( 'Change Picture', 'zero-bs-crm' ); ?>
+                        <input id="zbsc_profile-picture-file" type="file" name="zbsc_profile-picture-file" class="jpcrm-customer-input-file"/>
+                    </label>
+                    <label id="zbsc_remove-profile-picture-button" class="jpcrm-customer-file-upload-remove">
+                        <?php esc_html_e( 'Remove', 'zero-bs-crm' ); ?>
+                        <input type="hidden" id="zbsc_remove-profile-picture" name="zbsc_remove-profile-picture" value="0" />
+                    </label>
+                    <?php 
+                        endif; 
+                    ?>
 
                     <?php #} WH Hacky quick addition for MVP 
                     # ... further hacked
 
                     if ($zbsShowID == "1" && isset($contact['id']) && !empty($contact['id'])) { ?>
-                    <tr class="wh-large"><th><label><?php _e('Customer',"zero-bs-crm");?> ID:</label></th>
+							<tr class="wh-large"><th><label><?php esc_html_e( 'Contact ID', 'zero-bs-crm' ); ?>:</label></th>
                     <td class="zbs-field-id">
-                        #<?php if (isset($contact['id'])) echo $contact['id']; ?>
+                        #<?php if (isset($contact['id'])) echo esc_html( $contact['id'] ); ?>
                     </td></tr>
                     <?php }
 
@@ -347,15 +374,15 @@
                                     // / address  modifiers
 
                                     #} add group div + label
-                                    if ($zbsOpenTable) echo '<tr class="wh-large zbs-field-group-tr '.$zbsLineClass.'"><td colspan="2">';
+                                    if ($zbsOpenTable) echo '<tr class="wh-large zbs-field-group-tr ' . esc_attr( $zbsLineClass ) . '"><td colspan="2">';
 
                                     if( $fieldV['area'] == 'Second Address' ) {
-                                        echo '<div class="zbs-field-group zbs-fieldgroup-'.$fieldGroupLabel.' '. $zbsGroupClass .'"><label class="zbs-field-group-label">'. esc_html( $second_address_label ) .'</label>';
+                                        echo '<div class="zbs-field-group zbs-fieldgroup-'. esc_attr( $fieldGroupLabel ) .' '. esc_attr( $zbsGroupClass ) .'"><label class="zbs-field-group-label">'. esc_html( $second_address_label ) .'</label>';
                                     } else {
-                                        echo '<div class="zbs-field-group zbs-fieldgroup-'.$fieldGroupLabel.' '. $zbsGroupClass .'"><label class="zbs-field-group-label">'. __( $fieldV['area'], 'zero-bs-crm' ).'</label>';
+                                        echo '<div class="zbs-field-group zbs-fieldgroup-'.esc_attr($fieldGroupLabel).' '. esc_attr($zbsGroupClass) .'"><label class="zbs-field-group-label">'. esc_html__( $fieldV['area'], 'zero-bs-crm' ).'</label>';
                                     }
 
-                                    echo '<table class="form-table wh-metatab wptbp" id="wptbpMetaBoxGroup-'.$fieldGroupLabel.'">';
+                                    echo '<table class="form-table wh-metatab wptbp" id="wptbpMetaBoxGroup-'.esc_attr($fieldGroupLabel).'">';
                                     
                                     #} Set this (need to close)
                                     $zbsOpenGroup = true;
@@ -444,9 +471,9 @@
                 jQuery(function(){
 
                     // bastard override of wp terminology:
-                    jQuery('#submitdiv h2 span').html('<?php _e('Save',"zero-bs-crm");?>');
+                    jQuery('#submitdiv h2 span').html('<?php esc_html_e('Save',"zero-bs-crm");?>');
                     if (jQuery('#submitdiv #publish').val() == 'Publish')
-                        jQuery('#submitdiv #publish').val('<?php _e('Save',"zero-bs-crm");?>');
+                        jQuery('#submitdiv #publish').val('<?php esc_html_e('Save',"zero-bs-crm");?>');
                     jQuery('#submitdiv').show();
 
                     // turn off auto-complete on customer records via form attr... should be global for all ZBS record pages
@@ -513,12 +540,13 @@
                     }
 
                 }
+				// phpcs:disable WordPress.NamingConventions.ValidVariableName -- to be refactored.
+				// We have to explicitly retrieve the avatar from the DB.
+				$dataArr['avatar'] = ( $contact_id !== -1 ) ? $zbs->DAL->contacts->getContactAvatar( $contact_id ) : '';
+				//phpcs:enable WordPress.NamingConventions.ValidVariableName
 
                 // make a copy for IA below (just fields)
                 $contactData = $dataArr;
-
-                #AVATARSAVE - save any avatar change if changed :)
-                if (isset($_POST['zbs-contact-avatar-custom-url']) && !empty($_POST['zbs-contact-avatar-custom-url'])) $dataArr['avatar'] = sanitize_text_field( $_POST['zbs-contact-avatar-custom-url'] );
                 
                 // Company assignment?
                 if (isset($_POST['zbs_company'])) $dataArr['companies'] = array((int)sanitize_text_field($_POST['zbs_company']));
@@ -599,7 +627,7 @@
 
                 // success?
                 if ($addUpdateReturn != -1 && $addUpdateReturn > 0){
-
+                    $this->save_profile_picture( $contact_id, $contact );
                     // Update Msg
                     // this adds an update message which'll go out ahead of any content
                     // This adds to metabox: $this->updateMessages['update'] = zeroBSCRM_UI2_messageHTML('info olive mini zbs-not-urgent',__('Contact Updated',"zero-bs-crm"),'','address book outline','contactUpdated');
@@ -630,6 +658,95 @@
             }
 
             return $contact;
+        }
+
+        /*
+        * Saves the profile picture 
+        */
+        public function save_profile_picture( $contact_id, $crm_contact ) {
+            global $zbs;
+
+            $contact_dir_info    = jpcrm_storage_dir_info_for_contact( $contact_id );
+            $field_key           = 'jpcrm-profile-picture';
+            $is_remove_flag_set  = isset( $_POST['zbsc_remove-profile-picture'] ) && $_POST['zbsc_remove-profile-picture'] == '1';
+            $remove_old_avatar   = false;
+            $has_new_avatar_file = 
+                isset( $_FILES['zbsc_profile-picture-file'] ) 
+                && empty( $_FILES['zbsc_profile-picture-file']['error'] ) 
+                && is_uploaded_file( $_FILES['zbsc_profile-picture-file']['tmp_name'] );
+
+            if ( $is_remove_flag_set ) {
+                $zbs->DAL->contacts->addUpdateContact( array(
+                    'id'             => $contact_id,
+                    'limitedFields'  => array(
+                        array( 
+                            'key'  => 'zbsc_avatar',
+                            'val'  => '',
+                            'type' => '%s'
+                        )
+                    )
+                ));
+                $remove_old_avatar = true;
+            } else if ( $has_new_avatar_file ) {
+
+                // verify image file type
+                $allowed_image_types = array('image/jpeg' => 'jpg', 'image/jpg' => 'jpg', 'image/gif' => 'gif', 'image/png' => 'png');
+                $allowed_file_extensions = array( '.jpg', '.jpeg', '.gif', '.png' );
+                $allowed_mime_types = array( 'image/jpeg','image/jpg', 'image/gif', 'image/png' );
+                if ( !jpcrm_file_check_mime_extension( $_FILES['zbsc_profile-picture-file'], $allowed_file_extensions, $allowed_mime_types ) ){
+
+                    $this->dalErrorMessage ( array( __( 'Error: Profile Picture only accepts jpg, png, and gif images!', 'zero-bs-crm' ) ) );
+                    return;
+
+                }
+
+                if ( $contact_dir_info === false ) {
+                    $this->dalErrorMessage ( array( __( 'Error while retrieving the contact\'s folder.', 'zero-bs-crm' ) ) );
+                    return;
+                }
+
+                $avatar_path = $contact_dir_info['avatar']['path'];
+                $contact_folder_exists = jpcrm_create_and_secure_dir_from_external_access( $avatar_path, false );
+
+                if ( ! $contact_folder_exists ) {
+                    $this->dalErrorMessage ( array( __( 'There was an error creating the profile picture directory.', 'zero-bs-crm' ) ) );
+                    return;
+                }
+
+                $zbs->load_encryption();
+                $avatar_filename = sprintf( 
+                    'avatar_%s.%s',
+                    $zbs->encryption->get_rand_hex( 10 ),
+                    $allowed_image_types[ $_FILES['zbsc_profile-picture-file']['type'] ] // extension for this filetype
+                );
+
+                if ( 
+                    ! file_exists( $avatar_path . '/' . $avatar_filename ) 
+                    && move_uploaded_file( $_FILES['zbsc_profile-picture-file']['tmp_name'], $avatar_path . '/' . $avatar_filename) 
+                ) {
+                    $zbs->DAL->contacts->addUpdateContact( array(
+                            'id'             => $contact_id,
+                            'limitedFields'  => array(
+                                array( 
+                                    'key'  => 'zbsc_avatar',
+                                    'val'  => $contact_dir_info['avatar']['url'] . '/' . $avatar_filename,
+                                    'type' => '%s'
+                                )
+                            )
+                    ));
+                    
+                    $remove_old_avatar = true;
+                } else {
+                    $this->dalErrorMessage ( array( __( 'There was an error updating the profile picture.', 'zero-bs-crm' ) ) );
+                }
+            }
+
+            if ( $remove_old_avatar && ! empty( $crm_contact['avatar'] ) ) {
+                $previous_avatar_full_path = $contact_dir_info['avatar']['path'] . '/' . basename( $crm_contact['avatar'] );
+                if ( file_exists( $previous_avatar_full_path ) ) {
+                    unlink( $previous_avatar_full_path );
+                }
+            }
         }
 
         // This catches 'new' contacts + redirs to right url
@@ -674,7 +791,7 @@
 
         public function updateEmailDupeMessage($otherContactID=-1){
 
-            $viewHTML = ' <a href="'.zbsLink('view',$otherContactID,'zerobs_customer').'" target="_blank">'.__('View Contact','zero-bs-crm').'</a>';
+            $viewHTML = ' <a href="'.jpcrm_esc_link('view',$otherContactID,'zerobs_customer').'" target="_blank">'.__('View Contact','zero-bs-crm').'</a>';
 
             $msg = zeroBSCRM_UI2_messageHTML('info orange mini',__('Contact email could not be updated because a contact already exists with this email address.',"zero-bs-crm").$viewHTML,'','address book outline','contactUpdated');
 
@@ -758,30 +875,26 @@ class zeroBS__Metabox_ContactActions extends zeroBS__Metabox{
                 $segmentClass = 'ui segment';
             }
 
-            echo '<div id="zbs-contact-edit-avatar"><div class="'.$segmentClass.'"><h2 class="ui header">'.$avatarStr.'</h2>';            
-            if ( $avatarMode == 2 ) {
-                echo '<button class="circular ui icon blue basic button" style="display:none" id="zbs-edit-contact-avatar"><i class="pencil alternate icon"></i></button>';
-                echo '<input type="hidden" id="zbs-contact-avatar-custom-url" name="zbs-contact-avatar-custom-url" value="'.$avatarURL.'" />';    
-            }
+            echo '<div id="zbs-contact-edit-avatar"><div class="'. esc_attr( $segmentClass ) .'"><h2 class="ui header">'. $avatarStr .'</h2>';            
             echo '</div></div>'; 
         } ?>
         <script type="text/javascript">
             var zbsContactAvatarLang = {
-                'upload': '<?php _e("Upload Image","zero-bs-crm");?>',
+                'upload': '<?php esc_html_e("Upload Image","zero-bs-crm");?>',
             };
         </script>
         <div class="action-wrap">
-          <div class="ui green basic dropdown action-button"><?php _e('Contact Actions',"zero-bs-crm"); ?><i class="dropdown icon"></i>
+          <div class="ui green basic dropdown action-button"><?php esc_html_e('Contact Actions',"zero-bs-crm"); ?><i class="dropdown icon"></i>
              <div class="menu">
               <?php foreach ($this->actions as $actKey => $action){ 
 
                 // filter out 'edit' as on that page :)
                 if ($actKey != 'edit'){
                 ?>
-                 <div class="item zbs-contact-action" id="zbs-contact-action-<?php echo $actKey; ?>"<?php
+                 <div class="item zbs-contact-action" id="zbs-contact-action-<?php echo esc_attr( $actKey ); ?>"<?php
                     // if url isset, pass that data-action, otherwise leave for js to attach to
                     if (isset($action['url']) && !empty($action['url'])){ 
-                      ?> data-action="<?php if (isset($action['url'])) echo 'url'; ?>" data-url="<?php if (isset($action['url'])) echo $action['url']; ?>"<?php
+                      ?> data-action="<?php if (isset($action['url'])) echo 'url'; ?>" data-url="<?php if (isset($action['url'])) echo esc_attr( $action['url'] ); ?>"<?php
                     }
 
                     // got extra attributes?
@@ -789,17 +902,17 @@ class zeroBS__Metabox_ContactActions extends zeroBS__Metabox{
 
                           // dump extra attr into item
                           foreach ($action['extraattr'] as $k => $v){
-                              echo ' data-'.$k.'="'.$v.'"';
+                              echo ' data-'. esc_attr( $k ) .'="'. esc_attr( $v ) .'"';
                           }
 
                     } ?>>
                    <?php 
 
                       // got ico?
-                      if (isset($action['ico'])) echo '<i class="'.$action['ico'].'"></i>';
+                      if (isset($action['ico'])) echo '<i class="'. esc_attr( $action['ico'] ) .'"></i>';
 
                       // got text?
-                      if (isset($action['label'])) echo $action['label'];
+                      if (isset($action['label'])) echo esc_html( $action['label'] );
 
                   ?>
                  </div>
@@ -919,13 +1032,13 @@ class zeroBS__Metabox_ContactActions extends zeroBS__Metabox{
                     $fileSlotURL = ''; if (is_array($zbsFiles) && count($zbsFiles) == 1) $fileSlotURL = $zbsFiles[0]['url'];
 
                     ?>
-                            <table class="form-table wh-metatab wptbp zbsFileSlotTable" data-sloturl="<?php echo $fileSlotURL; ?>" id="<?php echo $this->metaboxID; ?>-tab">
+                            <table class="form-table wh-metatab wptbp zbsFileSlotTable" data-sloturl="<?php echo esc_attr( $fileSlotURL ); ?>" id="<?php echo esc_attr( $this->metaboxID ); ?>-tab">
 
                                 <?php
 
                                 #} Any slot filled?
                                 if (is_array($zbsFiles) && count($zbsFiles) > 0){ 
-                                  ?><tr class="wh-large zbsFileSlotWrap"><th class="zbsFileSlotTitle"><label><?php echo '<span>'.count($zbsFiles).'</span> '.__('File(s)','zero-bs-crm').':'; ?></label></th>
+                                  ?><tr class="wh-large zbsFileSlotWrap"><th class="zbsFileSlotTitle"><label><?php echo '<span>' . esc_html( count( $zbsFiles ) ) . '</span> '.esc_html__('File(s)','zero-bs-crm').':'; ?></label></th>
                                             <td class="">
                                                 <?php $fileLineIndx = 1; foreach($zbsFiles as $zbsFile){
 
@@ -937,15 +1050,15 @@ class zeroBS__Metabox_ContactActions extends zeroBS__Metabox{
                                                         $file = substr($file,strpos($file, '-')+1);
                                                     } */
                                                     $file = zeroBSCRM_files_baseName($zbsFile['file'],isset($zbsFile['priv']));
-                                                    echo '<div class="zbsFileLine" id="zbsFileLineCustomer'.$fileLineIndx.'"><a href="'.$zbsFile['url'].'" target="_blank">'.$file.'</a> </div>';
+                                                    echo '<div class="zbsFileLine" id="zbsFileLineCustomer'. esc_attr( $fileLineIndx ) .'"><a href="'. esc_url( $zbsFile['url'] ) .'" target="_blank">'. esc_html( $file ) .'</a> </div>';
                                                     
                                                     // if using portal.. state shown/hidden
                                                     // this is also shown in each file slot :) if you change any of it change that too
                                                     if(defined('ZBS_CLIENTPRO_TEMPLATES')){
                                                         if(isset($zbsFile['portal']) && $zbsFile['portal']){
-                                                          echo "<p><i class='icon check circle green inverted'></i> ".__('Shown on Portal','zero-bs-crm').'</p>';
+                                                          echo "<p><i class='icon check circle green inverted'></i> ".esc_html__('Shown on Portal','zero-bs-crm').'</p>';
                                                         }else{
-                                                          echo "<p><i class='icon ban inverted red'></i> ".__('Not shown on Portal','zero-bs-crm').'</p>';
+                                                          echo "<p><i class='icon ban inverted red'></i> ".esc_html__('Not shown on Portal','zero-bs-crm').'</p>';
                                                         }
                                                     }
                                                     
@@ -963,7 +1076,7 @@ class zeroBS__Metabox_ContactActions extends zeroBS__Metabox{
                                          
                                         $html .= '<input type="file" id="zbsc_file_'.$filePerma.'" name="zbsc_file_'.$filePerma.'" size="25" class="zbs-dc">';
                                         
-                                        ?><tr class="wh-large"><th><label><?php _e('Add File',"zero-bs-crm");?>:</label><br />(<?php _e('Optional',"zero-bs-crm");?>)<br /><?php _e('Accepted File Types',"zero-bs-crm");?>:<br /><?php echo zeroBS_acceptableFileTypeListStr(); ?></th>
+                                        ?><tr class="wh-large"><th><label><?php esc_html_e('Add File',"zero-bs-crm");?>:</label><br />(<?php esc_html_e('Optional',"zero-bs-crm");?>)<br /><?php esc_html_e('Accepted File Types',"zero-bs-crm");?>:<br /><?php echo esc_html( zeroBS_acceptableFileTypeListStr() ); ?></th>
                                             <td><?php
                                         echo $html;
                                 ?></td></tr>
@@ -1053,20 +1166,16 @@ class zeroBS__Metabox_ContactActions extends zeroBS__Metabox{
                                 )
                                 ) {
 
-                                #} Blocking repeat-upload bug
+                                // Blocking repeat-upload bug
                                 $zbsc_justUploadedCustomer = $_FILES['zbsc_file_'.$cfSubKey]['name'];
-
-
-
-                                $supported_types = zeroBS_acceptableFileTypeMIMEArr(); //$supported_types = array('application/pdf');
-                                $arr_file_type = wp_check_filetype(basename($_FILES['zbsc_file_'.$cfSubKey]['name']));
-                                $uploaded_type = $arr_file_type['type'];
-
-                                if(in_array($uploaded_type, $supported_types) || (isset($supported_types['all']) && $supported_types['all'] == 1)) {
+                            
+                                // verify file extension and mime type
+                                if ( jpcrm_file_check_mime_extension( $_FILES['zbsc_file_'.$cfSubKey] ) ){
+                            
                                     $upload = wp_upload_bits($_FILES['zbsc_file_'.$cfSubKey]['name'], null, file_get_contents($_FILES['zbsc_file_'.$cfSubKey]['tmp_name']));
 
-                                    if(isset($upload['error']) && $upload['error'] != 0) {
-                                        wp_die('There was an error uploading your file. The error is: ' . $upload['error']);
+                                    if ( isset( $upload['error'] ) && $upload['error'] != 0 ) {
+                                        wp_die('There was an error uploading your file. The error is: ' . esc_html( $upload['error'] ) );
                                     } else {
                                         //update_post_meta($contact_id, 'zbsc_file_'.$cfSubKey, $upload);
 
@@ -1129,8 +1238,7 @@ class zeroBS__Metabox_ContactActions extends zeroBS__Metabox{
                                             // Fire any 'post-upload-processing' (e.g. CPP makes thumbnails of pdf, jpg, etc.)
                                             do_action('zbs_post_upload_contact',$upload);
                                     }
-                                }
-                                else {
+                                } else {
                                     wp_die("The file type that you've uploaded is not an accepted file format.");
                                 }
 
@@ -1211,13 +1319,13 @@ add_action('add_meta_boxes', 'zeroBS__addCustomerMetaBoxes');  */
 
                     #} Any existing
                     if (is_array($zbsFiles) && count($zbsFiles) > 0){ 
-                      ?><tr class="wh-large zbsFileDetails"><th class="zbsFilesTitle"><label><?php echo '<span>'.count($zbsFiles).'</span> '.__('File(s)','zero-bs-crm').':'; ?></label></th>
+                      ?><tr class="wh-large zbsFileDetails"><th class="zbsFilesTitle"><label><?php echo '<span>'.count($zbsFiles).'</span> '.esc_html__('File(s)','zero-bs-crm').':'; ?></label></th>
                                 <td id="zbsFileWrapOther">
                                     <table class="ui celled table" id="zbsFilesTable">
                                       <thead>
                                         <tr>
-                                            <th><?php _e("File", 'zero-bs-crm');?></th>
-                                            <th class="collapsing center aligned"><?php _e("Actions", 'zero-bs-crm');?></th>
+                                            <th><?php esc_html_e("File", 'zero-bs-crm');?></th>
+                                            <th class="collapsing center aligned"><?php esc_html_e("Actions", 'zero-bs-crm');?></th>
                                         </tr>
                                     </thead><tbody>
                                                 <?php $fileLineIndx = 1; foreach($zbsFiles as $zbsFile){
@@ -1233,21 +1341,21 @@ add_action('add_meta_boxes', 'zeroBS__addCustomerMetaBoxes');  */
 
                                                     $fileEditUrl = admin_url('admin.php?page='.$zbs->slugs['editfile']) . "&customer=".$contact['id']."&fileid=" . ($fileLineIndx-1);
 
-                                                    echo '<tr class="zbsFileLineTR" id="zbsFileLineTRCustomer'.$fileLineIndx.'">';
-                                                    echo '<td><div class="zbsFileLine" id="zbsFileLineCustomer'.$fileLineIndx.'"><a href="' . esc_url( $zbsFile['url'] ) . '" target="_blank">' . esc_html( $file ) . '</a></div>';
+                                                    echo '<tr class="zbsFileLineTR" id="zbsFileLineTRCustomer'. esc_attr( $fileLineIndx ) .'">';
+                                                    echo '<td><div class="zbsFileLine" id="zbsFileLineCustomer'. esc_attr( $fileLineIndx ) .'"><a href="' . esc_url( $zbsFile['url'] ) . '" target="_blank">' . esc_html( $file ) . '</a></div>';
 
                                                     // if using portal.. state shown/hidden
                                                     // this is also shown in each file slot :) if you change any of it change that too
                                                     if(defined('ZBS_CLIENTPRO_TEMPLATES')){
                                                         if(isset($zbsFile['portal']) && $zbsFile['portal']){
-                                                          echo "<p><i class='icon check circle green inverted'></i> ".__('Shown on Portal','zero-bs-crm').'</p>';
+                                                          echo "<p><i class='icon check circle green inverted'></i> ".esc_html__('Shown on Portal','zero-bs-crm').'</p>';
                                                         }else{
-                                                          echo "<p><i class='icon ban inverted red'></i> ".__('Not shown on Portal','zero-bs-crm').'</p>';
+                                                          echo "<p><i class='icon ban inverted red'></i> ".esc_html__('Not shown on Portal','zero-bs-crm').'</p>';
                                                         }
                                                     }
 
                                                     echo '</td>';
-                                                    echo '<td class="collapsing center aligned"><span class="zbsDelFile ui button basic" data-delurl="' . esc_attr( $zbsFile['url'] ) . '"><i class="trash alternate icon"></i> '.__('Delete','zero-bs-crm').'</span> <a href="' . esc_url( $fileEditUrl) . '" target="_blank" class="ui button basic"><i class="edit icon"></i> '.__('Edit','zero-bs-crm').'</a></td></tr>';
+                                                    echo '<td class="collapsing center aligned"><span class="zbsDelFile ui button basic" data-delurl="' . esc_attr( $zbsFile['url'] ) . '"><i class="trash alternate icon"></i> '.esc_html__('Delete','zero-bs-crm').'</span> <a href="' . esc_url( $fileEditUrl) . '" target="_blank" class="ui button basic"><i class="edit icon"></i> '.esc_html__('Edit','zero-bs-crm').'</a></td></tr>';
                                                     $fileLineIndx++;
 
                                                 } ?>
@@ -1262,7 +1370,7 @@ add_action('add_meta_boxes', 'zeroBS__addCustomerMetaBoxes');  */
                              
                             $html .= '<input type="file" id="zbsc_file_attachment" name="zbsc_file_attachment" size="25" class="zbs-dc">';
                             
-                            ?><tr class="wh-large"><th><label><?php _e('Add File',"zero-bs-crm");?>:</label><br />(<?php _e('Optional',"zero-bs-crm");?>)<br /><?php _e('Accepted File Types',"zero-bs-crm");?>:<br /><?php echo zeroBS_acceptableFileTypeListStr(); ?></th>
+                            ?><tr class="wh-large"><th><label><?php esc_html_e('Add File',"zero-bs-crm");?>:</label><br />(<?php esc_html_e('Optional',"zero-bs-crm");?>)<br /><?php esc_html_e('Accepted File Types',"zero-bs-crm");?>:<br /><?php echo esc_html( zeroBS_acceptableFileTypeListStr() ); ?></th>
                                 <td><?php
                             wp_nonce_field(plugin_basename(__FILE__), 'zbsc_file_attachment_nonce');
                             echo $html;
@@ -1281,8 +1389,8 @@ add_action('add_meta_boxes', 'zeroBS__addCustomerMetaBoxes');  */
                     var zbsCustomerCurrentlyDeleting = false;
                     var zbsMetaboxFilesLang = {
 
-                        'error': '<?php echo zeroBSCRM_slashOut(__('Error','zero-bs-crm')); ?>',
-                        'unabletodelete': '<?php echo zeroBSCRM_slashOut(__('Unable to delete this file.','zero-bs-crm')); ?>'
+                        'error': '<?php echo esc_html( zeroBSCRM_slashOut(__('Error','zero-bs-crm')) ); ?>',
+                        'unabletodelete': '<?php echo esc_html( zeroBSCRM_slashOut(__('Unable to delete this file.','zero-bs-crm')) ); ?>'
                     };
 
                     jQuery(function(){
@@ -1307,7 +1415,7 @@ add_action('add_meta_boxes', 'zeroBS__addCustomerMetaBoxes');  */
                                         'action': 'delFile',
                                         'zbsfType': 'customer',
                                         'zbsDel':  delUrl, // could be csv, never used though
-                                        'zbsCID': <?php if (!empty($contact['id']) && $contact['id'] > 0) echo $contact['id']; else echo -1; ?>,
+                                        'zbsCID': <?php if (!empty($contact['id']) && $contact['id'] > 0) echo esc_html( $contact['id'] ); else echo -1; ?>,
                                         'sec': window.zbscrmjs_secToken
                                       };
 
@@ -1421,20 +1529,16 @@ add_action('add_meta_boxes', 'zeroBS__addCustomerMetaBoxes');  */
             }
             /* - end security verification - */
 
-            #} Blocking repeat-upload bug
-            $zbsc_justUploadedCustomer = $_FILES['zbsc_file_attachment']['name'];
+                // Blocking repeat-upload bug
+                $zbsc_justUploadedCustomer = $_FILES['zbsc_file_attachment']['name'];
 
+                // verify file extension and mime type
+                if ( jpcrm_file_check_mime_extension( $_FILES['zbsc_file_attachment'] ) ){
 
-
-                $supported_types = zeroBS_acceptableFileTypeMIMEArr(); //$supported_types = array('application/pdf');
-                $arr_file_type = wp_check_filetype(basename($_FILES['zbsc_file_attachment']['name']));
-                $uploaded_type = $arr_file_type['type'];
-
-                if(in_array($uploaded_type, $supported_types) || (isset($supported_types['all']) && $supported_types['all'] == 1)) {
                     $upload = wp_upload_bits($_FILES['zbsc_file_attachment']['name'], null, file_get_contents($_FILES['zbsc_file_attachment']['tmp_name']));
 
-                    if(isset($upload['error']) && $upload['error'] != 0) {
-                        wp_die('There was an error uploading your file. The error is: ' . $upload['error']);
+                    if ( isset( $upload['error'] ) && $upload['error'] != 0 ) {
+                        wp_die('There was an error uploading your file. The error is: ' . esc_html( $upload['error'] ) );
                     } else {
                         //update_post_meta($id, 'zbsc_file_attachment', $upload);
 
@@ -1481,8 +1585,7 @@ add_action('add_meta_boxes', 'zeroBS__addCustomerMetaBoxes');  */
                             // Fire any 'post-upload-processing' (e.g. CPP makes thumbnails of pdf, jpg, etc.)
                             do_action('zbs_post_upload_contact',$upload);
                     }
-                }
-                else {
+                } else {
                     wp_die("The file type that you've uploaded is not an accepted file format.");
                 }
             }
@@ -1548,10 +1651,10 @@ class zeroBS__Metabox_ContactPortal extends zeroBS__Metabox{
         }
 
 
-        if (isset($zbsCustomer) && is_array($zbsCustomer) && isset($zbsCustomer['email'])){
+        if ( isset($zbsCustomer) && is_array($zbsCustomer) && isset($zbsCustomer['email']) ){
 
             //check customer link to see if it exists - wh moved to dal
-            $wp_user_id = zeroBSCRM_getClientPortalUserID($contact['id']);
+            $wp_user_id = zeroBSCRM_getClientPortalUserID( $contact['id'] );
 
             /* nope
             if($wp_user_id == ''){
@@ -1561,24 +1664,25 @@ class zeroBS__Metabox_ContactPortal extends zeroBS__Metabox{
 
         echo '<div class="waiting-togen">';
 
-        if($wp_user_id != -1 && $wp_user_id > 0){
+        // get user obj
+        $user_object = get_userdata( $wp_user_id );
 
-            //a user already exists with this email
+        if ( $user_object ){
 
-            // get user obj
-            $userObj = get_userdata($wp_user_id);
+            // a user already exists with this email
+
             echo '<div class="zbs-customerportal-activeuser">';
 
-                _e('WordPress User Linked',"zero-bs-crm");
-                echo ' #<span class="zbs-user-id">'. $wp_user_id .'</span>:<br />';
+                esc_html_e('WordPress User Linked',"zero-bs-crm");
+                echo ' #<span class="zbs-user-id">'. esc_html( $wp_user_id ) .'</span>:<br />';
 
-                echo '<span class="ui label">'.$userObj->user_email.'</span>';
+                echo '<span class="ui label">'. esc_html( $user_object->user_email ) .'</span>';
 
                 // wp admins get link
-                if (zeroBSCRM_isWPAdmin()){
+                if ( zeroBSCRM_isWPAdmin() ){
                     
                     $url = admin_url('user-edit.php?user_id='.$wp_user_id);
-                    echo '<br /><a style="font-size: 12px;" href="'.$url.'" target="_blank"><i class="wordpress simple icon"></i> '.__('View WordPress Profile','zero-bs-crm').'</a>';
+                    echo '<br /><a style="font-size: 12px;" href="'. esc_url( $url ) .'" target="_blank"><i class="wordpress simple icon"></i> '. esc_html__('View WordPress Profile','zero-bs-crm') .'</a>';
 
                 }
 
@@ -1598,13 +1702,23 @@ class zeroBS__Metabox_ContactPortal extends zeroBS__Metabox{
                     // revoke/disable access
                     echo ' <span class="ui green empty circular label"></span> <span class="zbs-portal-label">' . esc_html( __( 'Enabled', 'zero-bs-crm' ) ) . '</span>';
 
-                    echo '<div id="zbs-customerportal-access-actions" class="zbs-customerportal-activeuser">';
+                    // wp admins get reset link, unless the crm contact is assigned to any other role than CRM Customer
+                    if ( zeroBSCRM_isWPAdmin() && jpcrm_role_check( $user_object, array(), array(), array( 'zerobs_customer' ) ) ) {
 
-                    echo '<button type="button" id="zbs-customerportal-resetpw" class="ui mini button orange">' . esc_html( __( 'Reset Password', 'zero-bs-crm' ) ) . '</button>';
+                        echo '<div id="zbs-customerportal-access-actions" class="zbs-customerportal-activeuser">';
 
-                    echo '<button type="button" id="zbs-customerportal-toggle" data-zbsportalaction="disable" class="ui mini button negative">' . esc_html( __( 'Disable Access', 'zero-bs-crm' ) ) . '</button>';
+                        echo '<button type="button" id="zbs-customerportal-resetpw" class="ui mini button orange">' . esc_html( __( 'Reset Password', 'zero-bs-crm' ) ) . '</button>';
 
-                    echo '</div>';
+                        echo '<button type="button" id="zbs-customerportal-toggle" data-zbsportalaction="disable" class="ui mini button negative">' . esc_html( __( 'Disable Access', 'zero-bs-crm' ) ) . '</button>';
+
+                        echo '</div>';
+
+                    } else {
+
+                        // explainer - rarely shown
+						echo '<p style="font-size: 0.9em;margin-top: 0.5em;">' . esc_html__( 'The WordPress user has a role other than CRM Contact. They will need to reset their password via the WP login page.', 'zero-bs-crm' ) . '</p>';
+
+                    }
 
                     echo '<hr /><div class="zbs-customerportal-activeuser-actions">';
                     echo sprintf( '<a target="_blank" href="%s" class="ui mini button green">%s</a>', esc_url( zeroBS_portal_link() ), esc_html( __( 'Preview Portal', 'zero-bs-crm' ) ) );
@@ -1614,27 +1728,30 @@ class zeroBS__Metabox_ContactPortal extends zeroBS__Metabox{
                     // enable access
                     echo ' <span class="ui red empty circular label"></span> <span class="zbs-portal-label">' . esc_html( __( 'Disabled', 'zero-bs-crm' ) ) . '</span>';
 
-                    echo '<div id="zbs-customerportal-access-actions">';
-                        echo '<button type="button" id="zbs-customerportal-toggle" data-zbsportalaction="enable" class="ui mini button positive">' . esc_html( __( 'Enable Access', 'zero-bs-crm' ) ) . '</button>';
-                    echo '</div>';
+                    // wp admins get enable link, unless the crm contact is assigned to any other role than CRM Customer
+                    if ( zeroBSCRM_isWPAdmin() && jpcrm_role_check( $user_object, array(), array(), array( 'zerobs_customer' ) ) ) {
 
+                        echo '<div id="zbs-customerportal-access-actions">';
+                            echo '<button type="button" id="zbs-customerportal-toggle" data-zbsportalaction="enable" class="ui mini button positive">' . esc_html( __( 'Enable Access', 'zero-bs-crm' ) ) . '</button>';
+                        echo '</div>';
+
+                    }
 
                 }
 
-                echo '<input type="hidden" id="zbsportalaction-ajax-nonce" value="' . wp_create_nonce( 'zbsportalaction-ajax-nonce' ) . '" />';
+                echo '<input type="hidden" id="zbsportalaction-ajax-nonce" value="' . esc_attr( wp_create_nonce( 'zbsportalaction-ajax-nonce' ) ) . '" />';
             
 
             echo '</div>';
-            
 
-        }else if ((!$wp_user_id || $wp_user_id == -1) && $zbsCustomer != '' && is_array($zbsCustomer) && isset($zbsCustomer['email']) && !empty($zbsCustomer['email'])){
+        } else if ( is_array($zbsCustomer) && isset($zbsCustomer['email']) && !empty($zbsCustomer['email'])){
             echo '<div class="no-gen" style="text-align:center">';
             echo esc_html( __( 'No WordPress User exists with this email', 'zero-bs-crm' ) );
             echo '<br/><br/>';
             echo '<div class="ui primary button button-primary wp-user-generate">';
             echo esc_html( __( 'Generate WordPress User', 'zero-bs-crm' ) );
             echo '</div>';
-            echo '<input type="hidden" name="newwp-ajax-nonce" id="newwp-ajax-nonce" value="' . wp_create_nonce( 'newwp-ajax-nonce' ) . '" />';
+            echo '<input type="hidden" name="newwp-ajax-nonce" id="newwp-ajax-nonce" value="' . esc_attr( wp_create_nonce( 'newwp-ajax-nonce' ) ) . '" />';
             echo '</div>';
         }else{
             echo esc_html( __( 'Save your contact, or add an email to enable Client Portal functionality', 'zero-bs-crm' ) );
@@ -1656,7 +1773,7 @@ class zeroBS__Metabox_ContactPortal extends zeroBS__Metabox{
                     var t = {
                         action: "zbsPortalAction",
                         portalAction: action,
-                        cid: <?php if (!empty($contact['id']) && $contact['id'] > 0) echo $contact['id']; else echo -1; ?>,
+                        cid: <?php if (!empty($contact['id']) && $contact['id'] > 0) echo esc_html( $contact['id'] ); else echo -1; ?>,
                         security: jQuery( '#zbsportalaction-ajax-nonce' ).val()
                     }
                     i = jQuery.ajax({
@@ -1704,7 +1821,7 @@ class zeroBS__Metabox_ContactPortal extends zeroBS__Metabox{
                     var t = {
                         action: "zbsPortalAction",
                         portalAction: 'resetpw',
-                        cid: <?php if (!empty($contact['id']) && $contact['id'] > 0) echo $contact['id']; else echo -1; ?>,
+                        cid: <?php if (!empty($contact['id']) && $contact['id'] > 0) echo esc_html( $contact['id'] ); else echo -1; ?>,
                         security: jQuery( '#zbsportalaction-ajax-nonce' ).val()
                     }
                     i = jQuery.ajax({
@@ -1717,15 +1834,28 @@ class zeroBS__Metabox_ContactPortal extends zeroBS__Metabox{
                         //console.log(e);
                         if(typeof e.success != "undefined"){
 
-                            var newPassword =  '<?php zeroBSCRM_slashOut(__('Unknown',"zero-bs-crm")); ?>';
+                            var newPassword =  '<?php zeroBSCRM_slashOut(esc_html__('Unknown',"zero-bs-crm")); ?>';
                             if (typeof e.pw != "undefined") newPassword = e.pw;
 
-                            // swal confirm
-                            swal(
-                                '<?php zeroBSCRM_slashOut(__('Client Portal Password Reset',"zero-bs-crm")); ?>',
-                                '<?php zeroBSCRM_slashOut(__('Client Portal password has been reset for this contact, and they have been emailed with the new password. The new password is:',"zero-bs-crm")); ?><br /><span class="ui label">' + newPassword + '</span>',
-                                'info'
-                            );
+                            if ( newPassword !== false ){
+
+                                // swal confirm
+                                swal(
+                                    '<?php zeroBSCRM_slashOut(esc_html__('Client Portal Password Reset',"zero-bs-crm")); ?>',
+                                    '<?php zeroBSCRM_slashOut(esc_html__('Client Portal password has been reset for this contact, and they have been emailed with the new password. The new password is:',"zero-bs-crm")); ?><br /><span class="ui label">' + newPassword + '</span>',
+                                    'info'
+                                );
+
+                            } else {
+
+                                // swal confirm
+                                swal(
+                                    '<?php zeroBSCRM_slashOut(esc_html__('Client Portal Password Reset Error',"zero-bs-crm")); ?>',
+                                    '<?php zeroBSCRM_slashOut(esc_html__('Error: Client Portal password has not been reset for this contact.',"zero-bs-crm")); ?>',
+                                    'info'
+                                );
+
+                            }
 
 
                         }
@@ -1739,7 +1869,7 @@ class zeroBS__Metabox_ContactPortal extends zeroBS__Metabox{
                 // bind create
                 jQuery('.wp-user-generate').off("click").on('click',function(e){
                     email = jQuery('#email').val();
-                    customerid = <?php if (!empty($contact['id']) && $contact['id'] > 0) echo $contact['id']; else echo -1; ?>;
+                    customerid = <?php if (!empty($contact['id']) && $contact['id'] > 0) echo esc_html( $contact['id'] ); else echo -1; ?>;
                     if(email == ''){
                         alert("The email field is blank. Please fill in the email and save");
                         return false;
@@ -1831,18 +1961,18 @@ class zeroBS__Metabox_ContactSocial extends zeroBS__Metabox{
 		
         if (count($zbsSocialAccountTypes) > 0) foreach ($zbsSocialAccountTypes as $socialKey => $socialAccType){
 
-            ?><div class="zbs-social-acc <?php echo $socialAccType['slug']; ?>" title="<?php echo $socialAccType['name']; ?>">
+            ?><div class="zbs-social-acc <?php echo esc_attr( $socialAccType['slug'] ); ?>" title="<?php echo esc_attr( $socialAccType['name'] ); ?>">
                 <?php if (is_array($zbsSocials) && isset($zbsSocials[$socialKey]) && !empty($zbsSocials[$socialKey])){ 
 
                     // got acc? link to it
                     $socialLink = zeroBSCRM_getSocialLink( $socialKey, $zbsSocials );
 
                     ?>
-                    <a href="<?php echo esc_url( $socialLink ); ?>" target="_blank" title="<?php echo __('View',"zero-bs-crm") . ' ' . $socialAccType['name']; ?>"><i class="fa <?php echo $socialAccType['fa']; ?>" aria-hidden="true"></i></a>
+                    <a href="<?php echo esc_url( $socialLink ); ?>" target="_blank" title="<?php echo esc_attr__('View',"zero-bs-crm") . ' ' . esc_attr( $socialAccType['name'] ); ?>"><i class="fa <?php echo esc_attr( $socialAccType['fa'] ); ?>" aria-hidden="true"></i></a>
                 <?php } else { ?>
-                    <i class="fa <?php echo $socialAccType['fa']; ?>" aria-hidden="true"></i>
+                    <i class="fa <?php echo esc_attr( $socialAccType['fa'] ); ?>" aria-hidden="true"></i>
                 <?php } ?>
-                <input type="text" class="zbs-social-acc-input zbs-dc" title="<?php echo $socialAccType['name']; ?>" name="zbs-social-<?php echo $socialAccType['slug']; ?>" id="zbs-social-<?php echo $socialAccType['slug']; ?>" value="<?php if (is_array($zbsSocials) && isset($zbsSocials[$socialKey]) && !empty($zbsSocials[$socialKey])) echo esc_attr( $zbsSocials[$socialKey] ); ?>" placeholder="<?php echo $socialAccType['placeholder']; ?>" />
+                <input type="text" class="zbs-social-acc-input zbs-dc" title="<?php echo esc_attr( $socialAccType['name'] ); ?>" name="zbs-social-<?php echo esc_attr( $socialAccType['slug'] ); ?>" id="zbs-social-<?php echo esc_attr( $socialAccType['slug'] ); ?>" value="<?php if (is_array($zbsSocials) && isset($zbsSocials[$socialKey]) && !empty($zbsSocials[$socialKey])) echo esc_attr( $zbsSocials[$socialKey] ); ?>" placeholder="<?php echo esc_attr( $socialAccType['placeholder'] ); ?>" />
             </div><?php
 
         }
@@ -1933,7 +2063,7 @@ class zeroBS__Metabox_ContactAKA extends zeroBS__Metabox{
         
 
             // new cust, can't add till saved.
-            ?><div class="ui message"><?php _e('You will not be able to add an alias until you\'ve saved this contact',"zero-bs-crm"); ?></div><?php
+            ?><div class="ui message"><?php esc_html_e('You will not be able to add an alias until you\'ve saved this contact',"zero-bs-crm"); ?></div><?php
 
         } else {
 
@@ -1947,8 +2077,8 @@ class zeroBS__Metabox_ContactAKA extends zeroBS__Metabox{
             // each alias: ID,aka_alias,aka_create,aka_lastupdated
             if (is_array($customerAliases) && count($customerAliases) > 0) foreach ($customerAliases as $alias){
 
-                ?><div class="zbs-aka-alias" id="zbs-aka-alias-<?php echo $alias['ID']; ?>">
-                    <div class="ui label"><?php echo $alias['aka_alias']; ?> <button type="button" class="ui mini icon button negative zbs-aka-alias-remove" data-akaid="<?php echo $alias['ID']; ?>" title="<?php _e('Remove Alias',"zero-bs-crm"); ?>"><i class="icon remove"></i></button></div>
+                ?><div class="zbs-aka-alias" id="zbs-aka-alias-<?php echo esc_attr( $alias['ID'] ); ?>">
+                    <div class="ui label"><?php echo esc_html( $alias['aka_alias'] ); ?> <button type="button" class="ui mini icon button negative zbs-aka-alias-remove" data-akaid="<?php echo esc_attr( $alias['ID'] ); ?>" title="<?php esc_attr_e('Remove Alias',"zero-bs-crm"); ?>"><i class="icon remove"></i></button></div>
                 </div><?php            
 
             }
@@ -1956,9 +2086,9 @@ class zeroBS__Metabox_ContactAKA extends zeroBS__Metabox{
             ?></div><?php
 
             ?><div id="zbs-aka-alias-input-wrap">
-                <input type="text" class="zbs-aka-alias-input" placeholder="<?php _e('Add Alias.. e.g.', 'zero-bs-crm'); ?> mike2@domain.com" />
-                <div class="ui pointing label" style="display:none;margin-bottom: 1em;margin-top: 0;" id="zbs-aka-alias-input-msg"><?php _e('Must be a valid email','zero-bs-crm'); ?></div>
-                <button type="button" class="ui small button primary" id="zbs-aka-alias-add"><?php _e('Add Alias',"zero-bs-crm"); ?></button>
+                <input type="text" class="zbs-aka-alias-input" placeholder="<?php esc_attr_e('Add Alias.. e.g.', 'zero-bs-crm'); ?> mike2@domain.com" />
+                <div class="ui pointing label" style="display:none;margin-bottom: 1em;margin-top: 0;" id="zbs-aka-alias-input-msg"><?php esc_html_e('Must be a valid email','zero-bs-crm'); ?></div>
+                <button type="button" class="ui small button primary" id="zbs-aka-alias-add"><?php esc_html_e('Add Alias',"zero-bs-crm"); ?></button>
             </div>
 
             <script type="text/javascript">
@@ -1993,7 +2123,7 @@ class zeroBS__Metabox_ContactAKA extends zeroBS__Metabox{
                                       // postbag!
                                       var data = {
                                         'action': 'addAlias',
-                                        'cid': <?php if (!empty($contact['id']) && $contact['id'] > 0) echo $contact['id']; else echo -1; ?>,
+                                        'cid': <?php if (!empty($contact['id']) && $contact['id'] > 0) echo esc_html( $contact['id'] ); else echo -1; ?>,
                                         'aka': v,
                                         'sec': window.zbscrmjs_secToken
                                       };
@@ -2041,8 +2171,8 @@ class zeroBS__Metabox_ContactAKA extends zeroBS__Metabox{
 
                                                             // already in use err
                                                             swal(
-                                                                '<?php _e('Error',"zero-bs-crm"); ?>',
-                                                                '<?php _e('This Alias is already in use by another contact.',"zero-bs-crm"); ?>',
+                                                                '<?php esc_html_e('Error',"zero-bs-crm"); ?>',
+                                                                '<?php esc_html_e('This Alias is already in use by another contact.',"zero-bs-crm"); ?>',
                                                                 'warning'
                                                             );
 
@@ -2052,8 +2182,8 @@ class zeroBS__Metabox_ContactAKA extends zeroBS__Metabox{
 
                                                         // general err
                                                         swal(
-                                                            '<?php _e('Error',"zero-bs-crm"); ?>',
-                                                            '<?php _e('There was an error adding this alias',"zero-bs-crm"); ?>',
+                                                            '<?php esc_html_e('Error',"zero-bs-crm"); ?>',
+                                                            '<?php esc_html_e('There was an error adding this alias',"zero-bs-crm"); ?>',
                                                             'warning'
                                                         );
 
@@ -2068,8 +2198,8 @@ class zeroBS__Metabox_ContactAKA extends zeroBS__Metabox{
 
                                                     // err
                                                     swal(
-                                                        '<?php _e('Error',"zero-bs-crm"); ?>',
-                                                        '<?php _e('There was an error adding this alias',"zero-bs-crm"); ?>',
+                                                        '<?php esc_html_e('Error',"zero-bs-crm"); ?>',
+                                                        '<?php esc_html_e('There was an error adding this alias',"zero-bs-crm"); ?>',
                                                         'warning'
                                                     );
                                                     //unblock
@@ -2135,7 +2265,7 @@ class zeroBS__Metabox_ContactAKA extends zeroBS__Metabox{
                               // postbag!
                               var data = {
                                 'action': 'removeAlias',
-                                'cid': <?php if (!empty($contact['id']) && $contact['id'] > 0) echo $contact['id']; else echo -1; ?>,
+                                'cid': <?php if (!empty($contact['id']) && $contact['id'] > 0) echo esc_html( $contact['id'] ); else echo -1; ?>,
                                 'akaid': akaID,
                                 'sec': window.zbscrmjs_secToken
                               };
@@ -2166,8 +2296,8 @@ class zeroBS__Metabox_ContactAKA extends zeroBS__Metabox{
 
                                             // err
                                             swal(
-                                                '<?php _e('Error',"zero-bs-crm"); ?>',
-                                                '<?php _e('There was an error removing this alias',"zero-bs-crm"); ?>',
+                                                '<?php esc_html_e('Error',"zero-bs-crm"); ?>',
+                                                '<?php esc_html_e('There was an error removing this alias',"zero-bs-crm"); ?>',
                                                 'warning'
                                             );
                                             //unblock
@@ -2180,8 +2310,8 @@ class zeroBS__Metabox_ContactAKA extends zeroBS__Metabox{
 
                                             // err
                                             swal(
-                                                '<?php _e('Error',"zero-bs-crm"); ?>',
-                                                '<?php _e('There was an error removing this alias',"zero-bs-crm"); ?>',
+                                                '<?php esc_html_e('Error',"zero-bs-crm"); ?>',
+                                                '<?php esc_html_e('There was an error removing this alias',"zero-bs-crm"); ?>',
                                                 'warning'
                                             );
                                             //unblock
@@ -2345,7 +2475,7 @@ class zeroBS__Metabox_ContactCompany extends zeroBS__Metabox{
 
         #} Typeahead instead
         echo "<div id='zbscompnew'>";
-        echo "<span>" . sprintf( __( 'Type to assign %s', 'zero-bs-crm' ), jpcrm_label_company() ) . '</span>';
+        echo "<span>" . esc_html( sprintf( __( 'Type to assign %s', 'zero-bs-crm' ), jpcrm_label_company() ) ) . '</span>';
 
         #} Co Name Default
         $coName = ''; $coID = '';
@@ -2368,12 +2498,12 @@ class zeroBS__Metabox_ContactCompany extends zeroBS__Metabox{
         #} Output
 
         if ( get_option('permalink_structure') == '' ){
-            echo "<div class='ui message red'>" . __('You are using Plain Permalinks. Please set your permalinks to %postname% by visiting ','zero-bs-crm') . "<a href='".admin_url('options-permalink.php')."'>".__('here','zero-bs-crm')."</a></div>"; 
+            echo "<div class='ui message red'>" . esc_html__('You are using Plain Permalinks. Please set your permalinks to %postname% by visiting ','zero-bs-crm') . "<a href='" . esc_url( admin_url('options-permalink.php') )."'>".esc_html__('here','zero-bs-crm')."</a></div>"; 
         }else{
             echo zeroBSCRM_CompanyTypeList('zbscrmjs_customer_setCompany',$coName,true,'zbscrmjs_customer_changedCompany'); 
         }
         #} Hidden input (real input) & Callback func
-        ?><input type="hidden" name="zbs_company" id="zbs_company" value="<?php echo $coID; ?>" />
+        ?><input type="hidden" name="zbs_company" id="zbs_company" value="<?php echo esc_attr( $coID ); ?>" />
         <script type="text/javascript">
 
         // custom fuction to copy company details from typeahead company deets
@@ -2430,7 +2560,7 @@ function zbsCustomer_companyDropdown( $default = '', $companies = array() ) {
     echo 'zbsCustomer_companyDropdown is Deprecated!<br />';
 
   foreach ($companies as $co){
-    echo "\n\t" . '<option value="'.$co['id'].'"';
+    echo "\n\t" . '<option value="'. esc_attr( $co['id'] ) .'"';
     if ($co['id'] == $default) echo ' selected="selected"';
     //echo '>'.$co['meta']['coname'].'</option>';
     $coName = '';
@@ -2438,7 +2568,7 @@ function zbsCustomer_companyDropdown( $default = '', $companies = array() ) {
     # Shouldn't need this? WH attempted fix for caching, not here tho..
     if (empty($coName) && isset($co['coname'])) $coName = $co['coname'];
     if (empty($coName)) $coName = jpcrm_label_company().' #'.$co['id'];
-    echo '>'.$coName.'</option>';
+    echo '>'. esc_html( $coName ) .'</option>';
   }
 
 }
@@ -2525,7 +2655,7 @@ class zeroBS__Metabox_Contact_Activity extends zeroBS__Metabox {
                             // short desc
                             if (isset($log['shortdesc']) && !empty($log['shortdesc'])){ ?>
                             <h4 class="jpcrm-pinned-log-shortdesc">
-                                <?php echo $logTitle . ' | ' .zeroBSCRM_textExpose( $log['shortdesc'] ); ?>
+                                <?php echo $logTitle . ' | ' . esc_html( $log['shortdesc'] ); ?>
                             </h4>
                             <?php } ?>
 
@@ -2533,7 +2663,7 @@ class zeroBS__Metabox_Contact_Activity extends zeroBS__Metabox {
                             // long desc
                             if (isset($log['longdesc']) && !empty($log['longdesc'])){ ?>
                             <div class="jpcrm-pinned-log-longdesc">
-                                <?php echo zeroBSCRM_textExpose( $log['longdesc'] ); ?>
+                                <?php echo wp_kses( html_entity_decode( $log['longdesc'], ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 ), $zbs->acceptable_restricted_html ); ?>
                             </div>
                             <?php } ?>
 
@@ -2550,7 +2680,7 @@ class zeroBS__Metabox_Contact_Activity extends zeroBS__Metabox {
                                     $meta_string .= jpcrm_uts_to_date_str( $log['createduts'] );
                                 }
 
-                                echo $meta_string;
+                                echo esc_html( $meta_string );
 
                             ?></div>
 

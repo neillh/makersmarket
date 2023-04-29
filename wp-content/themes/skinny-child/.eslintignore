@@ -1,0 +1,4 @@
+node_modules
+vendor
+assets/src/js/components/back-to-top.js
+assets/src/js/components/sharedaddy.js

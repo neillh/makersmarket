@@ -44,7 +44,7 @@ function zeroBSCRM_html_contactIntroSentence($contact){
 
 	  		if (is_array($co) && isset($co['name']) && !empty($co['name'])){
 
-	  			$c .= '<br/><i class="building outline icon"></i>' . __('Works for',"zero-bs-crm").' <a href="'.zbsLink('view',$possibleCo,'zerobs_company').'" target="_blank">'.$co['name'].'</a>';
+	  			$c .= '<br/><i class="building outline icon"></i>' . __('Works for',"zero-bs-crm").' <a href="'.jpcrm_esc_link('view',$possibleCo,'zerobs_company').'" target="_blank">'.$co['name'].'</a>';
 	  		}
 	  	}
 		}
@@ -92,7 +92,7 @@ function zeroBSCRM_html_contactIntroSentence($contact){
 }
 function zeroBSCRM_html_contactSince($customer){
   echo "<i class='fa fa-calendar'></i>  ";
-  _e("Contact since ", "zero-bs-crm");
+  esc_html_e("Contact since ", "zero-bs-crm");
   $d = new DateTime($customer['created']);
   $formatted_date = $d->format(zeroBSCRM_getDateFormat());
   return "<span class='zbs-action'><strong>" . $formatted_date . "</strong></span>";
@@ -103,8 +103,8 @@ function zeroBSCRM_html_sendemailto($prefillID=-1,$emailAddress='',$withIco=true
   global $zbs;
   if ($prefillID > 0 && !empty($emailAddress)){
 	  if ($withIco) echo "<i class='fa fa-envelope-o'></i>  ";
-	  echo "<span class='zbs-action'><a href='".zeroBSCRM_getAdminURL($zbs->slugs['emails']).'&zbsprefill='.$prefillID."'>";
-	  echo $emailAddress;
+	  echo "<span class='zbs-action'><a href='". esc_url( zeroBSCRM_getAdminURL($zbs->slugs['emails']).'&zbsprefill='.$prefillID ) ."'>";
+	  echo esc_html( $emailAddress );
 	  echo "</a></span>"; 
 	}
 }
@@ -168,7 +168,7 @@ function zeroBSCRM_html_linkedContactCompanies($contactID=-1,$companiesArray=fal
 
         if (is_array($company) && isset($company['name']) && !empty($company['name'])){
 
-          $companiesStr .= '<a href="'.zbsLink('view',$company['id'],'zerobs_company').'" target="_blank">'.$company['name'].'</a>';
+          $companiesStr .= '<a href="'.jpcrm_esc_link('view',$company['id'],'zerobs_company').'" target="_blank">'.$company['name'].'</a>';
 
         }
     } 
@@ -319,99 +319,133 @@ function zeroBSCRM_html_contactTimeline($contactID=-1,$logs=false,$contactObj=fa
 	}
 
 
-	if (count($logsToShow) > 0){ ?>
-	<ul class="zbs-timeline">
-                <?php $prevDate = ''; $i = 0; foreach ($logsToShow as $log){ 
+	if ( count($logsToShow) > 0 ) {
+		?>
+		<ul class="zbs-timeline">
+			<?php
+			$prevDate = '';
+			$i = 0;
+			foreach ( $logsToShow as $log ) {
 
-                	if (is_array($log) && isset($log['created'])){
+				if ( !is_array( $log ) || !isset( $log['created'] ) ) {
+					continue;
+				}
 
-	                	// format date
-						$d = new DateTime($log['created']);
-					  	$formatted_date = $d->format(zeroBSCRM_getDateFormat());
+				// format date
+				$d = new DateTime( $log['created'] );
+				$formatted_date = $d->format( zeroBSCRM_getDateFormat() );
 
-					  	// check if same day as prev log
-					  	$sameDate = false; 
-					  	if ($formatted_date == $prevDate) $sameDate = true;
-					  	$prevDate = $formatted_date;
+				// check if same day as prev log
+				$sameDate = false;
+				if ( $formatted_date == $prevDate ) {
+					$sameDate = true;
+				}
+				$prevDate = $formatted_date;
 
-					  	// ico?
-					  	$ico = ''; $logKey = strtolower(str_replace(' ','_',str_replace(':','_',$log['type'])));
-					  	if (isset($zeroBSCRM_logTypes['zerobs_customer'][$logKey])) $ico = $zeroBSCRM_logTypes['zerobs_customer'][$logKey]['ico'];
-					  	// these are FA ico's at this point
+				// ico?
+				$ico = '';
+				$logKey = strtolower( str_replace( ' ', '_', str_replace( ':', '_', $log['type'] ) ) );
+				if ( isset( $zeroBSCRM_logTypes['zerobs_customer'][$logKey] ) ) {
+					$ico = $zeroBSCRM_logTypes['zerobs_customer'][$logKey]['ico'];
+				}
+				// these are FA ico's at this point
 
+				// fill in nicetime if using :)
+				// use a setting to turn on off?
+				if ( !empty( $log['createduts'] ) && $log['createduts'] > 0 ) {
+					// get H:i in local timezone
+					$log['nicetime'] = zeroBSCRM_date_i18n( 'H:i', $log['createduts'], true, false );
+				}
 
-					  	// fill in nicetime if using :)
-					  	// use a setting to turn on off?
-					  	if (isset($log['createduts']) && !empty($log['createduts']) && $log['createduts'] > 0){
-					  		// get H:i in local timezone
-					  		$log['nicetime'] = zeroBSCRM_date_i18n('H:i', $log['createduts'], true, false);
-					  	}
+				// if it's last one, make sure it has class:
+				$notLast = true;
+				if ( count( $logsToShow ) == $i + 1 ) {
+					$notLast = false;
+				}
 
-					  	// if it's last one, make sure it has class:
-					  	$notLast = true; if (count($logsToShow) == $i+1) $notLast = false;
+				// compile this first, so can catch default (empty types)
+				$logTitle = '';
+				if ( !empty( $ico ) ) {
+					$logTitle .= '<i class="fa ' . $ico . '"></i> ';
+				}
 
-					  	// compile this first, so can catch default (empty types)
-					  	$logTitle = '';
-					  	if (!empty($ico)) $logTitle .= '<i class="fa '.$ico.'"></i> '; 
-	                     // DAL 2 saves type as permalinked
-	                     if ($zbs->isDAL2()){
-	                     	if (isset($zeroBSCRM_logTypes['zerobs_customer'][$logKey]))  $logTitle .= __($zeroBSCRM_logTypes['zerobs_customer'][$logKey]['label'],"zero-bs-crm");
-	                     } else {
-	                     	if (isset($log['type']))  $logTitle .= __($log['type'],"zero-bs-crm");
-	                     }
+				if ( isset( $zeroBSCRM_logTypes['zerobs_customer'][$logKey] ) ) {
+					$logTitle .= __( $zeroBSCRM_logTypes['zerobs_customer'][$logKey]['label'], 'zero-bs-crm' );
+				}
 
-	                	?>
-	                <li class="zbs-timeline-item<?php 
-	                if ($sameDate && $notLast) echo '-contd'; 
-	                if (empty($logTitle)) echo ' zbs-timeline-item-notitle'; 
-	                if (!$notLast) echo ' zbs-last-item'; // last item (stop rolling padding)
-	                ?> zbs-single-log" <?php if (isset($log['id']) && $log['id'] !== -1) echo 'id="zbs-contact-log-'.$log['id'].'"'; ?>>
-	                    <?php if (!$sameDate){ ?><div class="zbs-timeline-info">
-	                        <span><?php echo $formatted_date; ?></span>
-	                    </div><?php } ?>
-	                    <div class="zbs-timeline-marker"></div>
-	                    <div class="zbs-timeline-content"><?php
+				$timeline_item_classes = '';
+				if ( $sameDate && $notLast ) {
+					$timeline_item_classes .= '-contd';
+				}
+				if ( empty( $logTitle ) ) {
+					$timeline_item_classes .= ' zbs-timeline-item-notitle';
+				}
+				if ( !$notLast ) {
+					$timeline_item_classes .= ' zbs-last-item'; // last item (stop rolling padding)
+				}
 
-	                        	// if multiple owners
-	                        	/* show "team member who enacted"?
-	                        	similar to https://semantic-ui.com/views/feed.html
-	                        	<div class="label">
-						          <img src="/images/avatar/small/elliot.jpg">
-						        </div> */
+				$timeline_item_id_attr = '';
+				if ( isset( $log['id'] ) && $log['id'] !== -1 ) {
+					$timeline_item_id_attr = ' id="zbs-contact-log-' . $log['id'] . '"';
+				}
 
-	                        ?>
+				?>
+				<li class="zbs-timeline-item<?php echo esc_attr( $timeline_item_classes ); ?> zbs-single-log"<?php $timeline_item_id_attr; ?>>
+					<?php
+					if ( !$sameDate ) {
+						?>
+						<div class="zbs-timeline-info">
+							<span><?php echo esc_html( $formatted_date ); ?></span>
+						</div>
+						<?php
+					}
+					?>
+					<div class="zbs-timeline-marker"></div>
+					<div class="zbs-timeline-content">
 
-	                        <h3 class="zbs-timeline-title"><?php
-	                         if (!empty($ico)) echo '<i class="fa '.$ico.'"></i> '; 
-	                         // DAL 2 saves type as permalinked
-	                         if ($zbs->isDAL2()){
-	                         	if (isset($zeroBSCRM_logTypes['zerobs_customer'][$logKey])) echo __($zeroBSCRM_logTypes['zerobs_customer'][$logKey]['label'],"zero-bs-crm");
-	                         } else {
-	                         	if (isset($log['type'])) echo __($log['type'],"zero-bs-crm");
-	                         }
-	                         ?></h3>
-                        <div><?php if (isset($log['shortdesc'])) echo $log['shortdesc']; ?><?php if (isset($log['author']) && !empty($log['author'])) echo " &mdash; " . $log['author'] ?><?php if (isset($log['nicetime'])) echo ' &mdash; <i class="clock icon"></i>' . $log['nicetime'];
-                        // if has long desc, show/hide
-                         if (isset($log['longdesc']) && !empty($log['longdesc'])){ ?><i class="angle down icon zbs-show-longdesc"></i><i class="angle up icon zbs-hide-longdesc"></i><?php }
-                 		?>
+						<h3 class="zbs-timeline-title">
+							<?php
+							if ( !empty( $ico ) ) {
+								echo '<i class="fa ' . esc_attr( $ico ) . '"></i> ';
+							}
 
-						 <?php if (isset($log['longdesc']) && !empty($log['longdesc'])){ ?>
-							<div class="zbs-long-desc">
-								<?php echo wp_kses( $log['longdesc'], $zbs->acceptable_html ); ?>
-							</div>
-						 <?php } ?>
-
-	                    </div>
-                    </div>
-	                </li>
-	                <?php $i++;
-	            	} // / if has created attr
-	            } // / per log ?>
-            </ul>
-            <?php
-
-        }
-    }
+							if ( isset( $zeroBSCRM_logTypes['zerobs_customer'][$logKey] ) ) {
+								echo esc_html__( $zeroBSCRM_logTypes['zerobs_customer'][$logKey]['label'], 'zero-bs-crm' );
+							}
+							?>
+						</h3>
+						<div>
+							<?php
+							if ( isset( $log['shortdesc'] ) ) {
+								echo wp_kses( $log['shortdesc'], array( 'i' => array( 'class' => true ) ) );
+							}
+							if ( !empty( $log['author'] ) ) {
+								echo ' &mdash; ' . esc_html( $log['author'] );
+							}
+							if ( isset( $log['nicetime'] ) ) {
+								echo ' &mdash; <i class="clock icon"></i>' . esc_html( $log['nicetime'] );
+							}
+							// if has long desc, show/hide
+							if ( !empty( $log['longdesc'] ) ) {
+								?>
+								<i class="angle down icon zbs-show-longdesc"></i><i class="angle up icon zbs-hide-longdesc"></i>
+								<div class="zbs-long-desc">
+									<?php echo wp_kses( html_entity_decode( $log['longdesc'], ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401 ), $zbs->acceptable_restricted_html ); ?>
+								</div>
+								<?php
+							}
+							?>
+						</div>
+					</div>
+				</li>
+				<?php
+				$i++;
+			} // / per log
+			?>
+		</ul>
+		<?php
+	}
+}
 
 // 
 /**
@@ -537,7 +571,7 @@ function zeroBSCRM_html_linkedCompanyTags($contactID=-1,$tags=false,$classStr=''
 			$tagID = $tag->term_id;
 		}
 
-      ?><a class="<?php echo $classStr; ?>" href="<?php echo zbsLink($zbs->slugs['managecompanies']).'&zbs_tag='.$tagID; ?>"><?php echo esc_html( $tagName ); ?></a><?php
+      ?><a class="<?php echo esc_attr( $classStr ); ?>" href="<?php echo jpcrm_esc_link( $zbs->slugs['managecompanies'] ) . '&zbs_tag=' . $tagID; ?>"><?php echo esc_html( $tagName ); ?></a><?php
     }
 }
 
@@ -741,9 +775,9 @@ function zeroBSCRM_html_companyTimeline($companyID=-1,$logs=false,$companyObj=fa
                 if ($sameDate && $notLast) echo '-contd'; 
                 if (empty($logTitle)) echo ' zbs-timeline-item-notitle'; 
                 if (!$notLast) echo ' zbs-last-item'; // last item (stop rolling padding)
-                ?> zbs-single-log" <?php if (isset($log['id']) && $log['id'] !== -1) echo 'id="zbs-company-log-'.$log['id'].'"'; ?>>
+                ?> zbs-single-log" <?php if (isset($log['id']) && $log['id'] !== -1) echo 'id="zbs-company-log-'. esc_attr( $log['id'] ).'"'; ?>>
                     <?php if (!$sameDate){ ?><div class="zbs-timeline-info">
-                        <span><?php echo $formatted_date; ?></span>
+                        <span><?php echo esc_html( $formatted_date ); ?></span>
                     </div><?php } ?>
                     <div class="zbs-timeline-marker"></div>
                     <div class="zbs-timeline-content"><?php
@@ -757,15 +791,27 @@ function zeroBSCRM_html_companyTimeline($companyID=-1,$logs=false,$companyObj=fa
 
                         ?>
                         <h3 class="zbs-timeline-title"><?php
-                         if (!empty($ico)) echo '<i class="fa '.$ico.'"></i> '; 
+                         if (!empty($ico)) echo '<i class="fa '. esc_attr( $ico ) .'"></i> '; 
                          // DAL 2 saves type as permalinked
                          if ($zbs->isDAL2()){
-                         	if (isset($zeroBSCRM_logTypes['zerobs_company'][$logKey])) echo $zeroBSCRM_logTypes['zerobs_company'][$logKey]['label'];
+                         	if (isset($zeroBSCRM_logTypes['zerobs_company'][$logKey])) echo esc_html( $zeroBSCRM_logTypes['zerobs_company'][$logKey]['label'] );
                          } else {
-                         	if (isset($log['type'])) echo $log['type']; 
+                         	if (isset($log['type'])) echo esc_html( $log['type'] ); 
                          }
                          ?></h3>
-                        <p><?php if (isset($log['shortdesc'])) echo $log['shortdesc']; ?><?php if (isset($log['author'])) echo " &mdash; " . $log['author'] ?><?php if (isset($log['nicetime'])) echo ' &mdash; <i class="clock icon"></i>' . $log['nicetime'] ?></p>
+						<p>
+						<?php
+						if ( isset( $log['shortdesc'] ) ) {
+							echo wp_kses( $log['shortdesc'], array( 'i' => array( 'class' => true ) ) );
+							if ( isset( $log['author'] ) ) {
+								echo ' &mdash; ' . esc_html( $log['author'] );
+							}
+							if ( isset( $log['nicetime'] ) ) {
+								echo ' &mdash; <i class="clock icon"></i>' . esc_html( $log['nicetime'] );
+							}
+						}
+						?>
+						</p>
                     </div>
                 </li>
                 <?php $i++; } ?>
@@ -962,92 +1008,89 @@ function zeroBSCRM_html_transactionDate($transaction){
   Object Nav
    ====================================================== */
 
-   #} Navigation block (usually wrapped in smt like:)
-   //$filterStr = '<div class="ui items right floated" style="margin:0">'.zeroBSCRM_getObjNav($zbsid,'edit','CONTACT').'</div>';
-   function zeroBSCRM_getObjNav($id=-1, $key='', $type=ZBS_TYPE_CONTACT){
+// Navigation block (usually wrapped in smt like:)
+// $filterStr = '<div class="ui items right floated" style="margin:0">'.zeroBSCRM_getObjNav($zbsid,'edit','CONTACT').'</div>';
+function zeroBSCRM_getObjNav( $id = -1, $key = '', $type = ZBS_TYPE_CONTACT ) {
 
-   		global $zbs;
+	global $zbs;
 
-   		$html = '';
-		$navigationMode = zeroBSCRM_getSetting('objnav');
-		
-		#} The first addition of a contact is actually 'edit' but gives the option to view.
-		$id = isset($_GET['zbsid']) && !empty($_GET['zbsid']) ? zeroBSCRM_io_sanitizeInt($_GET['zbsid']) : -1;
+	$html = '';
+	$navigationMode = $zbs->settings->get( 'objnav' );
 
-   		switch ($type){
+	// The first addition of a contact is actually 'edit' but gives the option to view.
+	$id = !empty( $_GET['zbsid'] ) ? zeroBSCRM_io_sanitizeInt( $_GET['zbsid'] ) : -1;
 
-   			case ZBS_TYPE_CONTACT:
+	switch ($type) {
 
-   				// contact nav
-	   			// just call directly :) $navigation = zeroBSCRM_getNextPrevCustID($id);
-   				$navigation = $zbs->DAL->contacts->getContactPrevNext($id);
+		case ZBS_TYPE_CONTACT:
 
-				  $html = '<span class="ui navigation-quick-links">';
+			// contact nav
+			$navigation = $zbs->DAL->contacts->getContactPrevNext( $id );
 
-		   		$html .= '<a style="margin-right:6px;" href="' . zbsLink($zbs->slugs["managecontacts"]) .'" class="ui button mini was-inverted basic" id="back-to-list">'. __("Back to List", "zero-bs-crm") . '</a>';
+			$html = '<span class="ui navigation-quick-links">';
 
-          // PREV
-          if ( $navigationMode == "1" ) {
-            if( $navigation['prev'] != NULL ){
-              $html .= '<a href="' . zbsLink($key,$navigation['prev'],'zerobs_customer',false) .'" class="ui labeled icon button mini" id="zbs-nav-prev"><i class="left chevron icon"></i>'.__('Prev',"zero-bs-crm").'</a>';
-            }
-            if( $navigation['next'] != NULL ){
-              $html .= '<a href="' . zbsLink($key,$navigation['next'],'zerobs_customer',false) .'" class="ui right labeled icon button mini" id="zbs-nav-next">'.__('Next',"zero-bs-crm").'<i class="right chevron icon"></i></a>';
-            }
-          }
+			$html .= '<a style="margin-right:6px;" href="' . jpcrm_esc_link( $zbs->slugs["managecontacts"] ) . '" class="ui button mini was-inverted basic" id="back-to-list">' . esc_html( __( 'Back to List', 'zero-bs-crm' ) ) . '</a>';
 
-          #} If in edit mode, add in save + view
-			    if ($key == 'edit'){
-    				if($id > 0){
-    		    		$html .= '<a style="margin-left:6px;" class="ui icon button blue mini labeled" href="'.zbsLink('view',$id,'zerobs_customer').'" id="zbs-nav-view"><i class="eye left icon"></i> '.__('View',"zero-bs-crm").'</a>';
-    				}
-    	    	if (zeroBSCRM_permsCustomers()){
-    		    	$html .= '<button class="ui icon button mini green labeled" type="button" id="zbs-edit-save" style="margin-right:5px;margin-left:5px;"><i class="icon save"></i>'.__('Save',"zero-bs-crm").'</button>';
-    		    }
+			// PREV
+			if ( $navigation && $navigationMode === 1 ) {
+				if( $navigation['prev'] !== null ) {
+					$html .= '<a href="' . jpcrm_esc_link( $key, $navigation['prev'], 'zerobs_customer', false ) . '" class="ui labeled icon button mini" id="zbs-nav-prev"><i class="left chevron icon"></i>' . esc_html( __( 'Prev', 'zero-bs-crm' ) ) . '</a>';
+				}
+				if( $navigation['next'] !== null ) {
+					$html .= '<a href="' . jpcrm_esc_link( $key, $navigation['next'], 'zerobs_customer', false ) . '" class="ui right labeled icon button mini" id="zbs-nav-next">' . esc_html( __( 'Next', 'zero-bs-crm' ) ) . '<i class="right chevron icon"></i></a>';
+				}
+			}
 
-			    }
+			#} If in edit mode, add in save + view
+			if ( $key === 'edit' ) {
+				if( $id > 0 ) {
+					$html .= '<a style="margin-left:6px;" class="ui icon button blue mini labeled" href="' . jpcrm_esc_link( 'view', $id, 'zerobs_customer' ) . '" id="zbs-nav-view"><i class="eye left icon"></i> ' . esc_html( __( 'View', 'zero-bs-crm' ) ) . '</a>';
+				}
+				if ( zeroBSCRM_permsCustomers() ) {
+					$html .= '<button class="ui icon button mini green labeled" type="button" id="zbs-edit-save" style="margin-right:5px;margin-left:5px;"><i class="icon save"></i>' . esc_html( __( 'Save', 'zero-bs-crm' ) ) . '</button>';
+				}
 
-	        $html .= '</span>';
+			}
 
-   				break;
+			$html .= '</span>';
 
-   			case ZBS_TYPE_COMPANY:
+			break;
 
-   				// company nav
-          $navigation = $zbs->DAL->companies->getCompanyPrevNext($id);
+		case ZBS_TYPE_COMPANY:
 
-		   		$html = '<span class="ui navigation-quick-links">';
-		   		$html .= '<a style="margin-right:6px;" href="' . zbsLink($zbs->slugs["managecompanies"]) .'" class="ui button mini was-inverted basic" id="back-to-list">'. __("Back to List", "zero-bs-crm") . '</a>';
+			// company nav
+			$navigation = $zbs->DAL->companies->getCompanyPrevNext( $id );
 
-		   		
-          // PREV
-          if ($navigationMode == "1") {
-            if ($navigation['prev'] != NULL){ 
-              $html .= '<a href="' . zbsLink($key,$navigation['prev'],'zerobs_company',false) .'" class="ui labeled icon button mini"><i class="left chevron icon"></i>'.__('Prev',"zero-bs-crm").'</a>';
-            }
-            if ($navigation['next'] != NULL){ 
-              $html .= '<a href="' . zbsLink($key,$navigation['next'],'zerobs_company',false) .'" class="ui right labeled icon button mini">'.__('Next',"zero-bs-crm").'<i class="right chevron icon"></i></a>';
-            }
-          }
+			$html = '<span class="ui navigation-quick-links">';
+			$html .= '<a style="margin-right:6px;" href="' . jpcrm_esc_link( $zbs->slugs["managecompanies"] ) . '" class="ui button mini was-inverted basic" id="back-to-list">' .  esc_html( __( 'Back to List', 'zero-bs-crm' ) ) . '</a>';
 
-          #} If in edit mode, add in save + view
-          if ($key == 'edit'){
-            $html .= '<a style="margin-left:6px;" class="ui icon button blue mini labeled" href="'.zbsLink('view',$id,ZBS_TYPE_COMPANY).'"><i class="eye left icon"></i> '.__('View',"zero-bs-crm").'</a>';
-            if (zeroBSCRM_permsCustomers()){
-              //$html .= '<button class="ui icon button mini green labeled" type="button" id="zbs-edit-save" style="margin-right:5px;margin-left:5px;"><i class="icon save"></i>'.__('Save',"zero-bs-crm").'</button>';
-            }
+			// PREV
+			if ( $navigation && $navigationMode === 1 ) {
+				if ( $navigation['prev'] !== null ) {
+					$html .= '<a href="' . jpcrm_esc_link( $key, $navigation['prev'], 'zerobs_company', false ) . '" class="ui labeled icon button mini"><i class="left chevron icon"></i>' . esc_html( __( 'Prev', 'zero-bs-crm' ) ) . '</a>';
+				}
+				if ( $navigation['next'] !== null ) {
+					$html .= '<a href="' . jpcrm_esc_link( $key, $navigation['next'], 'zerobs_company', false ) . '" class="ui right labeled icon button mini">' . esc_html( __( 'Next', 'zero-bs-crm' ) ) . '<i class="right chevron icon"></i></a>';
+				}
+			}
 
-          }
+			#} If in edit mode, add in save + view
+			if ( $key === 'edit' ) {
+				$html .= '<a style="margin-left:6px;" class="ui icon button blue mini labeled" href="' . jpcrm_esc_link( 'view', $id, ZBS_TYPE_COMPANY ) . '"><i class="eye left icon"></i> ' . esc_html( __( 'View', 'zero-bs-crm' ) ) . '</a>';
+				if ( zeroBSCRM_permsCustomers() ) {
+					// $html .= '<button class="ui icon button mini green labeled" type="button" id="zbs-edit-save" style="margin-right:5px;margin-left:5px;"><i class="icon save"></i>' . esc_html( __( 'Save', 'zero-bs-crm' ) ) . '</button>';
+				}
 
-          $html .= '</span>';
+			}
 
-   				break;
-   		}
-   		
+			$html .= '</span>';
 
-        return $html;
+			break;
+	}
 
-   }
+	return $html;
+
+}
 /* ======================================================
   /	Object Nav
    ====================================================== */
@@ -1080,32 +1123,34 @@ function zeroBSCRM_html_transactionDate($transaction){
 
 	    } else {
 
-	    	// Note: Because this continued to be use for task scheduler workaround (before we got to rewrite the locale timestamp saving)
-	    	// ... we functionised in Core.Localisation.php to keep it DRY
+			// Note: Because this continued to be use for task scheduler workaround (before we got to rewrite the locale timestamp saving)
+			// ... we functionised in Core.Localisation.php to keep it DRY
 
-	        // temp pre v3.0 fix, forcing english en for this datepicker only. 
-	        // requires js mod: search #forcedlocaletasks
-	        // (Month names are localised, causing a mismatch here (Italian etc.)) 
-	        // ... so we translate:
-	        //      d F Y H:i:s (date - not locale based)
-	        // https://www.php.net/manual/en/function.date.php
-	        // ... into
-	        //      %d %B %Y %H:%M:%S (strfttime - locale based date)
-	        // (https://www.php.net/manual/en/function.strftime.php)
+			// temp pre v3.0 fix, forcing english en for this datepicker only.
+			// requires js mod: search #forcedlocaletasks
+			// (Month names are localised, causing a mismatch here (Italian etc.))
+			// ... so we translate:
+			// d F Y H:i:s (date - not locale based)
+			// https://www.php.net/manual/en/function.date.php
+			// ... into
+			// %d %B %Y %H:%M:%S (strfttime - locale based date)
+			// (https://www.php.net/manual/en/function.strftime.php)
 
-	        /*
-	        $start_d = zeroBSCRM_date_i18n('d F Y H:i:s', $taskObject['start']);
-	        $end_d = zeroBSCRM_date_i18n('d F Y H:i:s', $taskObject['end']);
-	        */
+			// phpcs:disable Squiz.PHP.CommentedOutCode.Found, Squiz.Commenting.BlockComment.NoCapital
 
-	        /*
+			/*
+			$start_d = zeroBSCRM_date_i18n('d F Y H:i:s', $taskObject['start']);
+			$end_d = zeroBSCRM_date_i18n('d F Y H:i:s', $taskObject['end']);
+			*/
 
-	        zeroBSCRM_locale_setServerLocale('en_US');
-	        $start_d = strftime("%d %B %Y %H:%M:%S",$task['start']);
-	        $end_d =  strftime("%d %B %Y %H:%M:%S",$task['end']);
-	        zeroBSCRM_locale_resetServerLocale();
-
-	        */
+			/*
+			@todo - this is to be refactored.
+			zeroBSCRM_locale_setServerLocale('en_US');
+			$start_d = strftime("%d %B %Y %H:%M:%S",$task['start']);
+			$end_d =  strftime("%d %B %Y %H:%M:%S",$task['end']);
+			zeroBSCRM_locale_resetServerLocale();
+			*/
+			// phpcs:enable Squiz.PHP.CommentedOutCode.Found, Squiz.Commenting.BlockComment.NoCapital
 
 	        $start_d = zeroBSCRM_date_forceEN($task['start']);
 	        $end_d = zeroBSCRM_date_forceEN($task['end']);
@@ -1148,7 +1193,7 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
     <?php
 
     if(count($email_hist) == 0){
-    	echo "<div class='ui message'><i class='icon envelope outline'></i>" . __('No Recent Emails','zero-bs-crm') . "</div>";
+    	echo "<div class='ui message'><i class='icon envelope outline'></i>" . esc_html( __('No Recent Emails','zero-bs-crm') ) . "</div>";
     }
     
     foreach($email_hist as $em_hist){
@@ -1163,23 +1208,23 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
         // if still empty
         if (empty($email_subject)) $email_subject = __('Untitled','zero-bs-crm');
         echo "<div class='zbs-email-sending-record'>";
-		echo "<span class='label blue ui tiny hist-label' style='float:left'> " . __('sent','zero-bs-crm') . ' </span>';
-		echo '<div class="zbs-email-detail">'. $emoji;
-		echo " <strong>" . $email_subject . "</strong><br />";
-		echo "<span class='sent-to'>" . __(" sent to ", 'zero-bs-crm') . "</span>";
+		echo "<span class='label blue ui tiny hist-label' style='float:left'> " . esc_html( __('sent','zero-bs-crm') ) . ' </span>';
+		echo '<div class="zbs-email-detail">'. esc_html( $emoji );
+		echo " <strong>" . esc_html( $email_subject ) . "</strong><br />";
+		echo "<span class='sent-to'>" . esc_html( __(" sent to ", 'zero-bs-crm') ) . "</span>";
 		// -10 are the system emails sent to CUSTOMERS
 		if($em_hist->zbsmail_sender_wpid == -10){
 			$customer = zeroBS_getCustomerMeta($em_hist->zbsmail_target_objid);
 			$link = admin_url('admin.php?page='.$zbs->slugs['addedit'].'&action=view&zbsid=' .$em_hist->zbsmail_target_objid);
 			if($customer['fname'] == '' && $customer['lname'] == ''){
-				echo "<a href='".esc_url($link)."'>" . $customer['email'] . "</a>";
+				echo "<a href='".esc_url( $link )."'>" . esc_html( $customer['email'] ) . "</a>";
 			}else{ 
-				echo "<a href='".esc_url($link)."'>" . $customer['fname'] . " " . $customer['lname'] . "</a>";
+				echo "<a href='".esc_url( $link )."'>" . esc_html( $customer['fname'] . ' ' . $customer['lname'] ) . "</a>";
 			}
 		}else if($em_hist->zbsmail_sender_wpid == -11){
 			//quote proposal accepted (sent to admin...)
 			$userIDobj = get_user_by( 'ID', $em_hist->zbsmail_target_objid );
-			echo $userIDobj->data->display_name;
+			echo esc_html( $userIDobj->data->display_name );
 			echo jpcrm_get_avatar( $em_hist->zbsmail_target_objid, 20 ); 
 		
 		}else if($em_hist->zbsmail_sender_wpid == -12){
@@ -1187,14 +1232,14 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 			$customer = zeroBS_getCustomerMeta($em_hist->zbsmail_target_objid);
 			$link = admin_url('admin.php?page='.$zbs->slugs['addedit'].'&action=view&zbsid=' .$em_hist->zbsmail_target_objid);
 			if($customer['fname'] == '' && $customer['lname'] == ''){
-				echo "<a href='".esc_url($link)."'>" . $customer['email'] . "</a>";
+				echo "<a href='".esc_url( $link )."'>" . esc_html( $customer['email'] ) . "</a>";
 			}else{ 
-				echo "<a href='".esc_url($link)."'>" . $customer['fname'] . " " . $customer['lname'] . "</a>";
+				echo "<a href='".esc_url( $link )."'>" . esc_html( $customer['fname'] . ' ' . $customer['lname'] ) . "</a>";
 			}
 		}else if($em_hist->zbsmail_sender_wpid == -13){
 			//-13 is the event notification (sent to the OWNER of the event) so a WP user (not ZBS contact)...
 			$userIDobj = get_user_by( 'ID', $em_hist->zbsmail_target_objid );
-			echo $userIDobj->data->display_name;
+			echo esc_html( $userIDobj->data->display_name );
 			echo jpcrm_get_avatar( $em_hist->zbsmail_target_objid, 20 ); 
 		}else{
 			$customer = zeroBS_getCustomerMeta($em_hist->zbsmail_target_objid);
@@ -1204,23 +1249,23 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 			//then it is a CRM team member [team member is quote accept]....
 			$link = admin_url('admin.php?page='.$zbs->slugs['addedit'].'&action=view&zbsid=' .$em_hist->zbsmail_target_objid);
 			if($customer['fname'] == '' && $customer['lname'] == ''){
-				echo "<a href='".esc_url($link)."'>" . $customer['email'] . "</a>";
+				echo "<a href='".esc_url( $link )."'>" . esc_html( $customer['email'] ) . "</a>";
 			}else{ 
-				echo "<a href='".esc_url($link)."'>" . $customer['fname'] . " " . $customer['lname'] . "</a>";
+				echo "<a href='".esc_url( $link )."'>" . esc_html( $customer['fname'] . " " . $customer['lname'] ) . "</a>";
 			}
 
 			$userIDobj = get_user_by( 'ID', $em_hist->zbsmail_sender_wpid );
 			if (gettype($userIDobj) == 'object'){
-				echo __(' by ','zero-bs-crm') . $userIDobj->data->display_name;
+				echo esc_html( __(' by ','zero-bs-crm') . $userIDobj->data->display_name );
 				echo jpcrm_get_avatar( $em_hist->zbsmail_sender_wpid, 20 ); 
 			}
 
 		}
 		$unixts =  date('U', $em_hist->zbsmail_created);
 		$diff   = human_time_diff($unixts, time());
-		echo "<time>". $diff . __(' ago', 'zero-bs-crm') . "</time>";
+		echo "<time>". esc_html( $diff . __(' ago', 'zero-bs-crm') ) . "</time>";
 		if($em_hist->zbsmail_opened == 1){
-			echo "<span class='ui green basic label mini' style='margin-left:7px;'><i class='icon check'></i> ". __('opened','zero-bs-crm') ."</span>";
+			echo "<span class='ui green basic label mini' style='margin-left:7px;'><i class='icon check'></i> ". esc_html( __('opened','zero-bs-crm') ) ."</span>";
 		}
         echo "</div></div>";
     }
@@ -1323,11 +1368,11 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 
 	            case 'text':
 
-	                ?><tr class="wh-large"><th><label for="<?php echo $fieldKey; ?>"><?php _e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
+	                ?><tr class="wh-large"><th><label for="<?php echo esc_attr( $fieldKey ); ?>"><?php esc_html_e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
 	                <td>
-	                	<div class="zbs-text-input <?php echo $fieldKey; ?>">
+	                	<div class="zbs-text-input <?php echo esc_attr( $fieldKey ); ?>">
 
-	                    	<input type="text" name="<?php echo $postPrefix; ?><?php echo $fieldKey; ?>" id="<?php echo $fieldKey; ?>" class="form-control widetext zbs-dc<?php echo $inputClasses; ?>" placeholder="<?php if (isset($fieldVal[2])) echo __($fieldVal[2],'zero-bs-crm'); ?>" value="<?php if ($value !== -99) echo esc_attr( $value ); else echo $default; ?>" autocomplete="zbs-<?php echo time(); ?>-<?php echo $fieldKey; ?>" />
+	                    	<input type="text" name="<?php echo esc_attr( $postPrefix ); ?><?php echo esc_attr( $fieldKey ); ?>" id="<?php echo esc_attr( $fieldKey ); ?>" class="form-control widetext zbs-dc<?php echo esc_attr( $inputClasses ); ?>" placeholder="<?php if (isset($fieldVal[2])) echo esc_attr__($fieldVal[2],'zero-bs-crm'); ?>" value="<?php if ($value !== -99) echo esc_attr( $value ); else echo esc_attr( $default ); ?>" autocomplete="zbs-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $fieldKey ); ?>" />
 
 	                    </div>
 	                </td></tr><?php
@@ -1336,10 +1381,10 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 
 	            case 'price':
 
-	                ?><tr class="wh-large"><th><label for="<?php echo $fieldKey; ?>"><?php _e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
+	                ?><tr class="wh-large"><th><label for="<?php echo esc_attr( $fieldKey ); ?>"><?php esc_html_e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
 	                <td>
 
-	                    <?php echo zeroBSCRM_getCurrencyChr(); ?> <input style="width: 130px;display: inline-block;" type="text" name="<?php echo $postPrefix; ?><?php echo $fieldKey; ?>" id="<?php echo $fieldKey; ?>" class="form-control numbersOnly zbs-dc<?php echo $inputClasses; ?>" placeholder="<?php if (isset($fieldVal[2])) echo __($fieldVal[2],'zero-bs-crm'); ?>" value="<?php if ($value !== -99) echo esc_attr( $value ); else echo $default;  ?>" autocomplete="zbs-<?php echo time(); ?>-<?php echo $fieldKey; ?>" />
+	                    <?php echo esc_html( zeroBSCRM_getCurrencyChr() ); ?> <input style="width: 130px;display: inline-block;" type="text" name="<?php echo esc_attr( $postPrefix ); ?><?php echo esc_attr( $fieldKey ); ?>" id="<?php echo esc_attr( $fieldKey ); ?>" class="form-control numbersOnly zbs-dc<?php echo esc_attr( $inputClasses ); ?>" placeholder="<?php if (isset($fieldVal[2])) echo esc_attr__($fieldVal[2],'zero-bs-crm'); ?>" value="<?php if ($value !== -99) echo esc_attr( $value ); else echo esc_attr( $default );  ?>" autocomplete="zbs-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $fieldKey ); ?>" />
 
 	                </td></tr><?php
 
@@ -1347,10 +1392,10 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 
                 case 'numberfloat':
 
-	                ?><tr class="wh-large"><th><label for="<?php echo $fieldKey; ?>"><?php _e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
+	                ?><tr class="wh-large"><th><label for="<?php echo esc_attr( $fieldKey ); ?>"><?php esc_html_e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
 	                <td>
 
-	                    <input style="width: 130px;display: inline-block;" type="text" name="<?php echo $postPrefix; ?><?php echo $fieldKey; ?>" id="<?php echo $fieldKey; ?>" class="form-control numbersOnly zbs-dc<?php echo $inputClasses; ?>" placeholder="<?php if (isset($fieldVal[2])) echo __($fieldVal[2],'zero-bs-crm'); ?>" value="<?php if ($value !== -99) echo esc_attr( $value ); else echo $default; ?>" autocomplete="zbs-<?php echo time(); ?>-<?php echo $fieldKey; ?>" />
+	                    <input style="width: 130px;display: inline-block;" type="text" name="<?php echo esc_attr( $postPrefix ); ?><?php echo esc_attr( $fieldKey ); ?>" id="<?php echo esc_attr( $fieldKey ); ?>" class="form-control numbersOnly zbs-dc<?php echo esc_attr( $inputClasses ); ?>" placeholder="<?php if (isset($fieldVal[2])) echo esc_attr__($fieldVal[2],'zero-bs-crm'); ?>" value="<?php if ($value !== -99) echo esc_attr( $value ); else echo esc_attr( $default ); ?>" autocomplete="zbs-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $fieldKey ); ?>" />
 
 	                </td></tr><?php
 
@@ -1358,10 +1403,10 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 
                 case 'numberint':
 
-	                ?><tr class="wh-large"><th><label for="<?php echo $fieldKey; ?>"><?php _e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
+	                ?><tr class="wh-large"><th><label for="<?php echo esc_attr( $fieldKey ); ?>"><?php esc_html_e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
 	                <td>
 
-	                    <input style="width: 130px;display: inline-block;" type="text" name="<?php echo $postPrefix; ?><?php echo $fieldKey; ?>" id="<?php echo $fieldKey; ?>" class="form-control intOnly zbs-dc<?php echo $inputClasses; ?>" placeholder="<?php if (isset($fieldVal[2])) echo __($fieldVal[2],'zero-bs-crm'); ?>" value="<?php if ($value !== -99) echo esc_attr( $value ); else echo $default; ?>" autocomplete="zbs-<?php echo time(); ?>-<?php echo $fieldKey; ?>" />
+	                    <input style="width: 130px;display: inline-block;" type="text" name="<?php echo esc_attr( $postPrefix ); ?><?php echo esc_attr( $fieldKey ); ?>" id="<?php echo esc_attr( $fieldKey ); ?>" class="form-control intOnly zbs-dc<?php echo esc_attr( $inputClasses ); ?>" placeholder="<?php if (isset($fieldVal[2])) echo esc_attr__($fieldVal[2],'zero-bs-crm'); ?>" value="<?php if ($value !== -99) echo esc_attr( $value ); else echo esc_attr( $default ); ?>" autocomplete="zbs-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $fieldKey ); ?>" />
 
 	                </td></tr><?php
 
@@ -1390,9 +1435,9 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 	            	}
 								
 
-	                ?><tr class="wh-large"><th><label for="<?php echo $fieldKey; ?>"><?php _e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
+	                ?><tr class="wh-large"><th><label for="<?php echo esc_attr( $fieldKey ); ?>"><?php esc_html_e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
 	                <td>
-	                    <input type="text" name="<?php echo $postPrefix; ?><?php echo $fieldKey; ?>" id="<?php echo $fieldKey; ?>" class="form-control zbs-date zbs-dc<?php echo $inputClasses; ?>" placeholder="<?php if (isset($fieldVal[2])) echo __($fieldVal[2],'zero-bs-crm'); ?>" value="<?php echo esc_attr( $datevalue ); ?>" autocomplete="zbs-<?php echo time(); ?>-<?php echo $fieldKey; ?>" />
+	                    <input type="text" name="<?php echo esc_attr( $postPrefix ); ?><?php echo esc_attr( $fieldKey ); ?>" id="<?php echo esc_attr( $fieldKey ); ?>" class="form-control jpcrm-date zbs-dc<?php echo esc_attr( $inputClasses ); ?>" placeholder="<?php if (isset($fieldVal[2])) echo esc_attr__($fieldVal[2],'zero-bs-crm'); ?>" value="<?php echo esc_attr( $datevalue ); ?>" autocomplete="zbs-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $fieldKey ); ?>" />
 	                </td></tr><?php
 
 	                break;
@@ -1405,10 +1450,10 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 	            	// if DAL3 we need to use translated dates here :)
 	            	if ($zbs->isDAL3()) $datevalue = zeroBSCRM_date_i18n_plusTime(-1,$datevalue,true);
 
-	                ?><tr class="wh-large"><th><label for="<?php echo $fieldKey; ?>"><?php _e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
+	                ?><tr class="wh-large"><th><label for="<?php echo esc_attr( $fieldKey ); ?>"><?php esc_html_e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
 	                <td>
 
-	                    <input type="text" name="<?php echo $postPrefix; ?><?php echo $fieldKey; ?>" id="<?php echo $fieldKey; ?>" class="form-control zbs-date-time zbs-dc<?php echo $inputClasses; ?>" placeholder="<?php if (isset($fieldVal[2])) echo __($fieldVal[2],'zero-bs-crm'); ?>" value="<?php echo esc_attr( $datevalue ); ?>" autocomplete="zbs-<?php echo time(); ?>-<?php echo $fieldKey; ?>" />
+	                    <input type="text" name="<?php echo esc_attr( $postPrefix ); ?><?php echo esc_attr( $fieldKey ); ?>" id="<?php echo esc_attr( $fieldKey ); ?>" class="form-control jpcrm-date-time zbs-dc<?php echo esc_attr( $inputClasses ); ?>" placeholder="<?php if (isset($fieldVal[2])) echo esc_attr__($fieldVal[2],'zero-bs-crm'); ?>" value="<?php echo esc_attr( $datevalue ); ?>" autocomplete="zbs-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $fieldKey ); ?>" />
 
 	                </td></tr><?php
 
@@ -1420,9 +1465,9 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 										break;
 									}
 
-	                ?><tr class="wh-large"><th><label for="<?php echo $fieldKey; ?>"><?php _e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
+	                ?><tr class="wh-large"><th><label for="<?php echo esc_attr( $fieldKey ); ?>"><?php esc_html_e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
 	                <td>
-	                    <select name="<?php echo $postPrefix; ?><?php echo $fieldKey; ?>" id="<?php echo $fieldKey; ?>" class="form-control zbs-watch-input zbs-dc<?php echo $inputClasses; ?>" autocomplete="zbs-<?php echo time(); ?>-<?php echo $fieldKey; ?>">
+	                    <select name="<?php echo esc_attr( $postPrefix ); ?><?php echo esc_attr( $fieldKey ); ?>" id="<?php echo esc_attr( $fieldKey ); ?>" class="form-control zbs-watch-input zbs-dc<?php echo esc_attr( $inputClasses ); ?>" autocomplete="zbs-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $fieldKey ); ?>">
 	                        <?php
                                 // pre DAL 2 = $fieldV[3], DAL2 = $fieldV[2]
                                 $options = false; 
@@ -1447,7 +1492,7 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 	                                //catcher
 																	echo '<option value=""' . ($fieldKey == 'prefix' ? '' :' disabled="disabled"');
 	                                if (empty($default) && ($value == -99 || ($value !== -99 && empty($value)))) echo ' selected="selected"';
-	                                echo '>'.__('Select','zero-bs-crm').'</option>';
+	                                echo '>'. esc_html__('Select','zero-bs-crm').'</option>';
 
 	                                foreach ($options as $opt){
 
@@ -1458,11 +1503,11 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 
 	                                }
 
-	                            } else echo '<option value="">'.__('No Options','zero-bs-crm').'!</option>';
+	                            } else echo '<option value="">'. esc_html__('No Options','zero-bs-crm').'!</option>';
 
 	                        ?>
 	                    </select>
-                        <input type="hidden" name="<?php echo $postPrefix; ?><?php echo $fieldKey; ?>_dirtyflag" id="<?php echo $postPrefix; ?><?php echo $fieldKey; ?>_dirtyflag" value="0" />
+                        <input type="hidden" name="<?php echo esc_attr( $postPrefix ); ?><?php echo esc_attr( $fieldKey ); ?>_dirtyflag" id="<?php echo esc_attr( $postPrefix ); ?><?php echo esc_attr( $fieldKey ); ?>_dirtyflag" value="0" />
 	                </td></tr><?php
 
 	                break;
@@ -1472,11 +1517,11 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 			        // Click 2 call?
 			        $click2call = $zbs->settings->get('clicktocall');
 
-	                ?><tr class="wh-large"><th><label for="<?php echo $fieldKey; ?>"><?php _e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
+	                ?><tr class="wh-large"><th><label for="<?php echo esc_attr( $fieldKey ); ?>"><?php esc_html_e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
 	                <td class="zbs-tel-wrap">
 
-	                    <input type="text" name="<?php echo $postPrefix; ?><?php echo $fieldKey; ?>" id="<?php echo $fieldKey; ?>" class="form-control zbs-tel zbs-dc<?php echo $inputClasses; ?>" placeholder="<?php if (isset($fieldVal[2])) echo __($fieldVal[2],'zero-bs-crm'); ?>" value="<?php if ($value !== -99) echo esc_attr( $value ); else echo $default; ?>" autocomplete="zbs-<?php echo time(); ?>-<?php echo $fieldKey; ?>" />
-	                     <?php if ($click2call == "1" && $value !== -99 && !empty($value)) echo '<a href="' . esc_url( zeroBSCRM_clickToCallPrefix() . $value ) . '" class="button"><i class="fa fa-phone"></i> ' . esc_html( $value ) . '</a>'; ?>
+	                    <input type="text" name="<?php echo esc_attr( $postPrefix ); ?><?php echo esc_attr( $fieldKey ); ?>" id="<?php echo esc_attr( $fieldKey ); ?>" class="form-control zbs-tel zbs-dc<?php echo esc_attr( $inputClasses ); ?>" placeholder="<?php if (isset($fieldVal[2])) echo esc_attr__($fieldVal[2],'zero-bs-crm'); ?>" value="<?php if ($value !== -99) echo esc_attr( $value ); else echo esc_attr( $default ); ?>" autocomplete="zbs-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $fieldKey ); ?>" />
+	                     <?php if ($click2call == "1" && $value !== -99 && !empty($value)) echo '<a href="' . esc_attr( zeroBSCRM_clickToCallPrefix() . $value ) . '" class="button"><i class="fa fa-phone"></i> ' . esc_html( $value ) . '</a>'; ?>
 
                                         <?php 
 
@@ -1491,7 +1536,7 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
                                                 //if (is_array($dataArr) && isset($dataArr[$fieldKey]) && isset($dataArr['id'])) $customerMob = zeroBS_customerMobile($dataArr['id'],$dataArr);
                                                 if ($value !== -99) $customerMob = $value;
                                                 
-                                                if (!empty($customerMob)) echo '<a class="' . $sms_class . ' button" data-smsnum="' . esc_attr( $customerMob ) .'"><i class="mobile alternate icon"></i> '.__('SMS','zero-bs-crm').': ' . esc_html( $customerMob ) . '</a>';
+                                                if (!empty($customerMob)) echo '<a class="' . esc_attr( $sms_class ) . ' button" data-smsnum="' . esc_attr( $customerMob ) .'"><i class="mobile alternate icon"></i> '. esc_html__('SMS','zero-bs-crm').': ' . esc_html( $customerMob ) . '</a>';
 
                                             }
 
@@ -1506,11 +1551,11 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
                     // ... via js <div class="zbs-text-input">
                     // removed from email for now zbs-text-input
 
-	                ?><tr class="wh-large"><th><label for="<?php echo $fieldKey; ?>"><?php _e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
+	                ?><tr class="wh-large"><th><label for="<?php echo esc_attr( $fieldKey ); ?>"><?php esc_html_e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
 	                <td>
-	                	<div class="<?php echo $fieldKey; ?>">
+	                	<div class="<?php echo esc_attr( $fieldKey ); ?>">
 
-	                    	<input type="text" name="<?php echo $postPrefix; ?><?php echo $fieldKey; ?>" id="<?php echo $fieldKey; ?>" class="form-control zbs-email zbs-dc<?php echo $inputClasses; ?>" placeholder="<?php if (isset($fieldVal[2])) echo __($fieldVal[2],'zero-bs-crm'); ?>" value="<?php if ($value !== -99) echo esc_attr( $value ); else echo $default; ?>" autocomplete="zbs-<?php echo time(); ?>-<?php echo $fieldKey; ?>" />
+	                    	<input type="text" name="<?php echo esc_attr( $postPrefix ); ?><?php echo esc_attr( $fieldKey ); ?>" id="<?php echo esc_attr( $fieldKey ); ?>" class="form-control zbs-email zbs-dc<?php echo esc_attr( $inputClasses ); ?>" placeholder="<?php if (isset($fieldVal[2])) echo esc_attr__($fieldVal[2],'zero-bs-crm'); ?>" value="<?php if ($value !== -99) echo esc_attr( $value ); else echo esc_attr( $default ); ?>" autocomplete="zbs-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $fieldKey ); ?>" />
 
 	                    </div>
 	                </td></tr><?php
@@ -1519,9 +1564,9 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 
 	            case 'textarea':
 
-	                ?><tr class="wh-large"><th><label for="<?php echo $fieldKey; ?>"><?php _e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
+	                ?><tr class="wh-large"><th><label for="<?php echo esc_attr( $fieldKey ); ?>"><?php esc_html_e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
 	                <td>
-	                    <textarea name="<?php echo $postPrefix; ?><?php echo $fieldKey; ?>" id="<?php echo $fieldKey; ?>" class="form-control zbs-dc<?php echo $inputClasses; ?>" placeholder="<?php if (isset($fieldVal[2])) echo __($fieldVal[2],'zero-bs-crm'); ?>" autocomplete="zbs-<?php echo time(); ?>-<?php echo $fieldKey; ?>"><?php if ($value !== -99) echo esc_textarea( $value ); else echo $default; ?></textarea>
+	                    <textarea name="<?php echo esc_attr( $postPrefix ); ?><?php echo esc_attr( $fieldKey ); ?>" id="<?php echo esc_attr( $fieldKey ); ?>" class="form-control zbs-dc<?php echo esc_attr( $inputClasses ); ?>" placeholder="<?php if (isset($fieldVal[2])) echo esc_attr__($fieldVal[2],'zero-bs-crm'); ?>" autocomplete="zbs-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $fieldKey ); ?>"><?php if ($value !== -99) echo esc_textarea( $value ); else echo esc_textarea( $default ); ?></textarea>
 	                </td></tr><?php
 
 	                break;
@@ -1531,9 +1576,9 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 
 	                $countries = zeroBSCRM_loadCountryList();
 
-	                ?><tr class="wh-large"><th><label for="<?php echo $fieldKey; ?>"><?php _e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
+	                ?><tr class="wh-large"><th><label for="<?php echo esc_attr( $fieldKey ); ?>"><?php esc_html_e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
 	                <td>
-	                    <select name="<?php echo $postPrefix; ?><?php echo $fieldKey; ?>" id="<?php echo $fieldKey; ?>" class="form-control zbs-dc<?php echo $inputClasses; ?>" autocomplete="zbs-<?php echo time(); ?>-<?php echo $fieldKey; ?>">
+	                    <select name="<?php echo esc_attr( $postPrefix ); ?><?php echo esc_attr( $fieldKey ); ?>" id="<?php echo esc_attr( $fieldKey ); ?>" class="form-control zbs-dc<?php echo esc_attr( $inputClasses ); ?>" autocomplete="zbs-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $fieldKey ); ?>">
 	                        <?php
 
 	                            #if (isset($fieldVal[3]) && count($fieldVal[3]) > 0){
@@ -1542,7 +1587,7 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 	                                //catcher
 	                                echo '<option value=""';
 	                                if (empty($default) && ($value == -99 || ($value !== -99 && empty($value)))) echo ' selected="selected"';
-	                                echo '>'.__('Select','zero-bs-crm').'</option>';
+	                                echo '>'. esc_html__('Select','zero-bs-crm').'</option>';
 
 	                                foreach ($countries as $countryKey => $country){
 
@@ -1561,7 +1606,7 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 	                                }
 	                                
 
-	                            } else echo '<option value="">'.__('No Countries Loaded','zero-bs-crm').'</option>';
+	                            } else echo '<option value="">'. esc_html__('No Countries Loaded','zero-bs-crm').'</option>';
 
 	                        ?>
 	                    </select>
@@ -1575,7 +1620,7 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 	                // auto number - can't actually edit autonumbers, so its just outputting :)
 		            case 'autonumber':
 
-		                ?><tr class="wh-large"><th><label for="<?php echo $fieldKey; ?>"><?php _e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
+		                ?><tr class="wh-large"><th><label for="<?php echo esc_attr( $fieldKey ); ?>"><?php esc_html_e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
 		                <td class="zbs-field-id">
 		                	<?php
 
@@ -1589,10 +1634,10 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 		                		if (empty($str)) 
 		                			echo '~';
 		                		else
-		                			echo $str;
+		                			echo esc_html( $str );
 
 		                		// we also output as input, which stops any overwriting + makes new ones for new records
-		                		echo '<input type="hidden" value="' . esc_attr( $str ) . '" name="'.$postPrefix.$fieldKey.'" />';
+		                		echo '<input type="hidden" value="' . esc_attr( $str ) . '" name="'. esc_attr( $postPrefix.$fieldKey ) .'" />';
 
 		                	?>
 		                </td></tr><?php
@@ -1602,7 +1647,7 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 		            // radio
 		            case 'radio':
 
-		                ?><tr class="wh-large"><th><label for="<?php echo $fieldKey; ?>"><?php _e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
+		                ?><tr class="wh-large"><th><label for="<?php echo esc_attr( $fieldKey ); ?>"><?php esc_html_e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
 		                <td>
 		                    <div class="zbs-field-radio-wrap">
 		                        <?php
@@ -1624,20 +1669,20 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 
 		                                foreach ($options as $opt){
 
-		                                	echo '<div class="zbs-radio"><input type="radio" name="'.$postPrefix.$fieldKey.'" id="'.$fieldKey.'-'.$optIndex.'" value="' . esc_attr( $opt ) . '"';
+		                                	echo '<div class="zbs-radio"><input type="radio" name="'. esc_attr( $postPrefix.$fieldKey ) .'" id="'. esc_attr( $fieldKey.'-'.$optIndex ) .'" value="' . esc_attr( $opt ) . '"';
 
 		                                    if ($value !== -99 && $value == $opt) echo ' checked="checked"'; 
-		                                    echo ' /> <label for="'.$fieldKey.'-'.$optIndex.'">' . esc_html( $opt ) . '</label></div>';
+		                                    echo ' /> <label for="'. esc_attr( $fieldKey.'-'.$optIndex ) .'">' . esc_html( $opt ) . '</label></div>';
 
 		                                    $optIndex++;
 
 		                                }
 
-		                            } else echo '<label for="'.$fieldKey.'-0">'.__('No Options','zero-bs-crm').'!</label>'; //<input type="radio" name="'.$postPrefix.$fieldKey.'" id="'.$fieldKey.'-0" value="" checked="checked" /> 
+		                            } else echo '<label for="'. esc_attr( $fieldKey ) .'-0">'. esc_attr__('No Options','zero-bs-crm').'!</label>'; //<input type="radio" name="'.$postPrefix.$fieldKey.'" id="'.$fieldKey.'-0" value="" checked="checked" /> 
 
 		                        ?>
 		                    </div>
-	                        <input type="hidden" name="<?php echo $postPrefix; ?><?php echo $fieldKey; ?>_dirtyflag" id="<?php echo $postPrefix; ?><?php echo $fieldKey; ?>_dirtyflag" value="0" />
+	                        <input type="hidden" name="<?php echo esc_attr( $postPrefix ); ?><?php echo esc_attr( $fieldKey ); ?>_dirtyflag" id="<?php echo esc_attr( $postPrefix ); ?><?php echo esc_attr( $fieldKey ); ?>_dirtyflag" value="0" />
 		                </td></tr><?php
 
 		                break;
@@ -1645,7 +1690,7 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 		            // checkbox
 		            case 'checkbox':
 
-		                ?><tr class="wh-large"><th><label for="<?php echo $fieldKey; ?>"><?php _e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
+		                ?><tr class="wh-large"><th><label for="<?php echo esc_attr( $fieldKey ); ?>"><?php esc_html_e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
 		                <td>
 		                    <div class="zbs-field-checkbox-wrap">
 		                        <?php
@@ -1673,19 +1718,19 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 
 		                                foreach ($options as $opt){
 
-		                                	echo '<div class="ui checkbox"><input type="checkbox" name="'.$postPrefix.$fieldKey.'-'.$optIndex.'" id="'.$fieldKey.'-'.$optIndex.'" value="' . esc_attr( $opt ) . '"';
+		                                	echo '<div class="ui checkbox"><input type="checkbox" name="'. esc_attr( $postPrefix.$fieldKey.'-'.$optIndex ).'" id="'. esc_attr( $fieldKey.'-'.$optIndex ) .'" value="' . esc_attr( $opt ) . '"';
 		                                    if (in_array($opt, $dataOpts)) echo ' checked="checked"'; 
-		                                    echo ' /><label for="'.$fieldKey.'-'.$optIndex.'">' . esc_html( $opt ) . '</label></div>';
+		                                    echo ' /><label for="'. esc_attr( $fieldKey.'-'.$optIndex ) .'">' . esc_html( $opt ) . '</label></div>';
 
 		                                    $optIndex++;
 
 		                                }
 
-		                            } else echo '<label for="'.$fieldKey.'-0">'.__('No Options','zero-bs-crm').'!</label>';
+		                            } else echo '<label for="'. esc_attr( $fieldKey ).'-0">'. esc_html__('No Options','zero-bs-crm').'!</label>';
 
 		                        ?>
 		                    </div>
-	                        <input type="hidden" name="<?php echo $postPrefix; ?><?php echo $fieldKey; ?>_dirtyflag" id="<?php echo $postPrefix; ?><?php echo $fieldKey; ?>_dirtyflag" value="0" />
+	                        <input type="hidden" name="<?php echo esc_attr( $postPrefix ); ?><?php echo esc_attr( $fieldKey ); ?>_dirtyflag" id="<?php echo esc_attr( $postPrefix ); ?><?php echo esc_attr( $fieldKey ); ?>_dirtyflag" value="0" />
 		                </td></tr><?php
 
 		                break;
@@ -1693,9 +1738,9 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 		            // tax
 		            case 'tax':
 
-	                ?><tr class="wh-large"><th><label for="<?php echo $fieldKey; ?>"><?php _e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
+	                ?><tr class="wh-large"><th><label for="<?php echo esc_attr( $fieldKey ); ?>"><?php esc_html_e($fieldVal[1],"zero-bs-crm"); ?>:</label></th>
 	                <td>
-	                    <select name="<?php echo $postPrefix; ?><?php echo $fieldKey; ?>" id="<?php echo $fieldKey; ?>" class="form-control zbs-watch-input zbs-dc<?php echo $inputClasses; ?>" autocomplete="zbs-<?php echo time(); ?>-<?php echo $fieldKey; ?>">
+	                    <select name="<?php echo esc_attr( $postPrefix ); ?><?php echo esc_attr( $fieldKey ); ?>" id="<?php echo esc_attr( $fieldKey ); ?>" class="form-control zbs-watch-input zbs-dc<?php echo esc_attr( $inputClasses ); ?>" autocomplete="zbs-<?php echo esc_attr( time() ); ?>-<?php echo esc_attr( $fieldKey ); ?>">
 	                        <?php
 
 	                        	// retrieve tax rates + cache
@@ -1712,23 +1757,23 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
                                 		$selectVal = $default;
 
 	                                //catcher
-	                                echo '<option value="" disabled="disabled"';
+	                                echo '<option value=""';
 	                                if (empty($default) && ($value == -99 || ($value !== -99 && empty($value)))) echo ' selected="selected"';
-	                                echo '>'.__('Select','zero-bs-crm').'</option>';
+	                                echo '>' . esc_html( __( 'None', 'zero-bs-crm' ) ) . '</option>';
 
 	                                foreach ($zbsTaxRateTable as $taxRate){
 
-	                                    echo '<option value="'.$taxRate['id'].'"';
+	                                    echo '<option value="'. esc_attr( $taxRate['id'] ) .'"';
 	                                    if ($selectVal == $taxRate['id']) echo ' selected="selected"'; 
 	                                    echo '>' . esc_html( $taxRate['name'] . ' (' . $taxRate['rate'] . '%)' ) . '</option>';
 
 	                                }
 
-	                            } else echo '<option value="">'.__('No Tax Rates Defined','zero-bs-crm').'!</option>';
+	                            } else echo '<option value="">'. esc_html__('No Tax Rates Defined','zero-bs-crm').'!</option>';
 
 	                        ?>
 	                    </select>
-                        <input type="hidden" name="<?php echo $postPrefix; ?><?php echo $fieldKey; ?>_dirtyflag" id="<?php echo $postPrefix; ?><?php echo $fieldKey; ?>_dirtyflag" value="0" />
+                        <input type="hidden" name="<?php echo esc_attr( $postPrefix ); ?><?php echo esc_attr( $fieldKey ); ?>_dirtyflag" id="<?php echo esc_attr( $postPrefix ); ?><?php echo esc_attr( $fieldKey ); ?>_dirtyflag" value="0" />
 	                </td></tr><?php
 
 	                break;
@@ -1788,7 +1833,7 @@ function zeroBSCRM_outputEmailHistory($userID = -1){
 
 			if (!empty($colKey) && is_array($obj)){
 
-				$linkOpen = zbsLink('edit',$obj['id'],ZBS_TYPE_TRANSACTION);
+				$linkOpen = jpcrm_esc_link('edit',$obj['id'],ZBS_TYPE_TRANSACTION);
 
 				switch ($colKey){
 

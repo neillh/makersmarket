@@ -213,7 +213,7 @@ function zeroBSCRM_screenOptionsPanel(){
 	            <?php if ($rights){ ?>
 	            	<?php echo $screenOptionsHTML; ?>
 	            <?php } // / can ?>
-	            <div id="zbs-screen-options-handle"><?php _e('Page Layout','zero-bs-crm'); ?> <i class="caret up icon"></i><i class="caret down icon"></i></div>
+	            <div id="zbs-screen-options-handle"><?php esc_html_e('Page Layout','zero-bs-crm'); ?> <i class="caret up icon"></i><i class="caret down icon"></i></div>
             </div>
             <!-- / screenoptions --><?php
 
@@ -226,7 +226,7 @@ function zeroBS_outputScreenOptions(){
 
 	$screenOpts = $zbs->userScreenOptions();
 
-	?><script type="text/javascript">var zbsPageKey = '<?php echo $zbs->pageKey; ?>';var zbsScreenOptions = <?php echo json_encode($screenOpts); ?>;</script><?php
+	?><script type="text/javascript">var zbsPageKey = '<?php echo esc_html( $zbs->pageKey ); ?>';var zbsScreenOptions = <?php echo json_encode($screenOpts); ?>;</script><?php
 
 }
 	

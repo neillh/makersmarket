@@ -53,7 +53,7 @@ function zeroBSCRM_portal_loginFooter($prev=''){
 // catch fails
 if (isset($_GET['login']) && $_GET['login'] == 'failed'){
 
-	echo '<div class="alert alert-info">'.__('Your username or password was incorrect. Please try again','zero-bs-crm').'</div>';
+	echo '<div class="alert alert-info">'.esc_html__('Your username or password was incorrect. Please try again','zero-bs-crm').'</div>';
 
 }
 

@@ -91,7 +91,7 @@ function zeroBS_dashboard_crm_list_growth(){
                 <div class='ui message blue' style="text-align:center;margin-bottom:80px;margin-top:50px;">
                 <?php esc_html_e( 'You do not have any contacts. You need contacts for your growth chart to show.', 'zero-bs-crm' );?> 
                 <br />
-                <a href="<?php echo zbsLink('create',-1,'zerobs_customer',false,false); ?>" class="ui tiny green button" style="margin-top:1em"><?php esc_html_e( 'Add a Contact', 'zero-bs-crm' ); ?></a>
+                <a href="<?php echo jpcrm_esc_link( 'create', -1, 'zerobs_customer', false, false ); ?>" class="ui tiny green button" style="margin-top:1em"><?php esc_html_e( 'Add a Contact', 'zero-bs-crm' ); ?></a>
                 </div>
             </div>
         </div>

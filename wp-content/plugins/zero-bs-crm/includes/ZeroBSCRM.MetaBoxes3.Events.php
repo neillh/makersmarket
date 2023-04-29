@@ -90,7 +90,7 @@
                // PerfTest: zeroBSCRM_performanceTest_finishTimer('custmetabox-dataget');
                // PerfTest: zeroBSCRM_performanceTest_startTimer('custmetabox-draw'); ?>
 
-                <?php #} AJAX NONCE ?><script type="text/javascript">var zbscrmjs_secToken = '<?php echo wp_create_nonce( "zbscrmjs-ajax-nonce" ); ?>';</script><?php # END OF NONCE ?>
+                <script type="text/javascript">var zbscrmjs_secToken = '<?php echo esc_js( wp_create_nonce( 'zbscrmjs-ajax-nonce' ) ); ?>';</script>
 
                 <?php #} Pass this if it's a new customer (for internal automator) - note added this above with DEFINE for simpler.
 
@@ -289,7 +289,7 @@
                 if (!empty($zbsJustInsertedMetaboxID) && $zbsJustInsertedMetaboxID > 0){
 
                     // redir
-                    wp_redirect( zbsLink('edit',$zbsJustInsertedMetaboxID,$this->objType) );
+                    wp_redirect( jpcrm_esc_link('edit',$zbsJustInsertedMetaboxID,$this->objType) );
                     exit;
 
                 }
@@ -355,7 +355,7 @@
 
             ?><div class="zbs-generic-save-wrap">
 
-                    <div class="ui medium dividing header"><i class="save icon"></i> <?php _e('Event Actions','zero-bs-crm'); ?></div>
+				<div class="ui medium dividing header"><i class="save icon"></i> <?php esc_html_e( 'Task Actions', 'zero-bs-crm' ); ?></div>
 
             <?php
 
@@ -402,7 +402,7 @@
 
                     <div class="zbs-event-actions-bottom zbs-objedit-actions-bottom">
 
-                        <button class="ui button green" type="button" id="zbs-edit-save"><?php _e("Update","zero-bs-crm"); ?> <?php _e("Event","zero-bs-crm"); ?></button>
+							<button class="ui button green" type="button" id="zbs-edit-save"><?php esc_html_e( 'Update', 'zero-bs-crm' ); ?> <?php esc_html_e( 'Task', 'zero-bs-crm' ); ?></button>
 
                         <?php
 
@@ -411,7 +411,7 @@
                          // for now just check if can modify, later better, granular perms.
                          if ( zeroBSCRM_permsEvents() ) { 
                         ?><div id="zbs-event-actions-delete" class="zbs-objedit-actions-delete">
-                             <a class="submitdelete deletion" href="<?php echo zbsLink('delete',$eventID,'event'); ?>"><?php _e('Delete Permanently', "zero-bs-crm"); ?></a>
+                             <a class="submitdelete deletion" href="<?php echo jpcrm_esc_link( 'delete', $eventID, 'event' ); ?>"><?php esc_html_e('Delete Permanently', "zero-bs-crm"); ?></a>
                         </div>
                         <?php } // can delete  ?>
                         
@@ -425,7 +425,7 @@
 
                     // NEW Event ?>
 
-                    <button class="ui button green" type="button" id="zbs-edit-save"><?php _e("Save","zero-bs-crm"); ?> <?php _e("Event","zero-bs-crm"); ?></button>
+						<button class="ui button green" type="button" id="zbs-edit-save"><?php esc_html_e( 'Save', 'zero-bs-crm' ); ?> <?php esc_html_e( 'Task', 'zero-bs-crm' ); ?></button>
 
                  <?php
 
@@ -744,27 +744,30 @@ function zeroBSCRM_task_ui_date($taskObject = array()){
 
     } else {
 
+		// temp pre v3.0 fix, forcing english en for this datepicker only.
+		// requires js mod: search #forcedlocaletasks
+		// (Month names are localised, causing a mismatch here (Italian etc.))
+		// ... so we translate:
+		// d F Y H:i:s (date - not locale based)
+		// https://www.php.net/manual/en/function.date.php
+		// ... into
+		// %d %B %Y %H:%M:%S (strfttime - locale based date)
+		// (https://www.php.net/manual/en/function.strftime.php)
 
-        // temp pre v3.0 fix, forcing english en for this datepicker only. 
-        // requires js mod: search #forcedlocaletasks
-        // (Month names are localised, causing a mismatch here (Italian etc.)) 
-        // ... so we translate:
-        //      d F Y H:i:s (date - not locale based)
-        // https://www.php.net/manual/en/function.date.php
-        // ... into
-        //      %d %B %Y %H:%M:%S (strfttime - locale based date)
-        // (https://www.php.net/manual/en/function.strftime.php)
+		// phpcs:disable Squiz.PHP.CommentedOutCode.Found
 
-        /*
-        $start_d = zeroBSCRM_date_i18n('d F Y H:i:s', $taskObject['start']);
-        $end_d = zeroBSCRM_date_i18n('d F Y H:i:s', $taskObject['end']);
-        */
-
-        zeroBSCRM_locale_setServerLocale('en_US');
-        $start_d = strftime("%d %B %Y %H:%M:%S",$taskObject['start']);
-        $end_d =  strftime("%d %B %Y %H:%M:%S",$taskObject['end']);
-        zeroBSCRM_locale_resetServerLocale();
-    }
+		/*
+		$start_d = zeroBSCRM_date_i18n('d F Y H:i:s', $taskObject['start']);
+		$end_d = zeroBSCRM_date_i18n('d F Y H:i:s', $taskObject['end']);
+		*/
+		// @todo - this is to be refactored.
+		// phpcs:disable WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase, PHPCompatibility.FunctionUse.RemovedFunctions.strftimeDeprecated
+		zeroBSCRM_locale_setServerLocale( 'en_US' );
+		$start_d = strftime( '%d %B %Y %H:%M:%S', $taskObject['start'] );
+		$end_d   = strftime( '%d %B %Y %H:%M:%S', $taskObject['end'] );
+		zeroBSCRM_locale_resetServerLocale();
+		// phps:enable Squiz.PHP.CommentedOutCode.Found, WordPress.NamingConventions.ValidVariableName.VariableNotSnakeCase, PHPCompatibility.FunctionUse.RemovedFunctions.strftimeDeprecated
+	}
 
     $html = '<div class="no-task-date"><input type="text" id="daterange" class="form-control" name="daterange" value="' . $start_d . ' - ' . $end_d .'" autocomplete="zbs-'.time() . '-task-date" /></div>';
     $html .= '<input type="hidden" id="zbs_from" name="zbse_start" value="' . $start_d .'"/>';
@@ -813,7 +816,7 @@ function zeroBSCRM_task_ui_reminders($taskObject = array(), $taskID = -1){
             // add admin cog (settings) for event notification template
             if ( zeroBSCRM_isZBSAdminOrAdmin() ) {
                 
-                $html .= '<a href="'.esc_url(zbsLink('zbs-email-templates').'&zbs_template_id='.ZBSEMAIL_EVENTNOTIFICATION).'" class="ui icon button right floated" title="'.__('Admin: Notification Settings','zero-bs-crm').'" target="_blank"><i class="cogs icon"></i></a>';        
+                $html .= '<a href="' . esc_url_raw( jpcrm_esc_link( 'zbs-email-templates' ) . '&zbs_template_id=' . ZBSEMAIL_EVENTNOTIFICATION ) . '" class="ui icon button right floated" title="'.__('Admin: Notification Settings','zero-bs-crm').'" target="_blank"><i class="cogs icon"></i></a>';        
 
             }
 

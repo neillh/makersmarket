@@ -300,7 +300,10 @@ class saswp_fields_generator {
             "name"  => "feefo.com"),
         array(
             "image" => "/admin_section/images/reviews_platform_icon/cusrev-img.png",
-            "name"  => "cusrev.com")                                      
+            "name"  => "cusrev.com"),
+        array(
+            "image" => "/admin_section/images/reviews_platform_icon/abia-com-img.png",
+            "name"  => "abia.com.au"),                                      
     );
     
     public function saswp_tooltip_message($meta_field_id){
@@ -347,6 +350,8 @@ class saswp_fields_generator {
                             $license_status     = 'inactive';
                             $license_status_msg = '';
                             $rv_limits          = '';
+                            $license_status_msg = '';
+                            $license_download_id = '';
                             
                             if(isset($settings[strtolower($on).'_addon_license_key'])){
                             $license_key =   $settings[strtolower($on).'_addon_license_key'];

@@ -1,0 +1,58 @@
+name: Manual Build
+
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        description: Select which WP environment
+        options:
+          - dev
+          - stage
+          - prod
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      working-directory: wp-content/themes/skinny-child
+
+    steps:
+      - uses: actions/checkout@v3
+
+      # https://github.com/actions/setup-node/issues/32
+      - name: Read .nvmrc
+        run: echo ::set-output name=NVMRC::$(cat .nvmrc)
+        id: nvm
+
+      - name: Use Node.js (.nvmrc)
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ steps.nvm.outputs.NVMRC }}
+
+      - name: npm install
+        run: npm i
+        working-directory: ${{ env.working-directory }}
+
+      - name: npm build
+        run: npm run build
+        working-directory: ${{ env.working-directory }}
+
+      - name: remove node_modules
+        run: rm -rf node_modules
+
+      #https://wpengine.com/support/github-action-deploy/
+      - name: dev
+        if: github.event.inputs.environment == 'dev'
+        uses: wpengine/github-action-wpe-site-deploy@v3.0
+        with:
+          WPE_SSHG_KEY_PRIVATE: ${{ secrets.DEV_SECRET_KEY }}
+          WPE_ENV: makersmarketdv
+
+      - name: stage
+        if: github.event.inputs.environment == 'stage'
+        uses: wpengine/github-action-wpe-site-deploy@v3.0
+        with:
+          WPE_SSHG_KEY_PRIVATE: ${{ secrets.DEV_SECRET_KEY }}
+          WPE_ENV: makersmarketst

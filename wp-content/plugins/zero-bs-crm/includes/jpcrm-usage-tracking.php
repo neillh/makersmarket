@@ -310,8 +310,8 @@ class jpcrm_usage_tracking{
                 <script>
                     data = {
                         action: 'jpcrm_send_page_view',
-                        page_name: '<?php echo $page_key; ?>',
-                        security: '<?php echo wp_create_nonce('jpcrm_usage_tracking_nonce'); ?>'
+                        page_name: '<?php echo esc_html( $page_key ); ?>',
+                        security: '<?php echo esc_html( wp_create_nonce('jpcrm_usage_tracking_nonce') ); ?>'
                     };
                     jQuery.post(ajaxurl, data, function (response) {
                         //nothing to see here.

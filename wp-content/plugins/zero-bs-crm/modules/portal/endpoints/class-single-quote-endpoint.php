@@ -63,32 +63,32 @@ class Single_Quote_Endpoint extends Client_Portal_Endpoint {
 			}
 		}
 ?>
-		<div id="zerobs-proposal-<?php echo $quote_id; ?> main" class="zerobs-proposal entry-content hentry" style="margin-bottom:50px;margin-top:0px;">
+		<div id="zerobs-proposal-<?php echo esc_attr( $quote_id ); ?> main" class="zerobs-proposal entry-content hentry" style="margin-bottom:50px;margin-top:0px;">
 
-			<div class="zerobs-proposal-body"><?php echo zeroBSCRM_io_WPEditor_DBToHTML( $quote_content ); ?></div>
+			<div class="zerobs-proposal-body"><?php echo wp_kses( zeroBSCRM_io_WPEditor_DBToHTML( $quote_content ), $zbs->acceptable_html ); ?></div>
 
 			<?php
 			if ( $acceptable ) {
 					// js-exposed success/failure messages
 					?>
-						<div id="zbs-quote-accepted-<?php echo $quote_id ?>" class="alert alert-success" style="display:none;margin-bottom:5em;">
-							<?php _e( 'Quote accepted, Thank you.', 'zero-bs-crm' ); ?>
+						<div id="zbs-quote-accepted-<?php echo esc_attr( $quote_id ) ?>" class="alert alert-success" style="display:none;margin-bottom:5em;">
+							<?php esc_html_e( 'Quote accepted, Thank you.', 'zero-bs-crm' ); ?>
 						</div>
-						<div id="zbs-quote-failed-<?php echo $quote_id ?>" class="alert alert-warning" style="display:none;margin-bottom:5em;">
-							<?php _e( 'Quote could not be accepted at this time.', 'zero-bs-crm' ); ?>
+						<div id="zbs-quote-failed-<?php echo esc_attr( $quote_id ) ?>" class="alert alert-warning" style="display:none;margin-bottom:5em;">
+							<?php esc_html_e( 'Quote could not be accepted at this time.', 'zero-bs-crm' ); ?>
 						</div>
-						<div class="zerobs-proposal-actions" id="zerobs-proposal-actions-<?php echo $quote_id; ?>">
-							<h3><?php _e( 'Accept Quote?', 'zero-bs-crm' ); ?></h3>
+						<div class="zerobs-proposal-actions" id="zerobs-proposal-actions-<?php echo esc_attr( $quote_id ); ?>">
+							<h3><?php esc_html_e( 'Accept Quote?', 'zero-bs-crm' ); ?></h3>
 
-							<button id="zbs-proposal-accept" class="button btn btn-large btn-success button-success" type="button"><?php _e( 'Accept', 'zero-bs-crm' ); ?></button>
+							<button id="zbs-proposal-accept" class="button btn btn-large btn-success button-success" type="button"><?php esc_html_e( 'Accept', 'zero-bs-crm' ); ?></button>
 
 					<?php
 				}
 				if ( isset( $acceptedDate ) ) {
 					?>
 
-						<div class="zerobs-proposal-actions" id="zerobs-proposal-actions-<?php echo $quote_id; ?>">
-							<h3><?php _e( 'Accepted', 'zero-bs-crm' ); ?> <?php echo $acceptedDate; ?></h3>
+						<div class="zerobs-proposal-actions" id="zerobs-proposal-actions-<?php echo esc_attr( $quote_id ); ?>">
+							<h3><?php esc_html_e( 'Accepted', 'zero-bs-crm' ); ?> <?php echo esc_html( $acceptedDate ); ?></h3>
 						</div>
 
 					<?php
@@ -99,9 +99,9 @@ class Single_Quote_Endpoint extends Client_Portal_Endpoint {
 		<div style="clear:both"></div>
 		<script type="text/javascript">
 			var jpcrm_proposal_data = {
-				'quote_id': '<?php echo $quote_id; ?>',
-				'quote_hash': '<?php echo $quote_hash; ?>',
-				'proposal_nonce': '<?php echo wp_create_nonce( 'zbscrmquo-nonce' );?>',
+				'quote_id': '<?php echo esc_js( $quote_id ); ?>',
+				'quote_hash': '<?php echo esc_js( $quote_hash ); ?>',
+				'proposal_nonce': '<?php echo esc_js( wp_create_nonce( 'zbscrmquo-nonce' ) );?>',
 				'ajax_url': '<?php echo esc_url( admin_url( 'admin-ajax.php') ); ?>'
 			};
 		</script>

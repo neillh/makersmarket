@@ -578,7 +578,7 @@ function zeroBSCRM_invoicing_generateStatementHTML_v3($contactID=-1,$return=true
                 // header
                 $sTable .= '<tr><th cellpadding="0" cellspacing="0" >'.__('Date','zero-bs-crm').'</th>';
                 $sTable .= '<th cellpadding="0" cellspacing="0" >' . $zbs->settings->get('reflabel') . '</th>';
-                $sTable .= '<th cellpadding="0" cellspacing="0" >'.__('Due Date','zero-bs-crm').'</th>';
+                $sTable .= '<th cellpadding="0" cellspacing="0" >'.__('Due date','zero-bs-crm').'</th>';
                 $sTable .= '<th class="zbs-accountant-td" style="text-align:right">'.__('Amount','zero-bs-crm').'</th>';
                 $sTable .= '<th class="zbs-accountant-td" style="text-align:right">'.__('Payments','zero-bs-crm').'</th>';
                 $sTable .= '<th class="zbs-accountant-td" style="text-align:right">'.__('Balance','zero-bs-crm').'</th></tr>';
@@ -646,7 +646,7 @@ function zeroBSCRM_invoicing_generateStatementHTML_v3($contactID=-1,$return=true
 
                             // assume fully paid
                             $balance = 0.00;
-                            $payments = $total;                                
+                            $payments = $total;
 
                         } else {
 
@@ -663,7 +663,7 @@ function zeroBSCRM_invoicing_generateStatementHTML_v3($contactID=-1,$return=true
                                         if ($partial['type_accounting'] == 'credit'){
                                             
                                             // credit note, or refund
-                                            $balance = $balance + $partial['total'];                
+                                            $balance = $balance + $partial['total'];
                                             // add to payments
                                             $payments += $partial['total'];  
 
@@ -673,8 +673,8 @@ function zeroBSCRM_invoicing_generateStatementHTML_v3($contactID=-1,$return=true
                                             $balance = $balance - $partial['total']; 
 
                                             // add to payments
-                                            $payments += $partial['total'];  
-                                        }                                      
+                                            $payments += $partial['total'];
+                                        }
                                 
                                     }
 
@@ -816,16 +816,33 @@ function zeroBSCRM_invoicing_generateInvoiceHTML($invoiceID=-1,$template='pdf',$
     else
         $zbs_stat = $invoice['status'];     
 
-    // This is only used for portal invs, but no stress including as it's template-based inclusion :)
-    $topStatus = '<div class="zbs-portal-label">';
-    $topStatus .= $zbs_stat;
-    $topStatus .= '</div>';
-    // WH added quickly to get around fact this is sometimes empty, please tidy when you address currency formatting :)
-    $invGTotal = ''; if (isset($invoice["total"])) $invGTotal = zeroBSCRM_formatCurrency($invoice["total"]);
-    $topStatus .= '<h1 class="zbs-portal-value">' . $invGTotal . '</h1>';
-    if ($zbs_stat == __('Paid','zero-bs-crm')){
-        $topStatus .= '<div class="zbs-invoice-paid"><i class="fa fa-check"></i>' . __("Paid",'zero-bs-crm') . '</div>';
-    }         
+    // status html:
+    if ( $template == 'portal' ){
+
+        // portal version: Includes status label and amount (shown at top of portal invoice)
+        $topStatus = '<div class="zbs-portal-label">';
+        $topStatus .= $zbs_stat;
+        $topStatus .= '</div>';
+        // WH added quickly to get around fact this is sometimes empty, please tidy when you address currency formatting :)
+        $invGTotal = ''; if (isset($invoice["total"])) $invGTotal = zeroBSCRM_formatCurrency($invoice["total"]);
+        $topStatus .= '<h1 class="zbs-portal-value">' . $invGTotal . '</h1>';
+        if ($zbs_stat == __('Paid','zero-bs-crm')){
+            $topStatus .= '<div class="zbs-invoice-paid"><i class="fa fa-check"></i>' . esc_html__("Paid",'zero-bs-crm') . '</div>';
+        }
+
+    } elseif ( $template == 'pdf' ){
+
+        // pdf status
+        if ( $zbs_stat == __( 'Paid', 'zero-bs-crm' ) ){
+            
+            $topStatus = '<div class="jpcrm-invoice-status jpcrm-invoice-paid">' . esc_html__( 'Paid', 'zero-bs-crm' ) . '</div>';
+
+        } else {
+
+            $topStatus = '<div class="jpcrm-invoice-status">' . esc_html( $zbs_stat ) . '</div>';
+
+        }
+    }
 
     // inv lines
     $invlines = $invoice['lineitems'];
@@ -1182,7 +1199,7 @@ function zeroBSCRM_invoicing_generateInvoiceHTML($invoiceID=-1,$template='pdf',$
                 'invoice-title'                 => __('Invoice','zero-bs-crm'),
                 'css'                           => $cssURL,
                 'logo-class'                    => $logoClass,
-                'logo-url'                      => $logoURL,
+                'logo-url'                      => esc_url( $logoURL ),
                 'invoice-number'                => $invNoStr,
                 'invoice-date'                  => $invDateStr,
                 'invoice-id-styles'             => $invIDStyles,
@@ -1207,13 +1224,14 @@ function zeroBSCRM_invoicing_generateInvoiceHTML($invoiceID=-1,$template='pdf',$
                 'portal-link'                   => $view_in_portal_link,
 
                 // language
-                'invoice-label-inv-number'      => __( 'Invoice Number:', 'zero-bs-crm' ),
-                'invoice-label-inv-date'        => __( 'Invoice Date', 'zero-bs-crm' ) . ':',
+                'invoice-label-inv-number'      => __( 'Invoice number', 'zero-bs-crm' ) . ':',
+                'invoice-label-inv-date'        => __( 'Invoice date', 'zero-bs-crm' ) . ':',
                 'invoice-label-inv-ref'         => $zbs->settings->get('reflabel'),
-                'invoice-label-from'            => __( 'From:', 'zero-bs-crm' ),
-                'invoice-label-to'              => __( 'To:', 'zero-bs-crm' ),
-                'invoice-label-due-date'        => __( 'Due date:', 'zero-bs-crm' ),
-                'invoice-pay-terms'             => __( 'Payment Terms: Due ', 'zero-bs-crm' ),
+                'invoice-label-status'          => __( 'Status:', 'zero-bs-crm' ),
+                'invoice-label-from'            => __( 'From', 'zero-bs-crm' ) . ':',
+                'invoice-label-to'              => __( 'To', 'zero-bs-crm' ) . ':',
+                'invoice-label-due-date'        => __( 'Due date', 'zero-bs-crm' ) . ':',
+                'invoice-pay-terms'             => __( 'Payment terms', 'zero-bs-crm' ) . ': ' . __( 'Due', 'zero-bs-crm' ) . ' ',
 
                 // global
                 'biz-info'                      => $bizInfoTable,

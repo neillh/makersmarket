@@ -781,7 +781,9 @@ class zbsDAL_ObjectLayer {
                 if ( '' === $res[$cK] ) {
                     $res[$cK.'_cfdate'] = '';
                 } else {
-                    $res[$cK.'_cfdate'] = zeroBSCRM_date_i18n(-1,$res[$cK],false,true);
+                    $res[$cK.'_cfdate'] = zeroBSCRM_date_i18n( -1, $res[$cK], false, true );
+                    $res[$cK.'_datetime_str'] = jpcrm_uts_to_datetime_str( $res[$cK] );
+                    $res[$cK.'_date_str'] = jpcrm_uts_to_date_str( $res[$cK] );
                 }
             }
         }
@@ -817,8 +819,16 @@ class zbsDAL_ObjectLayer {
             if (isset($cF[0]) && $cF[0] == 'date'){
 
                 // make a _date field
-                if (isset($res['addr_'.$cK])) $res['addr_'.$cK.'_cfdate'] = zeroBSCRM_date_i18n(-1,$res['addr_'.$cK],false,true);
-                if (isset($res['secaddr_'.$cK])) $res['secaddr_'.$cK.'_cfdate'] = zeroBSCRM_date_i18n(-1,$res['secaddr_'.$cK],false,true);
+                if ( isset( $res['addr_' . $cK] ) ) {
+                    $res['addr_' . $cK . '_cfdate'] = zeroBSCRM_date_i18n( -1, $res['addr_' . $cK], false, true );
+                    $res['addr_' . $cK . '_datetime_str'] = jpcrm_uts_to_datetime_str( $res['addr_' . $cK] );
+                    $res['addr_' . $cK . '_date_str'] = jpcrm_uts_to_date_str( $res['addr_' . $cK] );
+                }
+                if ( isset( $res['secaddr_' . $cK] ) ) {
+                    $res['secaddr_' . $cK . '_cfdate'] = zeroBSCRM_date_i18n( -1, $res['secaddr_' . $cK], false, true );
+                    $res['secaddr_' . $cK . '_datetime_str'] = jpcrm_uts_to_datetime_str( $res['secaddr_' . $cK] );
+                    $res['secaddr_' . $cK . '_date_str'] = jpcrm_uts_to_date_str( $res['secaddr_' . $cK] );
+                }
                 
             }
 

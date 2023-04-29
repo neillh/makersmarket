@@ -64,7 +64,7 @@ function zeroBSCRM_html_addEditSegment($potentialID = -1)
             <!-- load blocker not used.
             <div class="ui segment hidden" id="zbs-segment-editor-blocker">
               <div class="ui active inverted dimmer">
-                <div class="ui text loader"><?php _e('Saving', 'zero-bs-crm'); ?></div>
+                <div class="ui text loader"><?php esc_html_e('Saving', 'zero-bs-crm'); ?></div>
               </div>
               <p></p>
             </div> -->
@@ -74,22 +74,22 @@ function zeroBSCRM_html_addEditSegment($potentialID = -1)
             <div class="ui huge centralsimple">
 
                 <div class="field required">
-                  <label><?php _e('Name this Segment', "zero-bs-crm"); ?></label>
-                  <p style="font-size:0.8em"><?php _e('Enter a descriptive title. This is shown on internal pages and reports.', "zero-bs-crm"); ?></p>
-                  <input placeholder="<?php _e('e.g. VIP Customers', "zero-bs-crm"); ?>" type="text" id="zbs-segment-edit-var-title" name="zbs-segment-edit-var-title" class="max500" value="<?php echo !empty( $segment['name'] ) ? esc_attr( $segment['name'] ) : ''; ?>">
-                  <?php echo zeroBSCRM_UI2_messageHTML('mini error hidden', '', __('This field is required', "zero-bs-crm"), '', 'zbs-segment-edit-var-title-err'); ?>
+                  <label><?php esc_html_e('Name this Segment', 'zero-bs-crm' ); ?></label>
+                  <p style="font-size:0.8em"><?php esc_html_e('Enter a descriptive title. This is shown on internal pages and reports.', 'zero-bs-crm' ); ?></p>
+                  <input placeholder="<?php esc_attr_e('e.g. VIP Customers', 'zero-bs-crm' ); ?>" type="text" id="zbs-segment-edit-var-title" name="zbs-segment-edit-var-title" class="max500" value="<?php echo !empty( $segment['name'] ) ? esc_attr( $segment['name'] ) : ''; ?>">
+                  <?php echo zeroBSCRM_UI2_messageHTML('mini error hidden', '', __('This field is required', 'zero-bs-crm' ), '', 'zbs-segment-edit-var-title-err'); ?>
                 </div>
 
             </div>
 
             <!-- error segment -->
-            <?php if (is_array($segment) && isset($segment['error'])) { ?>
+            <?php if ( is_array($segment) && isset( $segment['error'] ) ) { ?>
                 <div style="max-width: 600px; margin-left: auto; margin-right: auto; margin-top: 2.5em;">
                 <?php
 
                 // generate a user message re: segment error
-                $error_code = $zbs->getErrorCode($segment['error']);
-                if ($error_code && isset($error_code['user_message'])) {
+                $error_code = $zbs->getErrorCode( $segment['error'] );
+                if ($error_code && isset( $error_code['user_message'] ) ) {
                     $error_message = $error_code['user_message'];
                 } else {
                     // error code not present in global error-code array, show code
@@ -111,11 +111,11 @@ function zeroBSCRM_html_addEditSegment($potentialID = -1)
                 <div class="field" style="padding-top:0;padding-bottom: 0">
 
                     <button class="ui icon small button primary right floated" type="button" id="zbs-segment-edit-act-add-condition">
-                        <?php _e('Add Condition', "zero-bs-crm"); ?>  <i class="plus icon"></i>
+                        <?php esc_html_e('Add Condition', 'zero-bs-crm' ); ?>  <i class="plus icon"></i>
                     </button>
 
-                    <label><?php _e('Conditions', "zero-bs-crm"); ?></label>
-                    <p><?php _e('Select conditions which will define this segment.', "zero-bs-crm"); ?></p>
+                    <label><?php esc_html_e('Conditions', 'zero-bs-crm' ); ?></label>
+                    <p><?php esc_html_e('Select conditions which will define this segment.', 'zero-bs-crm' ); ?></p>
 
                 </div>
 
@@ -123,22 +123,37 @@ function zeroBSCRM_html_addEditSegment($potentialID = -1)
                     <!-- built via js -->
                 </div>
                 <div class="field" style="padding-top:0">
-                    <?php echo zeroBSCRM_UI2_messageHTML('mini hidden', '', __('Segments require at least one condition', "zero-bs-crm"), '', 'zbs-segment-edit-conditions-err'); ?>
+                    <?php echo zeroBSCRM_UI2_messageHTML('mini hidden', '', __('Segments require at least one condition', 'zero-bs-crm' ), '', 'zbs-segment-edit-conditions-err'); ?>
                 </div>
 
                 <div class="field" style="padding-top:1em">
-                  <label><?php _e('Match Type', "zero-bs-crm"); ?></label>
+                  <label><?php esc_html_e('Match Type', 'zero-bs-crm' ); ?></label>
                   <p><?php _e( 'Should contacts in this segment match <i>any</i> or <i>all</i> of the above conditions?', 'zero-bs-crm' ); ?></p>
                    <select class="ui dropdown" id="zbs-segment-edit-var-matchtype">
-                        <option value="all"<?php echo $matchtype === 'all' ? ' selected' : ''; ?>><?php _e('Match all Conditions', "zero-bs-crm"); ?></option>
-                        <option value="one"<?php echo $matchtype === 'one' ? ' selected' : ''; ?>><?php _e('Match any one Condition', "zero-bs-crm"); ?></option>
+                        <option value="all"<?php echo $matchtype === 'all' ? ' selected' : ''; ?>><?php esc_html_e('Match all Conditions', 'zero-bs-crm' ); ?></option>
+                        <option value="one"<?php echo $matchtype === 'one' ? ' selected' : ''; ?>><?php esc_html_e('Match any one Condition', 'zero-bs-crm' ); ?></option>
                     </select>
                 </div>
                 
-                <h4 class="ui horizontal header divider"><?php _e('Continue', "zero-bs-crm"); ?></h4>
+                <h4 class="ui horizontal header divider"><?php esc_html_e('Continue', 'zero-bs-crm' ); ?></h4>
 
                 <div class="jog-on">
-                    <button class="ui submit teal large icon button" id="zbs-segment-edit-act-p2preview"><?php _e('Preview Segment', "zero-bs-crm"); ?> <i class="unhide icon"></i></button>
+                    <button class="ui submit blue large icon button" id="zbs-segment-edit-act-p2preview"><?php esc_html_e( 'Preview Segment', 'zero-bs-crm' ); ?> <i class="unhide icon"></i></button>
+                    <?php 
+
+                        // where saved, show export button, and mailpoet:
+                        if ( ! $newSegment ) {
+
+                            // export
+                            if ( zeroBSCRM_permsExport() ){ ?>
+                                <a class="ui submit teal large icon button" href="<?php echo jpcrm_esc_link( $zbs->slugs['export-tools'] . '&segment-id=' . $segment['id'] ); ?>"><?php esc_html_e( 'Export Segment (.CSV)', 'zero-bs-crm' ); ?> <i class="icon cloud download"></i></a>
+                            <?php }
+
+                            // mailpoet support
+                            do_action( 'jpcrm_segment_edit_export_mailpoet_button' );
+
+                        }
+                    ?>
                 </div>
             </div>
 
@@ -148,10 +163,10 @@ function zeroBSCRM_html_addEditSegment($potentialID = -1)
                 <div id="zbs-segment-edit-preview-output">
 
                 </div>
-                <?php echo zeroBSCRM_UI2_messageHTML('hidden', '', __('Your conditions did not produce any matching Contacts. You can still save this segment, but currently there is no one in it!', "zero-bs-crm"), '', 'zbs-segment-edit-emptypreview-err'); ?>
+                <?php echo zeroBSCRM_UI2_messageHTML('hidden', '', __('Your conditions did not produce any matching Contacts. You can still save this segment, but currently there is no one in it!', 'zero-bs-crm' ), '', 'zbs-segment-edit-emptypreview-err'); ?>
 
                 <div class="jog-on">
-                    <button class="ui submit positive large icon button" id="zbs-segment-edit-act-p2submit"><?php _e('Save Segment', "zero-bs-crm"); ?> <i class="pie chart icon"></i></button>
+                    <button class="ui submit positive large icon button" id="zbs-segment-edit-act-p2submit"><?php esc_html_e('Save Segment', 'zero-bs-crm' ); ?> <i class="pie chart icon"></i></button>
                 </div>
             </div>
 
@@ -163,34 +178,36 @@ function zeroBSCRM_html_addEditSegment($potentialID = -1)
             var jpcrm_available_contact_tags = <?php echo json_encode( $available_tags_contacts ); ?>;
             var jpcrm_available_transaction_tags = <?php echo json_encode( $available_tags_transactions ); ?>;
             var zbsAvailableStatuses = <?php echo json_encode($availableStatuses); ?>;
-            var zbsSegmentStemURL = '<?php echo zbsLink('edit', -1, 'segment', true); ?>';
-            var jpcrm_contact_stem_URL = '<?php echo zbsLink('view', -1, 'contact', true); ?>';
-            var zbsSegmentListURL = '<?php echo zbsLink($zbs->slugs['segments']); ?>';
-            var zbsSegmentSEC = '<?php echo wp_create_nonce("zbs-ajax-nonce"); ?>';
+            var zbsSegmentStemURL = '<?php echo jpcrm_esc_link( 'edit', -1, 'segment', true ); ?>';
+            var jpcrm_contact_stem_URL = '<?php echo jpcrm_esc_link( 'view', -1, 'contact', true ); ?>';
+            var zbsSegmentListURL = '<?php echo jpcrm_esc_link( $zbs->slugs['segments'] ); ?>';
+            var zbsSegmentSEC = '<?php echo esc_js( wp_create_nonce("zbs-ajax-nonce") ); ?>';
             var zbsSegmentLang = {
 
-                generalerrortitle: '<?php _e('General Error', "zero-bs-crm"); ?>',
-                generalerror: '<?php _e('There was a general error.', "zero-bs-crm"); ?>',
+                generalerrortitle: '<?php esc_html_e('General Error', 'zero-bs-crm' ); ?>',
+                generalerror: '<?php esc_html_e('There was a general error.', 'zero-bs-crm' ); ?>',
 
-                currentlyInSegment: '<?php _e('Contacts currently match these conditions.', "zero-bs-crm"); ?>',
-                previewTitle: '<?php _e('Contacts Preview (randomised)', "zero-bs-crm"); ?>',
+                currentlyInSegment: '<?php esc_html_e('Contacts currently match these conditions.', 'zero-bs-crm' ); ?>',
+                previewTitle: '<?php esc_html_e('Contacts Preview (randomised)', 'zero-bs-crm' ); ?>',
 
-                noName: '<?php _e('Unnamed Contact', "zero-bs-crm"); ?>',
-                noEmail: '<?php _e('No Email', "zero-bs-crm"); ?>',
+                noName: '<?php esc_html_e('Unnamed Contact', 'zero-bs-crm' ); ?>',
+                noEmail: '<?php esc_html_e('No Email', 'zero-bs-crm' ); ?>',
 
-                notags: '<?php _e('No Tags Found', "zero-bs-crm"); ?>',
-                nostatuses: '<?php _e('No Statuses Found', "zero-bs-crm"); ?>',
-                noextsources: '<?php _e('No External Sources Found', "zero-bs-crm"); ?>',
+                notags: '<?php esc_html_e('No Tags Found', 'zero-bs-crm' ); ?>',
+                nostatuses: '<?php esc_html_e('No Statuses Found', 'zero-bs-crm' ); ?>',
+                noextsources: '<?php esc_html_e('No External Sources Found', 'zero-bs-crm' ); ?>',
+                no_mailpoet_statuses: '<?php esc_html_e('No MailPoet Statuses Found', 'zero-bs-crm' ); ?>',
+                nosegmentid: '<?php esc_html_e('No Segment ID Found.', 'zero-bs-crm' ); ?>',
 
-                to: '<?php _e('to', "zero-bs-crm"); ?>',
-                eg: '<?php _e('e.g.', "zero-bs-crm"); ?>',
+                to: '<?php esc_html_e('to', 'zero-bs-crm' ); ?>',
+                eg: '<?php esc_html_e('e.g.', 'zero-bs-crm' ); ?>',
 
-                saveSegment: '<?php echo zeroBSCRM_slashOut('Save Segment', true).' <i class="save icon">'; ?>',
-                savedSegment: '<?php echo zeroBSCRM_slashOut('Segment Saved', true).' <i class="check circle outline icon">'; ?>',
+                saveSegment: '<?php echo esc_html( zeroBSCRM_slashOut('Save Segment', true) ).' <i class="save icon">'; ?>',
+                savedSegment: '<?php echo esc_html( zeroBSCRM_slashOut('Segment Saved', true) ).' <i class="check circle outline icon">'; ?>',
 
-                contactfields: '=== <?php _e('Contact Fields', "zero-bs-crm"); ?> ===',
+                contactfields: '=== <?php esc_html_e('Contact Fields', 'zero-bs-crm' ); ?> ===',
 
-                default_description: '<?php echo zeroBSCRM_slashOut( 'Condition which selects contacts based on given value', true ); ?>',
+                default_description: '<?php echo esc_html( zeroBSCRM_slashOut( 'Condition which selects contacts based on given value', true ) ); ?>',
 
             };
             var jpcrm_external_source_list = <?php
@@ -209,7 +226,38 @@ function zeroBSCRM_html_addEditSegment($potentialID = -1)
                 return strcmp($a['key'], $b['key']);
             });
 
-            echo json_encode($external_source_array); ?>;</script>
+            echo json_encode($external_source_array); 
+
+            // any extra js? e.g. MailPoet Export functionality
+            do_action( 'segment_edit_extra_js' );
+
+            ?>;
+            var jpcrm_mailpoet_status_list = <?php
+                $jpcrm_mailpoet_status_list = array(
+                    array(
+                        'key' => 'subscribed',
+                        'name' => __( 'Subscribed', 'mailpoet' ),
+                    ),
+                    array(
+                        'key' => 'unconfirmed',
+                        'name' => __( 'Unconfirmed', 'mailpoet' ),
+                    ),
+                    array(
+                        'key' => 'unsubscribed',
+                        'name' => __( 'Unsubscribed', 'mailpoet' ),
+                    ),
+                    array(
+                        'key' => 'inactive',
+                        'name' => __( 'Inactive', 'mailpoet' ),
+                    ),
+                    array(
+                        'key' => 'bounced',
+                        'name' => __( 'Bounced', 'mailpoet' ),
+                    ),
+              );
+              echo json_encode( $jpcrm_mailpoet_status_list );
+            ?>
+            </script>
 
     </div><?php
 }

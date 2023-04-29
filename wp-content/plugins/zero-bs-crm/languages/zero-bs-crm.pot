@@ -1,22 +1,22 @@
-# Copyright (C) 2022 Automattic - Jetpack CRM team
+# Copyright (C) 2022 Automattic - Jetpack CRM Team
 # This file is distributed under the GPLv2.
 msgid ""
 msgstr ""
-"Project-Id-Version: Jetpack CRM 5.4.4\n"
+"Project-Id-Version: Jetpack CRM 5.3.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/zero-bs-crm\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-11-14T16:37:23+00:00\n"
+"POT-Creation-Date: 2022-10-14T20:42:38+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.7.1\n"
+"X-Generator: WP-CLI 2.6.0\n"
 "X-Domain: zero-bs-crm\n"
 
 #. Plugin Name of the plugin
 #: includes/ZeroBSCRM.Core.Menus.WP.php:322
-#: includes/ZeroBSCRM.Core.php:2638
+#: includes/ZeroBSCRM.Core.php:2560
 msgid "Jetpack CRM"
 msgstr ""
 
@@ -30,51 +30,11 @@ msgid "Jetpack CRM is the simplest CRM for WordPress. Self host your own Custome
 msgstr ""
 
 #. Author of the plugin
-msgid "Automattic - Jetpack CRM team"
-msgstr ""
-
-#: admin/activation/before-you-go.php:42
-msgid "Before you Go..."
-msgstr ""
-
-#: admin/activation/before-you-go.php:50
-msgid "Before you go..."
-msgstr ""
-
-#: admin/activation/before-you-go.php:51
-msgid "Thank you for trying Jetpack CRM! Before you go, we'd really love your feedback on our free CRM plugin. It'd make our day if you could guide us to improving Jetpack CRM."
-msgstr ""
-
-#: admin/activation/before-you-go.php:52
-msgid "Just temporarily deactivating, or don't fancy giving feedback? No worries."
-msgstr ""
-
-#: admin/activation/before-you-go.php:52
-msgid "We're improving Jetpack CRM every week, so come back sometime and check us out @ <a href=\"%s\">%s</a>"
-msgstr ""
-
-#: admin/activation/before-you-go.php:53
-msgid "All the best"
-msgstr ""
-
-#: admin/activation/before-you-go.php:54
-msgid "Mike and Woody"
-msgstr ""
-
-#: admin/activation/before-you-go.php:56
-msgid "Let's Go! (Give Feedback)"
-msgstr ""
-
-#: admin/activation/before-you-go.php:57
-msgid "Not right now"
-msgstr ""
-
-#: admin/activation/before-you-go.php:60
-msgid "Giving feedback won't close this tab, and it shouldn't take more than a few minutes."
+msgid "Automattic - Jetpack CRM Team"
 msgstr ""
 
 #: admin/activation/welcome-to-jpcrm.php:57
-#: includes/ZeroBSCRM.AdminPages.php:1688
+#: includes/ZeroBSCRM.AdminPages.php:1571
 msgid "Welcome to Jetpack CRM"
 msgstr ""
 
@@ -92,7 +52,7 @@ msgstr ""
 
 #: admin/activation/welcome-to-jpcrm.php:90
 #: admin/settings/mail-delivery.page.php:490
-#: includes/ZeroBSCRM.CSVImporter.php:717
+#: includes/ZeroBSCRM.CSVImporter.php:801
 #: modules/woo-sync/admin/activation/welcome-to-woo-sync.php:81
 #: modules/woo-sync/admin/activation/welcome-to-woo-sync.php:272
 msgid "Finish"
@@ -118,8 +78,8 @@ msgstr ""
 #: includes/ZeroBSCRM.FormatHelpers.php:1450
 #: includes/ZeroBSCRM.FormatHelpers.php:1545
 #: includes/ZeroBSCRM.FormatHelpers.php:1717
-#: modules/portal/endpoints/class-details-endpoint.php:208
-#: modules/portal/endpoints/class-details-endpoint.php:301
+#: modules/portal/endpoints/class-details-endpoint.php:206
+#: modules/portal/endpoints/class-details-endpoint.php:299
 #: modules/woo-sync/includes/class-woo-sync-my-account-integration.php:359
 #: modules/woo-sync/includes/class-woo-sync-my-account-integration.php:462
 msgid "Select"
@@ -207,8 +167,8 @@ msgid "We recommend that you try this mode - you can change it in the Jetpack CR
 msgstr ""
 
 #: admin/activation/welcome-to-jpcrm.php:227
-#: includes/ZeroBSCRM.AdminPages.php:1818
-#: includes/ZeroBSCRM.AdminPages.php:1819
+#: includes/ZeroBSCRM.AdminPages.php:1701
+#: includes/ZeroBSCRM.AdminPages.php:1702
 #: includes/ZeroBSCRM.Core.Extensions.php:1090
 #: includes/ZeroBSCRM.Core.Extensions.php:1127
 msgid "B2B Mode"
@@ -392,7 +352,7 @@ msgstr ""
 #: includes/ZeroBSCRM.DAL3.ObjectLayer.php:470
 #: includes/ZeroBSCRM.List.Columns.php:809
 #: includes/ZeroBSCRM.MetaBoxes3.Companies.php:144
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:212
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:217
 #: modules/portal/templates/details.php:103
 msgid "Second Address"
 msgstr ""
@@ -402,7 +362,7 @@ msgstr ""
 #: includes/jpcrm-learn-menu-legacy-functions.php:200
 #: includes/jpcrm-learn-menu-legacy-functions.php:207
 #: includes/ZeroBSCRM.Actions.php:208
-#: includes/ZeroBSCRM.Core.php:2718
+#: includes/ZeroBSCRM.Core.php:2640
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5203
 msgid "Edit "
 msgstr ""
@@ -423,12 +383,13 @@ msgstr ""
 #: admin/contact/view.page.php:293
 #: admin/contact/view.page.php:575
 #: admin/contact/view.page.php:689
-#: admin/contact/view.page.php:1078
+#: admin/contact/view.page.php:1046
 #: admin/dashboard/main.page.php:561
-#: includes/jpcrm-segment-conditions.php:22
+#: includes/class-segment-condition.php:112
 #: includes/ZeroBSCRM.Config.Init.php:380
 #: includes/ZeroBSCRM.Config.Init.php:421
 #: includes/ZeroBSCRM.Config.Init.php:429
+#: includes/ZeroBSCRM.CustomerFilters.php:523
 #: includes/ZeroBSCRM.DAL3.Export.php:46
 #: includes/ZeroBSCRM.List.Columns.php:51
 #: includes/ZeroBSCRM.List.Columns.php:62
@@ -446,9 +407,9 @@ msgstr ""
 #: includes/ZeroBSCRM.MetaBoxes3.Companies.php:1170
 #: includes/ZeroBSCRM.MetaBoxes3.Invoices.php:853
 #: includes/ZeroBSCRM.MetaBoxes3.Quotes.php:1385
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:672
-#: modules/portal/endpoints/class-invoices-endpoint.php:117
-#: modules/portal/endpoints/class-invoices-endpoint.php:135
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:644
+#: modules/portal/endpoints/class-invoices-endpoint.php:116
+#: modules/portal/endpoints/class-invoices-endpoint.php:134
 #: modules/portal/templates/quotes.php:114
 #: modules/portal/templates/quotes.php:126
 #: modules/portal/templates/transactions.php:70
@@ -483,9 +444,8 @@ msgstr ""
 #: includes/ZeroBSCRM.Core.Menus.Top.php:448
 #: includes/ZeroBSCRM.Core.Menus.WP.php:158
 #: includes/ZeroBSCRM.Core.Menus.WP.php:523
-#: includes/ZeroBSCRM.List.php:1061
+#: includes/ZeroBSCRM.List.php:1053
 #: includes/ZeroBSCRM.List.Views.php:174
-#: includes/ZeroBSCRM.ScriptsStyles.php:242
 #: modules/portal/endpoints/class-quotes-endpoint.php:14
 #: modules/portal/templates/quotes.php:49
 msgid "Quotes"
@@ -504,15 +464,15 @@ msgstr ""
 #: admin/contact/view.page.php:327
 #: admin/contact/view.page.php:339
 #: admin/dashboard/main.page.php:573
-#: admin/settings/client-portal.page.php:323
-#: includes/ZeroBSCRM.AdminPages.php:743
+#: admin/settings/client-portal.page.php:303
+#: includes/ZeroBSCRM.AdminPages.php:625
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5233
 #: includes/ZeroBSCRM.MetaBoxes.Ownership.php:172
 #: includes/ZeroBSCRM.MetaBoxes.Ownership.php:181
 #: includes/ZeroBSCRM.MetaBoxes.Ownership.php:370
 #: includes/ZeroBSCRM.MetaBoxes3.Events.php:618
 #: includes/ZeroBSCRM.MetaBoxes3.Ownership.php:105
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:420
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:397
 msgid "None"
 msgstr ""
 
@@ -527,9 +487,8 @@ msgstr ""
 #: includes/ZeroBSCRM.Core.Menus.Top.php:495
 #: includes/ZeroBSCRM.Core.Menus.WP.php:183
 #: includes/ZeroBSCRM.Core.Menus.WP.php:579
-#: includes/ZeroBSCRM.List.php:1065
+#: includes/ZeroBSCRM.List.php:1057
 #: includes/ZeroBSCRM.List.Views.php:287
-#: includes/ZeroBSCRM.ScriptsStyles.php:244
 #: modules/portal/endpoints/class-invoices-endpoint.php:14
 #: modules/portal/templates/invoices.php:49
 msgid "Invoices"
@@ -547,8 +506,8 @@ msgstr ""
 #: admin/settings/main.page.php:71
 #: admin/settings/partials/menu.block.php:79
 #: admin/tags/tag-manager.page.php:112
-#: includes/ZeroBSCRM.AdminPages.php:1812
-#: includes/ZeroBSCRM.AdminPages.php:1813
+#: includes/ZeroBSCRM.AdminPages.php:1695
+#: includes/ZeroBSCRM.AdminPages.php:1696
 #: includes/ZeroBSCRM.AJAX.php:104
 #: includes/ZeroBSCRM.Core.Extensions.php:1085
 #: includes/ZeroBSCRM.Core.Extensions.php:1125
@@ -556,9 +515,8 @@ msgstr ""
 #: includes/ZeroBSCRM.Core.Menus.Top.php:534
 #: includes/ZeroBSCRM.Core.Menus.WP.php:196
 #: includes/ZeroBSCRM.Core.Menus.WP.php:625
-#: includes/ZeroBSCRM.List.php:1069
+#: includes/ZeroBSCRM.List.php:1061
 #: includes/ZeroBSCRM.List.Views.php:344
-#: includes/ZeroBSCRM.ScriptsStyles.php:246
 #: modules/portal/endpoints/class-transactions-endpoint.php:14
 #: modules/portal/templates/transactions.php:60
 #: modules/woo-sync/admin/woo-sync-hub/main.page.php:367
@@ -615,7 +573,7 @@ msgstr ""
 #: includes/ZeroBSCRM.Core.Menus.WP.php:411
 #: includes/ZeroBSCRM.List.Columns.php:124
 #: includes/ZeroBSCRM.List.Columns.php:154
-#: includes/ZeroBSCRM.List.php:1053
+#: includes/ZeroBSCRM.List.php:1045
 #: includes/ZeroBSCRM.List.Views.php:62
 #: modules/woo-sync/admin/woo-sync-hub/main.page.php:348
 msgid "Contacts"
@@ -632,6 +590,7 @@ msgstr ""
 
 #: admin/company/view.page.php:370
 #: admin/contact/view.page.php:345
+#: includes/ZeroBSCRM.CustomerFilters.php:684
 msgid "Source"
 msgstr ""
 
@@ -666,15 +625,15 @@ msgstr ""
 #: admin/company/view.page.php:715
 #: admin/contact/view.page.php:573
 #: admin/contact/view.page.php:687
-#: admin/contact/view.page.php:1076
-#: includes/ZeroBSCRM.InvoiceBuilder.php:579
+#: admin/contact/view.page.php:1044
+#: includes/ZeroBSCRM.InvoiceBuilder.php:617
 #: includes/ZeroBSCRM.List.Columns.php:229
 #: includes/ZeroBSCRM.List.Columns.php:244
 #: includes/ZeroBSCRM.List.CompletedEvents.php:220
 #: includes/ZeroBSCRM.List.Events.php:147
 #: includes/ZeroBSCRM.MetaBoxes3.Events.php:733
-#: modules/portal/endpoints/class-invoices-endpoint.php:114
-#: modules/portal/endpoints/class-invoices-endpoint.php:132
+#: modules/portal/endpoints/class-invoices-endpoint.php:113
+#: modules/portal/endpoints/class-invoices-endpoint.php:131
 #: modules/portal/templates/quotes.php:111
 #: modules/portal/templates/quotes.php:123
 msgid "Date"
@@ -683,10 +642,10 @@ msgstr ""
 #: admin/company/view.page.php:446
 #: admin/contact/view.page.php:688
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5215
-#: includes/ZeroBSCRM.InvoiceBuilder.php:582
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1704
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1720
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:326
+#: includes/ZeroBSCRM.InvoiceBuilder.php:620
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1742
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1758
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:303
 #: modules/woo-sync/includes/jpcrm-woo-sync-contact-tabs.php:200
 msgid "Amount"
 msgstr ""
@@ -722,30 +681,31 @@ msgid "Add Transaction"
 msgstr ""
 
 #: admin/company/view.page.php:631
-#: admin/contact/view.page.php:912
+#: admin/contact/view.page.php:922
 msgid "Info"
 msgstr ""
 
 #: admin/company/view.page.php:632
+#: admin/contact/view.page.php:923
 msgid "View File"
 msgstr ""
 
 #: admin/company/view.page.php:633
-#: admin/contact/view.page.php:915
+#: admin/contact/view.page.php:925
 #: includes/ZeroBSCRM.MetaBoxes3.Companies.php:834
 #: includes/ZeroBSCRM.MetaBoxes3.Companies.php:1130
 #: includes/ZeroBSCRM.MetaBoxes3.Companies.php:1156
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1220
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1225
 #: includes/ZeroBSCRM.MetaBoxes3.Forms.php:686
 #: includes/ZeroBSCRM.MetaBoxes3.QuoteTemplates.php:318
 #: includes/ZeroBSCRM.MetaBoxes3.QuoteTemplates.php:344
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:632
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:658
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:604
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:630
 msgid "Actions"
 msgstr ""
 
 #: admin/company/view.page.php:657
-#: admin/contact/view.page.php:936
+#: admin/contact/view.page.php:949
 #: includes/ZeroBSCRM.FormatHelpers.php:1164
 msgid "Untitled"
 msgstr ""
@@ -755,14 +715,15 @@ msgstr ""
 #: admin/company/view.page.php:764
 #: admin/contact/view.page.php:171
 #: admin/contact/view.page.php:533
-#: admin/contact/view.page.php:1079
-#: admin/contact/view.page.php:1126
+#: admin/contact/view.page.php:958
+#: admin/contact/view.page.php:1047
+#: admin/contact/view.page.php:1094
 #: admin/dashboard/main.page.php:562
 #: admin/dashboard/main.page.php:581
-#: includes/ZeroBSCRM.AdminPages.php:2566
-#: includes/ZeroBSCRM.AdminPages.php:2577
-#: includes/ZeroBSCRM.AdminPages.php:2621
-#: includes/ZeroBSCRM.AdminPages.php:2639
+#: includes/ZeroBSCRM.AdminPages.php:2450
+#: includes/ZeroBSCRM.AdminPages.php:2461
+#: includes/ZeroBSCRM.AdminPages.php:2505
+#: includes/ZeroBSCRM.AdminPages.php:2523
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5246
 #: includes/ZeroBSCRM.Edit.php:400
 #: includes/ZeroBSCRM.FormatHelpers.php:1002
@@ -772,15 +733,15 @@ msgstr ""
 #: includes/ZeroBSCRM.List.Columns.php:157
 #: includes/ZeroBSCRM.List.php:53
 #: includes/ZeroBSCRM.MetaBoxes3.Companies.php:549
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1841
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1846
 #: includes/ZeroBSCRM.MetaBoxes3.Quotes.php:273
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:421
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:398
 #: includes/ZeroBSCRM.ScriptsStyles.php:48
 msgid "View"
 msgstr ""
 
 #: admin/company/view.page.php:675
-#: admin/contact/view.page.php:992
+#: admin/contact/view.page.php:977
 #: includes/ZeroBSCRM.Config.Init.php:383
 #: includes/ZeroBSCRM.Config.Init.php:392
 #: includes/ZeroBSCRM.Config.Init.php:401
@@ -798,29 +759,29 @@ msgstr ""
 #: includes/ZeroBSCRM.List.Columns.php:977
 #: includes/ZeroBSCRM.List.php:54
 #: includes/ZeroBSCRM.List.php:506
-#: includes/ZeroBSCRM.List.php:1097
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1250
+#: includes/ZeroBSCRM.List.php:1087
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1255
 #: includes/ZeroBSCRM.ScriptsStyles.php:47
 #: modules/woo-sync/admin/settings/connections.page.php:427
 msgid "Edit"
 msgstr ""
 
 #: admin/company/view.page.php:676
-#: admin/contact/view.page.php:993
+#: admin/contact/view.page.php:978
 #: includes/class-learn-menu.php:1208
 #: includes/jpcrm-learn-menu-legacy-functions.php:687
 #: includes/jpcrm-learn-menu-legacy-functions.php:705
 #: includes/ZeroBSCRM.Delete.php:418
 #: includes/ZeroBSCRM.List.php:55
 #: includes/ZeroBSCRM.MetaBoxes3.Companies.php:864
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1250
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1255
 #: includes/ZeroBSCRM.MetaBoxes3.TagManager.php:149
 #: includes/ZeroBSCRM.MetaBoxes3.TagManager.php:167
 msgid "Delete"
 msgstr ""
 
 #: admin/company/view.page.php:693
-#: admin/contact/view.page.php:1010
+#: admin/contact/view.page.php:995
 msgid "No Files"
 msgstr ""
 
@@ -829,24 +790,24 @@ msgid "This %s does not have any files yet. Do you want to <a href=\"%s\">upload
 msgstr ""
 
 #: admin/company/view.page.php:716
-#: admin/contact/view.page.php:1077
-#: includes/ZeroBSCRM.AdminPages.php:2888
+#: admin/contact/view.page.php:1045
+#: includes/ZeroBSCRM.AdminPages.php:2772
 #: includes/ZeroBSCRM.List.Events.php:31
 msgid "Task"
 msgstr ""
 
 #: admin/company/view.page.php:738
-#: admin/contact/view.page.php:1101
+#: admin/contact/view.page.php:1069
 msgid "Upcoming Tasks"
 msgstr ""
 
 #: admin/company/view.page.php:752
-#: admin/contact/view.page.php:1114
+#: admin/contact/view.page.php:1082
 msgid "Past Tasks"
 msgstr ""
 
 #: admin/company/view.page.php:757
-#: admin/contact/view.page.php:1119
+#: admin/contact/view.page.php:1087
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5239
 #: includes/ZeroBSCRM.List.Columns.php:684
 #: includes/ZeroBSCRM.List.Columns.php:694
@@ -855,9 +816,9 @@ msgid "Incomplete"
 msgstr ""
 
 #: admin/company/view.page.php:757
-#: admin/contact/view.page.php:1119
+#: admin/contact/view.page.php:1087
 #: admin/email/main.page.php:351
-#: admin/system/system-status.page.php:518
+#: admin/system/system-status.page.php:517
 #: includes/ZeroBSCRM.List.Columns.php:685
 #: includes/ZeroBSCRM.List.Columns.php:695
 #: includes/ZeroBSCRM.List.Views.php:364
@@ -867,7 +828,7 @@ msgid "Completed"
 msgstr ""
 
 #: admin/company/view.page.php:776
-#: admin/contact/view.page.php:1139
+#: admin/contact/view.page.php:1107
 msgid "No Tasks"
 msgstr ""
 
@@ -876,23 +837,23 @@ msgid "This %s does not have any tasks yet. Do you want to <a href=\"%s\">create
 msgstr ""
 
 #: admin/company/view.page.php:798
-#: admin/contact/view.page.php:1154
+#: admin/contact/view.page.php:1122
 #: includes/ZeroBSCRM.Actions.php:149
 msgid "Add Task"
 msgstr ""
 
 #: admin/company/view.page.php:815
-#: admin/contact/view.page.php:1177
+#: admin/contact/view.page.php:1145
 #: includes/ZeroBSCRM.List.Columns.php:82
 #: includes/ZeroBSCRM.List.Columns.php:160
 #: includes/ZeroBSCRM.List.Columns.php:287
 #: includes/ZeroBSCRM.List.php:601
-#: includes/ZeroBSCRM.List.php:697
+#: includes/ZeroBSCRM.List.php:689
 msgid "Tagged"
 msgstr ""
 
 #: admin/company/view.page.php:883
-#: admin/contact/view.page.php:1259
+#: admin/contact/view.page.php:1227
 #: admin/settings/main.page.php:43
 #: admin/settings/main.page.php:47
 #: admin/settings/partials/menu.block.php:21
@@ -911,28 +872,28 @@ msgid "Edit Contact"
 msgstr ""
 
 #: admin/contact/view.page.php:188
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:707
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:774
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:712
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:779
 msgid "Contact Actions"
 msgstr ""
 
 #: admin/contact/view.page.php:265
 #: admin/tags/tag-manager.page.php:45
 #: includes/jpcrm-language.php:18
-#: includes/ZeroBSCRM.AdminPages.php:2833
-#: includes/ZeroBSCRM.AdminPages.php:3049
-#: includes/ZeroBSCRM.Core.php:2654
-#: includes/ZeroBSCRM.Core.php:2660
+#: includes/ZeroBSCRM.AdminPages.php:2717
+#: includes/ZeroBSCRM.AdminPages.php:2933
+#: includes/ZeroBSCRM.Core.php:2576
+#: includes/ZeroBSCRM.Core.php:2582
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5244
-#: includes/ZeroBSCRM.DAL3.Obj.Contacts.php:5184
+#: includes/ZeroBSCRM.DAL3.Obj.Contacts.php:5043
 #: includes/ZeroBSCRM.Edit.php:401
 #: includes/ZeroBSCRM.List.Columns.php:440
-#: includes/ZeroBSCRM.List.php:1011
+#: includes/ZeroBSCRM.List.php:1003
 #: includes/ZeroBSCRM.List.Views.php:61
 #: includes/ZeroBSCRM.MetaBoxes3.Events.php:660
 #: includes/ZeroBSCRM.MetaBoxes3.Quotes.php:188
 #: includes/ZeroBSCRM.MetaBoxes3.Quotes.php:282
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:422
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:399
 #: includes/ZeroBSCRM.ScriptsStyles.php:227
 msgid "Contact"
 msgstr ""
@@ -1008,70 +969,47 @@ msgstr ""
 msgid "This contact does not have any transactions yet. Do you want to <a href=\"%s\">create one</a>?"
 msgstr ""
 
-#: admin/contact/view.page.php:913
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:946
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1243
+#: admin/contact/view.page.php:924
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:951
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1248
 msgid "Shown on Portal"
 msgstr ""
 
-#: admin/contact/view.page.php:914
-msgid "Uploaded By"
+#: admin/contact/view.page.php:996
+msgid "This contact does not have any files yet. Do you want to <a href=\"%s\">upload one</a>?"
 msgstr ""
 
-#: admin/contact/view.page.php:942
-#: includes/ZeroBSCRM.AdminPages.php:698
-msgid "View file"
+#: admin/contact/view.page.php:1017
+msgid "Want to show client files on their Client Portal? <a href=\"%s\" target=\"_blank\">Upgrade to a Bundle</a> (and get Client Portal Pro) to enable this."
 msgstr ""
 
-#: admin/contact/view.page.php:982
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1581
-msgid "View WordPress Profile"
+#: admin/contact/view.page.php:1024
+msgid "<strong>Bundle holder:</strong> Please install the Client Portal Pro extension if you'd like to show clients their files on the client portal."
 msgstr ""
 
-#: admin/contact/view.page.php:1011
-msgid "This contact does not have any files yet."
-msgstr ""
-
-#: admin/contact/view.page.php:1025
-#: includes/ZeroBSCRM.MetaBoxes3.Companies.php:878
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:966
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1265
-#: includes/ZeroBSCRM.MetaBoxes3.Invoices.php:513
-#: includes/ZeroBSCRM.MetaBoxes3.Quotes.php:962
-msgid "Add File"
-msgstr ""
-
-#: admin/contact/view.page.php:1043
-msgid "Want to allow clients to view and upload files via the Client Portal? <a href=\"%s\" target=\"_blank\">Upgrade to a Bundle</a> (and get Client Portal Pro) to enable this."
-msgstr ""
-
-#: admin/contact/view.page.php:1050
-msgid "<strong>Bundle holder:</strong> Please install the Client Portal Pro extension if you'd like clients to view and upload their files via the Client Portal."
-msgstr ""
-
-#: admin/contact/view.page.php:1140
+#: admin/contact/view.page.php:1108
 msgid "This contact does not have any tasks yet. Do you want to <a href=\"%s\">create one</a>?"
 msgstr ""
 
-#: admin/contact/view.page.php:1232
+#: admin/contact/view.page.php:1200
 #: admin/settings/locale.page.php:174
 #: includes/ZeroBSCRM.AdminPages.php:218
 #: includes/ZeroBSCRM.MetaBoxes3.Companies.php:897
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1284
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2044
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2055
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2071
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2169
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2183
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1289
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2049
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2060
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2076
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2174
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2188
 #: includes/ZeroBSCRM.MetaBoxes3.Invoices.php:524
 #: includes/ZeroBSCRM.MetaBoxes3.Quotes.php:973
 #: includes/ZeroBSCRM.SystemChecks.php:264
 msgid "Error"
 msgstr ""
 
-#: admin/contact/view.page.php:1233
+#: admin/contact/view.page.php:1201
 #: includes/ZeroBSCRM.MetaBoxes3.Companies.php:898
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1285
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1290
 msgid "Unable to delete this file."
 msgstr ""
 
@@ -1080,17 +1018,17 @@ msgstr ""
 #: admin/settings/main.page.php:16
 #: admin/system/main.page.php:17
 #: admin/user-profile/main.page.php:10
-#: includes/ZeroBSCRM.AdminPages.php:865
-#: includes/ZeroBSCRM.AdminPages.php:886
-#: includes/ZeroBSCRM.AdminPages.php:901
-#: includes/ZeroBSCRM.AdminPages.php:915
-#: includes/ZeroBSCRM.AdminPages.php:1612
-#: includes/ZeroBSCRM.AdminPages.php:1628
-#: includes/ZeroBSCRM.AdminPages.php:1647
-#: includes/ZeroBSCRM.AdminPages.php:1669
+#: includes/ZeroBSCRM.AdminPages.php:748
+#: includes/ZeroBSCRM.AdminPages.php:769
+#: includes/ZeroBSCRM.AdminPages.php:784
+#: includes/ZeroBSCRM.AdminPages.php:798
+#: includes/ZeroBSCRM.AdminPages.php:1495
+#: includes/ZeroBSCRM.AdminPages.php:1511
+#: includes/ZeroBSCRM.AdminPages.php:1530
+#: includes/ZeroBSCRM.AdminPages.php:1552
 #: includes/ZeroBSCRM.AdminStyling.php:361
 #: includes/ZeroBSCRM.CSVImporter.php:97
-#: includes/ZeroBSCRM.CSVImporter.php:193
+#: includes/ZeroBSCRM.CSVImporter.php:194
 msgid "You do not have sufficient permissions to access this page."
 msgstr ""
 
@@ -1163,7 +1101,7 @@ msgstr ""
 
 #: admin/dashboard/main.page.php:130
 #: admin/dashboard/main.page.php:456
-#: includes/ZeroBSCRM.AdminPages.php:1127
+#: includes/ZeroBSCRM.AdminPages.php:1010
 msgid "Recent Activity"
 msgstr ""
 
@@ -1384,7 +1322,7 @@ msgid "Important"
 msgstr ""
 
 #: admin/email/main.page.php:89
-#: includes/ZeroBSCRM.AJAX.php:5921
+#: includes/ZeroBSCRM.AJAX.php:5872
 #: includes/ZeroBSCRM.ScriptsStyles.php:224
 msgid "Sent"
 msgstr ""
@@ -1400,7 +1338,7 @@ msgstr ""
 #: includes/jpcrm-learn-menu-legacy-functions.php:628
 #: includes/ZeroBSCRM.Core.Menus.Top.php:637
 #: includes/ZeroBSCRM.Core.Menus.Top.php:686
-#: includes/ZeroBSCRM.Core.php:1551
+#: includes/ZeroBSCRM.Core.php:1473
 msgid "Settings"
 msgstr ""
 
@@ -1411,12 +1349,12 @@ msgid "No emails of this type"
 msgstr ""
 
 #: admin/email/main.page.php:133
-#: admin/settings/client-portal.page.php:147
-#: admin/settings/client-portal.page.php:207
-#: admin/settings/client-portal.page.php:250
+#: admin/settings/client-portal.page.php:127
+#: admin/settings/client-portal.page.php:187
+#: admin/settings/client-portal.page.php:230
 #: admin/settings/general.page.php:338
 #: includes/class-learn-menu.php:461
-#: includes/ZeroBSCRM.CSVImporter.php:147
+#: includes/ZeroBSCRM.CSVImporter.php:148
 #: includes/ZeroBSCRM.OnboardMe.php:54
 msgid "Learn More"
 msgstr ""
@@ -1487,7 +1425,7 @@ msgstr ""
 #: admin/email/main.page.php:556
 #: includes/class-learn-menu.php:752
 #: includes/ZeroBSCRM.Actions.php:158
-#: includes/ZeroBSCRM.Core.Menus.WP.php:859
+#: includes/ZeroBSCRM.Core.Menus.WP.php:850
 msgid "Send Email"
 msgstr ""
 
@@ -1572,13 +1510,13 @@ msgid "Set up your general business information. This is used across Jetpack CRM
 msgstr ""
 
 #: admin/settings/business-info.page.php:53
-#: admin/settings/client-portal.page.php:122
+#: admin/settings/client-portal.page.php:102
 #: admin/settings/companies.page.php:65
 #: admin/settings/forms.page.php:42
 #: admin/settings/general.page.php:137
 #: admin/settings/invoicing.page.php:138
 #: admin/settings/license.page.php:203
-#: admin/settings/list-view.page.php:63
+#: admin/settings/list-view.page.php:52
 #: admin/settings/locale.page.php:190
 #: admin/settings/mail.page.php:53
 #: admin/settings/quotes.page.php:39
@@ -1607,8 +1545,8 @@ msgstr ""
 #: admin/settings/business-info.page.php:85
 #: admin/settings/business-info.page.php:192
 #: admin/settings/general.page.php:316
-#: admin/settings/general.page.php:470
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:770
+#: admin/settings/general.page.php:464
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:775
 msgid "Upload Image"
 msgstr ""
 
@@ -1663,13 +1601,13 @@ msgid "... and don't forget to follow Jetpack CRM on Twitter!"
 msgstr ""
 
 #: admin/settings/business-info.page.php:173
-#: admin/settings/client-portal.page.php:394
+#: admin/settings/client-portal.page.php:374
 #: admin/settings/companies.page.php:159
 #: admin/settings/forms.page.php:92
-#: admin/settings/general.page.php:432
+#: admin/settings/general.page.php:426
 #: admin/settings/invoicing.page.php:427
 #: admin/settings/license.page.php:272
-#: admin/settings/list-view.page.php:121
+#: admin/settings/list-view.page.php:104
 #: admin/settings/locale.page.php:385
 #: admin/settings/mail.page.php:204
 #: admin/settings/oauth-connections-edit.page.php:134
@@ -1680,139 +1618,139 @@ msgstr ""
 msgid "Save Settings"
 msgstr ""
 
-#: admin/settings/client-portal.page.php:114
+#: admin/settings/client-portal.page.php:94
 msgid "Get Portal PRO"
 msgstr ""
 
-#: admin/settings/client-portal.page.php:121
+#: admin/settings/client-portal.page.php:101
 msgid "Configure your Client Portal settings here."
 msgstr ""
 
-#: admin/settings/client-portal.page.php:137
+#: admin/settings/client-portal.page.php:117
 msgid "Client Portal Settings"
 msgstr ""
 
-#: admin/settings/client-portal.page.php:145
+#: admin/settings/client-portal.page.php:125
 msgid "Client Portal page"
 msgstr ""
 
-#: admin/settings/client-portal.page.php:145
+#: admin/settings/client-portal.page.php:125
 msgid "Select the page with your client portal shortcode."
 msgstr ""
 
-#: admin/settings/client-portal.page.php:166
+#: admin/settings/client-portal.page.php:146
 msgid "Portal Page Created"
 msgstr ""
 
-#: admin/settings/client-portal.page.php:166
+#: admin/settings/client-portal.page.php:146
 msgid "CRM successfully created a new page for the Client Portal."
 msgstr ""
 
-#: admin/settings/client-portal.page.php:166
+#: admin/settings/client-portal.page.php:146
 msgid "View Portal Page"
 msgstr ""
 
-#: admin/settings/client-portal.page.php:171
+#: admin/settings/client-portal.page.php:151
 msgid "Portal Page Was Not Created"
 msgstr ""
 
-#: admin/settings/client-portal.page.php:171
+#: admin/settings/client-portal.page.php:151
 msgid "CRM could not create a new page for the Client Portal. If this persists, please contact support."
 msgstr ""
 
-#: admin/settings/client-portal.page.php:179
-#: admin/settings/client-portal.page.php:193
+#: admin/settings/client-portal.page.php:159
+#: admin/settings/client-portal.page.php:173
 msgid "No Portal Page Found!"
 msgstr ""
 
-#: admin/settings/client-portal.page.php:193
+#: admin/settings/client-portal.page.php:173
 msgid "CRM could not find a published WordPress page associated with the Client Portal. Please recreate this page to continue using the Client Portal."
 msgstr ""
 
-#: admin/settings/client-portal.page.php:193
+#: admin/settings/client-portal.page.php:173
 msgid "Recreate Portal Page"
 msgstr ""
 
-#: admin/settings/client-portal.page.php:205
+#: admin/settings/client-portal.page.php:185
 msgid "Allow Easy-Access links"
 msgstr ""
 
-#: admin/settings/client-portal.page.php:205
+#: admin/settings/client-portal.page.php:185
 msgid "Tick to allow logged-out users to view quotes and invoices via a secure hash URL."
 msgstr ""
 
-#: admin/settings/client-portal.page.php:214
+#: admin/settings/client-portal.page.php:194
 msgid "Show transaction status"
 msgstr ""
 
-#: admin/settings/client-portal.page.php:214
+#: admin/settings/client-portal.page.php:194
 msgid "Tick to show the transaction status in the transactions page in Client Portal."
 msgstr ""
 
-#: admin/settings/client-portal.page.php:227
+#: admin/settings/client-portal.page.php:207
 msgid "Client Portal User Accounts"
 msgstr ""
 
-#: admin/settings/client-portal.page.php:237
+#: admin/settings/client-portal.page.php:217
 msgid "WordPress users are required for each contact to access to your Client Portal if Easy-Access links are not enabled."
 msgstr ""
 
-#: admin/settings/client-portal.page.php:239
+#: admin/settings/client-portal.page.php:219
 msgid "You can generate these manually from any contact record, or automatically by enabling the setting below."
 msgstr ""
 
-#: admin/settings/client-portal.page.php:241
+#: admin/settings/client-portal.page.php:221
 msgid "The following options all concern the automatic creation of client portal user accounts."
 msgstr ""
 
-#: admin/settings/client-portal.page.php:248
+#: admin/settings/client-portal.page.php:228
 msgid "Generate WordPress users for new contacts"
 msgstr ""
 
-#: admin/settings/client-portal.page.php:248
+#: admin/settings/client-portal.page.php:228
 msgid "By default this will automatically email the new contact a welcome email as soon as they're added. If you prefer to not have this email sent, you can disable this email template."
 msgstr ""
 
-#: admin/settings/client-portal.page.php:257
+#: admin/settings/client-portal.page.php:237
 msgid "Only generate users for statuses"
 msgstr ""
 
-#: admin/settings/client-portal.page.php:262
+#: admin/settings/client-portal.page.php:242
 msgid "Only users with the following status will have a portal account generated for them. If the status is not checked a user will not be generated. If the contact already has a portal account and they are moved to an unchecked status, their portal account will be disabled until they are moved to another checked status."
 msgstr ""
 
-#: admin/settings/client-portal.page.php:263
+#: admin/settings/client-portal.page.php:243
 msgid "Note: This only applies when Automatic Generation is ticked above."
 msgstr ""
 
-#: admin/settings/client-portal.page.php:306
+#: admin/settings/client-portal.page.php:286
 #: admin/settings/transactions.page.php:182
-#: includes/ZeroBSCRM.Edit.Segment.php:182
+#: includes/ZeroBSCRM.Edit.Segment.php:179
 msgid "No Statuses Found"
 msgstr ""
 
-#: admin/settings/client-portal.page.php:314
+#: admin/settings/client-portal.page.php:294
 msgid "Assign extra role when generating users"
 msgstr ""
 
-#: admin/settings/client-portal.page.php:314
+#: admin/settings/client-portal.page.php:294
 msgid "If you'd like to add a secondary role to users which Jetpack CRM creates automatically, you can do so here. This may be useful when integrating with third-party plugins."
 msgstr ""
 
-#: admin/settings/client-portal.page.php:359
+#: admin/settings/client-portal.page.php:339
 msgid "Fields to hide on Portal"
 msgstr ""
 
-#: admin/settings/client-portal.page.php:359
+#: admin/settings/client-portal.page.php:339
 msgid "These fields will not be shown to the client in the client portal under \"Your Details\" (and so will not be editable)."
 msgstr ""
 
-#: admin/settings/client-portal.page.php:370
+#: admin/settings/client-portal.page.php:350
 msgid "Default setting"
 msgstr ""
 
-#: admin/settings/client-portal.page.php:394
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1610
+#: admin/settings/client-portal.page.php:374
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1615
 msgid "Preview Portal"
 msgstr ""
 
@@ -2216,7 +2154,7 @@ msgid "Plugins"
 msgstr ""
 
 #: admin/settings/general.page.php:171
-#: includes/ZeroBSCRM.AdminPages.php:2973
+#: includes/ZeroBSCRM.AdminPages.php:2857
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5249
 msgid "or"
 msgstr ""
@@ -2231,7 +2169,7 @@ msgstr ""
 
 #: admin/settings/general.page.php:172
 #: admin/system/system-status.page.php:32
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2371
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2376
 #: includes/ZeroBSCRM.MetaBoxes3.Quotes.php:338
 msgid "here"
 msgstr ""
@@ -2446,35 +2384,27 @@ msgstr ""
 msgid "This setting specifies which file types are acceptable for uploading against customers, quotes, or invoices."
 msgstr ""
 
-#: admin/settings/general.page.php:391
-msgid "Allow CRM team members to upload all filetypes"
-msgstr ""
-
-#: admin/settings/general.page.php:391
-msgid "This setting overrides the above accepted upload file types, and will allow CRM team members to upload any files to the CRM. For security reasons, we don't recommend doing this unless necessary."
-msgstr ""
-
-#: admin/settings/general.page.php:406
+#: admin/settings/general.page.php:400
 msgid "Auto-logging Settings"
 msgstr ""
 
-#: admin/settings/general.page.php:406
+#: admin/settings/general.page.php:400
 msgid "Automatically create log on action"
 msgstr ""
 
-#: admin/settings/general.page.php:417
+#: admin/settings/general.page.php:411
 msgid "Auto-log: "
 msgstr ""
 
-#: admin/settings/general.page.php:445
+#: admin/settings/general.page.php:439
 msgid "Jetpack CRM Plugin: Extra Tools"
 msgstr ""
 
-#: admin/settings/general.page.php:453
+#: admin/settings/general.page.php:447
 msgid "Restore default settings"
 msgstr ""
 
-#: admin/settings/general.page.php:505
+#: admin/settings/general.page.php:499
 #: includes/ZeroBSCRM.Delete.php:419
 #: includes/ZeroBSCRM.MetaBoxes3.Logs.php:288
 #: includes/ZeroBSCRM.MetaBoxes3.Logs.php:363
@@ -2667,7 +2597,7 @@ msgid "Invoice Portal Settings:"
 msgstr ""
 
 #: admin/settings/invoicing.page.php:402
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1153
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1191
 #: modules/portal/templates/thank-you.php:49
 msgid "Thank You"
 msgstr ""
@@ -2783,49 +2713,41 @@ msgstr ""
 msgid "Enter your License Key."
 msgstr ""
 
-#: admin/settings/list-view.page.php:61
+#: admin/settings/list-view.page.php:50
 msgid "This page lets you set some global List View settings. These affect pages like the <a href=\"%s\">Contact List view</a>."
 msgstr ""
 
-#: admin/settings/list-view.page.php:78
+#: admin/settings/list-view.page.php:67
 msgid "Quick Filters"
 msgstr ""
 
-#: admin/settings/list-view.page.php:86
+#: admin/settings/list-view.page.php:75
 msgid "Not Contacted in X Days"
 msgstr ""
 
-#: admin/settings/list-view.page.php:86
-#: admin/settings/list-view.page.php:92
+#: admin/settings/list-view.page.php:75
+#: admin/settings/list-view.page.php:81
 msgid "Enter the number of days to use in this filter."
 msgstr ""
 
-#: admin/settings/list-view.page.php:86
+#: admin/settings/list-view.page.php:75
 msgid "For example, show contacts not contacted in the last 10 days."
 msgstr ""
 
-#: admin/settings/list-view.page.php:92
+#: admin/settings/list-view.page.php:81
 msgid "Older than X days"
 msgstr ""
 
-#: admin/settings/list-view.page.php:92
+#: admin/settings/list-view.page.php:81
 msgid "For example, show contacts older than 30 days."
 msgstr ""
 
-#: admin/settings/list-view.page.php:98
+#: admin/settings/list-view.page.php:87
 msgid "Allow Inline Edits"
 msgstr ""
 
-#: admin/settings/list-view.page.php:98
+#: admin/settings/list-view.page.php:87
 msgid "Allow Inline editing of list view fields"
-msgstr ""
-
-#: admin/settings/list-view.page.php:104
-msgid "Show Totals Table"
-msgstr ""
-
-#: admin/settings/list-view.page.php:104
-msgid "When viewing a contact list, show the totals table on the sidebar"
 msgstr ""
 
 #: admin/settings/locale.page.php:90
@@ -3295,8 +3217,9 @@ msgstr ""
 #: admin/settings/mail-delivery.page.php:458
 #: admin/settings/mail-delivery.page.php:489
 #: includes/jpcrm-learn-menu-legacy-functions.php:202
-#: includes/ZeroBSCRM.AdminPages.php:2401
-#: includes/ZeroBSCRM.AdminPages.php:3081
+#: includes/ZeroBSCRM.AdminPages.php:2285
+#: includes/ZeroBSCRM.AdminPages.php:2965
+#: includes/ZeroBSCRM.CSVImporter.php:604
 #: modules/woo-sync/admin/activation/welcome-to-woo-sync.php:178
 #: modules/woo-sync/admin/activation/welcome-to-woo-sync.php:255
 #: modules/woo-sync/admin/activation/welcome-to-woo-sync.php:271
@@ -3467,8 +3390,8 @@ msgstr ""
 
 #: admin/settings/main.page.php:67
 #: admin/settings/partials/menu.block.php:81
-#: includes/ZeroBSCRM.GeneralFuncs.php:1207
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1511
+#: includes/ZeroBSCRM.GeneralFuncs.php:1176
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1516
 #: modules/portal/jpcrm-portal-init.php:29
 #: modules/portal/jpcrm-portal-init.php:55
 msgid "Client Portal"
@@ -3484,7 +3407,7 @@ msgstr ""
 #: includes/ZeroBSCRM.Core.Menus.Top.php:627
 #: includes/ZeroBSCRM.Core.Menus.WP.php:233
 #: includes/ZeroBSCRM.Core.Menus.WP.php:727
-#: includes/ZeroBSCRM.List.php:1073
+#: includes/ZeroBSCRM.List.php:1065
 #: includes/ZeroBSCRM.List.Views.php:417
 msgid "Forms"
 msgstr ""
@@ -3636,9 +3559,9 @@ msgstr ""
 
 #: admin/settings/partials/menu.block.php:26
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5212
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1058
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1074
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:323
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1096
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1112
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:300
 msgid "Tax"
 msgstr ""
 
@@ -3658,19 +3581,19 @@ msgid "Mail"
 msgstr ""
 
 #: admin/settings/partials/menu.block.php:173
-#: includes/ZeroBSCRM.Core.Menus.WP.php:281
+#: includes/ZeroBSCRM.Core.Menus.WP.php:270
 #: includes/ZeroBSCRM.Core.Menus.WP.php:385
 msgid "CRM Settings"
 msgstr ""
 
 #: admin/settings/partials/menu.block.php:223
-#: admin/system/system-status.page.php:558
+#: admin/system/system-status.page.php:557
 #: includes/ZeroBSCRM.Core.Menus.Top.php:259
 #: includes/ZeroBSCRM.Core.Menus.Top.php:574
 #: includes/ZeroBSCRM.Core.Menus.Top.php:702
 #: includes/ZeroBSCRM.Core.Menus.WP.php:257
-#: includes/ZeroBSCRM.Core.Menus.WP.php:361
-#: includes/ZeroBSCRM.Core.php:1552
+#: includes/ZeroBSCRM.Core.Menus.WP.php:372
+#: includes/ZeroBSCRM.Core.php:1474
 msgid "Extensions"
 msgstr ""
 
@@ -3735,7 +3658,7 @@ msgstr ""
 #: includes/ZeroBSCRM.List.Columns.php:421
 #: includes/ZeroBSCRM.List.Columns.php:432
 #: includes/ZeroBSCRM.MetaBoxes3.TagManager.php:130
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:321
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:298
 #: modules/woo-sync/includes/jpcrm-woo-sync-contact-tabs.php:258
 msgid "Name"
 msgstr ""
@@ -3743,9 +3666,9 @@ msgstr ""
 #: admin/settings/tax.page.php:103
 #: includes/jpcrm-mail-templating.php:115
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5211
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1702
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1717
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1734
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1740
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1755
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1772
 msgid "Rate"
 msgstr ""
 
@@ -3853,8 +3776,8 @@ msgstr ""
 #: admin/system/main.page.php:64
 #: includes/class-learn-menu.php:1116
 #: includes/ZeroBSCRM.Core.Menus.Top.php:698
-#: includes/ZeroBSCRM.Core.Menus.WP.php:270
-#: includes/ZeroBSCRM.Core.Menus.WP.php:374
+#: includes/ZeroBSCRM.Core.Menus.WP.php:281
+#: includes/ZeroBSCRM.Core.Menus.WP.php:348
 msgid "System Assistant"
 msgstr ""
 
@@ -3986,7 +3909,7 @@ msgid "Text String"
 msgstr ""
 
 #: admin/system/placeholder-map.page.php:44
-#: includes/jpcrm-segment-conditions.php:37
+#: includes/class-segment-condition.php:114
 #: includes/ZeroBSCRM.DAL.Fields.php:139
 #: includes/ZeroBSCRM.DAL3.Export.php:769
 #: includes/ZeroBSCRM.List.Columns.php:61
@@ -4142,7 +4065,7 @@ msgid "You have cleared the migration object cache"
 msgstr ""
 
 #: admin/system/system-status.page.php:131
-#: includes/ZeroBSCRM.AdminPages.php:3031
+#: includes/ZeroBSCRM.AdminPages.php:2915
 msgid "Object"
 msgstr ""
 
@@ -4199,105 +4122,105 @@ msgstr ""
 msgid "Warning"
 msgstr ""
 
-#: admin/system/system-status.page.php:396
+#: admin/system/system-status.page.php:395
 msgid "Server Environment"
 msgstr ""
 
-#: admin/system/system-status.page.php:441
+#: admin/system/system-status.page.php:440
 msgid "WordPress Environment"
 msgstr ""
 
-#: admin/system/system-status.page.php:491
+#: admin/system/system-status.page.php:490
 msgid "Jetpack CRM Migrations Completed"
 msgstr ""
 
-#: admin/system/system-status.page.php:513
+#: admin/system/system-status.page.php:512
 msgid "Migration: "
 msgstr ""
 
-#: admin/system/system-status.page.php:523
-#: admin/system/system-status.page.php:525
+#: admin/system/system-status.page.php:522
+#: admin/system/system-status.page.php:524
 msgid "Success"
 msgstr ""
 
-#: admin/system/system-status.page.php:524
+#: admin/system/system-status.page.php:523
 msgid "Fail/NA"
 msgstr ""
 
-#: admin/system/system-status.page.php:531
+#: admin/system/system-status.page.php:530
 msgid "Not yet run"
 msgstr ""
 
-#: admin/system/system-status.page.php:542
+#: admin/system/system-status.page.php:541
 msgid "Timeouts"
 msgstr ""
 
-#: admin/system/system-status.page.php:542
+#: admin/system/system-status.page.php:541
 msgid "One or more migrations experienced timeouts while running. This may indicate that your server is not performing very well."
 msgstr ""
 
-#: admin/system/system-status.page.php:580
+#: admin/system/system-status.page.php:579
 msgid "No Extensions Detected"
 msgstr ""
 
-#: admin/system/system-status.page.php:583
+#: admin/system/system-status.page.php:582
 msgid "Purchase Extensions"
 msgstr ""
 
-#: admin/system/system-status.page.php:583
+#: admin/system/system-status.page.php:582
 msgid "Add License Key"
 msgstr ""
 
-#: admin/system/system-status.page.php:611
+#: admin/system/system-status.page.php:610
 msgid "External Source Register:"
 msgstr ""
 
-#: admin/system/system-status.page.php:633
-#: admin/system/system-status.page.php:705
+#: admin/system/system-status.page.php:632
+#: admin/system/system-status.page.php:704
 msgid "No External Sources Registered. Please contact support!"
 msgstr ""
 
-#: admin/system/system-status.page.php:650
+#: admin/system/system-status.page.php:649
 msgid "Packages Installed:"
 msgstr ""
 
-#: admin/system/system-status.page.php:678
+#: admin/system/system-status.page.php:677
 msgid "Version %s Installed"
 msgstr ""
 
-#: admin/system/system-status.page.php:682
+#: admin/system/system-status.page.php:681
 msgid "Not Installed"
 msgstr ""
 
-#: admin/system/system-status.page.php:687
+#: admin/system/system-status.page.php:686
 msgid "%d attempts to install this package failed. Please <a href=\"%s\" target=\"_blank\">contact support</a>."
 msgstr ""
 
-#: admin/system/system-status.page.php:731
+#: admin/system/system-status.page.php:730
 msgid "Performance Tests"
 msgstr ""
 
-#: admin/system/system-status.page.php:735
+#: admin/system/system-status.page.php:734
 msgid "Started"
 msgstr ""
 
-#: admin/system/system-status.page.php:736
+#: admin/system/system-status.page.php:735
 msgid "Get"
 msgstr ""
 
-#: admin/system/system-status.page.php:737
+#: admin/system/system-status.page.php:736
 msgid "Results"
 msgstr ""
 
-#: admin/system/system-status.page.php:783
+#: admin/system/system-status.page.php:782
 msgid "Administrator Tools"
 msgstr ""
 
-#: admin/system/system-status.page.php:784
+#: admin/system/system-status.page.php:783
 msgid "Re-build User Roles"
 msgstr ""
 
-#: admin/system/system-status.page.php:785
+#: admin/system/system-status.page.php:784
 msgid "v3 Migration Logs"
 msgstr ""
 
@@ -4314,37 +4237,34 @@ msgid "View Bulk Tagger"
 msgstr ""
 
 #: admin/tags/tag-manager.page.php:79
-#: includes/ZeroBSCRM.Core.php:2675
-#: includes/ZeroBSCRM.List.php:1019
+#: includes/ZeroBSCRM.Core.php:2597
+#: includes/ZeroBSCRM.List.php:1011
 #: includes/ZeroBSCRM.List.Views.php:173
 #: includes/ZeroBSCRM.MetaBoxes3.Quotes.php:1402
 #: includes/ZeroBSCRM.MetaBoxes3.Quotes.php:1425
-#: includes/ZeroBSCRM.ScriptsStyles.php:241
 msgid "Quote"
 msgstr ""
 
 #: admin/tags/tag-manager.page.php:95
 #: includes/jpcrm-mail-templating.php:136
-#: includes/ZeroBSCRM.Core.php:2680
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1182
-#: includes/ZeroBSCRM.List.php:1023
+#: includes/ZeroBSCRM.Core.php:2602
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1220
+#: includes/ZeroBSCRM.List.php:1015
 #: includes/ZeroBSCRM.List.Views.php:286
 #: includes/ZeroBSCRM.MetaBoxes3.Invoices.php:870
 #: includes/ZeroBSCRM.MetaBoxes3.Invoices.php:908
-#: includes/ZeroBSCRM.ScriptsStyles.php:243
 msgid "Invoice"
 msgstr ""
 
 #: admin/tags/tag-manager.page.php:111
-#: includes/ZeroBSCRM.Core.php:2685
-#: includes/ZeroBSCRM.List.php:1027
+#: includes/ZeroBSCRM.Core.php:2607
+#: includes/ZeroBSCRM.List.php:1019
 #: includes/ZeroBSCRM.List.Views.php:343
 #: includes/ZeroBSCRM.MetaBoxes3.Logs.php:61
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:632
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:658
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:693
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:718
-#: includes/ZeroBSCRM.ScriptsStyles.php:245
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:604
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:630
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:665
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:690
 #: modules/portal/templates/transactions.php:65
 #: modules/portal/templates/transactions.php:103
 #: modules/woo-sync/includes/class-woo-sync-woo-admin-integration.php:248
@@ -4352,8 +4272,8 @@ msgid "Transaction"
 msgstr ""
 
 #: admin/tags/tag-manager.page.php:128
-#: includes/ZeroBSCRM.Core.php:2695
-#: includes/ZeroBSCRM.List.php:1031
+#: includes/ZeroBSCRM.Core.php:2617
+#: includes/ZeroBSCRM.List.php:1023
 #: includes/ZeroBSCRM.List.Views.php:416
 #: includes/ZeroBSCRM.MetaBoxes3.Forms.php:686
 #: includes/ZeroBSCRM.MetaBoxes3.Forms.php:727
@@ -4362,7 +4282,7 @@ msgid "Form"
 msgstr ""
 
 #: admin/tags/tag-manager.page.php:144
-#: includes/ZeroBSCRM.Core.php:2690
+#: includes/ZeroBSCRM.Core.php:2612
 #: includes/ZeroBSCRM.List.CompletedEvents.php:35
 #: includes/ZeroBSCRM.List.Views.php:601
 #: includes/ZeroBSCRM.MetaBoxes3.Events.php:405
@@ -4500,16 +4420,6 @@ msgstr ""
 msgid "Please ensure you are using the proper webhook action name and that the webhook is enabled in the CRM."
 msgstr ""
 
-#: includes/class-encryption.php:48
-#: includes/class-encryption.php:88
-msgid "Unable to load encryption method"
-msgstr ""
-
-#: includes/class-encryption.php:48
-#: includes/class-encryption.php:88
-msgid "CRM was unable to load the required encryption method (%s). Until this is method is available to your PHP your sensitive data may not be encrypted properly."
-msgstr ""
-
 #: includes/class-learn-menu.php:438
 msgid "Learn"
 msgstr ""
@@ -4602,7 +4512,7 @@ msgstr ""
 
 #: includes/class-learn-menu.php:728
 #: includes/ZeroBSCRM.Core.Menus.WP.php:426
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2230
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2235
 msgid "Contact Tags"
 msgstr ""
 
@@ -4654,7 +4564,7 @@ msgid "Viewing "
 msgstr ""
 
 #: includes/class-learn-menu.php:763
-#: includes/ZeroBSCRM.Core.php:2728
+#: includes/ZeroBSCRM.Core.php:2650
 msgid "View "
 msgstr ""
 
@@ -4757,7 +4667,7 @@ msgstr ""
 #: includes/class-learn-menu.php:808
 #: includes/jpcrm-learn-menu-legacy-functions.php:284
 #: includes/ZeroBSCRM.Core.Menus.WP.php:686
-#: includes/ZeroBSCRM.Core.Menus.WP.php:947
+#: includes/ZeroBSCRM.Core.Menus.WP.php:938
 msgid "Task List"
 msgstr ""
 
@@ -4817,7 +4727,7 @@ msgstr ""
 
 #: includes/class-learn-menu.php:864
 #: includes/ZeroBSCRM.Core.Menus.WP.php:640
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:592
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:564
 msgid "Transaction Tags"
 msgstr ""
 
@@ -4868,7 +4778,7 @@ msgstr ""
 #: includes/class-learn-menu.php:895
 #: includes/ZeroBSCRM.Core.Menus.WP.php:169
 #: includes/ZeroBSCRM.Core.Menus.WP.php:549
-#: includes/ZeroBSCRM.List.php:1077
+#: includes/ZeroBSCRM.List.php:1069
 #: includes/ZeroBSCRM.List.QuoteTemplate.php:36
 #: includes/ZeroBSCRM.List.Views.php:556
 msgid "Quote Templates"
@@ -5043,7 +4953,7 @@ msgstr ""
 
 #: includes/class-learn-menu.php:1029
 #: includes/jpcrm-learn-menu-legacy-functions.php:764
-#: includes/ZeroBSCRM.AdminPages.php:1129
+#: includes/ZeroBSCRM.AdminPages.php:1012
 msgid "Template Settings"
 msgstr ""
 
@@ -5089,7 +4999,7 @@ msgstr ""
 
 #: includes/class-learn-menu.php:1064
 #: includes/jpcrm-learn-menu-legacy-functions.php:743
-#: includes/ZeroBSCRM.Core.Menus.WP.php:837
+#: includes/ZeroBSCRM.Core.Menus.WP.php:828
 #: includes/ZeroBSCRM.OnboardMe.php:58
 msgid "Notifications"
 msgstr ""
@@ -5119,8 +5029,8 @@ msgid "Export Other Types"
 msgstr ""
 
 #: includes/class-learn-menu.php:1080
-#: includes/ZeroBSCRM.AdminPages.php:2118
-#: includes/ZeroBSCRM.Core.Menus.WP.php:826
+#: includes/ZeroBSCRM.AdminPages.php:2002
+#: includes/ZeroBSCRM.Core.Menus.WP.php:817
 msgid "Export Tools"
 msgstr ""
 
@@ -5184,12 +5094,12 @@ msgid "You will not need to change anything here, but our support team might ask
 msgstr ""
 
 #: includes/class-learn-menu.php:1123
-#: includes/ZeroBSCRM.AdminPages.php:2523
-#: includes/ZeroBSCRM.AdminPages.php:2745
+#: includes/ZeroBSCRM.AdminPages.php:2407
+#: includes/ZeroBSCRM.AdminPages.php:2629
 #: includes/ZeroBSCRM.Core.Menus.Top.php:257
 #: includes/ZeroBSCRM.Core.Menus.Top.php:700
 #: includes/ZeroBSCRM.Core.Menus.WP.php:244
-#: includes/ZeroBSCRM.Core.Menus.WP.php:348
+#: includes/ZeroBSCRM.Core.Menus.WP.php:359
 msgid "Core Modules"
 msgstr ""
 
@@ -5238,7 +5148,7 @@ msgstr ""
 #: includes/class-learn-menu.php:1182
 #: includes/jpcrm-learn-menu-legacy-functions.php:673
 #: includes/ZeroBSCRM.Core.Menus.Top.php:699
-#: includes/ZeroBSCRM.Core.Menus.WP.php:870
+#: includes/ZeroBSCRM.Core.Menus.WP.php:861
 msgid "Emails"
 msgstr ""
 
@@ -5252,7 +5162,7 @@ msgstr ""
 
 #: includes/class-learn-menu.php:1190
 #: includes/ZeroBSCRM.Core.Menus.Top.php:755
-#: includes/ZeroBSCRM.Core.Menus.WP.php:903
+#: includes/ZeroBSCRM.Core.Menus.WP.php:894
 msgid "Your Profile"
 msgstr ""
 
@@ -5350,6 +5260,103 @@ msgstr ""
 msgid "Main Working Directory"
 msgstr ""
 
+#: includes/class-segment-condition.php:113
+msgid "Full Name"
+msgstr ""
+
+#: includes/class-segment-condition.php:115
+msgid "Date Added"
+msgstr ""
+
+#: includes/class-segment-condition.php:116
+msgid "Date Last Contacted"
+msgstr ""
+
+#: includes/class-segment-condition.php:117
+msgid "Has Tag"
+msgstr ""
+
+#: includes/class-segment-condition.php:118
+msgid "Is Not Tagged"
+msgstr ""
+
+#: includes/class-segment-condition.php:155
+msgid "Equals (=)"
+msgstr ""
+
+#: includes/class-segment-condition.php:156
+msgid "Not equals (!=)"
+msgstr ""
+
+#: includes/class-segment-condition.php:157
+msgid "Contains (*)"
+msgstr ""
+
+#: includes/class-segment-condition.php:158
+msgid "Does not contain (*)"
+msgstr ""
+
+#: includes/class-segment-condition.php:159
+msgid "Greater than (>)"
+msgstr ""
+
+#: includes/class-segment-condition.php:160
+msgid "Less than (<)"
+msgstr ""
+
+#: includes/class-segment-condition.php:161
+msgid "Before datetime"
+msgstr ""
+
+#: includes/class-segment-condition.php:162
+msgid "After datetime"
+msgstr ""
+
+#: includes/class-segment-condition.php:163
+msgid "On or before date"
+msgstr ""
+
+#: includes/class-segment-condition.php:164
+msgid "On or after date"
+msgstr ""
+
+#: includes/class-segment-condition.php:165
+msgid "In the next X days"
+msgstr ""
+
+#: includes/class-segment-condition.php:166
+msgid "In the previous X days"
+msgstr ""
+
+#: includes/class-segment-condition.php:167
+msgid "In date range"
+msgstr ""
+
+#: includes/class-segment-condition.php:168
+msgid "In datetime range"
+msgstr ""
+
+#: includes/class-segment-condition.php:169
+#: includes/class-segment-condition.php:170
+msgid "In range"
+msgstr ""
+
+#: includes/class-segment-condition.php:171
+msgid "Is True"
+msgstr ""
+
+#: includes/class-segment-condition.php:172
+msgid "Is False"
+msgstr ""
+
+#: includes/class-segment-condition.php:173
+msgid "Greater than or equal to (>=)"
+msgstr ""
+
+#: includes/class-segment-condition.php:174
+msgid "Less than or equal to (<)"
+msgstr ""
+
 #: includes/class-wordpress-user-integration.php:114
 msgid "Email changed"
 msgstr ""
@@ -5423,42 +5430,52 @@ msgstr ""
 msgid "CRM dependency error"
 msgstr ""
 
-#: includes/jpcrm-fonts.php:267
-#: includes/jpcrm-fonts.php:464
-#: includes/jpcrm-fonts.php:528
-msgid "Jetpack CRM was not able to create the directories it needs in order to install fonts for the PDF Engine."
-msgstr ""
-
-#: includes/jpcrm-fonts.php:298
-msgid "Jetpack CRM was not able to install fonts for the PDF engine."
-msgstr ""
-
-#: includes/jpcrm-fonts.php:484
-#: includes/jpcrm-fonts.php:547
-msgid "Jetpack CRM was not able to download the fonts it needs for the PDF Engine."
-msgstr ""
-
-#: includes/jpcrm-fonts.php:484
-#: includes/jpcrm-fonts.php:547
-#: includes/jpcrm-fonts.php:560
-msgid "(fonts)"
-msgstr ""
-
-#: includes/jpcrm-fonts.php:497
+#: includes/jpcrm-fonts.php:475
+#: includes/jpcrm-fonts.php:487
+#: includes/jpcrm-fonts.php:499
 msgid "CRM was not able to retrieve the requested font."
 msgstr ""
 
-#: includes/jpcrm-fonts.php:497
-#: includes/jpcrm-fonts.php:499
+#: includes/jpcrm-fonts.php:475
+#: includes/jpcrm-fonts.php:477
 msgid "(Failed to install font.)"
 msgstr ""
 
-#: includes/jpcrm-fonts.php:499
+#: includes/jpcrm-fonts.php:477
+#: includes/jpcrm-fonts.php:489
+#: includes/jpcrm-fonts.php:501
 msgid "Jetpack CRM was not able to retrieve the requested font."
 msgstr ""
 
-#: includes/jpcrm-fonts.php:560
-msgid "Jetpack CRM was not able to extract the fonts it needs for the PDF Engine."
+#: includes/jpcrm-fonts.php:487
+#: includes/jpcrm-fonts.php:489
+msgid "(Failed to download font.)"
+msgstr ""
+
+#: includes/jpcrm-fonts.php:499
+#: includes/jpcrm-fonts.php:501
+msgid "(Failed to create directory.)"
+msgstr ""
+
+#: includes/jpcrm-fonts.php:559
+#: includes/ZeroBSCRM.Core.Extensions.php:1238
+msgid "Jetpack CRM was not able to extract the libraries it needs to in order to install PDF Engine."
+msgstr ""
+
+#: includes/jpcrm-fonts.php:559
+#: includes/jpcrm-fonts.php:568
+#: includes/jpcrm-fonts.php:577
+msgid "(fonts)"
+msgstr ""
+
+#: includes/jpcrm-fonts.php:568
+#: includes/ZeroBSCRM.Core.Extensions.php:1247
+msgid "Jetpack CRM was not able to download the libraries it needs to in order to install PDF Engine."
+msgstr ""
+
+#: includes/jpcrm-fonts.php:577
+#: includes/ZeroBSCRM.Core.Extensions.php:1256
+msgid "Jetpack CRM was not able to create the directories it needs to in order to install PDF Engine."
 msgstr ""
 
 #: includes/jpcrm-language.php:54
@@ -5536,7 +5553,7 @@ msgid "Segment List"
 msgstr ""
 
 #: includes/jpcrm-learn-menu-legacy-functions.php:613
-#: includes/ZeroBSCRM.Edit.Segment.php:154
+#: includes/ZeroBSCRM.Edit.Segment.php:153
 msgid "Save Segment"
 msgstr ""
 
@@ -5565,43 +5582,42 @@ msgstr ""
 
 #: includes/jpcrm-mail-templating.php:111
 #: includes/jpcrm-mail-templating.php:115
-#: includes/ZeroBSCRM.AdminPages.php:707
+#: includes/ZeroBSCRM.AdminPages.php:586
 #: includes/ZeroBSCRM.Config.Init.php:418
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5209
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1695
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1710
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1730
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1734
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1733
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1748
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1768
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1772
 #: includes/ZeroBSCRM.List.Columns.php:433
 msgid "Description"
 msgstr ""
 
 #: includes/jpcrm-mail-templating.php:111
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5208
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1698
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1713
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1730
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:322
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1736
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1751
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1768
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:299
 msgid "Quantity"
 msgstr ""
 
 #: includes/jpcrm-mail-templating.php:111
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5210
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1699
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1714
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1730
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1737
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1752
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1768
 msgid "Price"
 msgstr ""
 
 #: includes/jpcrm-mail-templating.php:111
 #: includes/jpcrm-mail-templating.php:115
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5236
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1084
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1730
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1734
-#: includes/ZeroBSCRM.ScriptsStyles.php:239
-#: modules/portal/endpoints/class-invoices-endpoint.php:116
-#: modules/portal/endpoints/class-invoices-endpoint.php:134
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1122
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1768
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1772
+#: modules/portal/endpoints/class-invoices-endpoint.php:115
+#: modules/portal/endpoints/class-invoices-endpoint.php:133
 #: modules/portal/templates/quotes.php:113
 #: modules/portal/templates/quotes.php:125
 #: modules/portal/templates/transactions.php:68
@@ -5611,9 +5627,9 @@ msgstr ""
 
 #: includes/jpcrm-mail-templating.php:115
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5207
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1701
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1716
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1734
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1739
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1754
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1772
 msgid "Hours"
 msgstr ""
 
@@ -5634,7 +5650,7 @@ msgid "This is replaced<br>with the customers details<br>from their profile."
 msgstr ""
 
 #: includes/jpcrm-mail-templating.php:171
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1175
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1213
 msgid "View Invoice"
 msgstr ""
 
@@ -5742,147 +5758,6 @@ msgstr ""
 #: includes/jpcrm-mail-templating.php:1098
 #: includes/ZeroBSCRM.AdminStyling.php:418
 msgid "Powered by Jetpack CRM"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:23
-#: includes/jpcrm-segment-conditions.php:31
-#: includes/jpcrm-segment-conditions.php:38
-#: includes/jpcrm-segment-conditions.php:46
-#: includes/jpcrm-segment-conditions.php:54
-#: includes/jpcrm-segment-conditions.php:62
-#: includes/jpcrm-segment-conditions.php:69
-#: includes/jpcrm-segment-conditions.php:88
-#: includes/ZeroBSCRM.Edit.Segment.php:191
-msgid "Contact Fields"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:25
-msgid "Select contacts based on their status"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:30
-msgid "Full Name"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:33
-msgid "Select contacts based on their full name "
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:40
-msgid "Select contacts based on their email address"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:45
-msgid "Date Added"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:47
-msgid "Select contacts by when they were added to the CRM"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:53
-msgid "Date Last Contacted"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:55
-msgid "Select contacts by the date that they were last contacted"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:61
-msgid "Has Tag"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:63
-msgid "Select Contacts who have a specific tag"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:68
-msgid "Is Not Tagged"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:70
-msgid "Select contacts who do not have a specific tag"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:130
-msgid "General"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:206
-msgid "Equals (=)"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:207
-msgid "Not equals (!=)"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:208
-msgid "Contains (*)"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:209
-msgid "Does not contain (*)"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:210
-msgid "Greater than (>)"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:211
-msgid "Less than (<)"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:212
-msgid "Before datetime"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:213
-msgid "After datetime"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:214
-msgid "On or before date"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:215
-msgid "On or after date"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:216
-msgid "In the next X days"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:217
-msgid "In the previous X days"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:218
-msgid "In date range"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:219
-msgid "In datetime range"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:220
-#: includes/jpcrm-segment-conditions.php:221
-msgid "In range"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:222
-msgid "Is True"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:223
-msgid "Is False"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:224
-msgid "Greater than or equal to (>=)"
-msgstr ""
-
-#: includes/jpcrm-segment-conditions.php:225
-msgid "Less than or equal to (<)"
 msgstr ""
 
 #: includes/jpcrm-templating-placeholders.php:115
@@ -6030,8 +5905,8 @@ msgstr ""
 #: includes/jpcrm-templating-placeholders.php:433
 #: includes/jpcrm-templating-placeholders.php:444
 #: includes/jpcrm-templating-placeholders.php:455
-#: includes/ZeroBSCRM.AdminPages.php:1800
-#: includes/ZeroBSCRM.AdminPages.php:1801
+#: includes/ZeroBSCRM.AdminPages.php:1683
+#: includes/ZeroBSCRM.AdminPages.php:1684
 msgid "Quote Builder"
 msgstr ""
 
@@ -6104,7 +5979,7 @@ msgstr ""
 #: includes/jpcrm-templating-placeholders.php:512
 #: includes/ZeroBSCRM.DAL.Fields.php:280
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5193
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1211
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1249
 msgid "Invoice Date"
 msgstr ""
 
@@ -6457,56 +6332,35 @@ msgstr ""
 msgid "Manage Mail Only"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:545
-msgid "Error: File type not accepted."
+#: includes/ZeroBSCRM.AdminPages.php:469
+msgid "File not found"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:551
-msgid "Error while retrieving the contact\\'s folder."
+#: includes/ZeroBSCRM.AdminPages.php:469
+msgid "Could not find this file."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:557
-msgid "There was an error creating the file upload directory."
-msgstr ""
-
-#: includes/ZeroBSCRM.AdminPages.php:599
-msgid "There was an error uploading the file."
-msgstr ""
-
-#: includes/ZeroBSCRM.AdminPages.php:634
+#: includes/ZeroBSCRM.AdminPages.php:495
 msgid "Details saved"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:656
+#: includes/ZeroBSCRM.AdminPages.php:567
 msgid "File Thumbnail"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:664
-msgid "Adding New File"
-msgstr ""
-
-#: includes/ZeroBSCRM.AdminPages.php:668
+#: includes/ZeroBSCRM.AdminPages.php:574
 msgid "Edit File Details"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:684
-msgid "Choose file"
-msgstr ""
-
-#: includes/ZeroBSCRM.AdminPages.php:688
-#: includes/ZeroBSCRM.MetaBoxes3.Companies.php:878
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:966
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1265
-#: includes/ZeroBSCRM.MetaBoxes3.Invoices.php:513
-#: includes/ZeroBSCRM.MetaBoxes3.Quotes.php:962
-msgid "Accepted File Types"
-msgstr ""
-
-#: includes/ZeroBSCRM.AdminPages.php:695
+#: includes/ZeroBSCRM.AdminPages.php:576
 msgid "You are editing details for the following file"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:704
+#: includes/ZeroBSCRM.AdminPages.php:579
+msgid "View file"
+msgstr ""
+
+#: includes/ZeroBSCRM.AdminPages.php:583
 #: includes/ZeroBSCRM.List.Columns.php:318
 #: includes/ZeroBSCRM.List.Columns.php:332
 #: includes/ZeroBSCRM.List.Columns.php:390
@@ -6518,678 +6372,658 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:711
-#: includes/ZeroBSCRM.AdminPages.php:723
+#: includes/ZeroBSCRM.AdminPages.php:590
+#: includes/ZeroBSCRM.AdminPages.php:603
 msgid "Show on Client Portal"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:713
+#: includes/ZeroBSCRM.AdminPages.php:592
 msgid "No"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:714
+#: includes/ZeroBSCRM.AdminPages.php:593
 msgid "Yes"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:724
+#: includes/ZeroBSCRM.AdminPages.php:604
 msgid "Upgrade to a Bundle"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:724
+#: includes/ZeroBSCRM.AdminPages.php:604
 msgid "(and get Client Portal Pro) to enable this"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:741
+#: includes/ZeroBSCRM.AdminPages.php:623
 msgid "Assign to Custom File Upload Box"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:749
+#: includes/ZeroBSCRM.AdminPages.php:631
 msgid "Current file"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:770
+#: includes/ZeroBSCRM.AdminPages.php:653
 msgid "Save details"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:840
+#: includes/ZeroBSCRM.AdminPages.php:723
 msgid "Jetpack CRM is the ultimate CRM tool for WordPress.<br/ >Help us get the word out and show some love... You know what to do..."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1023
-#: includes/ZeroBSCRM.AdminPages.php:1256
+#: includes/ZeroBSCRM.AdminPages.php:906
+#: includes/ZeroBSCRM.AdminPages.php:1139
 msgid "Inactive"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1088
-#: includes/ZeroBSCRM.AdminPages.php:1254
+#: includes/ZeroBSCRM.AdminPages.php:971
+#: includes/ZeroBSCRM.AdminPages.php:1137
 msgid "Active"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1128
-#: includes/ZeroBSCRM.Core.Menus.WP.php:881
+#: includes/ZeroBSCRM.AdminPages.php:1011
+#: includes/ZeroBSCRM.Core.Menus.WP.php:872
 msgid "Email Templates"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1138
+#: includes/ZeroBSCRM.AdminPages.php:1021
 msgid "HTML Template"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1139
+#: includes/ZeroBSCRM.AdminPages.php:1022
 msgid "This template is used for all outgoing CRM emails. The <code>##MSG-CONTENT##</code> placeholder represents the per-template content and must not be removed."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1147
+#: includes/ZeroBSCRM.AdminPages.php:1030
 msgid "Read more about templating"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1153
+#: includes/ZeroBSCRM.AdminPages.php:1036
 msgid "Current template file:"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1158
+#: includes/ZeroBSCRM.AdminPages.php:1041
 msgid "core plugin"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1174
+#: includes/ZeroBSCRM.AdminPages.php:1057
 msgid "Origin:"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1187
+#: includes/ZeroBSCRM.AdminPages.php:1070
 msgid "Back to Activity"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1193
-#: includes/ZeroBSCRM.AdminPages.php:1557
+#: includes/ZeroBSCRM.AdminPages.php:1076
+#: includes/ZeroBSCRM.AdminPages.php:1440
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5229
 msgid "Preview"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1214
+#: includes/ZeroBSCRM.AdminPages.php:1097
 msgid "Creating templates...."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1216
+#: includes/ZeroBSCRM.AdminPages.php:1099
 msgid "No Email Templates"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1217
+#: includes/ZeroBSCRM.AdminPages.php:1100
 msgid "Something went wrong with the email template creation.<br/>"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1218
+#: includes/ZeroBSCRM.AdminPages.php:1101
 msgid "Create Now"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1223
+#: includes/ZeroBSCRM.AdminPages.php:1106
 msgid "Template Creation Succeeded"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1224
+#: includes/ZeroBSCRM.AdminPages.php:1107
 msgid "Reload Page"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1277
+#: includes/ZeroBSCRM.AdminPages.php:1160
 msgid "Back to Mail Settings"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1317
+#: includes/ZeroBSCRM.AdminPages.php:1200
 msgid "Template updated"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1381
+#: includes/ZeroBSCRM.AdminPages.php:1264
 msgid "Test Email Sent to "
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1387
+#: includes/ZeroBSCRM.AdminPages.php:1270
 msgid "Note: This email requires cron."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1387
+#: includes/ZeroBSCRM.AdminPages.php:1270
 msgid "Read about WordPress cron"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1399
+#: includes/ZeroBSCRM.AdminPages.php:1282
 msgid "Saving...."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1442
+#: includes/ZeroBSCRM.AdminPages.php:1325
 msgid "Subject"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1450
+#: includes/ZeroBSCRM.AdminPages.php:1333
 msgid "Delivery Method"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1452
+#: includes/ZeroBSCRM.AdminPages.php:1335
 msgid "You can set up different delivery methods in your "
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1452
+#: includes/ZeroBSCRM.AdminPages.php:1335
 msgid "Delivery Methods Settings"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1482
+#: includes/ZeroBSCRM.AdminPages.php:1365
 msgid "Bcc To"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1488
+#: includes/ZeroBSCRM.AdminPages.php:1371
 msgid "Content"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1548
+#: includes/ZeroBSCRM.AdminPages.php:1431
 msgid "Edit HTML Template"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1558
+#: includes/ZeroBSCRM.AdminPages.php:1441
 msgid "Send Test"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1559
+#: includes/ZeroBSCRM.AdminPages.php:1442
 #: includes/ZeroBSCRM.FormatHelpers.php:1005
 #: includes/ZeroBSCRM.MetaBoxes.SubmitBoxes.php:196
 #: includes/ZeroBSCRM.MetaBoxes3.Companies.php:1216
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:447
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:449
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:452
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:454
 #: includes/ZeroBSCRM.MetaBoxes3.Events.php:428
 #: includes/ZeroBSCRM.MetaBoxes3.Forms.php:752
 #: includes/ZeroBSCRM.MetaBoxes3.Invoices.php:908
 #: includes/ZeroBSCRM.MetaBoxes3.Quotes.php:1425
 #: includes/ZeroBSCRM.MetaBoxes3.QuoteTemplates.php:384
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:718
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:690
 msgid "Save"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1574
+#: includes/ZeroBSCRM.AdminPages.php:1457
 msgid "No templates. Please generate"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1586
+#: includes/ZeroBSCRM.AdminPages.php:1469
 msgid "Sent Emails"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1587
+#: includes/ZeroBSCRM.AdminPages.php:1470
 msgid "Your latest 50 emails are shown here so you can keep track of activity."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1689
+#: includes/ZeroBSCRM.AdminPages.php:1572
 msgid "This CRM Plugin is managed by Jetpack CRM"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1689
+#: includes/ZeroBSCRM.AdminPages.php:1572
 msgid "If you have any questions, please"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1689
+#: includes/ZeroBSCRM.AdminPages.php:1572
 msgid "email us"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1732
+#: includes/ZeroBSCRM.AdminPages.php:1615
 msgid "Thank you for choosing Jetpack CRM - The Ultimate Entrepreneurs' CRM for WordPress"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1738
+#: includes/ZeroBSCRM.AdminPages.php:1621
 msgid "Adding your first customer"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1742
+#: includes/ZeroBSCRM.AdminPages.php:1625
 msgid "Jetpack CRM makes it easy for you to manage your customers using WordPress. To get started, "
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1742
+#: includes/ZeroBSCRM.AdminPages.php:1625
 msgid "watch the video tutorial"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1742
+#: includes/ZeroBSCRM.AdminPages.php:1625
 msgid "or read our guide on how create your first customer"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1745
+#: includes/ZeroBSCRM.AdminPages.php:1628
 msgid "Add Your First Customer"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1748
+#: includes/ZeroBSCRM.AdminPages.php:1631
 msgid "Read the full guide"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1761
+#: includes/ZeroBSCRM.AdminPages.php:1644
 msgid "Jetpack CRM is WooCommerce ready!"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1766
+#: includes/ZeroBSCRM.AdminPages.php:1649
 msgid "Connect today your WooCommerce Store and start importing your orders and customers into Jetpack CRM."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1768
+#: includes/ZeroBSCRM.AdminPages.php:1651
 msgid "Connect your WooCommerce Store to Jetpack CRM"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1780
+#: includes/ZeroBSCRM.AdminPages.php:1663
 msgid "Jetpack CRM Features and Extensions"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1781
+#: includes/ZeroBSCRM.AdminPages.php:1664
 msgid "Made for you, from the ground up. Jetpack CRM is both easy-to-use, and extremely flexible. Whatever your business, Jetpack CRM is the no-nonsense way of keeping a customer database"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1788
-#: includes/ZeroBSCRM.AdminPages.php:1789
+#: includes/ZeroBSCRM.AdminPages.php:1671
+#: includes/ZeroBSCRM.AdminPages.php:1672
 msgid "CRM Dashboard"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1790
+#: includes/ZeroBSCRM.AdminPages.php:1673
 msgid "See at a glance the key areas of your CRM: e.g. Contact Activity, Contact Funnel, and Revenue snapshot."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1794
-#: includes/ZeroBSCRM.AdminPages.php:1795
+#: includes/ZeroBSCRM.AdminPages.php:1677
+#: includes/ZeroBSCRM.AdminPages.php:1678
 msgid "Limitless Contacts"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1796
+#: includes/ZeroBSCRM.AdminPages.php:1679
 msgid "Add as many contacts as you like. No limits to the number of contacts you can add to your CRM."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1802
+#: includes/ZeroBSCRM.AdminPages.php:1685
 msgid "Do you find yourself writing similar quotes/proposals over and over? Quote Builder makes it easy for your team."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1806
-#: includes/ZeroBSCRM.AdminPages.php:1807
+#: includes/ZeroBSCRM.AdminPages.php:1689
+#: includes/ZeroBSCRM.AdminPages.php:1690
 #: includes/ZeroBSCRM.Core.Extensions.php:1120
 msgid "Invoicing"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1808
+#: includes/ZeroBSCRM.AdminPages.php:1691
 msgid "Got clients or people to bill? Easily create invoices, and get paid online (pro). Clients can see all Invoices in one place on the Client Portal."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1814
+#: includes/ZeroBSCRM.AdminPages.php:1697
 msgid "Log transactions against contacts or companies, and reconcile to invoices. Track payments, ecommerce data, and LTV (lifetime value)."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1820
+#: includes/ZeroBSCRM.AdminPages.php:1703
 msgid "Manage leads working at Companies? B2B mode lets you group contacts under a Company and keep track of sales easier."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1824
-#: includes/ZeroBSCRM.AdminPages.php:1825
+#: includes/ZeroBSCRM.AdminPages.php:1707
+#: includes/ZeroBSCRM.AdminPages.php:1708
 msgid "Automations"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1826
+#: includes/ZeroBSCRM.AdminPages.php:1709
 msgid "Set up rule-based triggers and actions to automate your CRM work. Automatically Email new contacts, Distribute Leads, plus much more."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1830
-#: includes/ZeroBSCRM.AdminPages.php:1831
+#: includes/ZeroBSCRM.AdminPages.php:1713
+#: includes/ZeroBSCRM.AdminPages.php:1714
 msgid "Send SMS"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1832
+#: includes/ZeroBSCRM.AdminPages.php:1715
 msgid "Want to get in front of your customers, wherever they are? Send SMS messages to your contacts from their CRM record."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1836
-#: includes/ZeroBSCRM.AdminPages.php:1837
+#: includes/ZeroBSCRM.AdminPages.php:1719
+#: includes/ZeroBSCRM.AdminPages.php:1720
 msgid "Client Portal Pro"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1838
+#: includes/ZeroBSCRM.AdminPages.php:1721
 msgid "Create a powerful client portal in one click! Easily share files with clients via their contact record. Tweak the portal to fit your branding, and more!"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1842
-#: includes/ZeroBSCRM.AdminPages.php:1844
-#: includes/ZeroBSCRM.AdminPages.php:1846
+#: includes/ZeroBSCRM.AdminPages.php:1725
+#: includes/ZeroBSCRM.AdminPages.php:1727
+#: includes/ZeroBSCRM.AdminPages.php:1729
 msgid "Mail Campaigns"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1848
+#: includes/ZeroBSCRM.AdminPages.php:1731
 msgid "Send Email Broadcasts and Sequences to your CRM contacts using our <strong>powerful</strong> Mail Campaigns v2.0. which is linked directly into your CRM data!"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1856
+#: includes/ZeroBSCRM.AdminPages.php:1739
 msgid "See All Features"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1871
-msgid "My mind is blown away by how much attention has been placed on all the essential details built into Jetpack CRM. It's a polished, professional product that I love being able to bake into my Website as a Service (WaaS), multisite network. It adds true value for my customers and completes my product offering. I've not been able to find any tool quite like it (and trust me, I've looked!) If you're looking to offer true value to your customers, this is worth its weight in gold!"
-msgstr ""
-
-#: includes/ZeroBSCRM.AdminPages.php:1877
-msgid "We can sit back and relax safe in the knowledge that Jetpack CRM is working tirelessly behind the scenes distributing leads automatically to our clients."
-msgstr ""
-
-#: includes/ZeroBSCRM.AdminPages.php:1893
-msgid "Access to 30+ Extensions:"
-msgstr ""
-
-#: includes/ZeroBSCRM.AdminPages.php:1910
-msgid "per year"
-msgstr ""
-
-#: includes/ZeroBSCRM.AdminPages.php:1913
-msgid "Upgrade your CRM today"
-msgstr ""
-
-#: includes/ZeroBSCRM.AdminPages.php:1934
+#: includes/ZeroBSCRM.AdminPages.php:1818
 msgid "Your Account:"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1936
+#: includes/ZeroBSCRM.AdminPages.php:1820
 #: includes/ZeroBSCRM.OnboardMe.php:82
 msgid "Manage Extensions"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1937
+#: includes/ZeroBSCRM.AdminPages.php:1821
 msgid "Download Extensions"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1969
-#: includes/ZeroBSCRM.AdminPages.php:2021
+#: includes/ZeroBSCRM.AdminPages.php:1853
+#: includes/ZeroBSCRM.AdminPages.php:1905
 msgid "REMOVE ALL DATA"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1972
+#: includes/ZeroBSCRM.AdminPages.php:1856
 msgid "Delete all CRM data"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1977
+#: includes/ZeroBSCRM.AdminPages.php:1861
 msgid "This Administrator level utility will remove all data in your CRM. This cannot be undone. Proceed with caution."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1989
-#: includes/ZeroBSCRM.AdminPages.php:2041
+#: includes/ZeroBSCRM.AdminPages.php:1873
+#: includes/ZeroBSCRM.AdminPages.php:1925
 msgid "CANCEL"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:1999
-#: includes/ZeroBSCRM.AdminPages.php:2051
+#: includes/ZeroBSCRM.AdminPages.php:1883
+#: includes/ZeroBSCRM.AdminPages.php:1935
 msgid "Data not deleted. Invalid permissions"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2005
+#: includes/ZeroBSCRM.AdminPages.php:1889
 msgid "All CRM data deleted."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2024
-#: includes/ZeroBSCRM.AdminPages.php:2150
+#: includes/ZeroBSCRM.AdminPages.php:1908
+#: includes/ZeroBSCRM.AdminPages.php:2034
 msgid "Factory Reset CRM"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2029
+#: includes/ZeroBSCRM.AdminPages.php:1913
 msgid "This Administrator level utility will remove all data in your CRM, including your CRM settings. This cannot be undone. Proceed with caution."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2057
+#: includes/ZeroBSCRM.AdminPages.php:1941
 msgid "CRM Factory Reset"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2080
+#: includes/ZeroBSCRM.AdminPages.php:1964
 msgid "Welcome to Jetpack CRM Tools"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2081
+#: includes/ZeroBSCRM.AdminPages.php:1965
 msgid "This is the home for all of the different admin tools for Jetpack CRM which import data, excluding the <strong>Sync</strong> Extensions."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2083
+#: includes/ZeroBSCRM.AdminPages.php:1967
 msgid "Free Data Tools"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2085
+#: includes/ZeroBSCRM.AdminPages.php:1969
 msgid "Import from CSV"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2089
+#: includes/ZeroBSCRM.AdminPages.php:1973
 msgid "Data Tool Extensions Installed"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2096
+#: includes/ZeroBSCRM.AdminPages.php:1980
 msgid "CSV Importer"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2099
+#: includes/ZeroBSCRM.AdminPages.php:1983
 msgid "CSV Tagger"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2107
+#: includes/ZeroBSCRM.AdminPages.php:1991
 msgid "You do not have any Pro Data Tools installed as of yet"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2107
+#: includes/ZeroBSCRM.AdminPages.php:1991
 msgid "Get some now"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2114
+#: includes/ZeroBSCRM.AdminPages.php:1998
 msgid "Import Tools"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2115
+#: includes/ZeroBSCRM.AdminPages.php:1999
 msgid "View Available Import Tools"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2119
+#: includes/ZeroBSCRM.AdminPages.php:2003
 msgid "Want to use the refined object exporter? "
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2128
+#: includes/ZeroBSCRM.AdminPages.php:2012
 msgid "Delete CRM Data"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2130
+#: includes/ZeroBSCRM.AdminPages.php:2014
 msgid "To remove all CRM data (e.g. contacts, transactions, etc.), type '%s' in the box below and click 'Delete All Data'."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2135
-#: includes/ZeroBSCRM.AdminPages.php:2157
+#: includes/ZeroBSCRM.AdminPages.php:2019
+#: includes/ZeroBSCRM.AdminPages.php:2041
 msgid "Warning: This cannot be undone"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2139
+#: includes/ZeroBSCRM.AdminPages.php:2023
 msgid "DELETE ALL DATA"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2152
+#: includes/ZeroBSCRM.AdminPages.php:2036
 msgid "To delete CRM data and all settings, type '%s' in the box below and click 'Reset CRM'."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2161
+#: includes/ZeroBSCRM.AdminPages.php:2045
 msgid "Reset CRM"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2211
+#: includes/ZeroBSCRM.AdminPages.php:2095
 msgid "Installing Extensions for Jetpack CRM"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2212
+#: includes/ZeroBSCRM.AdminPages.php:2096
 msgid "To control which modules are active, please go the <a href=\"%s\">Core Module page</a>."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2213
+#: includes/ZeroBSCRM.AdminPages.php:2097
 msgid "To install premium extensions, purchased in a bundle or individually please go to <a href=\"%s\">Plugins</a> and add your new extensions there."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2215
+#: includes/ZeroBSCRM.AdminPages.php:2099
 msgid "Upload Purchased Extensions"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2217
+#: includes/ZeroBSCRM.AdminPages.php:2101
 msgid "Browse Extensions"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2230
+#: includes/ZeroBSCRM.AdminPages.php:2114
 msgid "Jetpack CRM logo"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2242
+#: includes/ZeroBSCRM.AdminPages.php:2126
 msgid "Power Up your CRM"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2243
+#: includes/ZeroBSCRM.AdminPages.php:2127
 msgid "We hope that you love using Jetpack CRM and that you agree with our mentality of stripping out useless features and keeping things simple. Cool."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2244
+#: includes/ZeroBSCRM.AdminPages.php:2128
 msgid "We offer a few extensions which supercharge your CRM. As is our principle, though, you wont find any bloated products here. These are simple, effective power ups for Jetpack CRM. And compared to pay-monthly costs, they're affordable! Win!"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2247
+#: includes/ZeroBSCRM.AdminPages.php:2131
 msgid "View More"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2374
+#: includes/ZeroBSCRM.AdminPages.php:2258
 msgid "You must be connected to the internet to view our live extensions page."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2388
+#: includes/ZeroBSCRM.AdminPages.php:2272
 msgid "Product does not exist."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2389
+#: includes/ZeroBSCRM.AdminPages.php:2273
 msgid "Go Back"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2413
+#: includes/ZeroBSCRM.AdminPages.php:2297
 msgid "by "
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2427
+#: includes/ZeroBSCRM.AdminPages.php:2311
 msgid "Installed"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2429
-#: includes/ZeroBSCRM.AdminPages.php:2570
-#: includes/ZeroBSCRM.AdminPages.php:2582
+#: includes/ZeroBSCRM.AdminPages.php:2313
+#: includes/ZeroBSCRM.AdminPages.php:2454
+#: includes/ZeroBSCRM.AdminPages.php:2466
 msgid "Download"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2431
-#: includes/ZeroBSCRM.AdminPages.php:2572
-#: includes/ZeroBSCRM.AdminPages.php:2584
+#: includes/ZeroBSCRM.AdminPages.php:2315
+#: includes/ZeroBSCRM.AdminPages.php:2456
+#: includes/ZeroBSCRM.AdminPages.php:2468
 msgid "Buy"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2434
+#: includes/ZeroBSCRM.AdminPages.php:2318
 msgid "View Docs"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2456
-#: includes/ZeroBSCRM.AdminPages.php:2517
+#: includes/ZeroBSCRM.AdminPages.php:2340
+#: includes/ZeroBSCRM.AdminPages.php:2401
 msgid "Purchase the Entrepreneur Bundle to get access to all of our CRM extensions."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2457
+#: includes/ZeroBSCRM.AdminPages.php:2341
 #: modules/woo-sync/includes/jpcrm-woo-sync-contact-tabs.php:201
 #: modules/woo-sync/includes/jpcrm-woo-sync-contact-tabs.php:259
 msgid "Start"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2480
+#: includes/ZeroBSCRM.AdminPages.php:2364
 msgid "Buy Extension"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2499
+#: includes/ZeroBSCRM.AdminPages.php:2383
 msgid "You must be connected to the internet to view our live extensions page. You are being shown an offline version."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2518
+#: includes/ZeroBSCRM.AdminPages.php:2402
 msgid "Buy  Now"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2523
+#: includes/ZeroBSCRM.AdminPages.php:2407
 msgid "Premium Extensions"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2523
+#: includes/ZeroBSCRM.AdminPages.php:2407
 msgid "Knowledge-base"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2587
-#: includes/ZeroBSCRM.Core.php:1572
+#: includes/ZeroBSCRM.AdminPages.php:2471
+#: includes/ZeroBSCRM.Core.php:1494
 msgid "Docs"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2613
-#: includes/ZeroBSCRM.AdminPages.php:2631
+#: includes/ZeroBSCRM.AdminPages.php:2497
+#: includes/ZeroBSCRM.AdminPages.php:2515
 msgid "Coming Soon"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2617
-#: includes/ZeroBSCRM.AdminPages.php:2635
+#: includes/ZeroBSCRM.AdminPages.php:2501
+#: includes/ZeroBSCRM.AdminPages.php:2519
 msgid "Coming soon"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2618
-#: includes/ZeroBSCRM.AdminPages.php:2636
+#: includes/ZeroBSCRM.AdminPages.php:2502
+#: includes/ZeroBSCRM.AdminPages.php:2520
 msgid "See and vote for what extensions we release next"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2682
+#: includes/ZeroBSCRM.AdminPages.php:2566
 msgid "Successfully activated module:"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2686
+#: includes/ZeroBSCRM.AdminPages.php:2570
 msgid "Successfully deactivated module:"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2701
+#: includes/ZeroBSCRM.AdminPages.php:2585
 msgid "You can now generate API Keys and send data into your CRM via API:"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2701
+#: includes/ZeroBSCRM.AdminPages.php:2585
 msgid "Generate API Keys"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2712
+#: includes/ZeroBSCRM.AdminPages.php:2596
 msgid "To get started importing your WooCommerce orders, visit the WooSync hub:"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2712
+#: includes/ZeroBSCRM.AdminPages.php:2596
 msgid "Get started with WooSync"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2719
+#: includes/ZeroBSCRM.AdminPages.php:2603
 msgid "View Help Documentation"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2727
+#: includes/ZeroBSCRM.AdminPages.php:2611
 msgid "Unable to activate module:"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2727
+#: includes/ZeroBSCRM.AdminPages.php:2611
 msgid "Please contact <a href=\"%s\" target=\"_blank\">Support</a> if this persists."
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2730
+#: includes/ZeroBSCRM.AdminPages.php:2614
 msgid "Installer Error:"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2768
+#: includes/ZeroBSCRM.AdminPages.php:2652
 msgid "Activate"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2772
+#: includes/ZeroBSCRM.AdminPages.php:2656
 msgid "Deactivate"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2925
+#: includes/ZeroBSCRM.AdminPages.php:2809
 msgid " Successfully deleted"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2943
+#: includes/ZeroBSCRM.AdminPages.php:2827
 msgid "successfully"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2945
+#: includes/ZeroBSCRM.AdminPages.php:2829
 msgid "retrieved from Trash"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2947
+#: includes/ZeroBSCRM.AdminPages.php:2831
 msgid "moved to Trash"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:2975
+#: includes/ZeroBSCRM.AdminPages.php:2859
 #: includes/ZeroBSCRM.MetaBoxes.SubmitBoxes.php:178
 #: includes/ZeroBSCRM.MetaBoxes3.Companies.php:1200
 #: includes/ZeroBSCRM.MetaBoxes3.Events.php:414
@@ -7197,19 +7031,19 @@ msgstr ""
 #: includes/ZeroBSCRM.MetaBoxes3.Invoices.php:889
 #: includes/ZeroBSCRM.MetaBoxes3.Quotes.php:1411
 #: includes/ZeroBSCRM.MetaBoxes3.QuoteTemplates.php:368
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:702
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:674
 msgid "Delete Permanently"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:3064
+#: includes/ZeroBSCRM.AdminPages.php:2948
 msgid "Resource"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:3077
+#: includes/ZeroBSCRM.AdminPages.php:2961
 msgid "Access Restricted"
 msgstr ""
 
-#: includes/ZeroBSCRM.AdminPages.php:3078
+#: includes/ZeroBSCRM.AdminPages.php:2962
 msgid "You do not have access to this "
 msgstr ""
 
@@ -7377,7 +7211,7 @@ msgid "Invalid parameters"
 msgstr ""
 
 #: includes/ZeroBSCRM.AJAX.php:1550
-#: includes/ZeroBSCRM.AJAX.php:5654
+#: includes/ZeroBSCRM.AJAX.php:5605
 msgid "not sent"
 msgstr ""
 
@@ -7386,26 +7220,26 @@ msgstr ""
 msgid "Customer added via Form Submit"
 msgstr ""
 
-#: includes/ZeroBSCRM.AJAX.php:5146
-#: includes/ZeroBSCRM.AJAX.php:5216
+#: includes/ZeroBSCRM.AJAX.php:5097
+#: includes/ZeroBSCRM.AJAX.php:5167
 #: includes/ZeroBSCRM.DAL3.Obj.Segments.php:1093
 #: includes/ZeroBSCRM.DAL3.Obj.Segments.php:1153
 msgid "Untitled Segment"
 msgstr ""
 
-#: includes/ZeroBSCRM.AJAX.php:5631
-#: includes/ZeroBSCRM.AJAX.php:5639
+#: includes/ZeroBSCRM.AJAX.php:5582
+#: includes/ZeroBSCRM.AJAX.php:5590
 msgid "Not valid"
 msgstr ""
 
-#: includes/ZeroBSCRM.AJAX.php:5807
-#: includes/ZeroBSCRM.DAL3.Helpers.php:8414
+#: includes/ZeroBSCRM.AJAX.php:5758
+#: includes/ZeroBSCRM.DAL3.Helpers.php:8401
 #: includes/ZeroBSCRM.DAL3.Obj.Invoices.php:1265
 #: includes/ZeroBSCRM.DAL3.Obj.Quotes.php:2363
 #: includes/ZeroBSCRM.FormatHelpers.php:847
-#: includes/ZeroBSCRM.InvoiceBuilder.php:620
-#: includes/ZeroBSCRM.InvoiceBuilder.php:815
-#: includes/ZeroBSCRM.InvoiceBuilder.php:839
+#: includes/ZeroBSCRM.InvoiceBuilder.php:658
+#: includes/ZeroBSCRM.InvoiceBuilder.php:853
+#: includes/ZeroBSCRM.InvoiceBuilder.php:877
 #: includes/ZeroBSCRM.List.Columns.php:552
 #: includes/ZeroBSCRM.List.Columns.php:561
 #: includes/ZeroBSCRM.List.Views.php:308
@@ -7413,26 +7247,26 @@ msgstr ""
 #: includes/ZeroBSCRM.MetaBoxes3.Quotes.php:1361
 #: includes/ZeroBSCRM.MetaBoxes3.Quotes.php:1367
 #: includes/ZeroBSCRM.Permissions.php:954
-#: modules/portal/endpoints/class-invoices-endpoint.php:94
+#: modules/portal/endpoints/class-invoices-endpoint.php:93
 msgid "Draft"
 msgstr ""
 
-#: includes/ZeroBSCRM.AJAX.php:5809
-#: includes/ZeroBSCRM.DAL3.Helpers.php:8415
+#: includes/ZeroBSCRM.AJAX.php:5760
+#: includes/ZeroBSCRM.DAL3.Helpers.php:8402
 #: includes/ZeroBSCRM.FormatHelpers.php:850
 #: includes/ZeroBSCRM.List.Columns.php:553
 #: includes/ZeroBSCRM.List.Columns.php:562
 #: includes/ZeroBSCRM.List.Views.php:309
-#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1581
+#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1504
 msgid "Unpaid"
 msgstr ""
 
-#: includes/ZeroBSCRM.AJAX.php:5839
+#: includes/ZeroBSCRM.AJAX.php:5790
 msgid "Not a valid email"
 msgstr ""
 
-#: includes/ZeroBSCRM.AJAX.php:5874
-#: includes/ZeroBSCRM.InvoiceBuilder.php:398
+#: includes/ZeroBSCRM.AJAX.php:5825
+#: includes/ZeroBSCRM.InvoiceBuilder.php:436
 msgid "statement"
 msgstr ""
 
@@ -7539,7 +7373,7 @@ msgstr ""
 
 #: includes/ZeroBSCRM.Config.Init.php:428
 #: includes/ZeroBSCRM.Config.Init.php:445
-#: includes/ZeroBSCRM.CSVImporter.php:363
+#: includes/ZeroBSCRM.CSVImporter.php:218
 #: includes/ZeroBSCRM.List.Columns.php:184
 #: includes/ZeroBSCRM.List.Columns.php:197
 #: includes/ZeroBSCRM.List.Columns.php:226
@@ -7550,17 +7384,17 @@ msgstr ""
 #: includes/ZeroBSCRM.List.Columns.php:479
 #: includes/ZeroBSCRM.List.Columns.php:500
 #: includes/ZeroBSCRM.List.Columns.php:505
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:247
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:376
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:387
-#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1520
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:252
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:353
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:364
+#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1443
 msgid "Customer"
 msgstr ""
 
 #: includes/ZeroBSCRM.Config.Init.php:431
 #: includes/ZeroBSCRM.List.Columns.php:276
 #: includes/ZeroBSCRM.List.Columns.php:290
-#: includes/ZeroBSCRM.List.php:1039
+#: includes/ZeroBSCRM.List.php:1031
 msgid "Item"
 msgstr ""
 
@@ -7788,18 +7622,6 @@ msgstr ""
 msgid "Please ensure the mbstring PHP module is enabled on your server prior to installing the PDF Engine."
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.Extensions.php:1238
-msgid "Jetpack CRM was not able to extract the libraries it needs to in order to install PDF Engine."
-msgstr ""
-
-#: includes/ZeroBSCRM.Core.Extensions.php:1247
-msgid "Jetpack CRM was not able to download the libraries it needs to in order to install PDF Engine."
-msgstr ""
-
-#: includes/ZeroBSCRM.Core.Extensions.php:1256
-msgid "Jetpack CRM was not able to create the directories it needs to in order to install PDF Engine."
-msgstr ""
-
 #: includes/ZeroBSCRM.Core.License.php:49
 msgid "License Key Needed"
 msgstr ""
@@ -7958,7 +7780,7 @@ msgstr ""
 #: includes/ZeroBSCRM.Core.Menus.Top.php:506
 #: includes/ZeroBSCRM.Core.Menus.Top.php:543
 #: includes/ZeroBSCRM.Core.Menus.WP.php:492
-#: includes/ZeroBSCRM.Core.Menus.WP.php:815
+#: includes/ZeroBSCRM.Core.Menus.WP.php:806
 msgid "Tags"
 msgstr ""
 
@@ -7988,7 +7810,7 @@ msgstr ""
 
 #: includes/ZeroBSCRM.Core.Menus.Top.php:621
 #: includes/ZeroBSCRM.Core.Menus.Top.php:693
-#: includes/ZeroBSCRM.Core.Menus.WP.php:848
+#: includes/ZeroBSCRM.Core.Menus.WP.php:839
 msgid "Team"
 msgstr ""
 
@@ -8004,7 +7826,7 @@ msgstr ""
 
 #: includes/ZeroBSCRM.Core.Menus.Top.php:648
 #: includes/ZeroBSCRM.Core.Menus.Top.php:772
-#: includes/ZeroBSCRM.Core.Menus.WP.php:1064
+#: includes/ZeroBSCRM.Core.Menus.WP.php:1055
 msgid "Log Out"
 msgstr ""
 
@@ -8022,7 +7844,6 @@ msgstr ""
 
 #: includes/ZeroBSCRM.Core.Menus.Top.php:746
 #: includes/ZeroBSCRM.Core.Menus.WP.php:294
-#: includes/ZeroBSCRM.Core.Menus.WP.php:396
 msgid "Resources"
 msgstr ""
 
@@ -8032,6 +7853,11 @@ msgstr ""
 
 #: includes/ZeroBSCRM.Core.Menus.Top.php:766
 msgid "Entrepreneurs Bundle"
+msgstr ""
+
+#: includes/ZeroBSCRM.Core.Menus.WP.php:396
+#: includes/ZeroBSCRM.MetaBoxes3.Logs.php:62
+msgid "Feedback"
 msgstr ""
 
 #: includes/ZeroBSCRM.Core.Menus.WP.php:459
@@ -8052,7 +7878,7 @@ msgid "Add New Transaction"
 msgstr ""
 
 #: includes/ZeroBSCRM.Core.Menus.WP.php:697
-#: includes/ZeroBSCRM.Core.Menus.WP.php:958
+#: includes/ZeroBSCRM.Core.Menus.WP.php:949
 #: includes/ZeroBSCRM.MetaBoxes3.Events.php:462
 msgid "Task Tags"
 msgstr ""
@@ -8069,23 +7895,19 @@ msgstr ""
 msgid "Edit File"
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.Menus.WP.php:804
-msgid "New File"
-msgstr ""
-
-#: includes/ZeroBSCRM.Core.Menus.WP.php:892
+#: includes/ZeroBSCRM.Core.Menus.WP.php:883
 msgid "Deactivation error"
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.Menus.WP.php:914
+#: includes/ZeroBSCRM.Core.Menus.WP.php:905
 msgid "Reminders"
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.Menus.WP.php:925
+#: includes/ZeroBSCRM.Core.Menus.WP.php:916
 msgid "Trashed"
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.Menus.WP.php:936
+#: includes/ZeroBSCRM.Core.Menus.WP.php:927
 msgid "No Permission"
 msgstr ""
 
@@ -8150,51 +7972,51 @@ msgstr ""
 msgid "This page does not exist."
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.php:508
-#: includes/ZeroBSCRM.Core.php:517
+#: includes/ZeroBSCRM.Core.php:459
+#: includes/ZeroBSCRM.Core.php:468
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.php:575
+#: includes/ZeroBSCRM.Core.php:526
 msgid "This version of CRM (%s) requires an upgraded database (3.0). Your database is using an older version than this (%s). To use CRM you will need to install version 4 of CRM and run the database upgrade."
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.php:578
+#: includes/ZeroBSCRM.Core.php:529
 msgid "This version of Jetpack CRM (%s) requires an upgraded database (3.0). Your database is using an older version than this (%s). To use Jetpack CRM you will need to install version 4 of Jetpack CRM and run the database upgrade."
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.php:579
-#: includes/ZeroBSCRM.Core.php:660
+#: includes/ZeroBSCRM.Core.php:530
+#: includes/ZeroBSCRM.Core.php:606
 msgid "Read the guide on migrating"
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.php:656
+#: includes/ZeroBSCRM.Core.php:602
 msgid "Your CRM extension %s (v%s) is not compatible with this version of CRM. You will need to run a database upgrade to use this extension. For now this extension has been deactivated."
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.php:659
+#: includes/ZeroBSCRM.Core.php:605
 msgid "Your Jetpack CRM extension %s (v%s) is not compatible with this version of Jetpack CRM. You will need to run a database upgrade to be able to use this extension. For now this extension has been deactivated."
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.php:1572
+#: includes/ZeroBSCRM.Core.php:1494
 msgid "Jetpack CRM knowledgebase"
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.php:1579
+#: includes/ZeroBSCRM.Core.php:1501
 msgid "Your account"
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.php:2651
+#: includes/ZeroBSCRM.Core.php:2573
 msgid "View | Jetpack CRM"
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.php:2670
+#: includes/ZeroBSCRM.Core.php:2592
 #: includes/ZeroBSCRM.List.Views.php:507
 msgid "Segment"
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.php:2700
-#: includes/ZeroBSCRM.List.php:1035
+#: includes/ZeroBSCRM.Core.php:2622
+#: includes/ZeroBSCRM.List.php:1027
 #: includes/ZeroBSCRM.List.QuoteTemplate.php:35
 #: includes/ZeroBSCRM.List.Views.php:555
 #: includes/ZeroBSCRM.MetaBoxes3.QuoteTemplates.php:58
@@ -8202,36 +8024,36 @@ msgstr ""
 msgid "Quote Template"
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.php:2705
+#: includes/ZeroBSCRM.Core.php:2627
 msgid "Log"
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.php:2723
+#: includes/ZeroBSCRM.Core.php:2645
 #: includes/ZeroBSCRM.List.Views.php:136
 msgid "Delete "
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.php:2739
+#: includes/ZeroBSCRM.Core.php:2661
 msgid "Email Manager | Jetpack CRM"
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.php:2745
+#: includes/ZeroBSCRM.Core.php:2667
 msgid "Tag Manager | Jetpack CRM"
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.php:2750
+#: includes/ZeroBSCRM.Core.php:2672
 msgid "Notifications | Jetpack CRM"
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.php:2755
+#: includes/ZeroBSCRM.Core.php:2677
 msgid "Email Templates | Jetpack CRM"
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.php:2760
+#: includes/ZeroBSCRM.Core.php:2682
 msgid "Export Tools | Jetpack CRM"
 msgstr ""
 
-#: includes/ZeroBSCRM.Core.php:2765
+#: includes/ZeroBSCRM.Core.php:2687
 msgid "Import Tools | Jetpack CRM"
 msgstr ""
 
@@ -8239,154 +8061,153 @@ msgstr ""
 msgid "Once every 5 minutes"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:118
+#: includes/ZeroBSCRM.CSVImporter.php:119
 msgid "CSV Importer Lite"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:121
+#: includes/ZeroBSCRM.CSVImporter.php:122
 msgid "Import contacts from CSV"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:124
+#: includes/ZeroBSCRM.CSVImporter.php:125
 msgid "If you have contacts you need to import to Jetpack CRM, doing so via a CSV is a quick and easy way to get your data in."
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:127
+#: includes/ZeroBSCRM.CSVImporter.php:128
 msgid "Formatting Tips"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:127
+#: includes/ZeroBSCRM.CSVImporter.php:128
 msgid "it's important that you format your CSV file correctly for the upload. We have written a detailed guide on how to do this below."
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:134
+#: includes/ZeroBSCRM.CSVImporter.php:135
 msgid "Want to import companies as well as keep a record of your imports."
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:136
+#: includes/ZeroBSCRM.CSVImporter.php:137
 msgid "CSV importer PRO is the perfect tool."
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:161
+#: includes/ZeroBSCRM.CSVImporter.php:162
 msgid "Get CSV Importer Pro"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:214
-#: includes/ZeroBSCRM.CSVImporter.php:235
-#: includes/ZeroBSCRM.CSVImporter.php:274
-#: includes/ZeroBSCRM.CSVImporter.php:321
-msgid "There was an error processing your CSV file. Please try again."
+#: includes/ZeroBSCRM.CSVImporter.php:244
+msgid "There was an error uploading your CSV file. Please try again."
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:228
-msgid "No CSV file was provided. Please choose the CSV file you want to upload."
+#: includes/ZeroBSCRM.CSVImporter.php:279
+msgid "Your file is not a \".csv\" file. If you are having continued problems please email support with a copy of your CSV file attached."
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:243
-msgid "Your file is not a correctly-formatted CSV file. Please check your file format. If you continue to have issues please contact support."
+#: includes/ZeroBSCRM.CSVImporter.php:291
+msgid "Your file is not a correctly formatted CSV, please check your file format. If you are having continued problems please email support with a copy of your CSV file attached."
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:262
-msgid "Unable to upload CSV file."
+#: includes/ZeroBSCRM.CSVImporter.php:305
+msgid "Your file does not appear to be a correctly formatted CSV File. We did not find any usable lines to import. If you are having continued problems please email support with a copy of your CSV file attached."
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:309
-msgid "No fields were mapped. You cannot import customers without at least one field mapped to a customer attribute."
+#: includes/ZeroBSCRM.CSVImporter.php:335
+#: includes/ZeroBSCRM.CSVImporter.php:392
+msgid "There was an error maintaining a link to your uploaded CSV file. Please contact support if this error persists, quoting error code #457"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:331
-msgid "We did not find any usable lines in the provided file. If you are having continued problems please contact support."
+#: includes/ZeroBSCRM.CSVImporter.php:376
+#: includes/ZeroBSCRM.CSVImporter.php:435
+msgid "No fields were matched. You cannot import customers without at least one field mapped to a customer attribute."
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:395
+#: includes/ZeroBSCRM.CSVImporter.php:452
 msgid "Map Columns from your CSV to Customer Fields"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:398
+#: includes/ZeroBSCRM.CSVImporter.php:455
 msgid "Your CSV File has been successfully uploaded. Before we can complete your import, you'll need to specify which field in your CSV file matches which field in your CRM.<br />You can do so by using the drop down options below:"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:407
+#: includes/ZeroBSCRM.CSVImporter.php:465
 msgid "Ignore first line of CSV file when running import.<br />(Use this if you have a \"header line\" in your CSV file.)"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:425
-#: includes/ZeroBSCRM.CSVImporter.php:511
+#: includes/ZeroBSCRM.CSVImporter.php:483
+#: includes/ZeroBSCRM.CSVImporter.php:571
 msgid "2nd Address"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:444
+#: includes/ZeroBSCRM.CSVImporter.php:502
 msgctxt "As in map CSV column to field"
 msgid "Map"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:446
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1214
+#: includes/ZeroBSCRM.CSVImporter.php:504
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1252
 msgid "To:"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:447
+#: includes/ZeroBSCRM.CSVImporter.php:505
 msgid "Select a field"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:449
+#: includes/ZeroBSCRM.CSVImporter.php:507
 msgid "Ignore this field"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:468
-#: includes/ZeroBSCRM.Edit.Segment.php:138
+#: includes/ZeroBSCRM.CSVImporter.php:526
+#: includes/ZeroBSCRM.Edit.Segment.php:137
 msgid "Continue"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:486
+#: includes/ZeroBSCRM.CSVImporter.php:544
 msgid "Ready to run the import.<br />Please confirm the following is correct <i>before</i> continuing."
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:487
+#: includes/ZeroBSCRM.CSVImporter.php:545
 msgid "Note: There is no easy way to \"undo\" a CSV import. To remove any customers that have been added you will need to manually remove them."
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:528
+#: includes/ZeroBSCRM.CSVImporter.php:590
 msgid "Field #%s"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:530
+#: includes/ZeroBSCRM.CSVImporter.php:592
 msgid "Ignore"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:539
+#: includes/ZeroBSCRM.CSVImporter.php:600
 msgid "Run Import"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:555
+#: includes/ZeroBSCRM.CSVImporter.php:618
 msgid "Running Import..."
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:559
-msgid "Loading CSV File..."
+#: includes/ZeroBSCRM.CSVImporter.php:622
+msgid "Loading CSV File: "
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:560
+#: includes/ZeroBSCRM.CSVImporter.php:623
 msgid "Parsing rows..."
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:561
+#: includes/ZeroBSCRM.CSVImporter.php:624
 msgid "Beginning Import of %s rows..."
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:571
+#: includes/ZeroBSCRM.CSVImporter.php:634
 msgid "Skipping header row..."
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:668
+#: includes/ZeroBSCRM.CSVImporter.php:731
 msgid "Successfully added contact #<a href=\"%s\" target=\"_blank\">%d</a>... <i class=\"fa fa-user\"></i><span>+1</span>"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:680
+#: includes/ZeroBSCRM.CSVImporter.php:743
 msgid "Contact Already Exists!:"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:680
+#: includes/ZeroBSCRM.CSVImporter.php:743
 #: includes/ZeroBSCRM.MetaBoxes3.Companies.php:534
 #: includes/ZeroBSCRM.MetaBoxes3.Events.php:307
 #: includes/ZeroBSCRM.MetaBoxes3.Forms.php:268
@@ -8395,57 +8216,102 @@ msgstr ""
 #: includes/ZeroBSCRM.MetaBoxes3.Logs.php:93
 #: includes/ZeroBSCRM.MetaBoxes3.Quotes.php:586
 #: includes/ZeroBSCRM.MetaBoxes3.QuoteTemplates.php:292
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:566
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:538
 msgid "Updated"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:689
+#: includes/ZeroBSCRM.CSVImporter.php:752
 msgid "Skipping row (no usable fields)"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:702
+#: includes/ZeroBSCRM.CSVImporter.php:765
 msgid "The following customers were already in your Jetpack CRM, and were updated:"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:713
+#: includes/ZeroBSCRM.CSVImporter.php:779
 msgid "CSV Upload File Deleted..."
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:731
+#: includes/ZeroBSCRM.CSVImporter.php:815
 msgid "Import Customers from a CSV File"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:734
+#: includes/ZeroBSCRM.CSVImporter.php:818
 msgid "If you have a CSV file of customers that you would like to import into Jetpack CRM, you can start the import wizard by uploading your .CSV file here."
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:738
+#: includes/ZeroBSCRM.CSVImporter.php:822
 msgid ".CSV file"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:741
+#: includes/ZeroBSCRM.CSVImporter.php:825
 msgid "Start CSV Import Now"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:758
-#: includes/ZeroBSCRM.CSVImporter.php:769
+#: includes/ZeroBSCRM.CSVImporter.php:842
+#: includes/ZeroBSCRM.CSVImporter.php:853
 msgid "CSV Importer: Lite Version"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:759
+#: includes/ZeroBSCRM.CSVImporter.php:843
 msgid "If you would like to benefit from more features (such as logging your imports, automatically creating companies (B2B), and direct support) then please purchase a copy of our <a href=\"%s\" target=\"_blank\">CSV Importer PRO</a> extension."
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:759
+#: includes/ZeroBSCRM.CSVImporter.php:843
 msgid "Get CSV Importer PRO"
 msgstr ""
 
-#: includes/ZeroBSCRM.CSVImporter.php:770
+#: includes/ZeroBSCRM.CSVImporter.php:854
 msgid "You have the PRO version of CSV importer available as part of your bundle. Please download and install from <a href=\"%s\" target=\"_blank\">your account</a>."
 msgstr ""
 
 #: includes/ZeroBSCRM.CustomerFilters.php:38
 msgid "Customer name or email..."
+msgstr ""
+
+#: includes/ZeroBSCRM.CustomerFilters.php:541
+msgid "Name Contains"
+msgstr ""
+
+#: includes/ZeroBSCRM.CustomerFilters.php:544
+msgid "e.g. Mike"
+msgstr ""
+
+#: includes/ZeroBSCRM.CustomerFilters.php:548
+msgid "Total Value (Range)"
+msgstr ""
+
+#: includes/ZeroBSCRM.CustomerFilters.php:569
+msgid "Date Added (Range)"
+msgstr ""
+
+#: includes/ZeroBSCRM.CustomerFilters.php:590
+msgid "Has Tag(s)"
+msgstr ""
+
+#: includes/ZeroBSCRM.CustomerFilters.php:653
+#: includes/ZeroBSCRM.List.Columns.php:64
+msgid "Has Quote"
+msgstr ""
+
+#: includes/ZeroBSCRM.CustomerFilters.php:660
+#: includes/ZeroBSCRM.List.Columns.php:65
+#: includes/ZeroBSCRM.List.Columns.php:138
+msgid "Has Invoice"
+msgstr ""
+
+#: includes/ZeroBSCRM.CustomerFilters.php:667
+#: includes/ZeroBSCRM.List.Columns.php:66
+#: includes/ZeroBSCRM.List.Columns.php:139
+msgid "Has Transaction"
+msgstr ""
+
+#: includes/ZeroBSCRM.CustomerFilters.php:703
+msgid "Within Postal Code"
+msgstr ""
+
+#: includes/ZeroBSCRM.CustomerFilters.php:706
+msgid "e.g. AL1 or 90012"
 msgstr ""
 
 #: includes/ZeroBSCRM.DAL.Fields.php:75
@@ -8641,7 +8507,7 @@ msgid "Customer Name"
 msgstr ""
 
 #: includes/ZeroBSCRM.DAL.Fields.php:373
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:233
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:227
 #: modules/portal/templates/transactions.php:66
 #: modules/portal/templates/transactions.php:104
 msgid "Transaction Date"
@@ -8933,10 +8799,10 @@ msgid "Next reference expected"
 msgstr ""
 
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5198
-#: includes/ZeroBSCRM.InvoiceBuilder.php:581
+#: includes/ZeroBSCRM.InvoiceBuilder.php:619
 #: includes/ZeroBSCRM.List.Columns.php:245
-#: modules/portal/endpoints/class-invoices-endpoint.php:115
-#: modules/portal/endpoints/class-invoices-endpoint.php:133
+#: modules/portal/endpoints/class-invoices-endpoint.php:114
+#: modules/portal/endpoints/class-invoices-endpoint.php:132
 msgid "Due Date"
 msgstr ""
 
@@ -8952,7 +8818,7 @@ msgstr ""
 #: includes/ZeroBSCRM.MetaBoxes3.Invoices.php:870
 #: includes/ZeroBSCRM.MetaBoxes3.Quotes.php:1402
 #: includes/ZeroBSCRM.MetaBoxes3.QuoteTemplates.php:359
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:693
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:665
 msgid "Update"
 msgstr ""
 
@@ -8973,22 +8839,22 @@ msgid "Customise"
 msgstr ""
 
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5213
-#: includes/ZeroBSCRM.ScriptsStyles.php:322
+#: includes/ZeroBSCRM.ScriptsStyles.php:312
 msgid "Add Row"
 msgstr ""
 
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5214
-#: includes/ZeroBSCRM.ScriptsStyles.php:323
+#: includes/ZeroBSCRM.ScriptsStyles.php:313
 msgid "Remove Row"
 msgstr ""
 
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5216
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1020
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1058
 msgid "Discount"
 msgstr ""
 
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5217
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:324
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:301
 msgid "Shipping"
 msgstr ""
 
@@ -8997,9 +8863,9 @@ msgid "Tax on shipping"
 msgstr ""
 
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5220
-#: includes/ZeroBSCRM.InvoiceBuilder.php:607
-#: includes/ZeroBSCRM.InvoiceBuilder.php:800
-#: modules/portal/endpoints/class-invoices-endpoint.php:100
+#: includes/ZeroBSCRM.InvoiceBuilder.php:645
+#: includes/ZeroBSCRM.InvoiceBuilder.php:838
+#: modules/portal/endpoints/class-invoices-endpoint.php:99
 msgid "No due date"
 msgstr ""
 
@@ -9058,8 +8924,8 @@ msgid "Amount Due"
 msgstr ""
 
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5238
-#: includes/ZeroBSCRM.InvoiceBuilder.php:583
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1106
+#: includes/ZeroBSCRM.InvoiceBuilder.php:621
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1144
 #: modules/portal/endpoints/class-payments-endpoint.php:13
 msgid "Payments"
 msgstr ""
@@ -9109,21 +8975,21 @@ msgid "There was an error sending this invoice via email."
 msgstr ""
 
 #: includes/ZeroBSCRM.DAL3.Helpers.php:5637
-#: includes/ZeroBSCRM.DAL3.Helpers.php:8416
+#: includes/ZeroBSCRM.DAL3.Helpers.php:8403
 #: includes/ZeroBSCRM.FormatHelpers.php:853
-#: includes/ZeroBSCRM.InvoiceBuilder.php:645
-#: includes/ZeroBSCRM.InvoiceBuilder.php:826
-#: includes/ZeroBSCRM.InvoiceBuilder.php:827
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1152
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1646
+#: includes/ZeroBSCRM.InvoiceBuilder.php:683
+#: includes/ZeroBSCRM.InvoiceBuilder.php:864
+#: includes/ZeroBSCRM.InvoiceBuilder.php:865
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1190
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1684
 #: includes/ZeroBSCRM.List.Columns.php:554
 #: includes/ZeroBSCRM.List.Columns.php:563
 #: includes/ZeroBSCRM.List.Views.php:310
-#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1577
+#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1500
 msgid "Paid"
 msgstr ""
 
-#: includes/ZeroBSCRM.DAL3.Helpers.php:8417
+#: includes/ZeroBSCRM.DAL3.Helpers.php:8404
 #: includes/ZeroBSCRM.FormatHelpers.php:856
 #: includes/ZeroBSCRM.List.Columns.php:555
 #: includes/ZeroBSCRM.List.Columns.php:564
@@ -9132,24 +8998,24 @@ msgstr ""
 msgid "Overdue"
 msgstr ""
 
-#: includes/ZeroBSCRM.DAL3.Helpers.php:8418
+#: includes/ZeroBSCRM.DAL3.Helpers.php:8405
 #: includes/ZeroBSCRM.Delete.php:343
 #: includes/ZeroBSCRM.FormatHelpers.php:859
 #: includes/ZeroBSCRM.List.php:68
 #: includes/ZeroBSCRM.List.Views.php:312
-#: includes/ZeroBSCRM.Migrations.php:627
+#: includes/ZeroBSCRM.Migrations.php:648
 #: modules/woo-sync/admin/settings/main.page.php:39
-#: modules/woo-sync/includes/class-woo-sync-background-sync.php:584
-#: modules/woo-sync/includes/class-woo-sync-background-sync.php:588
+#: modules/woo-sync/includes/class-woo-sync-background-sync.php:579
+#: modules/woo-sync/includes/class-woo-sync-background-sync.php:583
 msgid "Deleted"
 msgstr ""
 
-#: includes/ZeroBSCRM.DAL3.Helpers.php:8949
+#: includes/ZeroBSCRM.DAL3.Helpers.php:8936
 msgid "Web Design: Example"
 msgstr ""
 
 #: includes/ZeroBSCRM.DAL3.Obj.Companies.php:2409
-#: includes/ZeroBSCRM.DAL3.Obj.Contacts.php:2978
+#: includes/ZeroBSCRM.DAL3.Obj.Contacts.php:2837
 #: includes/ZeroBSCRM.DAL3.Obj.EventReminders.php:714
 #: includes/ZeroBSCRM.DAL3.Obj.Events.php:1434
 #: includes/ZeroBSCRM.DAL3.Obj.Forms.php:1166
@@ -9163,7 +9029,7 @@ msgid "DB Update Failed"
 msgstr ""
 
 #: includes/ZeroBSCRM.DAL3.Obj.Companies.php:2581
-#: includes/ZeroBSCRM.DAL3.Obj.Contacts.php:3201
+#: includes/ZeroBSCRM.DAL3.Obj.Contacts.php:3060
 #: includes/ZeroBSCRM.DAL3.Obj.EventReminders.php:737
 #: includes/ZeroBSCRM.DAL3.Obj.Events.php:1599
 #: includes/ZeroBSCRM.DAL3.Obj.Forms.php:1244
@@ -9180,21 +9046,20 @@ msgstr ""
 msgid "View all contacts at company"
 msgstr ""
 
-#: includes/ZeroBSCRM.DAL3.Obj.Contacts.php:2765
-#: includes/ZeroBSCRM.DAL3.Obj.Contacts.php:3068
+#: includes/ZeroBSCRM.DAL3.Obj.Contacts.php:2624
+#: includes/ZeroBSCRM.DAL3.Obj.Contacts.php:2927
 msgid "Could not add alias (unavailable or invalid):"
 msgstr ""
 
 #: includes/ZeroBSCRM.DAL3.Obj.Invoices.php:2719
 #: modules/givewp/class-jpcrm-givewp.php:112
-#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1717
 msgid "Sale"
 msgstr ""
 
 #: includes/ZeroBSCRM.DAL3.Obj.Invoices.php:2726
 #: includes/ZeroBSCRM.DAL3.Obj.Transactions.php:2251
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:190
-#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1787
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:189
+#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1660
 msgid "Refund"
 msgstr ""
 
@@ -9212,7 +9077,7 @@ msgid "Segment Condition produces no filtering arguments"
 msgstr ""
 
 #: includes/ZeroBSCRM.DAL3.Obj.Transactions.php:1336
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1720
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1725
 msgid "Unknown"
 msgstr ""
 
@@ -9253,26 +9118,6 @@ msgstr ""
 msgid "Add a Contact"
 msgstr ""
 
-#: includes/ZeroBSCRM.DashboardBoxes.php:107
-msgid "CRM contacts"
-msgstr ""
-
-#: includes/ZeroBSCRM.DashboardBoxes.php:111
-msgid "Day"
-msgstr ""
-
-#: includes/ZeroBSCRM.DashboardBoxes.php:112
-msgid "Week"
-msgstr ""
-
-#: includes/ZeroBSCRM.DashboardBoxes.php:113
-msgid "Month"
-msgstr ""
-
-#: includes/ZeroBSCRM.DashboardBoxes.php:114
-msgid "Year"
-msgstr ""
-
 #: includes/ZeroBSCRM.Delete.php:345
 msgid "was successfully deleted."
 msgstr ""
@@ -9306,7 +9151,7 @@ msgstr ""
 
 #: includes/ZeroBSCRM.Delete.php:477
 #: includes/ZeroBSCRM.Edit.php:399
-#: includes/ZeroBSCRM.List.php:1098
+#: includes/ZeroBSCRM.List.php:1088
 #: includes/ZeroBSCRM.TagManager.php:294
 msgid "Today"
 msgstr ""
@@ -9320,117 +9165,121 @@ msgstr ""
 msgid "There was an error loading this %s."
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:67
+#: includes/ZeroBSCRM.Edit.Segment.php:66
 msgid "Saving"
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:77
+#: includes/ZeroBSCRM.Edit.Segment.php:76
 msgid "Name this Segment"
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:78
+#: includes/ZeroBSCRM.Edit.Segment.php:77
 msgid "Enter a descriptive title. This is shown on internal pages and reports."
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:79
+#: includes/ZeroBSCRM.Edit.Segment.php:78
 msgid "e.g. VIP Customers"
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:80
+#: includes/ZeroBSCRM.Edit.Segment.php:79
 msgid "This field is required"
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:100
+#: includes/ZeroBSCRM.Edit.Segment.php:99
 msgid "Segment Warning"
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:101
+#: includes/ZeroBSCRM.Edit.Segment.php:100
 msgid "There is an issue with this segment:"
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:114
+#: includes/ZeroBSCRM.Edit.Segment.php:113
 msgid "Add Condition"
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:117
+#: includes/ZeroBSCRM.Edit.Segment.php:116
 msgid "Conditions"
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:118
+#: includes/ZeroBSCRM.Edit.Segment.php:117
 msgid "Select conditions which will define this segment."
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:126
+#: includes/ZeroBSCRM.Edit.Segment.php:125
 msgid "Segments require at least one condition"
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:130
+#: includes/ZeroBSCRM.Edit.Segment.php:129
 msgid "Match Type"
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:131
-msgid "Should contacts in this segment match <i>any</i> or <i>all</i> of the above conditions?"
+#: includes/ZeroBSCRM.Edit.Segment.php:130
+msgid "Should contacts in this segment should match any or all the above conditions?:"
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:133
+#: includes/ZeroBSCRM.Edit.Segment.php:132
 msgid "Match all Conditions"
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:134
+#: includes/ZeroBSCRM.Edit.Segment.php:133
 msgid "Match any one Condition"
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:141
+#: includes/ZeroBSCRM.Edit.Segment.php:140
 msgid "Preview Segment"
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:151
+#: includes/ZeroBSCRM.Edit.Segment.php:150
 msgid "Your conditions did not produce any matching Contacts. You can still save this segment, but currently there is no one in it!"
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:172
+#: includes/ZeroBSCRM.Edit.Segment.php:169
 #: includes/ZeroBSCRM.MetaBox.php:225
 #: includes/ZeroBSCRM.MetaBox.php:248
 msgid "General Error"
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:173
+#: includes/ZeroBSCRM.Edit.Segment.php:170
 msgid "There was a general error."
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:175
+#: includes/ZeroBSCRM.Edit.Segment.php:172
 msgid "Contacts currently match these conditions."
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:176
-msgid "Contacts Preview (randomised)"
+#: includes/ZeroBSCRM.Edit.Segment.php:173
+msgid "Contacts Preview"
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:178
+#: includes/ZeroBSCRM.Edit.Segment.php:175
 msgid "Unnamed Contact"
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:179
+#: includes/ZeroBSCRM.Edit.Segment.php:176
 msgid "No Email"
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:181
+#: includes/ZeroBSCRM.Edit.Segment.php:178
 #: includes/ZeroBSCRM.MetaBoxes3.TagManager.php:158
 msgid "No Tags Found"
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:183
+#: includes/ZeroBSCRM.Edit.Segment.php:180
 msgid "No External Sources Found"
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:185
+#: includes/ZeroBSCRM.Edit.Segment.php:182
 #: includes/ZeroBSCRM.InternalAutomatorRecipes.php:776
 #: includes/ZeroBSCRM.InternalAutomatorRecipes.php:1257
 msgid "to"
 msgstr ""
 
-#: includes/ZeroBSCRM.Edit.Segment.php:186
+#: includes/ZeroBSCRM.Edit.Segment.php:183
 msgid "e.g."
+msgstr ""
+
+#: includes/ZeroBSCRM.Edit.Segment.php:188
+msgid "Contact Fields"
 msgstr ""
 
 #: includes/ZeroBSCRM.ErrorCodes.php:142
@@ -9445,11 +9294,7 @@ msgstr ""
 msgid "%s added manually."
 msgstr ""
 
-#: includes/ZeroBSCRM.FileUploads.php:94
-msgid "All File Types"
-msgstr ""
-
-#: includes/ZeroBSCRM.FileUploads.php:330
+#: includes/ZeroBSCRM.FileUploads.php:275
 msgid "Could not delete file from server:"
 msgstr ""
 
@@ -9482,7 +9327,7 @@ msgstr ""
 
 #: includes/ZeroBSCRM.FormatHelpers.php:302
 #: includes/ZeroBSCRM.FormatHelpers.php:307
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:652
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:657
 msgid "Contact Created"
 msgstr ""
 
@@ -9547,19 +9392,19 @@ msgstr ""
 #: includes/ZeroBSCRM.FormatHelpers.php:1461
 #: includes/ZeroBSCRM.FormatHelpers.php:1636
 #: includes/ZeroBSCRM.FormatHelpers.php:1684
-#: modules/portal/endpoints/class-details-endpoint.php:219
+#: modules/portal/endpoints/class-details-endpoint.php:217
 #: modules/woo-sync/includes/class-woo-sync-my-account-integration.php:376
 msgid "No Options"
 msgstr ""
 
 #: includes/ZeroBSCRM.FormatHelpers.php:1494
-#: modules/portal/endpoints/class-details-endpoint.php:248
+#: modules/portal/endpoints/class-details-endpoint.php:246
 #: modules/woo-sync/includes/class-woo-sync-my-account-integration.php:413
 msgid "SMS"
 msgstr ""
 
 #: includes/ZeroBSCRM.FormatHelpers.php:1564
-#: modules/portal/endpoints/class-details-endpoint.php:318
+#: modules/portal/endpoints/class-details-endpoint.php:316
 #: modules/woo-sync/includes/class-woo-sync-my-account-integration.php:488
 msgid "No Countries Loaded"
 msgstr ""
@@ -9642,7 +9487,7 @@ msgstr ""
 msgid "Never"
 msgstr ""
 
-#: includes/ZeroBSCRM.GeneralFuncs.php:1145
+#: includes/ZeroBSCRM.GeneralFuncs.php:1114
 msgid "Unsubscribed"
 msgstr ""
 
@@ -9656,7 +9501,7 @@ msgstr ""
 
 #: includes/ZeroBSCRM.InternalAutomatorRecipes.php:181
 #: includes/ZeroBSCRM.InternalAutomatorRecipes.php:300
-#: modules/woo-sync/includes/class-woo-sync.php:517
+#: modules/woo-sync/includes/class-woo-sync.php:514
 msgid "Created from WooCommerce Order"
 msgstr ""
 
@@ -9681,7 +9526,7 @@ msgid "Created from External Source"
 msgstr ""
 
 #: includes/ZeroBSCRM.InternalAutomatorRecipes.php:298
-#: modules/woo-sync/includes/class-woo-sync.php:515
+#: modules/woo-sync/includes/class-woo-sync.php:512
 msgid "Created from WooCommerce Order #%s"
 msgstr ""
 
@@ -9740,94 +9585,80 @@ msgstr ""
 msgid "Access disabled (by change of status to"
 msgstr ""
 
-#: includes/ZeroBSCRM.InvoiceBuilder.php:516
+#: includes/ZeroBSCRM.InvoiceBuilder.php:554
 msgid "STATEMENT"
 msgstr ""
 
-#: includes/ZeroBSCRM.InvoiceBuilder.php:554
+#: includes/ZeroBSCRM.InvoiceBuilder.php:592
 msgid "Statement Date"
 msgstr ""
 
-#: includes/ZeroBSCRM.InvoiceBuilder.php:584
+#: includes/ZeroBSCRM.InvoiceBuilder.php:622
 msgid "Balance"
 msgstr ""
 
-#: includes/ZeroBSCRM.InvoiceBuilder.php:614
+#: includes/ZeroBSCRM.InvoiceBuilder.php:652
 msgid "Due"
 msgstr ""
 
-#: includes/ZeroBSCRM.InvoiceBuilder.php:705
+#: includes/ZeroBSCRM.InvoiceBuilder.php:743
 msgid "No Activity"
 msgstr ""
 
-#: includes/ZeroBSCRM.InvoiceBuilder.php:711
+#: includes/ZeroBSCRM.InvoiceBuilder.php:749
 msgid "BALANCE DUE"
 msgstr ""
 
-#: includes/ZeroBSCRM.InvoiceBuilder.php:931
+#: includes/ZeroBSCRM.InvoiceBuilder.php:969
 msgid "Invoice #"
 msgstr ""
 
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1003
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1041
 msgid "Subtotal"
 msgstr ""
 
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1033
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1071
 msgid "Postage and packaging"
 msgstr ""
 
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1124
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1162
 msgid "Payment"
 msgstr ""
 
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1141
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1179
 msgid "Amount due"
 msgstr ""
 
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1158
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1196
 msgid "Payment Details"
 msgstr ""
 
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1160
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1198
 msgid "Payment Reference:"
 msgstr ""
 
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1210
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1248
 msgid "Invoice Number:"
 msgstr ""
 
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1213
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1251
 msgid "From:"
 msgstr ""
 
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1215
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1253
 msgid "Due date:"
 msgstr ""
 
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1216
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1254
 msgid "Payment Terms: Due "
 msgstr ""
 
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1278
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1316
 msgid "Pay To"
 msgstr ""
 
-#: includes/ZeroBSCRM.InvoiceBuilder.php:1325
+#: includes/ZeroBSCRM.InvoiceBuilder.php:1363
 msgid "Invoice To"
-msgstr ""
-
-#: includes/ZeroBSCRM.List.Columns.php:64
-msgid "Has Quote"
-msgstr ""
-
-#: includes/ZeroBSCRM.List.Columns.php:65
-#: includes/ZeroBSCRM.List.Columns.php:138
-msgid "Has Invoice"
-msgstr ""
-
-#: includes/ZeroBSCRM.List.Columns.php:66
-#: includes/ZeroBSCRM.List.Columns.php:139
-msgid "Has Transaction"
 msgstr ""
 
 #: includes/ZeroBSCRM.List.Columns.php:68
@@ -9920,7 +9751,7 @@ msgstr ""
 #: includes/ZeroBSCRM.List.Columns.php:593
 #: includes/ZeroBSCRM.List.Views.php:362
 #: modules/woo-sync/admin/settings/main.page.php:32
-#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1789
+#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1662
 msgid "Refunded"
 msgstr ""
 
@@ -9957,11 +9788,11 @@ msgid "Past 7 days"
 msgstr ""
 
 #: includes/ZeroBSCRM.List.Columns.php:908
-msgid "Not Contacted in %s days"
+msgid "Not Contacted in "
 msgstr ""
 
 #: includes/ZeroBSCRM.List.Columns.php:945
-msgid "Older than %s days"
+msgid "Older than "
 msgstr ""
 
 #: includes/ZeroBSCRM.List.CompletedEvents.php:87
@@ -10175,63 +10006,59 @@ msgid "Available Filters"
 msgstr ""
 
 #: includes/ZeroBSCRM.List.php:647
-#: includes/ZeroBSCRM.List.php:734
+#: includes/ZeroBSCRM.List.php:726
 msgid "Show all tags"
 msgstr ""
 
-#: includes/ZeroBSCRM.List.php:1081
+#: includes/ZeroBSCRM.List.php:1073
 msgid "Items"
 msgstr ""
 
-#: includes/ZeroBSCRM.List.php:1092
-msgid "Go"
-msgstr ""
-
-#: includes/ZeroBSCRM.List.php:1094
+#: includes/ZeroBSCRM.List.php:1084
 msgid "Bulk actions (%s rows selected)"
 msgstr ""
 
-#: includes/ZeroBSCRM.List.php:1095
+#: includes/ZeroBSCRM.List.php:1085
 msgid "Bulk actions (1 row selected)"
 msgstr ""
 
-#: includes/ZeroBSCRM.List.php:1096
+#: includes/ZeroBSCRM.List.php:1086
 msgid "Bulk actions (no rows selected)"
 msgstr ""
 
-#: includes/ZeroBSCRM.List.php:1099
+#: includes/ZeroBSCRM.List.php:1089
 msgid "days"
 msgstr ""
 
-#: includes/ZeroBSCRM.List.php:1100
+#: includes/ZeroBSCRM.List.php:1090
 msgid "days ago"
 msgstr ""
 
-#: includes/ZeroBSCRM.List.php:1101
+#: includes/ZeroBSCRM.List.php:1091
 msgid "Not Contacted"
 msgstr ""
 
-#: includes/ZeroBSCRM.List.php:1102
+#: includes/ZeroBSCRM.List.php:1092
 msgid "Yesterday"
 msgstr ""
 
-#: includes/ZeroBSCRM.List.php:1105
+#: includes/ZeroBSCRM.List.php:1095
 msgid "Filtered By"
 msgstr ""
 
-#: includes/ZeroBSCRM.List.php:1106
+#: includes/ZeroBSCRM.List.php:1096
 msgid "Not Contacted in"
 msgstr ""
 
-#: includes/ZeroBSCRM.List.php:1107
+#: includes/ZeroBSCRM.List.php:1097
 msgid "Containing"
 msgstr ""
 
-#: includes/ZeroBSCRM.List.php:1110
+#: includes/ZeroBSCRM.List.php:1100
 msgid "Could not update"
 msgstr ""
 
-#: includes/ZeroBSCRM.List.php:1111
+#: includes/ZeroBSCRM.List.php:1101
 msgid "This record could not be updated. Please try again, if this persists please let admin know."
 msgstr ""
 
@@ -10707,13 +10534,13 @@ msgid "Details"
 msgstr ""
 
 #: includes/ZeroBSCRM.MetaBoxes3.Companies.php:503
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:622
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:627
 #: includes/ZeroBSCRM.MetaBoxes3.Events.php:270
 #: includes/ZeroBSCRM.MetaBoxes3.Forms.php:231
 #: includes/ZeroBSCRM.MetaBoxes3.Invoices.php:392
 #: includes/ZeroBSCRM.MetaBoxes3.Quotes.php:549
 #: includes/ZeroBSCRM.MetaBoxes3.QuoteTemplates.php:255
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:527
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:499
 msgid "Insert/Update Failed with general error"
 msgstr ""
 
@@ -10734,168 +10561,188 @@ msgid "No contacts found at"
 msgstr ""
 
 #: includes/ZeroBSCRM.MetaBoxes3.Companies.php:828
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:928
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1214
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:933
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1219
 msgid "File(s)"
 msgstr ""
 
 #: includes/ZeroBSCRM.MetaBoxes3.Companies.php:833
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1219
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1224
 msgid "File"
 msgstr ""
 
 #: includes/ZeroBSCRM.MetaBoxes3.Companies.php:878
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:966
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1265
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:971
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1270
+#: includes/ZeroBSCRM.MetaBoxes3.Invoices.php:513
+#: includes/ZeroBSCRM.MetaBoxes3.Quotes.php:962
+msgid "Add File"
+msgstr ""
+
+#: includes/ZeroBSCRM.MetaBoxes3.Companies.php:878
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:971
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1270
 #: includes/ZeroBSCRM.MetaBoxes3.Invoices.php:513
 #: includes/ZeroBSCRM.MetaBoxes3.Quotes.php:962
 msgid "Optional"
 msgstr ""
 
+#: includes/ZeroBSCRM.MetaBoxes3.Companies.php:878
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:971
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1270
+#: includes/ZeroBSCRM.MetaBoxes3.Invoices.php:513
+#: includes/ZeroBSCRM.MetaBoxes3.Quotes.php:962
+msgid "Accepted File Types"
+msgstr ""
+
 #: includes/ZeroBSCRM.MetaBoxes3.Companies.php:1246
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2461
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2466
 msgid "Activity"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:148
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:153
 msgid "Contact Details"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:652
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:657
 msgid "Contact Updated"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:667
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:672
 msgid "The contact email specified (%s) is not valid."
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:677
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:682
 #: modules/woo-sync/includes/class-woo-sync-woo-admin-integration.php:125
 #: modules/woo-sync/includes/class-woo-sync-woo-admin-integration.php:259
 msgid "View Contact"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:679
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:684
 msgid "Contact email could not be updated because a contact already exists with this email address."
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:869
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1174
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:874
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1179
 msgid "Other Files"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:948
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1245
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:953
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1250
 msgid "Not shown on Portal"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1572
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1577
 msgid "WordPress User Linked"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1591
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1586
+msgid "View WordPress Profile"
+msgstr ""
+
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1596
 msgid "Client Portal Access:"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1599
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1679
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1604
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1684
 msgid "Enabled"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1603
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1608
 msgid "Reset Password"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1605
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1680
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1610
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1685
 msgid "Disable Access"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1615
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1687
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1620
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1692
 msgid "Disabled"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1618
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1688
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1623
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1693
 msgid "Enable Access"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1632
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1637
 msgid "No WordPress User exists with this email"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1635
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1640
 msgid "Generate WordPress User"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1640
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1645
 msgid "Save your contact, or add an email to enable Client Portal functionality"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1725
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1730
 msgid "Client Portal Password Reset"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1726
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1731
 msgid "Client Portal password has been reset for this contact, and they have been emailed with the new password. The new password is:"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1804
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1809
 msgid "Social Profiles"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1894
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1899
 msgid "Contact Aliases (AKA)"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1936
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1941
 msgid "You will not be able to add an alias until you've saved this contact"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1951
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1956
 msgid "Remove Alias"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1959
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1964
 msgid "Add Alias.. e.g."
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1960
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1965
 msgid "Must be a valid email"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1961
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:1966
 msgid "Add Alias"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2045
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2050
 msgid "This Alias is already in use by another contact."
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2056
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2072
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2061
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2077
 msgid "There was an error adding this alias"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2170
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2184
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2175
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2189
 msgid "There was an error removing this alias"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2271
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2276
 msgid "Activity Log"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2348
-msgid "Type to assign %s"
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2353
+msgid "Type to assign "
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2371
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2376
 msgid "You are using Plain Permalinks. Please set your permalinks to %postname% by visiting "
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2497
+#: includes/ZeroBSCRM.MetaBoxes3.Contacts.php:2502
 msgid "Pinned Logs"
 msgstr ""
 
@@ -11094,10 +10941,6 @@ msgstr ""
 
 #: includes/ZeroBSCRM.MetaBoxes3.Logs.php:60
 msgid "Invoice: Refunded"
-msgstr ""
-
-#: includes/ZeroBSCRM.MetaBoxes3.Logs.php:62
-msgid "Feedback"
 msgstr ""
 
 #: includes/ZeroBSCRM.MetaBoxes3.Logs.php:63
@@ -11467,91 +11310,74 @@ msgstr ""
 msgid "Transaction Information"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:180
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:179
 msgid "Transaction unique ID"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:204
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:202
 msgid "This transaction is a refund against transaction #%s"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:205
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:203
 msgid "View Original Transaction"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:220
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:215
 msgid "Transaction Name:"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:221
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:216
 msgid "If possible, keep these the same if you routinely use common products here (they are used in the transaction index)"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:227
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:222
 msgid "Transaction Value "
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:234
-msgid "The transaction date will default to the initial save date if left blank."
-msgstr ""
-
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:285
-msgid "Date Paid"
-msgstr ""
-
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:286
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:298
-msgid "This will default to the transaction date if left blank."
-msgstr ""
-
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:297
-msgid "Date Completed"
-msgstr ""
-
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:317
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:294
 msgid "Line Items"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:325
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:302
 msgid "Handling"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:348
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:325
 msgid "No Line Items Found"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:364
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:341
 msgid "Assign Transaction to"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:380
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:393
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:357
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:370
 msgid "Customer invoice:"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:380
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:393
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:357
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:370
 msgid "Is this transaction a payment for an invoice? If so enter the Invoice ID. Otherwise leave blank"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:396
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:373
 msgid "Or"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:419
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:396
 msgid "No Invoices Found!"
 msgstr ""
 
-#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:424
+#: includes/ZeroBSCRM.MetaBoxes3.Transactions.php:401
 msgid "Select Invoice"
 msgstr ""
 
-#: includes/ZeroBSCRM.Migrations.php:392
-#: includes/ZeroBSCRM.Migrations.php:425
+#: includes/ZeroBSCRM.Migrations.php:391
+#: includes/ZeroBSCRM.Migrations.php:424
 msgid "Your Client Portal Password"
 msgstr ""
 
-#: includes/ZeroBSCRM.Migrations.php:456
+#: includes/ZeroBSCRM.Migrations.php:455
 msgid "Your Statement"
 msgstr ""
 
@@ -12008,15 +11834,11 @@ msgstr ""
 msgid "Statement could not be sent at this time"
 msgstr ""
 
-#: includes/ZeroBSCRM.ScriptsStyles.php:240
-msgid "Totals"
-msgstr ""
-
-#: includes/ZeroBSCRM.ScriptsStyles.php:320
+#: includes/ZeroBSCRM.ScriptsStyles.php:310
 msgid "Item Name"
 msgstr ""
 
-#: includes/ZeroBSCRM.ScriptsStyles.php:321
+#: includes/ZeroBSCRM.ScriptsStyles.php:311
 msgid "Enter a detailed description (optional)"
 msgstr ""
 
@@ -12047,31 +11869,23 @@ msgstr ""
 msgid "Not Available"
 msgstr ""
 
-#: includes/ZeroBSCRM.SystemChecks.php:404
-msgid "<span class=\"ui label red\">Warning!</span> Encryption disabled due to no available encryption method. Please contact support."
-msgstr ""
-
-#: includes/ZeroBSCRM.SystemChecks.php:412
-msgid "<span class=\"ui label orange\">Note:</span> Encryption using fallback method (%s) due to no available encryption method. Please contact support."
-msgstr ""
-
-#: includes/ZeroBSCRM.SystemChecks.php:504
+#: includes/ZeroBSCRM.SystemChecks.php:455
 msgid "zlib is properly enabled on your server."
 msgstr ""
 
-#: includes/ZeroBSCRM.SystemChecks.php:507
+#: includes/ZeroBSCRM.SystemChecks.php:458
 msgid "zlib is disabled on your server."
 msgstr ""
 
-#: includes/ZeroBSCRM.SystemChecks.php:514
+#: includes/ZeroBSCRM.SystemChecks.php:465
 msgid "But don't worry, as the fallback PclZip appears to work."
 msgstr ""
 
-#: includes/ZeroBSCRM.SystemChecks.php:539
+#: includes/ZeroBSCRM.SystemChecks.php:490
 msgid "The mbstring PHP module is properly enabled on your server."
 msgstr ""
 
-#: includes/ZeroBSCRM.SystemChecks.php:542
+#: includes/ZeroBSCRM.SystemChecks.php:493
 msgid "The mbstring PHP module is disabled on your server, which may prevent PDFs from being generated."
 msgstr ""
 
@@ -12209,18 +12023,18 @@ msgstr ""
 msgid "Password updated."
 msgstr ""
 
-#: modules/portal/endpoints/class-invoices-endpoint.php:70
+#: modules/portal/endpoints/class-invoices-endpoint.php:69
 msgid "Admins will see all invoices below, but clients will only see invoices assigned to them."
 msgstr ""
 
-#: modules/portal/endpoints/class-invoices-endpoint.php:113
+#: modules/portal/endpoints/class-invoices-endpoint.php:112
 #: modules/portal/templates/quotes.php:110
 msgid "(view)"
 msgstr ""
 
-#: modules/portal/endpoints/class-invoices-endpoint.php:143
-#: modules/portal/endpoints/class-invoices-endpoint.php:147
-#: modules/portal/endpoints/class-invoices-endpoint.php:151
+#: modules/portal/endpoints/class-invoices-endpoint.php:142
+#: modules/portal/endpoints/class-invoices-endpoint.php:146
+#: modules/portal/endpoints/class-invoices-endpoint.php:150
 msgid "You do not have any invoices yet."
 msgstr ""
 
@@ -12968,8 +12782,8 @@ msgid "To get started with WooSync please <a href=\"%s\">Connect to a Store</a>.
 msgstr ""
 
 #: modules/woo-sync/admin/woo-sync-hub/main.page.php:274
-#: modules/woo-sync/includes/class-woo-sync-background-sync.php:344
-#: modules/woo-sync/includes/class-woo-sync-background-sync.php:364
+#: modules/woo-sync/includes/class-woo-sync-background-sync.php:339
+#: modules/woo-sync/includes/class-woo-sync-background-sync.php:359
 msgid "Syncing content from WooCommerce..."
 msgstr ""
 
@@ -13085,78 +12899,68 @@ msgstr ""
 msgid "Missing:"
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1227
-#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1250
-#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1644
-msgid "%s (From WooCommerce)"
-msgstr ""
-
-#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1432
+#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1355
 msgid "WooCommerce Customer notes"
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1433
+#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1356
 msgid "WooCommerce Customer notes:"
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1433
-msgid "From order: #%s"
-msgstr ""
-
-#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1620
-#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1977
+#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1530
+#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1850
 msgid "Multiple Items"
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1775
+#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1648
 msgid "Refund against transaction #%s"
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1776
+#: modules/woo-sync/includes/class-woo-sync-background-sync-job.php:1649
 msgid "Reason: "
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync-background-sync.php:237
+#: modules/woo-sync/includes/class-woo-sync-background-sync.php:232
 msgid "Unable to complete migration 5.2"
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync-background-sync.php:238
+#: modules/woo-sync/includes/class-woo-sync-background-sync.php:233
 msgid "WooSync was unable to complete a necessary migration and therefore cannot yet sync."
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync-background-sync.php:337
+#: modules/woo-sync/includes/class-woo-sync-background-sync.php:332
 msgid "Sync Completed"
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync-background-sync.php:338
+#: modules/woo-sync/includes/class-woo-sync-background-sync.php:333
 msgid "WooSync has imported all existing orders and will continue to import future orders."
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync-background-sync.php:357
+#: modules/woo-sync/includes/class-woo-sync-background-sync.php:352
 msgid "Sync Completed for active connections"
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync-background-sync.php:358
+#: modules/woo-sync/includes/class-woo-sync-background-sync.php:353
 msgid "WooSync has imported existing orders for sites with active connections, but could not import from paused site connections."
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync-background-sync.php:377
+#: modules/woo-sync/includes/class-woo-sync-background-sync.php:372
 msgid "Sync Previously Completed"
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync-background-sync.php:378
+#: modules/woo-sync/includes/class-woo-sync-background-sync.php:373
 msgid "WooSync imported orders previously, but is not currently actively syncing due to paused connections."
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync-background-sync.php:384
+#: modules/woo-sync/includes/class-woo-sync-background-sync.php:379
 msgid "WooSync is trying to sync, but cannot retrieve all orders due to paused connections."
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync-background-sync.php:624
+#: modules/woo-sync/includes/class-woo-sync-background-sync.php:619
 msgid "WooCommerce Order Deleted"
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync-background-sync.php:625
+#: modules/woo-sync/includes/class-woo-sync-background-sync.php:620
 msgid "Transaction #%s was removed from your CRM after the related WooCommerce order #%s was deleted."
 msgstr ""
 
@@ -13189,58 +12993,58 @@ msgstr ""
 msgid "Once you save your order to a customer with a billing email the CRM contact card will display here."
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync.php:391
-#: modules/woo-sync/includes/class-woo-sync.php:401
-#: modules/woo-sync/includes/class-woo-sync.php:415
-#: modules/woo-sync/includes/class-woo-sync.php:429
+#: modules/woo-sync/includes/class-woo-sync.php:388
+#: modules/woo-sync/includes/class-woo-sync.php:398
+#: modules/woo-sync/includes/class-woo-sync.php:412
+#: modules/woo-sync/includes/class-woo-sync.php:426
 msgid "WooCommerce"
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync.php:589
+#: modules/woo-sync/includes/class-woo-sync.php:586
 msgid "Store Connections"
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync.php:656
+#: modules/woo-sync/includes/class-woo-sync.php:653
 msgid "If you do not set this up, all WooCommerce orders will be imported as contacts with default status (Lead). Hit import to get started or learn more about how to setup the extension."
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync.php:709
+#: modules/woo-sync/includes/class-woo-sync.php:706
 msgid " from "
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync.php:725
-#: modules/woo-sync/includes/class-woo-sync.php:729
-#: modules/woo-sync/includes/class-woo-sync.php:741
-#: modules/woo-sync/includes/class-woo-sync.php:745
+#: modules/woo-sync/includes/class-woo-sync.php:722
+#: modules/woo-sync/includes/class-woo-sync.php:726
+#: modules/woo-sync/includes/class-woo-sync.php:738
+#: modules/woo-sync/includes/class-woo-sync.php:742
 msgid "Order"
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync.php:725
-#: modules/woo-sync/includes/class-woo-sync.php:741
+#: modules/woo-sync/includes/class-woo-sync.php:722
+#: modules/woo-sync/includes/class-woo-sync.php:738
 msgid "View Order"
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync.php:835
+#: modules/woo-sync/includes/class-woo-sync.php:832
 msgid "Pay Invoice"
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync.php:836
+#: modules/woo-sync/includes/class-woo-sync.php:833
 msgid "Pay Now"
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync.php:1106
+#: modules/woo-sync/includes/class-woo-sync.php:1103
 msgid "Latest import:"
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync.php:1231
+#: modules/woo-sync/includes/class-woo-sync.php:1228
 msgid "Error. Your WooCommerce endpoint may be incorrect!"
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync.php:1336
+#: modules/woo-sync/includes/class-woo-sync.php:1333
 msgid "CRM: %s"
 msgstr ""
 
-#: modules/woo-sync/includes/class-woo-sync.php:1340
+#: modules/woo-sync/includes/class-woo-sync.php:1337
 msgid "Jetpack CRM: %s"
 msgstr ""
 
@@ -13322,22 +13126,6 @@ msgstr ""
 
 #: modules/woo-sync/includes/jpcrm-woo-sync-contact-tabs.php:317
 msgid "cancelled"
-msgstr ""
-
-#: modules/woo-sync/includes/segment-conditions/class-segment-condition-woo-customer.php:32
-msgid "WooCommerce Customer"
-msgstr ""
-
-#: modules/woo-sync/includes/segment-conditions/class-segment-condition-woo-customer.php:33
-msgid "Select contacts who are or are not also WooCommerce customers"
-msgstr ""
-
-#: modules/woo-sync/includes/segment-conditions/class-segment-condition-woo-order-count.php:33
-msgid "WooCommerce Order Count"
-msgstr ""
-
-#: modules/woo-sync/includes/segment-conditions/class-segment-condition-woo-order-count.php:34
-msgid "Select contacts who match WooCommerce customers with specific order counts"
 msgstr ""
 
 #: modules/woo-sync/jpcrm-woo-sync-init.php:20

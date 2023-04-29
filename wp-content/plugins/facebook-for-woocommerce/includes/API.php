@@ -13,7 +13,6 @@ namespace WooCommerce\Facebook;
 
 defined( 'ABSPATH' ) or exit;
 
-use WooCommerce\Facebook\API\Orders\Order;
 use WooCommerce\Facebook\API\Request;
 use WooCommerce\Facebook\API\Response;
 use WooCommerce\Facebook\Events\Event;
@@ -34,7 +33,7 @@ class API extends Base {
 
 	public const GRAPH_API_URL = 'https://graph.facebook.com/';
 
-	public const API_VERSION = 'v13.0';
+	public const API_VERSION = 'v16.0';
 
 	/** @var string URI used for the request */
 	protected $request_uri = self::GRAPH_API_URL . self::API_VERSION;
@@ -292,6 +291,21 @@ class API extends Base {
 	public function update_messenger_configuration( string $external_business_id, API\FBE\Configuration\Messenger $configuration ): API\FBE\Configuration\Update\Response {
 		$request = new API\FBE\Configuration\Update\Request( $external_business_id );
 		$request->set_messenger_configuration( $configuration );
+		$this->set_response_handler( API\FBE\Configuration\Update\Response::class );
+		return $this->perform_request( $request );
+	}
+
+	/**
+	 * Updates the plugin version configuration.
+	 *
+	 * @param string $external_business_id external business ID
+	 * @param string $plugin_version The plugin version.
+	 * @return API\Response|API\FBE\Configuration\Update\Response
+	 * @throws WooCommerce\Facebook\Framework\Api\Exception
+	 */
+	public function update_plugin_version_configuration( string $external_business_id, string $plugin_version ): API\FBE\Configuration\Update\Response {
+		$request = new API\FBE\Configuration\Update\Request( $external_business_id );
+		$request->set_plugin_version( $plugin_version );
 		$this->set_response_handler( API\FBE\Configuration\Update\Response::class );
 		return $this->perform_request( $request );
 	}
@@ -603,140 +617,6 @@ class API extends Base {
 			$next_response->set_pages_retrieved( $response->get_pages_retrieved() + 1 );
 		}
 		return $next_response;
-	}
-
-
-	/**
-	 * Gets all new orders.
-	 *
-	 * @since 2.1.0
-	 *
-	 * @param string $page_id page ID
-	 * @return API\Orders\Response
-	 * @throws ApiException
-	 */
-	public function get_new_orders( $page_id ) {
-		$request_args = array(
-			'state' => array(
-				Order::STATUS_PROCESSING,
-				Order::STATUS_CREATED,
-			),
-		);
-		$request = new API\Orders\Request( $page_id, $request_args );
-		$this->set_response_handler( API\Orders\Response::class );
-		return $this->perform_request( $request );
-	}
-
-
-	/**
-	 * Gets the latest cancelled orders.
-	 *
-	 * @since 2.1.0
-	 *
-	 * @param string $page_id page ID
-	 * @return API\Orders\Response
-	 * @throws ApiException
-	 */
-	public function get_cancelled_orders( $page_id ) {
-		$request_args = array(
-			'state'         => array(
-				Order::STATUS_COMPLETED,
-			),
-			'updated_after' => time() - facebook_for_woocommerce()->get_commerce_handler()->get_orders_handler()->get_order_update_interval(),
-			'filters'       => 'has_cancellations',
-		);
-		$request = new API\Orders\Request( $page_id, $request_args );
-		$this->set_response_handler( API\Orders\Response::class );
-		return $this->perform_request( $request );
-	}
-
-
-	/**
-	 * Gets a single order based on its remote ID.
-	 *
-	 * @since 2.1.0
-	 *
-	 * @param string $remote_id remote order ID
-	 * @return API\Orders\Read\Response
-	 * @throws ApiException
-	 */
-	public function get_order( $remote_id ) {
-		$request = new API\Orders\Read\Request( $remote_id );
-		$this->set_response_handler( API\Orders\Read\Response::class );
-		return $this->perform_request( $request );
-	}
-
-
-	/**
-	 * Acknowledges the given order.
-	 *
-	 * @since 2.1.0
-	 *
-	 * @param string $remote_id remote order ID
-	 * @param string $merchant_order_reference WC order ID
-	 * @return API\Response
-	 * @throws ApiException
-	 */
-	public function acknowledge_order( $remote_id, $merchant_order_reference ) {
-		$request = new API\Orders\Acknowledge\Request( $remote_id, $merchant_order_reference );
-		$this->set_response_handler( API\Response::class );
-		return $this->perform_request( $request );
-	}
-
-
-	/**
-	 * Issues a fulfillment request for the given order.
-	 *
-	 * @see https://developers.facebook.com/docs/commerce-platform/order-management/fulfillment-api#attach_shipment
-	 *
-	 * @since 2.1.0
-	 *
-	 * @param string $remote_id remote order ID
-	 * @param array  $fulfillment_data fulfillment data to be sent on the request
-	 * @return API\Response
-	 * @throws ApiException
-	 */
-	public function fulfill_order( $remote_id, $fulfillment_data ) {
-		$request = new API\Orders\Fulfillment\Request( $remote_id, $fulfillment_data );
-		$this->set_response_handler( API\Response::class );
-		return $this->perform_request( $request );
-	}
-
-
-	/**
-	 * Cancels the given order.
-	 *
-	 * @since 2.1.0
-	 *
-	 * @param string $remote_id remote order ID
-	 * @param string $reason cancellation reason
-	 * @param bool   $restock_items whether to restock items remotely
-	 * @return API\Response
-	 * @throws ApiException
-	 */
-	public function cancel_order( $remote_id, $reason, $restock_items = true ) {
-		$request = new API\Orders\Cancel\Request( $remote_id, $reason, $restock_items );
-		$this->set_response_handler( API\Response::class );
-		return $this->perform_request( $request );
-	}
-
-
-	/**
-	 * Issues a refund request for the given order.
-	 *
-	 * @see https://developers.facebook.com/docs/commerce-platform/order-management/cancellation-refund-api#refund_order
-	 *
-	 * @since 2.1.0
-	 *
-	 * @param string $remote_id remote order ID
-	 * @param array  $refund_data refund data to be sent on the request
-	 * @return API\Response
-	 * @throws ApiException
-	 */
-	public function add_order_refund( $remote_id, $refund_data ) {
-		$request = new API\Orders\Refund\Request( $remote_id, $refund_data );
-		$this->set_response_handler( API\Response::class );
-		return $this->perform_request( $request );
 	}
 
 

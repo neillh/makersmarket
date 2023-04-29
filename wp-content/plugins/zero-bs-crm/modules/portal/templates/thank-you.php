@@ -46,10 +46,10 @@ $show_nav = ( ( $uid !== 0 ) && $portal->is_user_enabled() ) ;
 			$portal->render->admin_message();
 
 		?>
-		<h2><?php _e("Thank You", "zero-bs-crm"); ?></h2>
+		<h2><?php esc_html_e("Thank You", "zero-bs-crm"); ?></h2>
 		<div class='zbs-entry-content' style="position:relative;">
 			<p>
-			<?php _e("Thank you for your payment.", "zero-bs-crm"); ?>
+			<?php esc_html_e("Thank you for your payment.", "zero-bs-crm"); ?>
 			</p>
 		</div>
 	</div>

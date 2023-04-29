@@ -18,6 +18,9 @@ if ( ! defined( 'ZEROBSCRM_PATH' ) ) exit;
  */
 function jpcrm_uts_to_datetime_str( $timestamp, $format=false ) {
 
+	if ( $timestamp === '' ) {
+		return false;
+	}
 	// default to WP format
 	if ( !$format ) {
 		$format = get_option('date_format') . ' ' . get_option('time_format');
@@ -184,4 +187,15 @@ function jpcrm_get_wp_timezone_offset() {
 	$date_obj = new DateTime();
 	$date_obj->setTimezone( new DateTimeZone( wp_timezone_string() ) );
 	return $date_obj->format( 'P' );
+}
+
+/**
+ * Returns WP timezone offset string in seconds (e.g. -3600 for -1h)
+ * 
+ * @return string timezone offset string
+ */
+function jpcrm_get_wp_timezone_offset_in_seconds() {
+	$date_obj = new DateTime();
+	$date_obj->setTimezone( new DateTimeZone( wp_timezone_string() ) );
+	return $date_obj->format( 'Z' );
 }

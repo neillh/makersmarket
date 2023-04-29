@@ -175,7 +175,7 @@ class Woo_Sync_Background_Sync_Job {
 	 * for a given sync site
 	 *
 	 * @return mixed (int|json)
-	 *   - if cron originated: a count of orers imported is returned
+	 *   - if cron originated: a count of orders imported is returned
 	 *   - if not cron originated (assumes AJAX):
 	 *      - if completed sync: JSON summary info is output and then exit() is called
 	 *      - else count of orders imported is returned
@@ -343,7 +343,7 @@ class Woo_Sync_Background_Sync_Job {
 	 * @param int $page_no - the page number to start from
 	 *
 	 * @return mixed (int|json)
-	 *   - if cron originated: a count of orers imported is returned
+	 *   - if cron originated: a count of orders imported is returned
 	 *   - if not cron originated (assumes AJAX):
 	 *      - if completed sync: JSON summary info is output and then exit() is called
 	 *      - else count of orders imported is returned
@@ -374,7 +374,7 @@ class Woo_Sync_Background_Sync_Job {
 	 * @param int $page_no
 	 *
 	 * @return mixed (int|json)
-	 *   - if cron originated: a count of orers imported is returned
+	 *   - if cron originated: a count of orders imported is returned
 	 *   - if not cron originated (assumes AJAX):
 	 *      - if completed sync: JSON summary info is output and then exit() is called
 	 *      - else count of orders imported is returned
@@ -478,7 +478,7 @@ class Woo_Sync_Background_Sync_Job {
 	 * @param int $page_no
 	 *
 	 * @return mixed (int|json)
-	 *   - if cron originated: a count of orers imported is returned
+	 *   - if cron originated: a count of orders imported is returned
 	 *   - if not cron originated (assumes AJAX):
 	 *      - if completed sync: JSON summary info is output and then exit() is called
 	 *      - else count of orders imported is returned
@@ -834,8 +834,9 @@ class Woo_Sync_Background_Sync_Job {
 
 			// Add the contact
 			$contact_id = $zbs->DAL->contacts->addUpdateContact( array(
-				'data'         => $crm_object_data['contact'],
-				'extraMeta'    => $crm_object_data['contact_extra_meta']
+				'data'                 => $crm_object_data['contact'],
+				'extraMeta'            => $crm_object_data['contact_extra_meta'],
+				'do_not_update_blanks' => true
 			) );
 
 		}
@@ -983,6 +984,8 @@ class Woo_Sync_Background_Sync_Job {
 
 		}
 
+		// This parameter (do_not_mark_invoices) makes sure invoice status are not changed.
+		$args[ 'do_not_mark_invoices' ] = true;
 		$transaction_id = $zbs->DAL->transactions->addUpdateTransaction( $args );
 
 		if ( !empty( $transaction_id ) ) {
@@ -1100,7 +1103,7 @@ class Woo_Sync_Background_Sync_Job {
 		$extra_meta = array()
 	) {
 
-		global $zbs;
+	    global $zbs;
 
 	    // get settings
 	    $settings = $this->settings();
@@ -1118,9 +1121,11 @@ class Woo_Sync_Background_Sync_Job {
 	    	'order_post_id'           => $order_post_id,
 	    );
 
-    	// Below we sometimes need to do some type-conversion, (e.g. dates), so here we retrieve our 
-    	// crm contact custom fields to use the types...
-    	$custom_fields = $zbs->DAL->getActiveCustomFields( array( 'objtypeid' => ZBS_TYPE_CONTACT ) );
+	    // Below we sometimes need to do some type-conversion, (e.g. dates), so here we retrieve our 
+	    // crm contact custom fields to use the types...
+	    $custom_fields              = $zbs->DAL->getActiveCustomFields( array( 'objtypeid' => ZBS_TYPE_CONTACT ) );
+	    $is_status_mapping_enabled  = ( isset( $settings['enable_woo_status_mapping'] ) ? ( (int) $settings['enable_woo_status_mapping'] === 1 ) : true );
+		$contact_statuses          = zeroBSCRM_getCustomerStatuses( true );
 
 	    // initialise dates
 	    $contact_creation_date         = -1;
@@ -1157,6 +1162,10 @@ class Woo_Sync_Background_Sync_Job {
 
 	    }
 
+	    $order_status_to_invoice_settings     = $this->woosync()->woo_order_status_mapping( 'invoice' );
+	    $order_status_to_transaction_settings = $this->woosync()->woo_order_status_mapping( 'transaction' );
+	    $valid_transaction_statuses           = zeroBSCRM_getTransactionsStatuses( true );
+	    $valid_invoice_statuses               = zeroBSCRM_getInvoicesStatuses();
 	    // pre-processing from the $order_data
 	    $order_status   = $order_data['status'];
 	    $order_currency = $order_data['currency'];
@@ -1250,7 +1259,7 @@ class Woo_Sync_Background_Sync_Job {
 								'name' => sprintf( __( '%s (From WooCommerce)', 'zero-bs-crm' ), $tax_label ),
 								'rate' => (float)$tax_rate,
 							),
-						),
+						)
 					);
 
 	        		// mark as table changed
@@ -1303,9 +1312,12 @@ class Woo_Sync_Background_Sync_Job {
 		// we only add a contact whom has an email
 		if ( !empty( $contact_email ) ) {
 
-			$do_status_mapping = ( isset( $settings['enable_woo_status_mapping'] ) ? ( (int)$settings['enable_woo_status_mapping'] === 1 ) : true );
-			if ( $do_status_mapping ) {
-				$data['contact']['status'] = $this->woosync()->woocommerce_order_status_to_contact_status( $order_status );
+			if ( $is_status_mapping_enabled ) {
+				$contact_id = zeroBS_getCustomerIDWithEmail( $contact_email );
+				// If this is a new contact or the current status equals the first status (CRM's default value is 'Lead'), we are allowed to change it.
+				if ( empty( $contact_id ) || $zbs->DAL->contacts->getContactStatus( $contact_id ) === $contact_statuses[0] ) { // phpcs:ignore WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					$data['contact']['status'] = $this->woosync()->woocommerce_order_status_to_contact_status( $order_status );
+				}
 			}
 			$data['contact']['created']         = $contact_creation_date_uts;
 			$data['contact']['email']           = $contact_email;
@@ -1570,16 +1582,18 @@ class Woo_Sync_Background_Sync_Job {
 		$transaction_paid_date_uts      = null;
 		$transaction_completed_date_uts = null;
 
-		// if we have a paid date, set the invoice status and clock the paid time
 		if ( array_key_exists( 'date_paid', $order_data ) && !empty( $order_data['date_paid'] ) ) {
-
 			$transaction_paid_date_uts = $order_data['date_paid']->date( 'U' );
-			$invoice_status            = __( 'Paid', 'zero-bs-crm' );
+		}
 
-		} else {
+		$invoice_status = __( 'Unpaid', 'zero-bs-crm' );
 
-			$invoice_status = __( 'Unpaid', 'zero-bs-crm' );
+		// Look for a custom user-defined status mapping value, otherwise we keep using the default value.
+		if ( $is_status_mapping_enabled ) {
+			$candidate_invoice_status = ! empty( $settings[ $order_status_to_invoice_settings[ $order_status ] ] ) ? $settings[ $order_status_to_invoice_settings[ $order_status ] ] : -1;
 
+			// Make sure that the user-defined invoice status mapping is still in the list of allowed Contact statuses.
+			$invoice_status = in_array( $candidate_invoice_status, $valid_invoice_statuses ) ? $candidate_invoice_status : $invoice_status;
 		}
 
 		// retrieve completed date, where available
@@ -1709,6 +1723,13 @@ class Woo_Sync_Background_Sync_Job {
 
 		// Transactions have a "Hold" status by default, not "On-hold"
 		$transaction_status = ( $order_status == "on-hold" ? "Hold" : ucfirst( $order_status ) );
+		
+		if ( $is_status_mapping_enabled ) {
+			$candidate_transaction_status = ! empty( $settings[ $order_status_to_transaction_settings[ $order_status ] ] ) ? $settings[ $order_status_to_transaction_settings[ $order_status ] ] : -1;
+
+			// Make sure that the user-defined transaction status mapping is still in the list of allowed transaction statuses.
+			$transaction_status = in_array( $candidate_transaction_status, $valid_transaction_statuses ) ? $candidate_transaction_status : $transaction_status;
+		}
 
 		// fill out transaction header (object)
 		$data['transaction'] = array(
@@ -2025,7 +2046,7 @@ class Woo_Sync_Background_Sync_Job {
 			true,
 			$order_tags,
 			$origin,
-			$extra_meta,
+			$extra_meta
 		);
 
 	}
@@ -2497,7 +2518,7 @@ class Woo_Sync_Background_Sync_Job {
 			// add notice & transient
 			$reference = strtotime( 'today midnight' );
 
-			$connections_page_url = zbsLink( $zbs->slugs['settings'] ) . '&tab=' . $zbs->modules->woosync->slugs['settings'] . '&subtab=' . $zbs->modules->woosync->slugs['settings_connections'];
+			$connections_page_url = jpcrm_esc_link( $zbs->slugs['settings'] ) . '&tab=' . $zbs->modules->woosync->slugs['settings'] . '&subtab=' . $zbs->modules->woosync->slugs['settings_connections'];
 			zeroBSCRM_notifyme_insert_notification( get_current_user_id(), -999, -1, 'woosync.syncsite.paused', $connections_page_url, $reference );
 			set_transient( 'woosync.syncsite.paused.errors', 'woosync.syncsite.paused.errors', HOUR_IN_SECONDS * 24 );
 

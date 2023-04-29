@@ -11,6 +11,7 @@ return array(
         ),
          'CreativeWork' => array(
                 'Article'                  => 'Article', 
+                'ScholarlyArticle'         => 'ScholarlyArticle',
                 'Audiobook'                => 'Audiobook',                
                 'BlogPosting'              => 'BlogPosting',
                 'Book'                     => 'Book',
@@ -27,6 +28,12 @@ return array(
                 'MusicComposition'         => 'MusicComposition',
                 'Movie'                    => 'Movie',
                 'NewsArticle'              => 'NewsArticle',
+                'AnalysisNewsArticle'      => 'AnalysisNewsArticle',
+                'AskPublicNewsArticle'     => 'AskPublicNewsArticle',
+                'BackgroundNewsArticle'    => 'BackgroundNewsArticle',
+                'OpinionNewsArticle'       => 'OpinionNewsArticle',
+                'ReportageNewsArticle'     => 'ReportageNewsArticle',
+                'ReviewNewsArticle'        => 'ReviewNewsArticle',
                 'PodcastEpisode'           => 'PodcastEpisode',
                 'PodcastSeason'            => 'PodcastSeason',
                 'Photograph'               => 'Photograph',                              
@@ -41,7 +48,9 @@ return array(
                 'TechArticle'              => 'TechArticle', 
                 'VisualArtwork'            => 'VisualArtwork',                                           
                 'WebPage'                  => 'WebPage',
-                'MedicalWebPage'           => 'MedicalWebPage'                                                                 
+                'ItemPage'                 => 'ItemPage',
+                'MedicalWebPage'           => 'MedicalWebPage',
+                'BreadCrumbs'              => 'BreadCrumbs'  
         ),
         'Event' => array(
             'Event'                    => 'Event',

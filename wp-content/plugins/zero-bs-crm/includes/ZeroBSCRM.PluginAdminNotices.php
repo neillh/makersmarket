@@ -96,12 +96,12 @@ function jpcrm_usage_tracking_notice_banner(){
 	?>
 		<div id="track-notice" class="ui segment jpcrm-promo notice is-dismissible">
 			<div class="content">
-				<b><?= __('Help make Jetpack CRM better for you through usage tracking.', 'zero-bs-crm' ) ?></b>
-				<br><?= __('We have changed what data we track to help make your CRM better.', 'zero-bs-crm') ?>
+				<b><?= esc_html__('Help make Jetpack CRM better for you through usage tracking.', 'zero-bs-crm' ) ?></b>
+				<br><?= esc_html__('We have changed what data we track to help make your CRM better.', 'zero-bs-crm') ?>
 			</div>
 			<div class="button-group">
-				<a href="<?php echo esc_url(admin_url("admin.php?page=" . $zbs->slugs['settings'])); ?>#wpzbscrm_shareessentials" class="button ui green"><?php _e("Change setting","zero-bs-crm");?></a>
-				<a href="<?php echo $zbs->urls['usagetrackinginfo']; ?>" target="_blank" class="button ui inverse"><?php _e("Learn more","zero-bs-crm");?></a>
+				<a href="<?php echo esc_url(admin_url("admin.php?page=" . $zbs->slugs['settings'])); ?>#wpzbscrm_shareessentials" class="button ui green"><?php esc_html_e("Change setting","zero-bs-crm");?></a>
+				<a href="<?php echo esc_url( $zbs->urls['usagetrackinginfo'] ); ?>" target="_blank" class="button ui inverse"><?php esc_html_e("Learn more","zero-bs-crm");?></a>
 			</div>
 		</div>
 

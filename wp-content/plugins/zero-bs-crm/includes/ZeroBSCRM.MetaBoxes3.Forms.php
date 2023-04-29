@@ -107,7 +107,7 @@
 
                 ?>
 
-                <?php #} AJAX NONCE ?><script type="text/javascript">var zbscrmjs_secToken = '<?php echo wp_create_nonce( "zbscrmjs-ajax-nonce" ); ?>';</script><?php # END OF NONCE ?>
+				<script type="text/javascript">var zbscrmjs_secToken = '<?php echo esc_js( wp_create_nonce( 'zbscrmjs-ajax-nonce' ) ); ?>';</script>
                 
                 <table class="form-table wh-metatab wptbp">
                 <?php foreach ($zbsFormFields as $fieldK => $fieldV){
@@ -117,9 +117,9 @@
 
                         case 'text':
 
-                            ?><tr class="wh-large"><th><label for="<?php echo $fieldK; ?>"><?php _e($fieldV[1],"zero-bs-crm"); ?>:</label></th>
+                            ?><tr class="wh-large"><th><label for="<?php echo esc_attr( $fieldK ); ?>"><?php esc_html_e($fieldV[1],"zero-bs-crm"); ?>:</label></th>
                             <td>
-                                <input type="text" name="<?php echo $this->fieldPrefix.$fieldK; ?>" id="<?php echo $fieldK; ?>" class="form-control widetext" placeholder="<?php echo !empty( $fieldV[2] ) ? esc_attr( __( $fieldV[2], 'zero-bs-crm' ) ) : ''; ?>" value="<?php echo !empty( $form[$fieldK] ) ? esc_attr( $form[$fieldK] ) : ''; ?>" />
+                                <input type="text" name="<?php echo esc_attr( $this->fieldPrefix.$fieldK ); ?>" id="<?php echo esc_attr( $fieldK ); ?>" class="form-control widetext" placeholder="<?php echo !empty( $fieldV[2] ) ? esc_attr( __( $fieldV[2], 'zero-bs-crm' ) ) : ''; ?>" value="<?php echo !empty( $form[$fieldK] ) ? esc_attr( $form[$fieldK] ) : ''; ?>" />
                             </td></tr><?php
 
                             break;
@@ -127,9 +127,9 @@
 
                         case 'textarea':
 
-                            ?><tr class="wh-large"><th><label for="<?php echo $fieldK; ?>"><?php _e($fieldV[1],"zero-bs-crm"); ?>:</label></th>
+                            ?><tr class="wh-large"><th><label for="<?php echo esc_attr( $fieldK ); ?>"><?php esc_html_e($fieldV[1],"zero-bs-crm"); ?>:</label></th>
                             <td>
-                                <textarea name="<?php echo $this->fieldPrefix.$fieldK; ?>" id="<?php echo $fieldK; ?>" class="form-control" placeholder="<?php echo !empty( $fieldV[2] ) ? esc_attr( __( $fieldV[2], 'zero-bs-crm' ) ) : ''; ?>"><?php echo !empty( $form[$fieldK] ) ? esc_textarea( $form[$fieldK] ) : ''; ?></textarea>
+                                <textarea name="<?php echo esc_attr( $this->fieldPrefix.$fieldK ); ?>" id="<?php echo esc_attr( $fieldK ); ?>" class="form-control" placeholder="<?php echo !empty( $fieldV[2] ) ? esc_attr( __( $fieldV[2], 'zero-bs-crm' ) ) : ''; ?>"><?php echo !empty( $form[$fieldK] ) ? esc_textarea( $form[$fieldK] ) : ''; ?></textarea>
                             </td></tr><?php
 
                             break;
@@ -250,7 +250,7 @@
                 if (!empty($zbsJustInsertedMetaboxID) && $zbsJustInsertedMetaboxID > 0){
 
                     // redir
-                    wp_redirect( zbsLink('edit',$zbsJustInsertedMetaboxID,$this->objType) );
+                    wp_redirect( jpcrm_esc_link('edit',$zbsJustInsertedMetaboxID,$this->objType) );
                     exit;
 
                 }
@@ -333,16 +333,16 @@
                  $zbsfs = 'simple'; if (is_array($form) && isset($form['style'])) $zbsfs = $form['style'];
 
             ?>
-            <input type="hidden" name="<?php echo $this->fieldPrefix; ?>style" id="zbs_form_style_post" value="<?php echo $zbsfs; ?>" />
+            <input type="hidden" name="<?php echo esc_attr( $this->fieldPrefix ); ?>style" id="zbs_form_style_post" value="<?php echo esc_attr( $zbsfs ); ?>" />
 
-            <h1 class="welcomeh1"><?php _e('Welcome to Jetpack CRM Form Creator',"zero-bs-crm");?></h1>
-            <h3 class="welcomeh3"><?php _e("Choose your style for the form you wish to embed (click to choose)","zero-bs-crm");?></h3>
-            <p class="zbs_msg"><?php _e('Make sure to save the form before using the shortcode',"zero-bs-crm");?>.</p>
+            <h1 class="welcomeh1"><?php esc_html_e('Welcome to Jetpack CRM Form Creator',"zero-bs-crm");?></h1>
+            <h3 class="welcomeh3"><?php esc_html_e("Choose your style for the form you wish to embed (click to choose)","zero-bs-crm");?></h3>
+            <p class="zbs_msg"><?php esc_html_e('Make sure to save the form before using the shortcode',"zero-bs-crm");?>.</p>
             <div class="zbs_shortcode_message">
-            <p><?php _e('You can embed this form on <b>this website</b> using the shortcode below (choose your style first). To embed the form on a seperate website use the embed code in the "Embed Code" box below.',"zero-bs-crm");?></p>
+            <p><?php esc_html_e('You can embed this form on this website using the shortcode below (choose your style first). To embed the form on a seperate website use the embed code in the "Embed Code" box below.',"zero-bs-crm");?></p>
             <p class="shorty"><?php if ($formID > 0){
 
-                ?>[jetpackcrm_form id="<?php echo $formID; ?>" style="<?php  echo $zbsfs; ?>"]<?php 
+                ?>[jetpackcrm_form id="<?php echo esc_attr( $formID ); ?>" style="<?php  echo esc_attr( $zbsfs ); ?>"]<?php 
 
             } ?></p>
             </div>
@@ -350,7 +350,7 @@
             <div id="form-chooser">
                 <!-- 3 styles for now - naked, simple and content grab -->
                 <div class="third" id="naked-form">
-                    <div class="naked choice <?php if($zbsfs == 'naked'){ echo 'selected';} ?>" data-pid="<?php echo $formID; ?>" data-style="naked">
+                    <div class="naked choice <?php if($zbsfs == 'naked'){ echo 'selected';} ?>" data-pid="<?php echo esc_attr( $formID ); ?>" data-style="naked">
                         <div class="blobby" style="margin-bottom:13px;">
                             <p>Lorem Ipsum Text here</p>
                             <p>Lorem Ipsum <span class="br">s</span> Text <span class="br">s</span> here</p>
@@ -361,7 +361,7 @@
                         </div>
                         <div class="content">
                              <div class="form-wrapper">
-                                <div class="input"><?php if(!empty($zbsForm['fname'])){ echo $zbsForm['fname']; }else{ echo "First Name"; } ?></div><div class="input"><?php if(!empty($zbsForm['email'])){ echo $zbsForm['email']; }else{ _e("Email","zero-bs-crm"); } ?></div><div class="send"><?php if(!empty($zbsForm['submit'])){ echo $zbsForm['submit']; }else{ echo "Submit"; } ?></div>
+                                <div class="input"><?php if(!empty($zbsForm['fname'])){ echo esc_html( $zbsForm['fname'] ); }else{ echo "First Name"; } ?></div><div class="input"><?php if(!empty($zbsForm['email'])){ echo esc_html( $zbsForm['email'] ); }else{ esc_html_e("Email","zero-bs-crm"); } ?></div><div class="send"><?php if(!empty($zbsForm['submit'])){ echo esc_html( $zbsForm['submit'] ); }else{ echo "Submit"; } ?></div>
                             </div>
                         </div>
                         <div class="clear"></div>
@@ -374,41 +374,41 @@
                             <p>Lorem Ipsum Text here</p>
                         </div>
                     </div>
-                    <div class="caption"><?php _e("Naked Style","zero-bs-crm");?></div>
+                    <div class="caption"><?php esc_html_e("Naked Style","zero-bs-crm");?></div>
                     <div id="naked_html_form" class="hide">
                         
-                        <div class='zbs_form_content_wrap <?php if($zbsfs == 'naked'){ echo 'embed-selected';} ?>'>&lt;iframe src='<?php echo $formRoot; ?>/naked/?fid=<?php echo $formID; ?>' height='200px' width='700px' style='border:0px!important'&gt;&lt;/iframe&gt;
+                        <div class='zbs_form_content_wrap <?php if($zbsfs == 'naked'){ echo 'embed-selected';} ?>'>&lt;iframe src='<?php echo esc_html($formRoot); ?>/naked/?fid=<?php echo esc_html( $formID ); ?>' height='200px' width='700px' style='border:0px!important'&gt;&lt;/iframe&gt;
                         </div> <!-- end form content grab -->
                     </div>
                 </div>
 
                 <div class="third" id="cgrab-form">
-                    <div class="cgrab choice <?php if($zbsfs == 'cgrab'){ echo 'selected';} ?>" data-pid="<?php echo $formID; ?>" data-style="cgrab">
+                    <div class="cgrab choice <?php if($zbsfs == 'cgrab'){ echo 'selected';} ?>" data-pid="<?php echo esc_attr( $formID ); ?>" data-style="cgrab">
                         <div class="blobby">
                             <p>Lorem Ipsum Text here</p>
                         </div>
                         <div class="content">
-                            <h1><?php if(!empty($zbsForm['header'])){ echo $zbsForm['header']; }else{ echo "Want to find out more?"; } ?></h1>
-                            <h3><?php if(!empty($zbsForm['subheader'])){ echo $zbsForm['subheader']; }else{ echo "Drop us a line. We follow up on all contacts"; } ?></h3>
+                            <h1><?php if(!empty($zbsForm['header'])){ echo esc_html( $zbsForm['header'] ); }else{ echo "Want to find out more?"; } ?></h1>
+                            <h3><?php if(!empty($zbsForm['subheader'])){ echo esc_html( $zbsForm['subheader'] ); }else{ echo "Drop us a line. We follow up on all contacts"; } ?></h3>
                             <div class="form-wrapper">
-                                <div class="input"><?php if(!empty($zbsForm['fname'])){ echo $zbsForm['fname']; }else{ echo "First Name"; } ?></div>
-                                <div class="input"><?php if(!empty($zbsForm['lname'])){ echo $zbsForm['lname']; }else{ echo "Last Name"; } ?></div>
-                                <div class="input"><?php if(!empty($zbsForm['email'])){ echo $zbsForm['email']; }else{ echo "Email"; } ?></div>
-                                <div class="textarea"><?php if(!empty($zbsForm['notes'])){ echo $zbsForm['notes']; }else{ echo "Your Message"; } ?></div>
-                                <div class="send"><?php if(!empty($zbsForm['submit'])){ echo $zbsForm['submit']; }else{ echo "Submit"; } ?></div>
+                                <div class="input"><?php if(!empty($zbsForm['fname'])){ echo esc_html( $zbsForm['fname'] ); }else{ echo "First Name"; } ?></div>
+                                <div class="input"><?php if(!empty($zbsForm['lname'])){ echo esc_html( $zbsForm['lname'] ); }else{ echo "Last Name"; } ?></div>
+                                <div class="input"><?php if(!empty($zbsForm['email'])){ echo esc_html( $zbsForm['email'] ); }else{ echo "Email"; } ?></div>
+                                <div class="textarea"><?php if(!empty($zbsForm['notes'])){ echo esc_html( $zbsForm['notes'] ); }else{ echo "Your Message"; } ?></div>
+                                <div class="send"><?php if(!empty($zbsForm['submit'])){ echo esc_html( $zbsForm['submit'] ); }else{ echo "Submit"; } ?></div>
                             </div>
                             <div class="clear"></div>
-                            <div class="trailer"><?php if(!empty($zbsForm['spam'])){ echo $zbsForm['spam']; }else{ echo "We will not send you spam. Our team will be in touch within 24 to 48 hours Mon-Fri (but often much quicker)"; } ?></div>
+                            <div class="trailer"><?php if(!empty($zbsForm['spam'])){ echo esc_html( $zbsForm['spam'] ); }else{ echo "We will not send you spam. Our team will be in touch within 24 to 48 hours Mon-Fri (but often much quicker)"; } ?></div>
                         </div>
                         <div class="clear"></div>
                         <div class="blobby">
                             <p>Lorem Ipsum <span class="br">s</span> Text Lorem Ipsum m Ipsum <span class="br">s</span> here</p>
                         </div>
                     </div>
-                    <div class="caption"><?php _e("Content Grab","zero-bs-crm");?></div>
+                    <div class="caption"><?php esc_html_e("Content Grab","zero-bs-crm");?></div>
                     <div id="cgrab_html_form" class="hide">
                         
-    <div class='zbs_form_content_wrap <?php if($zbsfs == 'cgrab'){ echo 'embed-selected';} ?>'>&lt;iframe src='<?php echo $formRoot; ?>/content/?fid=<?php echo $formID; ?>' height='700px' width='700px' style='border:0px!important'&gt;&lt;/iframe&gt;
+    <div class='zbs_form_content_wrap <?php if($zbsfs == 'cgrab'){ echo 'embed-selected';} ?>'>&lt;iframe src='<?php echo esc_html( $formRoot ); ?>/content/?fid=<?php echo esc_html( $formID ); ?>' height='700px' width='700px' style='border:0px!important'&gt;&lt;/iframe&gt;
     </div> <!-- end form content grab -->
                     </div>
 
@@ -417,20 +417,20 @@
 
 
                 <div class="third" id="simple-form">
-                    <div class="simple choice <?php if($zbsfs == 'simple'){ echo 'selected';} ?>" data-pid="<?php echo $formID; ?>" data-style="simple">
+                    <div class="simple choice <?php if($zbsfs == 'simple'){ echo 'selected';} ?>" data-pid="<?php echo esc_attr( $formID ); ?>" data-style="simple">
                         <div class="blobby">
                             <p>Lorem Ipsum Text here</p>
                             <p>Lorem Ipsum <span class="br">s</span> Text <span class="br">s</span> here</p>
                             <p>Lorem Ipsum Text here</p>
                         </div>
                         <div class="content">
-                            <h1><?php if(!empty($zbsForm['header'])){ echo $zbsForm['header']; }else{ echo "Want to find out more?"; } ?></h1>
-                            <h3><?php if(!empty($zbsForm['subheader'])){ echo $zbsForm['subheader']; }else{ echo "Drop us a line. We follow up on all contacts"; } ?></h3>
+                            <h1><?php if(!empty($zbsForm['header'])){ echo esc_html( $zbsForm['header'] ); }else{ echo "Want to find out more?"; } ?></h1>
+                            <h3><?php if(!empty($zbsForm['subheader'])){ echo esc_html( $zbsForm['subheader'] ); }else{ echo "Drop us a line. We follow up on all contacts"; } ?></h3>
                             <div class="form-wrapper">
-                                <div class="input"><?php if(!empty($zbsForm['email'])){ echo $zbsForm['email']; }else{ echo "Email"; } ?></div><div class="send"><?php if(!empty($zbsForm['submit'])){ echo $zbsForm['submit']; }else{ echo "Submit"; } ?></div>
+                                <div class="input"><?php if(!empty($zbsForm['email'])){ echo esc_html( $zbsForm['email'] ); }else{ echo "Email"; } ?></div><div class="send"><?php if(!empty($zbsForm['submit'])){ echo esc_html( $zbsForm['submit'] ); }else{ echo "Submit"; } ?></div>
                             </div>
                             <div class="clear"></div>
-                            <div class="trailer"><?php if(!empty($zbsForm['spam'])){ echo $zbsForm['spam']; }else{ echo "We will not send you spam. Our team will be in touch within 24 to 48 hours Mon-Fri (but often much quicker)"; } ?></div>
+                            <div class="trailer"><?php if(!empty($zbsForm['spam'])){ echo esc_html( $zbsForm['spam'] ); }else{ echo "We will not send you spam. Our team will be in touch within 24 to 48 hours Mon-Fri (but often much quicker)"; } ?></div>
                         </div>
                         <div class="clear"></div>
                         <div class="blobby">
@@ -439,9 +439,9 @@
                             <p>Lorem Ipsum Text here</p>
                         </div>
                     </div>
-                    <div class="caption"><?php _e("Simple Style","zero-bs-crm");?></div>
+                    <div class="caption"><?php esc_html_e("Simple Style","zero-bs-crm");?></div>
                     <div id="simple_html_form" class="hide">
-                        <div class='zbs_form_content_wrap <?php if($zbsfs == 'simple'){ echo 'embed-selected';} ?>'>&lt;iframe src='<?php echo $formRoot; ?>/simple/?fid=<?php echo $formID; ?>' height='300px' width='700px' style='border:0px!important'&gt;&lt;/iframe&gt;
+                        <div class='zbs_form_content_wrap <?php if($zbsfs == 'simple'){ echo 'embed-selected';} ?>'>&lt;iframe src='<?php echo esc_html( $formRoot ); ?>/simple/?fid=<?php echo esc_html( $formID ); ?>' height='300px' width='700px' style='border:0px!important'&gt;&lt;/iframe&gt;
                         </div> <!-- end form content grab -->
                     </div>
                 </div>
@@ -463,8 +463,8 @@
 
                 var zeroBSCRMFormUrls = {
 
-                    'css' : '<?php echo $formcss; ?>',
-                    'js' : '<?php echo $formjs; ?>'
+                    'css' : '<?php echo esc_html( $formcss ); ?>',
+                    'js' : '<?php echo esc_html( $formjs ); ?>'
                 }
                 jQuery(function(){
 
@@ -596,8 +596,8 @@
                 $formjs = ZEROBSCRM_URL . 'js/ZeroBSCRM.leadform.js?ver='.$zbs->version;
 
             ?><div id="form-embed">
-                <h1 class="welcomeh1"><?php _e('Embed Code',"zero-bs-crm");?></h1>
-                <h3 class="welcomeh3"><?php _e('Use the code below to embed this form on another site',"zero-bs-crm");?></h3>
+                <h1 class="welcomeh1"><?php esc_html_e('Embed Code',"zero-bs-crm");?></h1>
+                <h3 class="welcomeh3"><?php esc_html_e('Use the code below to embed this form on another site',"zero-bs-crm");?></h3>
                 <pre id="zbs-form-pre"></pre>
             </div>
             <script type="text/javascript">
@@ -609,7 +609,7 @@
 
                 });
             </script>
-            <div class='ZBSencodedJS hide'>&lt;script type='text/javascript' src='<?php echo $formjs; ?>'&gt;&lt;/script&gt;</div>
+            <div class='ZBSencodedJS hide'>&lt;script type='text/javascript' src='<?php echo esc_html( $formjs ); ?>'&gt;&lt;/script&gt;</div>
             <?php
 
         }
@@ -709,7 +709,7 @@
 
             ?><div class="zbs-generic-save-wrap">
 
-                    <div class="ui medium dividing header"><i class="save icon"></i> <?php _e('Form Actions','zero-bs-crm'); ?></div>
+                    <div class="ui medium dividing header"><i class="save icon"></i> <?php esc_html_e('Form Actions','zero-bs-crm'); ?></div>
 
             <?php
 
@@ -724,7 +724,7 @@
 
                     <div class="zbs-form-actions-bottom zbs-objedit-actions-bottom">
 
-                        <button class="ui button green" type="button" id="zbs-edit-save"><?php _e("Update","zero-bs-crm"); ?> <?php _e("Form","zero-bs-crm"); ?></button>
+                        <button class="ui button green" type="button" id="zbs-edit-save"><?php esc_html_e("Update","zero-bs-crm"); ?> <?php esc_html_e("Form","zero-bs-crm"); ?></button>
 
                         <?php
 
@@ -733,7 +733,7 @@
                          // for now just check if can modify, later better, granular perms.
                          if ( zeroBSCRM_permsQuotes() ) { 
                         ?><div id="zbs-form-actions-delete" class="zbs-objedit-actions-delete">
-                             <a class="submitdelete deletion" href="<?php echo zbsLink('delete',$formID,'form'); ?>"><?php _e('Delete Permanently', "zero-bs-crm"); ?></a>
+                             <a class="submitdelete deletion" href="<?php echo jpcrm_esc_link( 'delete', $formID, 'form' ); ?>"><?php esc_html_e('Delete Permanently', "zero-bs-crm"); ?></a>
                         </div>
                         <?php } // can delete  ?>
                         
@@ -749,7 +749,7 @@
 
                     <div class="zbs-form-actions-bottom zbs-objedit-actions-bottom">
                         
-                        <button class="ui button green" type="button" id="zbs-edit-save"><?php _e("Save","zero-bs-crm"); ?> <?php _e("Form","zero-bs-crm"); ?></button>
+                        <button class="ui button green" type="button" id="zbs-edit-save"><?php esc_html_e("Save","zero-bs-crm"); ?> <?php esc_html_e("Form","zero-bs-crm"); ?></button>
 
                     </div>
 

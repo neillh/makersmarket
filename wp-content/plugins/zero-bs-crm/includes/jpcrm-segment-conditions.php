@@ -86,6 +86,13 @@ function jpcrm_segments_condition_category_positions() {
     return apply_filters( 'jpcrm_segment_condition_category_positions', array(
 
         $zbs->DAL->makeSlug( __( 'Contact Fields', 'zero-bs-crm' ) ) => 1,
+        $zbs->DAL->makeSlug( __( 'Contact Address Fields', 'zero-bs-crm' ) ) => 2,
+        $zbs->DAL->makeSlug( __( 'Quotes', 'zero-bs-crm' ) ) => 3,
+        $zbs->DAL->makeSlug( __( 'Invoices', 'zero-bs-crm' ) ) => 4,
+        $zbs->DAL->makeSlug( __( 'Transactions', 'zero-bs-crm' ) ) => 5,
+        $zbs->DAL->makeSlug( __( 'Source', 'zero-bs-crm' ) ) => 6,
+        $zbs->DAL->makeSlug( __( 'Ownership', 'zero-bs-crm' ) ) => 7,
+
         'general' => 99 // end of list
 
     ));
@@ -126,9 +133,10 @@ function zeroBSCRM_segments_availableConditions( $split_by_category = false ){
     // else, split by category, so build that and return:
 	$category_positions = jpcrm_segments_condition_category_positions();
 	$conditions_by_category = array(
-		'99-general' => array(
+		'general' => array(
 			'name'        => __( 'General', 'zero-bs-crm' ),
-			'conditions'  => array()
+			'conditions'  => array(),
+			'position'    => 99
 		)
 	);
 
@@ -137,12 +145,12 @@ function zeroBSCRM_segments_availableConditions( $split_by_category = false ){
 		if ( isset( $condition['category'] ) ){
 
 			$category = $zbs->DAL->makeSlug( $condition['category'] );
+			$category_position = 99;
 
 			// to enact category positions, we see if the category has a position, if so we use that as a prefix
 			if ( isset( $category_positions[ $category ] ) ){
-
-				// e.g. 1-
-				$category = $category_positions[ $category ] . '-' . $category;
+			
+				$category_position = $category_positions[ $category ];
 
 			}
 
@@ -150,19 +158,23 @@ function zeroBSCRM_segments_availableConditions( $split_by_category = false ){
 			if ( !isset( $conditions_by_category[ $category ] ) ){
 
 				$conditions_by_category[ $category ] = array(
-					'name' => $condition['category'],
-					'conditions' => array()
+					'key'        => $category,
+					'name'       => $condition['category'],
+					'conditions' => array(),
+					'position'   => $category_position
 				);
 
 			}
 
-		} else $category = '99-general';
+		} else $category = 'general';
 
 		// add condition
 		$conditions_by_category[ $category ]['conditions'][ $key ] = $condition;
 
-
 	}
+
+	// sort categories
+	usort( $conditions_by_category, 'jpcrm_segments_sort_conditions_and_categories');
 
 	// in turn sort each conditions sub-list by position
 	$conditions_by_category_array = array();
@@ -171,20 +183,7 @@ function zeroBSCRM_segments_availableConditions( $split_by_category = false ){
 
 		$conditions = $category['conditions'];
 
-		usort( $conditions, function($a, $b) {
-
-			$position_a = 99;
-			$position_b = 99;
-			if ( isset( $a['position'] ) ){ 
-				$position_a = $a['position'];
-			}
-			if ( isset( $b['position'] ) ){ 
-				$position_b = $b['position'];
-			}
-
-		    return $position_a <=> $position_b;
-
-		});
+		usort( $conditions, 'jpcrm_segments_sort_conditions_and_categories');
 
 		$conditions_by_category_array[ $category_key ] = $category;
 		$conditions_by_category_array[ $category_key ]['conditions'] = $conditions;
@@ -198,6 +197,25 @@ function zeroBSCRM_segments_availableConditions( $split_by_category = false ){
 
          
 }
+
+/* 
+ * Sorting function for categories and conditions
+ */
+function jpcrm_segments_sort_conditions_and_categories($a, $b){
+
+	$position_a = 99;
+	$position_b = 99;
+	if ( isset( $a['position'] ) ){ 
+		$position_a = $a['position'];
+	}
+	if ( isset( $b['position'] ) ){ 
+		$position_b = $b['position'];
+	}
+
+    return $position_a < $position_b ? -1 : ($position_a == $position_b ? 0 : 1);
+
+}
+
 
 function zeroBSCRM_segments_availableConditionOperators(){
 
@@ -222,7 +240,7 @@ function zeroBSCRM_segments_availableConditionOperators(){
 		'istrue'         => array( 'name' => __( 'Is True', 'zero-bs-crm' ) ),
 		'isfalse'        => array( 'name' => __( 'Is False', 'zero-bs-crm' ) ),
 		'largerequal'    => array( 'name' => __( 'Greater than or equal to (>=)', 'zero-bs-crm' ) ),
-		'lessequal'      => array( 'name' => __( 'Less than or equal to (<)', 'zero-bs-crm' ) ),
+		'lessequal'      => array( 'name' => __( 'Less than or equal to (<=)', 'zero-bs-crm' ) ),
 
 	);
 

@@ -18,21 +18,9 @@ function jpcrm_settings_page_html_woosync_main() {
 
 	global $zbs;
 
-	$settings = $zbs->modules->woosync->settings->getAll();
-
-	$contact_statuses_csv = zeroBSCRM_getCustomerStatuses();
-	$contact_statuses = explode( ',', $contact_statuses_csv );
-
-	$woo_order_statuses = array(
-		'wcpending'    => __( 'Pending', 'zero-bs-crm' ),
-		'wcprocessing' => __( 'Processing', 'zero-bs-crm' ),
-		'wconhold'     => __( 'On hold', 'zero-bs-crm' ),
-		'wccompleted'  => __( 'Completed', 'zero-bs-crm' ),
-		'wccancelled'  => __( 'Cancelled', 'zero-bs-crm' ),
-		'wcrefunded'   => __( 'Refunded', 'zero-bs-crm' ),
-		'wcfailed'     => __( 'Failed', 'zero-bs-crm' ),
-	);
-	$woo_order_statuses = apply_filters( 'zbs-woo-additional-status', $woo_order_statuses );
+	$settings                = $zbs->modules->woosync->get_settings();
+	$woo_order_statuses      = $zbs->modules->woosync->get_woo_order_statuses();
+	$woo_order_mapping_types = $zbs->modules->woosync->get_woo_order_mapping_types();
 
 	$auto_deletion_options = array(
 		'do_nothing'          => __( 'Do nothing', 'zero-bs-crm' ),
@@ -49,31 +37,29 @@ function jpcrm_settings_page_html_woosync_main() {
 		// enable order mapping
 		$updatedSettings['enable_woo_status_mapping'] = empty( $_POST['jpcrm_enable_woo_status_mapping'] ) ? 0 : 1;
 
-		//order mapping - if not set, these all go to default..
-		$updatedSettings['wcpending']    = !empty( $_POST['wcpending'] ) ? sanitize_text_field( $_POST['wcpending'] ) : '';
-		$updatedSettings['wcprocessing'] = !empty( $_POST['wcprocessing'] ) ? sanitize_text_field( $_POST['wcprocessing'] ) : '';
-		$updatedSettings['wconhold']     = !empty( $_POST['wconhold'] ) ? sanitize_text_field( $_POST['wconhold'] ) : '';
-		$updatedSettings['wccompleted']  = !empty( $_POST['wccompleted'] ) ? sanitize_text_field( $_POST['wccompleted'] ) : '';
-		$updatedSettings['wccancelled']  = !empty( $_POST['wccancelled'] ) ? sanitize_text_field( $_POST['wccancelled'] ) : '';
-		$updatedSettings['wcrefunded']   = !empty( $_POST['wcrefunded'] ) ? sanitize_text_field( $_POST['wcrefunded'] ) : '';
-		$updatedSettings['wcfailed']     = !empty( $_POST['wcfailed'] ) ? sanitize_text_field( $_POST['wcfailed'] ) : '';
+		foreach ( $woo_order_mapping_types as $map_type_value ) {
+			foreach ( $woo_order_statuses as $woo_order_status_key => $woo_order_status_value ) {
+				$mapping_key                     = $map_type_value['prefix'] . $woo_order_status_key;
+				$updatedSettings[ $mapping_key ] = ! empty( $_POST[ $mapping_key ] ) ? sanitize_text_field( $_POST[ $mapping_key ] ) : '';
+			}
+		}
 
 		//copy shipping address into second address
-		$updatedSettings['wccopyship'] = !empty( $_POST['wpzbscrm_wccopyship'] );
+		$updatedSettings['wccopyship'] = ! empty( $_POST['wpzbscrm_wccopyship'] );
 
 		// tag objects with item name|coupon
-		$updatedSettings['wctagcust']          = !empty( $_POST['wpzbscrm_wctagcust'] );
-		$updatedSettings['wctagtransaction']   = !empty( $_POST['wpzbscrm_wctagtransaction'] );
-		$updatedSettings['wctaginvoice']       = !empty( $_POST['wpzbscrm_wctaginvoice'] );
-		$updatedSettings['wctagcoupon']        = !empty( $_POST['wpzbscrm_wctagcoupon'] );
-		$updatedSettings['wctagcouponprefix']  = !empty( $_POST['wctagcouponprefix'] ) ? zeroBSCRM_textProcess( $_POST['wctagcouponprefix'] ) : '';
-		$updatedSettings['wctagproductprefix'] = !empty( $_POST['wctagproductprefix'] ) ? zeroBSCRM_textProcess( $_POST['wctagproductprefix'] ) : '';
+		$updatedSettings['wctagcust']          = ! empty( $_POST['wpzbscrm_wctagcust'] );
+		$updatedSettings['wctagtransaction']   = ! empty( $_POST['wpzbscrm_wctagtransaction'] );
+		$updatedSettings['wctaginvoice']       = ! empty( $_POST['wpzbscrm_wctaginvoice'] );
+		$updatedSettings['wctagcoupon']        = ! empty( $_POST['wpzbscrm_wctagcoupon'] );
+		$updatedSettings['wctagcouponprefix']  = ! empty( $_POST['wctagcouponprefix'] ) ? zeroBSCRM_textProcess( $_POST['wctagcouponprefix'] ) : '';
+		$updatedSettings['wctagproductprefix'] = ! empty( $_POST['wctagproductprefix'] ) ? zeroBSCRM_textProcess( $_POST['wctagproductprefix'] ) : '';
 
 		// switches
-		$updatedSettings['wcinv']  = !empty( $_POST['wpzbscrm_wcinv'] );
-		$updatedSettings['wcprod'] = !empty( $_POST['wpzbscrm_wcprod'] );
-		$updatedSettings['wcport'] = !empty( $_POST['wpzbscrm_wcport'] ) ? preg_replace( '/\s*,\s*/', ',', sanitize_text_field( $_POST['wpzbscrm_wcport'] ) ) : '';
-		$updatedSettings['wcacc']  = !empty( $_POST['wpzbscrm_wcacc'] );
+		$updatedSettings['wcinv']  = ! empty( $_POST['wpzbscrm_wcinv'] );
+		$updatedSettings['wcprod'] = ! empty( $_POST['wpzbscrm_wcprod'] );
+		$updatedSettings['wcport'] = ! empty( $_POST['wpzbscrm_wcport'] ) ? preg_replace( '/\s*,\s*/', ',', sanitize_text_field( $_POST['wpzbscrm_wcport'] ) ) : '';
+		$updatedSettings['wcacc']  = ! empty( $_POST['wpzbscrm_wcacc'] );
 
 		// trash/delete action
 		$updatedSettings['auto_trash'] = 'change_status';
@@ -94,7 +80,7 @@ function jpcrm_settings_page_html_woosync_main() {
 		$sbupdated = true;
 
 		// Reload
-		$settings = $zbs->modules->woosync->settings->getAll();
+		$settings = $zbs->modules->woosync->get_settings();
 
 	}
 
@@ -106,21 +92,21 @@ function jpcrm_settings_page_html_woosync_main() {
 		<?php
 		echo sprintf(
 			'<a href="%s&tab=%s&subtab=%s" class="ui button green"><i class="plug icon"></i> %s</a>',
-			zbsLink($zbs->slugs['settings']),
-			$zbs->modules->woosync->slugs['settings'],
-			$zbs->modules->woosync->slugs['settings_connections'],
-			__( 'Manage WooSync Connections', 'zero-bs-crm' )
+			jpcrm_esc_link( $zbs->slugs['settings'] ),
+			esc_attr( $zbs->modules->woosync->slugs['settings'] ),
+			esc_attr( $zbs->modules->woosync->slugs['settings_connections'] ),
+			esc_html__( 'Manage WooSync Connections', 'zero-bs-crm' )
 		) . sprintf(
 			'<a href="%s" class="ui basic positive button" style="margin-top:1em"><i class="shopping cart icon"></i> %s</a>',
-			zbsLink( $zbs->slugs['woosync'] ),
-			__( 'WooSync Hub', 'zero-bs-crm' )
+			jpcrm_esc_link( $zbs->slugs['woosync'] ),
+			esc_html__( 'WooSync Hub', 'zero-bs-crm' )
 		); ?>
 	</p>
-	<p id="sbDesc"><?php _e( 'Here you can configure the global settings for WooSync.', 'zero-bs-crm' ); ?></p>
+	<p id="sbDesc"><?php esc_html_e( 'Here you can configure the global settings for WooSync.', 'zero-bs-crm' ); ?></p>
 
 	<?php
-	if ( !empty( $sbupdated ) ) {
-		echo '<div class="ui message success">' . __( 'Settings Updated', 'zero-bs-crm' ) . '</div>';
+	if ( ! empty( $sbupdated ) ) {
+		echo '<div class="ui message success">' . esc_html__( 'Settings Updated', 'zero-bs-crm' ) . '</div>';
 	}
 	?>
 
@@ -131,69 +117,69 @@ function jpcrm_settings_page_html_woosync_main() {
 
 				<thead>
 					<tr>
-						<th colspan="2" class="wmid"><?php _e( 'WooSync Settings', 'zero-bs-crm' ); ?>:</th>
+						<th colspan="2" class="wmid"><?php esc_html_e( 'WooSync Settings', 'zero-bs-crm' ); ?>:</th>
 					</tr>
 				</thead>
 
 				<tbody>
 					<tr>
 						<td class="wfieldname">
-							<label for="wpzbscrm_wccopyship"><?php _e( 'Add Shipping Address', 'zero-bs-crm' ); ?>:</label><br />
-							<?php _e( 'Tick to store shipping address as contacts second address', 'zero-bs-crm' ); ?>
+							<label for="wpzbscrm_wccopyship"><?php esc_html_e( 'Add Shipping Address', 'zero-bs-crm' ); ?>:</label><br />
+							<?php esc_html_e( 'Tick to store shipping address as contacts second address', 'zero-bs-crm' ); ?>
 						</td>
 						<td style="width:540px">
-							<input type="checkbox" class="winput form-control" name="wpzbscrm_wccopyship" id="wpzbscrm_wccopyship" value="1"<?php echo ( !empty( $settings['wccopyship'] ) ? ' checked="checked"' : '' ); ?> />
+							<input type="checkbox" class="winput form-control" name="wpzbscrm_wccopyship" id="wpzbscrm_wccopyship" value="1"<?php echo ( ! empty( $settings['wccopyship'] ) ? ' checked="checked"' : '' ); ?> />
 						</td>
 					</tr>
 
 					<tr>
 						<td class="wfieldname">
-							<label for="wpzbscrm_wctagcust"><?php _e( 'Tag Contact', 'zero-bs-crm' ); ?>:</label><br />
-							<?php _e( 'Tick to tag your contact with their item name', 'zero-bs-crm' ); ?>
+							<label for="wpzbscrm_wctagcust"><?php esc_html_e( 'Tag Contact', 'zero-bs-crm' ); ?>:</label><br />
+							<?php esc_html_e( 'Tick to tag your contact with their item name', 'zero-bs-crm' ); ?>
 						</td>
 						<td style="width:540px">
-							<input type="checkbox" class="winput form-control" name="wpzbscrm_wctagcust" id="wpzbscrm_wctagcust" value="1"<?php echo ( !empty( $settings['wctagcust'] ) ? ' checked="checked"' : '' ); ?> />
+							<input type="checkbox" class="winput form-control" name="wpzbscrm_wctagcust" id="wpzbscrm_wctagcust" value="1"<?php echo ( ! empty( $settings['wctagcust'] ) ? ' checked="checked"' : '' ); ?> />
 						</td>
 					</tr>
 
 
 					<tr>
 						<td class="wfieldname">
-							<label for="wpzbscrm_wctagtransaction"><?php _e( 'Tag Transaction', 'zero-bs-crm' ); ?>:</label><br />
-							<?php _e( 'Tick to tag your transaction with the item name', 'zero-bs-crm' ); ?>
+							<label for="wpzbscrm_wctagtransaction"><?php esc_html_e( 'Tag Transaction', 'zero-bs-crm' ); ?>:</label><br />
+							<?php esc_html_e( 'Tick to tag your transaction with the item name', 'zero-bs-crm' ); ?>
 						</td>
 						<td style="width:540px">
-							<input type="checkbox" class="winput form-control" name="wpzbscrm_wctagtransaction" id="wpzbscrm_wctagtransaction" value="1"<?php echo ( !empty( $settings['wctagtransaction'] ) ? ' checked="checked"' : '' ); ?> />
+							<input type="checkbox" class="winput form-control" name="wpzbscrm_wctagtransaction" id="wpzbscrm_wctagtransaction" value="1"<?php echo ( ! empty( $settings['wctagtransaction'] ) ? ' checked="checked"' : '' ); ?> />
 						</td>
 					</tr>
 
 
 					<tr>
 							<td class="wfieldname">
-								<label for="wpzbscrm_wctaginvoice"><?php _e( 'Tag Invoice', 'zero-bs-crm' ); ?>:</label><br />
-								<?php _e( 'Tick to tag your invoice with the item name', 'zero-bs-crm' ); ?>
+								<label for="wpzbscrm_wctaginvoice"><?php esc_html_e( 'Tag Invoice', 'zero-bs-crm' ); ?>:</label><br />
+								<?php esc_html_e( 'Tick to tag your invoice with the item name', 'zero-bs-crm' ); ?>
 							</td>
 							<td style="width:540px">
-								<input type="checkbox" class="winput form-control" name="wpzbscrm_wctaginvoice" id="wpzbscrm_wctaginvoice" value="1"<?php echo ( !empty( $settings['wctaginvoice'] ) ? ' checked="checked"' : '' ); ?> />
+								<input type="checkbox" class="winput form-control" name="wpzbscrm_wctaginvoice" id="wpzbscrm_wctaginvoice" value="1"<?php echo ( ! empty( $settings['wctaginvoice'] ) ? ' checked="checked"' : '' ); ?> />
 							</td>
 					</tr>
 
 
 					<tr>
 						<td class="wfieldname">
-							<label for="jpcrm_woosync_auto_trash"><?php _e( 'Order Trash action', 'zero-bs-crm' ); ?>:</label><br />
-							<?php _e( 'Choose what should happen when an order is trashed in WooCommerce', 'zero-bs-crm' ); ?>
+							<label for="jpcrm_woosync_auto_trash"><?php esc_html_e( 'Order Trash action', 'zero-bs-crm' ); ?>:</label><br />
+							<?php esc_html_e( 'Choose what should happen when an order is trashed in WooCommerce', 'zero-bs-crm' ); ?>
 						</td>
 						<td style="width:540px">
 							<select id="jpcrm_woosync_auto_trash" name="jpcrm_woosync_auto_trash" class="winput form-control">
 								<?php
 
-								$current_auto_trash_setting = !empty( $settings['auto_trash'] ) ? $settings['auto_trash'] : 'change_status';
+								$current_auto_trash_setting = ! empty( $settings['auto_trash'] ) ? $settings['auto_trash'] : 'change_status';
 
 								foreach ( $auto_deletion_options as $option_key => $option_label ) {
 									?>
-									<option value="<?php echo $option_key; ?>"<?php echo ( $option_key === $current_auto_trash_setting ? ' selected="selected"' : '' ); ?>>
-										<?php echo $option_label; ?>
+									<option value="<?php echo esc_attr( $option_key ); ?>"<?php echo ( $option_key === $current_auto_trash_setting ? ' selected="selected"' : '' ); ?>>
+										<?php echo esc_html( $option_label ); ?>
 									</option>
 									<?php
 								}
@@ -205,19 +191,19 @@ function jpcrm_settings_page_html_woosync_main() {
 
 					<tr>
 						<td class="wfieldname">
-							<label for="jpcrm_woosync_auto_delete"><?php _e( 'Order Delete action', 'zero-bs-crm' ); ?>:</label><br />
-							<?php _e( 'Choose what should happen when an order is deleted in WooCommerce', 'zero-bs-crm' ); ?>
+							<label for="jpcrm_woosync_auto_delete"><?php esc_html_e( 'Order Delete action', 'zero-bs-crm' ); ?>:</label><br />
+							<?php esc_html_e( 'Choose what should happen when an order is deleted in WooCommerce', 'zero-bs-crm' ); ?>
 						</td>
 						<td style="width:540px">
 							<select id="jpcrm_woosync_auto_delete" name="jpcrm_woosync_auto_delete" class="winput form-control">
 								<?php
 
-								$current_auto_delete_setting = !empty( $settings['auto_delete'] ) ? $settings['auto_delete'] : 'change_status';
+								$current_auto_delete_setting = ! empty( $settings['auto_delete'] ) ? $settings['auto_delete'] : 'change_status';
 
 								foreach ( $auto_deletion_options as $option_key => $option_label ) {
 									?>
-									<option value="<?php echo $option_key; ?>"<?php echo ( $option_key === $current_auto_delete_setting ? ' selected="selected"' : '' ); ?>>
-										<?php echo $option_label; ?>
+									<option value="<?php echo esc_attr( $option_key ); ?>"<?php echo ( $option_key === $current_auto_delete_setting ? ' selected="selected"' : '' ); ?>>
+										<?php echo esc_html( $option_label ); ?>
 									</option>
 									<?php
 								}
@@ -229,37 +215,37 @@ function jpcrm_settings_page_html_woosync_main() {
 
 					<tr>
 						<td class="wfieldname">
-							<label for="wpzbscrm_wctagcoupon"><?php _e( 'Include Coupon as tag', 'zero-bs-crm' ); ?>:</label><br />
-							<?php _e( 'Tick to include any used WooCommerce coupon codes as tags (depends on above settings)', 'zero-bs-crm' ); ?>
+							<label for="wpzbscrm_wctagcoupon"><?php esc_html_e( 'Include Coupon as tag', 'zero-bs-crm' ); ?>:</label><br />
+							<?php esc_html_e( 'Tick to include any used WooCommerce coupon codes as tags (depends on above settings)', 'zero-bs-crm' ); ?>
 						</td>
 						<td style="width:540px">
-							<input type="checkbox" class="winput form-control" name="wpzbscrm_wctagcoupon" id="wpzbscrm_wctagcoupon" value="1"<?php echo ( !empty( $settings['wctagcoupon'] ) ? ' checked="checked"' : '' ); ?> />
+							<input type="checkbox" class="winput form-control" name="wpzbscrm_wctagcoupon" id="wpzbscrm_wctagcoupon" value="1"<?php echo ( ! empty( $settings['wctagcoupon'] ) ? ' checked="checked"' : '' ); ?> />
 						</td>
 					</tr>
 
 					<tr>
 						<td class="wfieldname">
-							<label for="wpzbscrm_wcinv"><?php _e( 'Create Invoices from WooCommerce Orders', 'zero-bs-crm' ); ?>:</label><br />
-							<?php _e( 'Tick to create invoices from your WooCommerce orders', 'zero-bs-crm' ); ?>
+							<label for="wpzbscrm_wcinv"><?php esc_html_e( 'Create Invoices from WooCommerce Orders', 'zero-bs-crm' ); ?>:</label><br />
+							<?php esc_html_e( 'Tick to create invoices from your WooCommerce orders', 'zero-bs-crm' ); ?>
 						</td>
 						<td style="width:540px">
-							<input type="checkbox" class="winput form-control" name="wpzbscrm_wcinv" id="wpzbscrm_wcinv" value="1"<?php echo ( !empty( $settings['wcinv'] ) ? ' checked="checked"' : '' ); ?> />
+							<input type="checkbox" class="winput form-control" name="wpzbscrm_wcinv" id="wpzbscrm_wcinv" value="1"<?php echo ( ! empty( $settings['wcinv'] ) ? ' checked="checked"' : '' ); ?> />
 						</td>
 					</tr>
 
 					<tr>
 						<td class="wfieldname">
-							<label for="wpzbscrm_wcacc"><?php _e( 'Show Invoices on My Account', 'zero-bs-crm' ); ?>:</label><br />
-							<?php _e( 'Tick to show a Jetpack CRM Invoices menu item under WooCommerce My Account', 'zero-bs-crm' ); ?>
+							<label for="wpzbscrm_wcacc"><?php esc_html_e( 'Show Invoices on My Account', 'zero-bs-crm' ); ?>:</label><br />
+							<?php esc_html_e( 'Tick to show a Jetpack CRM Invoices menu item under WooCommerce My Account', 'zero-bs-crm' ); ?>
 						</td>
 						<td style="width:540px">
-							<input type="checkbox" class="winput form-control" name="wpzbscrm_wcacc" id="wpzbscrm_wcacc" value="1"<?php echo ( !empty( $settings['wcacc'] ) ? ' checked="checked"' : '' ); ?> />
+							<input type="checkbox" class="winput form-control" name="wpzbscrm_wcacc" id="wpzbscrm_wcacc" value="1"<?php echo ( ! empty( $settings['wcacc'] ) ? ' checked="checked"' : '' ); ?> />
 							<?php
 							$invoices_enabled = zeroBSCRM_getSetting( 'feat_invs' ) > 0;
 							if ( !$invoices_enabled ) {
 								?>
 								<br />
-								<small><?php _e( 'Warning: Invoicing module is currently disabled.', 'zero-bs-crm' ); ?></small>
+								<small><?php esc_html_e( 'Warning: Invoicing module is currently disabled.', 'zero-bs-crm' ); ?></small>
 								<?php
 							}
 							?>
@@ -268,21 +254,21 @@ function jpcrm_settings_page_html_woosync_main() {
 
 					<tr>
 						<td class="wfieldname">
-							<label for="wctagproductprefix"><?php _e( 'Product tag prefix', 'zero-bs-crm' ); ?>:</label><br />
-							<?php _e( 'Enter a tag prefix for product tags (e.g. Product: )', 'zero-bs-crm' ); ?>
+							<label for="wctagproductprefix"><?php esc_html_e( 'Product tag prefix', 'zero-bs-crm' ); ?>:</label><br />
+							<?php esc_html_e( 'Enter a tag prefix for product tags (e.g. Product: )', 'zero-bs-crm' ); ?>
 						</td>
 						<td style='width:540px'>
-							<input type="text" class="winput form-control" name="wctagproductprefix" id="wctagproductprefix" value="<?php echo ( !empty( $settings['wctagproductprefix'] ) ? $settings['wctagproductprefix'] : '' ); ?>" placeholder="<?php _e( "e.g. 'Product: '", 'zero-bs-crm' ); ?>" />
+							<input type="text" class="winput form-control" name="wctagproductprefix" id="wctagproductprefix" value="<?php echo ( ! empty( $settings['wctagproductprefix'] ) ? esc_attr( $settings['wctagproductprefix'] ) : '' ); ?>" placeholder="<?php esc_attr_e( "e.g. 'Product: '", 'zero-bs-crm' ); ?>" />
 						</td>
 					</tr>
 
 					<tr>
 						<td class="wfieldname">
-							<label for="wctagcouponprefix"><?php _e( 'Coupon tag prefix', 'zero-bs-crm' ); ?>:</label><br />
-							<?php _e( 'Enter a tag prefix for coupon tags (e.g. Coupon: )', 'zero-bs-crm' ); ?>
+							<label for="wctagcouponprefix"><?php esc_html_e( 'Coupon tag prefix', 'zero-bs-crm' ); ?>:</label><br />
+							<?php esc_html_e( 'Enter a tag prefix for coupon tags (e.g. Coupon: )', 'zero-bs-crm' ); ?>
 						</td>
 						<td style='width:540px'>
-							<input type="text" class="winput form-control" name="wctagcouponprefix" id="wctagcouponprefix" value="<?php echo ( !empty( $settings['wctagcouponprefix'] ) ? $settings['wctagcouponprefix'] : '' ); ?>" placeholder="<?php _e( "e.g. 'Coupon: '", 'zero-bs-crm' ); ?>" />
+							<input type="text" class="winput form-control" name="wctagcouponprefix" id="wctagcouponprefix" value="<?php echo ( ! empty( $settings['wctagcouponprefix'] ) ? esc_attr( $settings['wctagcouponprefix'] ) : '' ); ?>" placeholder="<?php esc_attr_e( "e.g. 'Coupon: '", 'zero-bs-crm' ); ?>" />
 						</td>
 					</tr>
 
@@ -292,69 +278,82 @@ function jpcrm_settings_page_html_woosync_main() {
 								<label for="wpzbscrm_wcprod"><?php // _e( 'Use Product Index', 'zero-bs-crm' ); ?>:</label><br />
 								<?php // _e( 'Tick to allow Product Index on Invoices. Makes creating invoices easier', 'zero-bs-crm' ); ?></td>
 							<td style="width:540px">
-								<input type="checkbox" class="winput form-control" name="wpzbscrm_wcprod" id="wpzbscrm_wcprod" value="1"<?php // echo ( !empty( $settings['wcprod'] ) ? ' checked="checked"' : '' ); ?> />
+								<input type="checkbox" class="winput form-control" name="wpzbscrm_wcprod" id="wpzbscrm_wcprod" value="1"<?php // echo ( ! empty( $settings['wcprod'] ) ? ' checked="checked"' : '' ); ?> />
 							</td>
 						</tr>
 					-->
 
 					<tr>
 						<td class="wfieldname">
-							<label for="wpzbscrm_port"><?php _e( 'WooCommerce My Account', 'zero-bs-crm' ); ?>:</label><br />
-							<?php _e( 'Enter a comma-separated list of Jetpack CRM custom fields to let customers edit these via WooCommerce My Account (e.g. custom-field-1,other-custom-field)', 'zero-bs-crm' ); ?>
+							<label for="wpzbscrm_port"><?php esc_html_e( 'WooCommerce My Account', 'zero-bs-crm' ); ?>:</label><br />
+							<?php esc_html_e( 'Enter a comma-separated list of Jetpack CRM custom fields to let customers edit these via WooCommerce My Account (e.g. custom-field-1,other-custom-field)', 'zero-bs-crm' ); ?>
 						</td>
 						<td style="width:540px">
-							<input type="text" class="winput form-control" name="wpzbscrm_wcport" id="wpzbscrm_port" value="<?php echo ( !empty( $settings['wcport'] ) ? $settings['wcport'] : '' ); ?>" />
+							<input type="text" class="winput form-control" name="wpzbscrm_wcport" id="wpzbscrm_port" value="<?php echo ( ! empty( $settings['wcport'] ) ? esc_attr( $settings['wcport'] ) : '' ); ?>" />
 						</td>
 					</tr>
 					<tr>
 						<td class="wfieldname">
-							<label for="jpcrm_enable_woo_status_mapping"><?php _e( 'Enable order status mapping', 'zero-bs-crm' ); ?>:</label><br />
-							<?php _e( 'Tick here if you want WooCommerce order status changes to automatically change contact statuses', 'zero-bs-crm' ); ?>
+							<label for="jpcrm_enable_woo_status_mapping"><?php esc_html_e( 'Enable order status mapping', 'zero-bs-crm' ); ?>:</label><br />
+							<?php esc_html_e( 'Tick here if you want WooCommerce order status changes to automatically change contact statuses', 'zero-bs-crm' ); ?>
 						</td>
 						<td style="width:540px"><input type="checkbox" class="winput form-control" name="jpcrm_enable_woo_status_mapping" id="jpcrm_enable_woo_status_mapping" value="1"<?php echo isset( $settings['enable_woo_status_mapping'] ) && (int)$settings['enable_woo_status_mapping'] === 0 ? '' : ' checked="checked"'; ?> />
 						</td>
 					</tr>
 
 					<tr>
-						<td class="wfieldname">
-							<label><?php _e( 'Order status map', 'zero-bs-crm' ); ?>:</label><br />
-							<?php _e( 'Here you can choose how you want to map WooCommerce order statuses to CRM contact statuses (if the above setting is enabled)', 'zero-bs-crm' ); ?>
-						</td>
-						<td style="width:540px">
-							<table style="width:100%">
+						<td class="wfieldname" colspan="2">
+							<label><?php esc_html_e( 'Order status map', 'zero-bs-crm' ); ?>:</label><br />
+							<?php esc_html_e( 'Here you can choose how you want to map WooCommerce order statuses to CRM statuses (if the above setting is enabled)', 'zero-bs-crm' ); ?>
+							<br/>
+							<br/>
+
+							<table style="width:100%;border-spacing: 0 15px;border-collapse: separate;table-layout: fixed;">
 								<tr>
-									<th><?php _e( 'Order status', 'zero-bs-crm' ); ?></th>
-									<th><?php _e( 'Contact status', 'zero-bs-crm' ); ?></th>
+									<th><?php esc_html_e( 'Order status', 'zero-bs-crm' ); ?></th>
+
+									<?php 
+										foreach ( $woo_order_mapping_types as $map_type_value ) :
+									?>
+										<th><?php echo esc_html( $map_type_value['label'] ); ?></th>
+									<?php 
+										endforeach;
+									?>
 								</tr>
 								<?php
 
-								foreach ( $woo_order_statuses as $k => $v ) {
-
-									$selected = '';
-									if ( is_array( $settings ) && isset( $settings[$k] ) ) {
-										$selected = $settings[$k];
-									}
-
+								foreach ( $woo_order_statuses as $woo_order_key => $woo_order_value ) {
 									?>
 									<tr class="jpcrm_woosync_order_status_map">
-										<td><?php echo $v; ?></td>
-										<td>
-											<select class="winput" name="<?php echo $k; ?>" id="<?php echo $k; ?>">
-												<option value="-1"><?php _e( 'Default', 'zero-bs-crm' ); ?></option>
-												<?php
-												// Jetpack CRM statuses chosen by user...
-												foreach ( $contact_statuses as $status ) {
-													echo '<option value="' . $status . '"' . ( $selected === $status ? ' selected' : '' ) . '>' . $status . '</option>';
+										<td><?php echo esc_html( $woo_order_value ); ?></td>
+										<?php 
+											foreach ( $woo_order_mapping_types as $map_type_value ) :
+												$selected    = '';
+												$mapping_key = $map_type_value['prefix'] . $woo_order_key;
+
+												if ( is_array( $settings ) && isset( $settings[ $mapping_key ] ) ) {
+													$selected = $settings[ $mapping_key ];
 												}
-												?>
-											</select>
-										</td>
+
+										?>
+											<td>
+												<select class="winput" style="width: 90%;" name="<?php echo esc_attr( $mapping_key ); ?>" id="<?php echo esc_attr( $mapping_key ); ?>">
+													<option value="-1"><?php esc_html_e( 'Default', 'zero-bs-crm' ); ?></option>
+													<?php
+														foreach ( $map_type_value['statuses'] as $status ) {
+															printf( '<option value="%s" %s>%s</option>', esc_attr( $status ), ( $selected === $status ? 'selected' : '' ), esc_html( $status ) );
+														}
+													?>
+												</select>
+											</td>
+										<?php
+											endforeach;
+										?>
 									</tr>
 									<?php
 								}
 
 								?>
-
 							</table>
 						</td>
 					</tr>
@@ -366,7 +365,7 @@ function jpcrm_settings_page_html_woosync_main() {
 				<tbody>
 
 					<tr>
-						<td colspan="2" class="wmid"><button type="submit" class="button button-primary button-large"><?php _e( 'Save Settings', 'zero-bs-crm' ); ?></button></td>
+						<td colspan="2" class="wmid"><button type="submit" class="button button-primary button-large"><?php esc_html_e( 'Save Settings', 'zero-bs-crm' ); ?></button></td>
 					</tr>
 
 				</tbody>

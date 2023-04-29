@@ -420,7 +420,7 @@ function zeroBSCRM_do_meta_boxes( $screen, $context, $object ) {
         global $zbsPage;
         $isNewEdit = false; if (isset($zbsPage['new_edit'])) $isNewEdit = $zbsPage['new_edit']; //echo 'pre:<pre>'.print_r($zbsPage,1).'</pre>';
 
-        printf('<div id="zbs-%s-sortables" class="zbs-metaboxes zbs-metabox-sortables">', htmlspecialchars($context));
+        printf('<div id="zbs-%s-sortables" class="zbs-metaboxes zbs-metabox-sortables">', esc_html($context));
         /* This was the previous wp organisation, which nearly worked for us, except we now want tab groups :)
         $hidden = get_hidden_meta_boxes( $screen );
         // Grab the ones the user has manually sorted. Pull them out of their previous context/priority and into the one the user chose
@@ -661,7 +661,7 @@ function zeroBSCRM_do_meta_box_htmlTabHead($tabsID='',$tabs=false){
 
         //echo '<h1>'.$tabsID.'</h1><pre>';print_r($tabs); echo '</pre>';
     
-        echo '<div class="ui top attached tabular menu zbs-metabox-tabgroup" id="zbs-metaboxtabs-'.$tabsID.'" data-tabid="'.$tabsID.'">';
+        echo '<div class="ui top attached tabular menu zbs-metabox-tabgroup" id="zbs-metaboxtabs-'.esc_attr($tabsID).'" data-tabid="'.esc_attr($tabsID).'">';
 
             $indx = 0;
 
@@ -670,7 +670,7 @@ function zeroBSCRM_do_meta_box_htmlTabHead($tabsID='',$tabs=false){
 
                 echo '<a class="item';
                 if ($indx == 0) echo ' active';
-                echo '" data-tab="'.$subbox['id'].'">'.$subbox['title'].'</a>';
+                echo '" data-tab="'.esc_attr($subbox['id']).'">'. esc_html( $subbox['title'] ) .'</a>';
                 $indx++;
 
             }
@@ -767,7 +767,7 @@ function zeroBSCRM_do_meta_box_html($box,$page,$hidden,$object,$minimised,$isTab
         }
 
 
-        echo '<div class="'.$classes.'" id="' . $box['id'] . '" '.$extraAttrs.$dataAttrStr.'>';
+        echo '<div class="'.esc_attr($classes).'" id="' . esc_attr($box['id']) . '" '.esc_attr($extraAttrs.$dataAttrStr).'>';
 
 
             // hide/minimise option
@@ -781,7 +781,7 @@ function zeroBSCRM_do_meta_box_html($box,$page,$hidden,$object,$minimised,$isTab
             }
 
             if (!$headless){
-                echo '<div id="' . $box['id'] . '-head" class="zbs-metabox-head ui top attached borderless menu '.$extraClasses. postbox_classes($box['id'], $page)  . '" ' . '>' . "\n"; //. $hidden_class
+                echo '<div id="' . esc_attr( $box['id'] ) . '-head" class="zbs-metabox-head ui top attached borderless menu '. esc_attr( $extraClasses . postbox_classes($box['id'], $page) ) . '" ' . '>' . "\n"; //. $hidden_class
                 /* not sure if we need this :)
                 if ( 'dashboard_browser_nag' != $box['id'] ) {
                         $widget_title = $box[ 'title' ];
@@ -822,10 +822,10 @@ function zeroBSCRM_do_meta_box_html($box,$page,$hidden,$object,$minimised,$isTab
 
                 $htmlClasses .= ' bottom attached';
             }
-            echo '<div id="' . $box['id'] . '-box" class="zbs-metabox-body '.$htmlClasses.' '.$extraClasses.'">' . "\n"; //$hidden_class.
+            echo '<div id="' . esc_attr($box['id']) . '-box" class="zbs-metabox-body '.esc_attr($htmlClasses).' '.esc_attr($extraClasses).'">' . "\n"; //$hidden_class.
                 call_user_func($box['callback'], $object, $box);
             echo "</div>"; // /.zbs-metabox-body
-            echo '<div id="' . $box['id'] . '-block" class="zbs-metabox-block"><div>'.$box['title'].'</div></div>'; // this is BLOCKER for drag-drop support -//<i class="arrows alternate icon"></i>
+            echo '<div id="' . esc_attr($box['id']) . '-block" class="zbs-metabox-block"><div>'.$box['title'].'</div></div>'; // this is BLOCKER for drag-drop support -//<i class="arrows alternate icon"></i>
         echo "</div>\n";
 }
 

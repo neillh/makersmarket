@@ -44,12 +44,13 @@ class zbsDAL_companies extends zbsDAL_ObjectLayer {
         // other fields
         'status'            => array(
             // db model:
-            'fieldname' => 'zbsco_status', 'format' => 'str',
+			'fieldname'             => 'zbsco_status',
+			'format'                => 'str',
             // output model
             'input_type' => 'select',
             'label' => 'Status',
             'placeholder'=>'',
-            'options'=>array('Lead','Customer','Refused','Blacklisted'),
+			'options'               => array( 'Lead', 'Customer', 'Refused', 'Blacklisted' ),
             'essential' => true,
             'max_len' => 50,
             'do_not_show_on_portal' => true
@@ -1309,7 +1310,7 @@ class zbsDAL_companies extends zbsDAL_ObjectLayer {
                                     case 'customer':
 
                                         // hack - adapted from DAL1 (probs can be slicker)
-                                        $wheres['quickfiltercustomer'] = array('zbsco_status','LIKE','%s','Customer');
+										$wheres['quickfiltercustomer'] = array( 'zbsco_status', 'LIKE', '%s', 'Customer' );
 
                                         break;
 
@@ -3273,7 +3274,7 @@ class zbsDAL_companies extends zbsDAL_ObjectLayer {
                     // stop at 4
                     if ($contactCount >= 4){
 
-                        $resArr['contacts'] .= '<a href="'.esc_url(zbsLink('view',$company['id'],ZBS_TYPE_COMPANY)).'" title="'.__('View all contacts at company','zero-bs-crm').'">...</a>';
+                        $resArr['contacts'] .= '<a href="' . jpcrm_esc_link( 'view', $company['id'], ZBS_TYPE_COMPANY ) . '" title="'.__('View all contacts at company','zero-bs-crm').'">...</a>';
                         break;
                     }
 

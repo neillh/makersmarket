@@ -46,7 +46,7 @@ add_action( 'wp_enqueue_scripts', array( $portal, 'portal_enqueue_scripts_and_st
     </nav>
 
     <div class="zbs-portal-content">
-    <h2><?php _e('Quotes','zero-bs-crm'); ?></h2>
+    <h2><?php esc_html_e('Quotes','zero-bs-crm'); ?></h2>
 <?php
 	global $wpdb;
 	$uid = get_current_user_id();
@@ -119,26 +119,26 @@ add_action( 'wp_enqueue_scripts', array( $portal, 'portal_enqueue_scripts_and_st
 				// there are quotes to show to this user, so build table
 				echo '<table class="table">';
 					echo '<thead>';
-						echo '<th>' . __('#',"zero-bs-crm") . '</th>';
-						echo '<th>' . __('Date',"zero-bs-crm") . '</th>';
-						echo '<th>' . __('Title',"zero-bs-crm") . '</th>';
-						echo '<th>' . __('Total',"zero-bs-crm") . '</th>';
-						echo '<th>' . __('Status',"zero-bs-crm") . '</th>';
+						echo '<th>' . esc_html__('#',"zero-bs-crm") . '</th>';
+						echo '<th>' . esc_html__('Date',"zero-bs-crm") . '</th>';
+						echo '<th>' . esc_html__('Title',"zero-bs-crm") . '</th>';
+						echo '<th>' . esc_html__('Total',"zero-bs-crm") . '</th>';
+						echo '<th>' . esc_html__('Status',"zero-bs-crm") . '</th>';
 					echo '</thead>';
 					echo $quotes_to_show;
 				echo '</table>';
 			}
 			else {
 				// no quotes to show...might have drafts but no admin perms
-				_e('You do not have any quotes yet.',"zero-bs-crm");
+				esc_html_e('You do not have any quotes yet.',"zero-bs-crm");
 			}
 		}else{
 			// quote object count for current user is 0
-			_e('You do not have any quotes yet.',"zero-bs-crm");
+			esc_html_e('You do not have any quotes yet.',"zero-bs-crm");
 		}
 	}else{
 		// not a valid contact or quote admin user
-		_e( 'You do not have any quotes yet.', 'zero-bs-crm' );
+		esc_html_e( 'You do not have any quotes yet.', 'zero-bs-crm' );
 	}
 	?>
 		</div>

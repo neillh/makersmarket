@@ -57,7 +57,7 @@ global $zbs, $wpdb, $zbsCustomerFields;
             $details_endpoint->render_admin_notice();
         }
         ?>
-        <h2><?php echo $page_title; ?></h2>
+        <h2><?php echo esc_html( $page_title ); ?></h2>
         <div class='zbs-entry-content' style="position:relative;">
             <form enctype="multipart/form-data" action="#" name="zbs-update-deets" method="POST" style="padding-bottom:50px;" class="form-horizontal form-inline">
                 <?php
@@ -83,7 +83,7 @@ global $zbs, $wpdb, $zbsCustomerFields;
                 if (is_array($potentialNotToShow)) $fields_to_hide_on_portal = $potentialNotToShow;
 
                 ?>
-                <input type="hidden" name="customer_id" id="customer_id" value="<?php echo $cID; ?>" />
+                <input type="hidden" name="customer_id" id="customer_id" value="<?php echo esc_attr( $cID ); ?>" />
                 <div class="form-table wh-metatab wptbp" id="wptbpMetaBoxMainItem">
                     <?php
 
@@ -182,9 +182,9 @@ global $zbs, $wpdb, $zbsCustomerFields;
                                 }
 
                                 if ( $fieldV['area'] == 'Second Address' ) {
-                                    echo '<div class="zbs-multi-group-item '. $zbsShouldHideOrNotClass .'"><label class="zbs-field-group-label">'. esc_html( $second_address_label ) .'</label>';
+                                    echo '<div class="zbs-multi-group-item '. esc_attr( $zbsShouldHideOrNotClass ) .'"><label class="zbs-field-group-label">'. esc_html( $second_address_label ) .'</label>';
                                 } else {
-                                    echo '<div class="zbs-multi-group-item '. $zbsShouldHideOrNotClass .'"><label class="zbs-field-group-label">'. __($fieldV['area'],"zero-bs-crm").'</label>';
+                                    echo '<div class="zbs-multi-group-item '. esc_attr( $zbsShouldHideOrNotClass ) .'"><label class="zbs-field-group-label">'. esc_html__($fieldV['area'],"zero-bs-crm").'</label>';
                                 }
                                 // Set this (need to close)
                                 $zbsOpenGroup = true;
@@ -228,16 +228,16 @@ global $zbs, $wpdb, $zbsCustomerFields;
                     }
                     ?>
                 <p>
-                    <label style="margin-top:2em;"><?php _e("Change your password (or leave blank to keep the same)", "zero-bs-crm"); ?></label>
+                    <label style="margin-top:2em;"><?php esc_html_e("Change your password (or leave blank to keep the same)", "zero-bs-crm"); ?></label>
                     <input class="form-control" type="password" id="password" name="password" value=""/>
                 </p>
                 <p>
-                    <label><?php _e("Re-enter password", "zero-bs-crm"); ?></label>
+                    <label><?php esc_html_e("Re-enter password", "zero-bs-crm"); ?></label>
                     <input class="form-control" type="password" id="password2" name="password2" value=""/>
                 </p>
                 <p>
                     <input type="hidden" id="save" name="save" value="1"/>
-                    <input type="submit" id="submit" value="<?php _e('Submit',"zero-bs-crm");?>"/>
+                    <input type="submit" id="submit" value="<?php esc_attr_e('Submit',"zero-bs-crm");?>"/>
                 </p>
                 </div>
             </form>

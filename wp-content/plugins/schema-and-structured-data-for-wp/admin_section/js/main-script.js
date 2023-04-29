@@ -2,15 +2,31 @@ var saswp_attached_rv  = [];
 var saswp_attached_col = [];  
 var rmv_boolean        = false;
 var rmv_html           = '';
-jQuery(document).ready(function($){
 
+
+jQuery(document).ready(function($){
+  
+  jQuery(".saswpforwp-colorpicker").wpColorPicker(); // Color picker
+  jQuery(".saswp-onclick-show").hide();
 //edit Schema page in show field for
-var busines_stype = $('#schema_type').find(":selected").val();
-if(busines_stype == 'local_business'){
-  $(document).ready(function(){
-    $(".saswp-business-type-tr").show();
-  }); 
-}
+  var busines_stype = $('#schema_type').find(":selected").val();
+  if(busines_stype == 'local_business'){
+    $(document).ready(function(){
+      $(".saswp-business-type-tr").show();
+    }); 
+  }
+
+// home page title start
+  //add the home title name
+  var homepage_title = $("#saswp_breadcrumb_home_page_title").val();
+  $("#saswp_breadcrumb_home_page_title_text").val(homepage_title); 
+
+  //update and add title 
+  $('#saswp_breadcrumb_home_page_title_text').bind('keydown keyup',function (){
+    var newname = $(this).val();
+    $("#saswp_breadcrumb_home_page_title").val(newname); 
+  });
+// home page title end 
 
  $(document).on("click", '#saswp_loc_display_on_front', function(){ 
   
@@ -586,7 +602,7 @@ if(busines_stype == 'local_business'){
               // $(this).find('select').attr('disabled', true);
            }                               
         });              
-        if(schematype == 'TechArticle' || schematype == 'Article' || schematype == 'Blogposting' || schematype == 'NewsArticle' || schematype == 'WebPage'){
+        if(schematype == 'TechArticle' || schematype == 'Article' || schematype == 'ScholarlyArticle' || schematype == 'Blogposting' || schematype == 'NewsArticle' || schematype == 'AnalysisNewsArticle' || schematype == 'AskPublicNewsArticle' || schematype == 'BackgroundNewsArticle' || schematype == 'OpinionNewsArticle' || schematype == 'ReportageNewsArticle' || schematype == 'ReviewNewsArticle' || schematype == 'WebPage' || schematype == 'ItemPage'){
 
             $(".saswp-enable-speakable").parent().parent().show();
         }else{
@@ -656,6 +672,11 @@ if(busines_stype == 'local_business'){
          }else{
          $(".saswp-schema-modify-section").show();      
          }
+         if(schematype == 'BreadCrumbs'){  
+          $(".saswp-schema-modify-section").hide();  
+          }else{
+          $(".saswp-schema-modify-section").show();      
+          }
          saswp_enable_rating_review();
          saswp_enable_rating_automate();
             
@@ -702,7 +723,7 @@ if(busines_stype == 'local_business'){
                }                               
             }); 
             
-            if(schematype == 'TechArticle' || schematype == 'Article' || schematype == 'Blogposting' || schematype == 'NewsArticle' || schematype == 'WebPage'){
+            if(schematype == 'TechArticle' || schematype == 'Article' || schematype == 'ScholarlyArticle' || schematype == 'Blogposting' || schematype == 'NewsArticle' || schematype == 'AnalysisNewsArticle' || schematype == 'AskPublicNewsArticle' || schematype == 'BackgroundNewsArticle' || schematype == 'OpinionNewsArticle' || schematype == 'ReportageNewsArticle' || schematype == 'ReviewNewsArticle' || schematype == 'WebPage'){
                
                 $(".saswp-enable-speakable").parent().parent().show();
             }else{
@@ -765,6 +786,11 @@ if(busines_stype == 'local_business'){
                 $(".saswp-event-text-field-tr").show();
                 $(".saswp-option-table-class tr").find('select').attr('disabled', false);
              }
+             if(schematype == 'BreadCrumbs'){  
+              $(".saswp-schema-modify-section").hide();  
+              }else{
+              $(".saswp-schema-modify-section").show();      
+              }
              
             saswp_enable_rating_review();
             saswp_enable_rating_automate();
@@ -1028,15 +1054,17 @@ if(busines_stype == 'local_business'){
                       break;
                       
                       case 'saswp_breadcrumb_schema_checkbox':
-                          
+                            
                             if ($(this).is(':checked')) {              
                               $("#saswp_breadcrumb_schema").val(1);  
                               $("#saswp_breadcrumb_remove_cat").parent().parent().show(); 
-                              $("#saswp_breadcrumb_include_parent_cat").parent().parent().show();            
+                              $("#saswp_breadcrumb_include_parent_cat").parent().parent().show();
+                              $("#saswp_breadcrumb_home_page_title_text").parent().parent().show();               
                             }else{
                               $("#saswp_breadcrumb_schema").val(0);           
                               $("#saswp_breadcrumb_remove_cat").parent().parent().hide();  
-                              $("#saswp_breadcrumb_include_parent_cat").parent().parent().hide();  
+                              $("#saswp_breadcrumb_include_parent_cat").parent().parent().hide(); 
+                              $("#saswp_breadcrumb_home_page_title_text").parent().parent().hide();  
                             }
 
                       break;
@@ -1518,6 +1546,15 @@ if(busines_stype == 'local_business'){
                               $("#saswp-wp-event-manager").val(0);           
                             }
                       break;
+
+                      case 'saswp-wp-event-solution-checkbox':
+                          saswp_compatibliy_notes(current, id); 
+                            if ($(this).is(':checked')) {              
+                              $("#saswp-wp-event-solution").val(1);             
+                            }else{
+                              $("#saswp-wp-event-solution").val(0);           
+                            }
+                      break;
                       
                       case 'saswp-events-manager-checkbox':
                           saswp_compatibliy_notes(current, id); 
@@ -1747,6 +1784,16 @@ if(busines_stype == 'local_business'){
                             
                       break;
 
+                      case 'saswp-truncate-product-description-checkbox':
+                          
+                            if ($(this).is(':checked')) {              
+                              $("#saswp-truncate-product-description").val(1);                                
+                            }else{
+                              $("#saswp-truncate-product-description").val(0);                                          
+                            }
+                            
+                      break;
+
                       case 'saswp-rss-feed-image-checkbox':
                           
                             if ($(this).is(':checked')) {              
@@ -1825,6 +1872,16 @@ if(busines_stype == 'local_business'){
                               $("#saswp-ampforwp").val(0);                                          
                             }
                             
+                      break;
+
+                      case 'saswp-bunyadamp-checkbox':
+                        saswp_compatibliy_notes(current, id); 
+                         if ($(this).is(':checked')) {              
+                           $("#saswp-bunyadamp").val(1);                                
+                         }else{
+                           $("#saswp-bunyadamp").val(0);                                          
+                         }
+                         
                       break;
                       
                       case 'saswp-wpreviewslider-checkbox':
@@ -2383,7 +2440,16 @@ if(busines_stype == 'local_business'){
                             }
                             
                       break;
-                                            
+                           
+                      case 'saswp-publish-press-authors-checkbox':
+                          saswp_compatibliy_notes(current, id); 
+                            if ($(this).is(':checked')) {              
+                              $("#saswp-publish-press-authors").val(1);             
+                            }else{
+                              $("#saswp-publish-press-authors").val(0);           
+                            }
+                      break;
+                                       
                       default:
                           break;
                   }
@@ -2539,10 +2605,18 @@ if(busines_stype == 'local_business'){
     $(document).on("change",".saswp-schema-type-toggle", function(e){
                var schema_id = $(this).attr("data-schema-id"); 
                var post_id =   $(this).attr("data-post-id");     
-               var modified = $(".saswp_modify_this_schema_hidden_"+schema_id).val();
+               var post_id =   $(this).attr("data-post-id");   
+               var modified = $(".saswp_modify_this_schema_hidden_"+schema_id).val(); 
+               var schema_name =   $(this).attr("data-schema-name"); 
+             
                if($(this).is(':checked')){
                     var status = 0;  
-               
+                    $("."+schema_name).empty();
+                    $("."+schema_name).text('Enable '+schema_name+' on this page');
+
+                    $(".custom").empty();
+                    $(".custom").text('Enable custom schema on this page');
+                  
                     $(".saswp-ps-toggle[schema-id="+schema_id+"]").addClass('saswp_hide'); 
                     $(".saswp-restore-schema[schema-id="+schema_id+"]").parent().addClass('saswp_hide');
                     $(".saswp-modify-schema[schema-id="+schema_id+"]").parent().addClass('saswp_hide');
@@ -2550,13 +2624,23 @@ if(busines_stype == 'local_business'){
                     $("#saswp_custom_schema_field[schema-id="+schema_id+"]").parent().addClass('saswp_hide');
                               
                }else{
-                   $("#saswp_custom_schema_field[schema-id="+schema_id+"]").parent().removeClass('saswp_hide');
-                  if(modified == 1){
+                    $("#saswp_custom_schema_field[schema-id="+schema_id+"]").parent().removeClass('saswp_hide');
+
+                    $(".custom").empty();
+                    $(".custom").text('Disable custom schema on this page');
+
+                   if(modified == 1){
+                    $("."+schema_name).empty();
+                    $("."+schema_name).text('Disable '+schema_name+' on this page');
+
                     $(".saswp-ps-toggle[schema-id="+schema_id+"]").removeClass('saswp_hide'); 
                     $(".saswp-restore-schema[schema-id="+schema_id+"]").parent().removeClass('saswp_hide');
                   }else{
+                    $("."+schema_name).empty();
+                    $("."+schema_name).text('Disable '+schema_name+' on this page');
+
                     $(".saswp-modify-schema[schema-id="+schema_id+"]").parent().removeClass('saswp_hide'); 
-                     $(".saswp-ps-toggle[schema-id="+schema_id+"]").addClass('saswp_hide'); 
+                    $(".saswp-ps-toggle[schema-id="+schema_id+"]").addClass('saswp_hide'); 
                     $(".saswp-restore-schema[schema-id="+schema_id+"]").parent().addClass('saswp_hide');
                   } 
                    
@@ -2629,8 +2713,8 @@ if(busines_stype == 'local_business'){
                                $("#"+add_on+"_addon_license_key_status").val(response['status']);
                                                                 
                                if(response['status'] =='active' && response['days_remaining']<0){
-                                $("span.inactive_status_reviews").text('Expired');
-                                $("span.inactive_status_reviews").css({ color: "red", "font-weight": "400" });
+                                $("span.saswp_inactive_status_reviews").text('Expired');
+                                $("span.saswp_inactive_status_reviews").css({ color: "red", "font-weight": "400" });
                               }
                             else if(response['status'] =='active'){  
                                $(".saswp-"+add_on+"-dashicons").addClass('dashicons-yes');
@@ -3607,8 +3691,7 @@ if(busines_stype == 'local_business'){
         }
         
         //star rating stars here
-            if(typeof(saswp_reviews_data) !== 'undefined'){                          
-
+            if(typeof(saswp_reviews_data) !== 'undefined'){ 
              $(".saswp-rating-div").rateYo({
               spacing: "5px",  
               rtl:saswp_localize_data.is_rtl,
@@ -3618,7 +3701,7 @@ if(busines_stype == 'local_business'){
                     $(this).next().next().val(rating);                
                 }                              
             }).on("rateyo.change", function (e, data){
-              var rating = data.rating;              
+              var rating = data.rating;   
                 $(this).next().text(rating);
             });
                 
@@ -3767,7 +3850,7 @@ if(busines_stype == 'local_business'){
               $(this).toggleClass("active");  
               $(this).next(".saswp-accordion-panel").slideToggle(200);
             });
-
+          
             $(document).on("click", ".saswp-opn-cls-btn", function(){
                 
                 $("#saswp-reviews-cntn").toggle();

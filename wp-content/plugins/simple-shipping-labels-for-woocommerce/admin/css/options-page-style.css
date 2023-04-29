@@ -1,0 +1,26 @@
+.recipient-details-layout-label-samples-container {
+	display: flex;
+	align-items: flex-start;
+}
+
+.recipient-details-layout-label-sample {
+	text-align: center;
+	border: 1px solid gainsboro;
+	display: inline-block;
+	padding: 10px 30px;
+	margin: 5px;
+	border-radius: 10px;
+	background-color: white;
+}
+
+.label-layout-title {
+	background-color: lightgrey;
+}
+
+.sslabels-settings-form-tab:not(.sslabels-active) {
+    display: none;
+}
+
+.sslabels-active + #brand-section:not(.hide-if-js) {
+	display: block;
+}

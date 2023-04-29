@@ -110,11 +110,11 @@ class Invoices_Endpoint extends Client_Portal_Endpoint {
 					}
 
 					echo '<tr>';
-						echo '<td data-title="' . $zbs->settings->get('reflabel') . '">'. $idLinkStart.$idStr . ' '. __('(view)', 'zero-bs-crm') . $idLinkEnd.'</td>';
-						echo '<td data-title="' . __('Date',"zero-bs-crm") . '">' . $cinv['date_date'] . '</td>';
-						echo '<td data-title="' . __('Due Date',"zero-bs-crm") . '">' . $due_date_str . '</td>';
-						echo '<td data-title="' . __('Total',"zero-bs-crm") . '">' . zeroBSCRM_formatCurrency($cinv['total']) . '</td>';
-						echo '<td data-title="' . __('Status',"zero-bs-crm") . '"><span class="status '. $inv_status .'">'.$cinv['status'].'</span></td>';
+						echo '<td data-title="' . esc_attr( $zbs->settings->get('reflabel') ) . '">'. $idLinkStart . esc_html( $idStr ) . ' '. esc_html__('(view)', 'zero-bs-crm') . $idLinkEnd.'</td>';
+						echo '<td data-title="' . esc_attr__('Date',"zero-bs-crm") . '">' . esc_html( $cinv['date_date'] ) . '</td>';
+						echo '<td data-title="' . esc_attr__('Due date',"zero-bs-crm") . '">' . esc_html( $due_date_str ) . '</td>';
+						echo '<td data-title="' . esc_attr__('Total',"zero-bs-crm") . '">' . esc_html( zeroBSCRM_formatCurrency($cinv['total']) ) . '</td>';
+						echo '<td data-title="' . esc_attr__('Status',"zero-bs-crm") . '"><span class="status '. esc_attr( $inv_status ) .'">' . esc_html( $cinv['status'] ) . '</span></td>';
 
 						do_action('zbs-extra-invoice-body-table', $cinv['id']);
 
@@ -128,11 +128,11 @@ class Invoices_Endpoint extends Client_Portal_Endpoint {
 					// there are invoices to show to this user, so build table
 					echo '<table class="table zbs-invoice-list">';
 						echo '<thead>';
-							echo '<th>' . $zbs->settings->get('reflabel') . '</th>';
-							echo '<th>' . __('Date','zero-bs-crm') . '</th>';
-							echo '<th>' . __('Due Date','zero-bs-crm') . '</th>';
-							echo '<th>' . __('Total','zero-bs-crm') . '</th>';
-							echo '<th>' . __('Status','zero-bs-crm') . '</th>';
+							echo '<th>' . esc_html( $zbs->settings->get('reflabel') ) . '</th>';
+							echo '<th>' . esc_html__('Date','zero-bs-crm') . '</th>';
+							echo '<th>' . esc_html__('Due date','zero-bs-crm') . '</th>';
+							echo '<th>' . esc_html__('Total','zero-bs-crm') . '</th>';
+							echo '<th>' . esc_html__('Status','zero-bs-crm') . '</th>';
 							do_action('zbs-extra-invoice-header-table');
 						echo '</thead>';
 						echo $invoices_to_show;
@@ -140,15 +140,15 @@ class Invoices_Endpoint extends Client_Portal_Endpoint {
 				}
 				else {
 					// no invoices to show...might have drafts but no admin perms
-					_e( 'You do not have any invoices yet.', 'zero-bs-crm' );
+					esc_html_e( 'You do not have any invoices yet.', 'zero-bs-crm' );
 				}
 			}else{
 				// invoice object count for current user is 0
-				_e( 'You do not have any invoices yet.', 'zero-bs-crm' );
+				esc_html_e( 'You do not have any invoices yet.', 'zero-bs-crm' );
 			}
 		}else{
 			// not a valid contact or invoice admin user
-			_e( 'You do not have any invoices yet.', 'zero-bs-crm' );
+			esc_html_e( 'You do not have any invoices yet.', 'zero-bs-crm' );
 		}
 	} 
 

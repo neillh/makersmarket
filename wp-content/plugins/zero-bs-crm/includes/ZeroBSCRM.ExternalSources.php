@@ -217,7 +217,7 @@ function jpcrm_render_external_sources_info( $external_sources, $object_id, $obj
                 // show group header                        
                 echo '<div class="jpcrm-external-source-group">';
 
-                    echo '<div class="jpcrm-external-source-group-header ui header">' . ( is_array( $external_source_group_info ) ? '<i class="fa ' . $external_source_group_info['ico'] . '"></i>&nbsp;&nbsp;' . $external_source_group_info[0] : $external_source_group_key ) . '</div>';                            
+                    echo '<div class="jpcrm-external-source-group-header ui header">' . ( is_array( $external_source_group_info ) ? '<i class="fa ' . esc_attr( $external_source_group_info['ico'] ) . '"></i>&nbsp;&nbsp;' . $external_source_group_info[0] : $external_source_group_key ) . '</div>';
 
                     foreach ( $external_source_group as $external_source ){
 
@@ -263,7 +263,7 @@ function jpcrm_render_external_sources_info( $external_sources, $object_id, $obj
     } else {
 
         // manually added
-        echo '<p><i class="address book icon"></i> ' . sprintf( __( '%s added manually.', 'zero-bs-crm' ), ucwords( $zbs->DAL->objTypeKey( $object_type_id ) ) ) . '</p>';
+        echo '<p><i class="address book icon"></i> ' . esc_html( sprintf( __( '%s added manually.', 'zero-bs-crm' ), ucwords( $zbs->DAL->objTypeKey( $object_type_id ) ) ) ) . '</p>';
 
     }
 

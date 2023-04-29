@@ -1,0 +1,69 @@
+$widths: (
+	narrowest: $container-narrowest,
+	narrow: $container-narrow,
+	normal: $container,
+	wide: $container,
+);
+
+//Mobile Full Width Desktop Container Width
+@mixin container($width: $container) {
+	margin: 0 auto;
+	width: 100%;
+
+	@include respond-above(sm) {
+		@if map-has-key($widths, $width) {
+			$width-value: map-get($widths, $width);
+			max-width: $width-value;
+		}
+
+		@else {
+			max-width: $container;
+		}
+	}
+}
+
+//Gutters
+@mixin gutter() {
+	padding-left: $gutter-mobile;
+	padding-right: $gutter-mobile;
+
+	@include respond-above(sm) {
+		padding-left: $gutter-desktop;
+		padding-right: $gutter-desktop;
+	}
+}
+
+@mixin remove-gutter() {
+	padding-left: 0;
+	padding-right: 0;
+
+	@include respond-below(xxs) {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	@include respond-above(sm) {
+		padding-left: 0;
+		padding-right: 0;
+	}
+
+	@include respond-above(md) {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}
+
+//Clear ul styling
+@mixin ul-remove-style() {
+	margin-bottom: 0;
+
+	li {
+		margin-bottom: 0;
+
+		&:before {
+			content: '';
+			display: none;
+			margin-right: 0;
+		}
+	}
+}

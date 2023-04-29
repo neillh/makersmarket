@@ -20,6 +20,9 @@
 #zbs-segment-editor h2.ui.header .head-ico {
   padding-top: 0;
 }
+#zbs-segment-editor #zbs-segment-edit-var-title {
+  min-width: 400px;
+}
 #zbs-segment-editor .ui.centralsimple.huge {
   font-size: 1.5em;
   text-align: center;
@@ -113,6 +116,9 @@
   padding-left: 2em;
   padding-top: 0.7em;
   color: #728b9f;
+}
+#zbs-segment-editor .ui.centralsimple .zbs-segment-edit-condition select.zbs-segment-edit-var-condition-type {
+  max-width: 20rem;
 }
 #zbs-segment-editor .ui.centralsimple #zbs-segment-edit-var-matchtype {
   width: auto;

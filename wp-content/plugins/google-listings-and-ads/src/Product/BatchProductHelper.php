@@ -13,7 +13,7 @@ use Automattic\WooCommerce\GoogleListingsAndAds\Google\BatchProductEntry;
 use Automattic\WooCommerce\GoogleListingsAndAds\Google\BatchProductRequestEntry;
 use Automattic\WooCommerce\GoogleListingsAndAds\Infrastructure\Service;
 use Automattic\WooCommerce\GoogleListingsAndAds\MerchantCenter\TargetAudience;
-use Google\Service\ShoppingContent\Product as GoogleProduct;
+use Automattic\WooCommerce\GoogleListingsAndAds\Vendor\Google\Service\ShoppingContent\Product as GoogleProduct;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use WC_Product;
 use WC_Product_Variable;
@@ -114,7 +114,11 @@ class BatchProductHelper implements Service {
 	 * @param BatchProductEntry $product_entry
 	 */
 	public function mark_as_unsynced( BatchProductEntry $product_entry ) {
-		$wc_product = $this->product_helper->get_wc_product( $product_entry->get_wc_product_id() );
+		try {
+			$wc_product = $this->product_helper->get_wc_product( $product_entry->get_wc_product_id() );
+		} catch ( InvalidValue $exception ) {
+			return;
+		}
 
 		$this->product_helper->mark_as_unsynced( $wc_product );
 	}

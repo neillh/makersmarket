@@ -109,7 +109,7 @@ class zeroBSCRM_TagManager{
         global $zbs;
 
 
-        ?><div id="zbs-edit-master-wrap"><form method="post" id="zbs-edit-form" enctype="multipart/form-data"><input type="hidden" name="zbs-edit-form-master" value="<?php echo $this->objType; ?>" />
+        ?><div id="zbs-edit-master-wrap"><form method="post" id="zbs-edit-form" enctype="multipart/form-data"><input type="hidden" name="zbs-edit-form-master" value="<?php echo esc_attr( $this->objType ); ?>" />
         <style>
 
         </style>
@@ -121,25 +121,25 @@ class zeroBSCRM_TagManager{
 
                 <h4 class="ui horizontal divider header">
                   <i class="list layout icon"></i>
-                  <?php echo $this->singular.' '.__('Field Manager',"zero-bs-crm"); ?>
+                  <?php echo esc_html( $this->singular ) .' '. esc_html__('Field Manager',"zero-bs-crm"); ?>
                 </h4>
 
                 <div id="zbs-edit-field-wrap" class="ui divided grid">
 
                   <div class="ui active inverted dimmer hidden" id="zbs-field-manager-loading" style="display:none">
-                    <div class="ui text loader"><?php _e('Loading',"zero-bs-crm");?></div>
+                    <div class="ui text loader"><?php esc_html_e('Loading',"zero-bs-crm");?></div>
                   </div>
 
                     <div class="row">
                         <div class="twelve wide column">
 
-                            <h4><?php _e('Current Fields',"zero-bs-crm"); ?></h4>
+                            <h4><?php esc_html_e('Current Fields',"zero-bs-crm"); ?></h4>
 
 
                             <div id="zbs-column-manager-current-fields" class="ui segment zbs-column-manager-connected"> 
                                 <?php if (is_array($currentFields)) foreach ($currentFields as $colKey => $col){
 
-                                    ?><div id="zbs-column-manager-field-<?php echo $colKey; ?>" class="ui basic button zbs-column-manager-field" data-key="<?php echo $colKey; ?>"><?php _e($col[0],"zero-bs-crm"); ?></div><?php
+                                    ?><div id="zbs-column-manager-field-<?php echo esc_attr( $colKey ); ?>" class="ui basic button zbs-column-manager-field" data-key="<?php echo esc_attr( $colKey ); ?>"><?php esc_html_e($col[0],"zero-bs-crm"); ?></div><?php
 
                                 } ?>
                             </div>
@@ -147,14 +147,14 @@ class zeroBSCRM_TagManager{
                         </div>
                         <div class="four wide column">
 
-                            <h4><?php _e('Available Fields',"zero-bs-crm"); ?></h4>
+                            <h4><?php esc_html_e('Available Fields',"zero-bs-crm"); ?></h4>
 
                             <div id="zbs-column-manager-available-fields" class="ui segment zbs-column-manager-connected"> 
                                 <?php if (is_array($allFields)) foreach ($allFields as $colKey => $col){
 
                                     if (!array_key_exists($colKey, $currentColumns)){
                                         
-                                        ?><div id="zbs-column-manager-field-<?php echo $colKey; ?>" class="ui basic button zbs-column-manager-field" data-key="<?php echo $colKey; ?>"><?php _e($col[0],"zero-bs-crm"); ?></div><?php
+                                        ?><div id="zbs-column-manager-field-<?php echo esc_attr( $colKey ); ?>" class="ui basic button zbs-column-manager-field" data-key="<?php echo esc_attr( $colKey ); ?>"><?php esc_html_e($col[0],"zero-bs-crm"); ?></div><?php
 
                                     }
 
@@ -278,27 +278,27 @@ class zeroBSCRM_TagManager{
             var zbsEditSettings = {
 
                 <?php /*objid: <?php echo $this->objID; ?>,*/ ?>
-                objdbname: '<?php echo $this->objType; ?>'
+                objdbname: '<?php echo esc_html( $this->objType ); ?>'
 
             };
             var zbsDrawEditViewBlocker = false;
             var zbsDrawEditAJAXBlocker = false;
-            var zbsDrawEditLoadingBoxHTML = '<?php echo zeroBSCRM_UI2_loadingSegmentIncTextHTML(); ?>';
-            var zbsObjectViewLinkPrefixCustomer = '<?php echo zbsLink('view',-1,'zerobs_customer',true); ?>';
-            var zbsObjectEditLinkPrefixCustomer = '<?php echo zbsLink('edit',-1,'zerobs_customer',true); ?>';
-            var zbsObjectViewLinkPrefixCompany = '<?php echo zbsLink('view',-1,'zerobs_company',true); ?>';
-            var zbsListViewLink = '<?php echo zbsLink($this->listViewSlug); ?>';
-            var zbsClick2CallType = parseInt('<?php echo zeroBSCRM_getSetting('clicktocalltype'); ?>');
+            var zbsDrawEditLoadingBoxHTML = '<?php echo esc_html( zeroBSCRM_UI2_loadingSegmentIncTextHTML() ); ?>';
+            var zbsObjectViewLinkPrefixCustomer = '<?php echo jpcrm_esc_link( 'view', -1, 'zerobs_customer', true ); ?>';
+            var zbsObjectEditLinkPrefixCustomer = '<?php echo jpcrm_esc_link( 'edit', -1, 'zerobs_customer', true ); ?>';
+            var zbsObjectViewLinkPrefixCompany = '<?php echo jpcrm_esc_link( 'view', -1, 'zerobs_company', true ); ?>';
+            var zbsListViewLink = '<?php echo jpcrm_esc_link( $this->listViewSlug ); ?>';
+            var zbsClick2CallType = parseInt('<?php echo esc_html( zeroBSCRM_getSetting('clicktocalltype') ); ?>');
             var zbsEditViewLangLabels = {
 
-                    'today': '<?php echo zeroBSCRM_slashOut(__('Today',"zero-bs-crm")); ?>',
+                    'today': '<?php echo esc_html( zeroBSCRM_slashOut(__('Today',"zero-bs-crm")) ); ?>',
 
                     <?php $labelCount = 0; 
                     if (is_array($this->langLabels) && count($this->langLabels) > 0) foreach ($this->langLabels as $labelK => $labelV){
 
                         if ($labelCount > 0) echo ',';
 
-                        echo $labelK.":'".zeroBSCRM_slashOut($labelV)."'";
+                        echo esc_html( $labelK ).":'".esc_html( zeroBSCRM_slashOut($labelV) )."'";
 
                         $labelCount++;
 
@@ -306,7 +306,7 @@ class zeroBSCRM_TagManager{
 
             };
             <?php   #} Nonce for AJAX
-                    echo 'var zbscrmjs_secToken = \''.wp_create_nonce( "zbscrmjs-ajax-nonce" ).'\';'; ?></script><?php
+                    echo "var zbscrmjs_secToken = '" . esc_js( wp_create_nonce( 'zbscrmjs-ajax-nonce' ) ) . "';"; ?></script><?php
 
     } // /draw func
 

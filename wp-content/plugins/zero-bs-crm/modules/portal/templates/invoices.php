@@ -46,7 +46,7 @@ $invoice_endpoint = $portal->get_endpoint( ZBS_TYPE_INVOICE );
 		<?php $portal->render->portal_nav($invoice_endpoint); ?>
     </nav>
     <div class='zbs-portal-content zbs-portal-invoices-list'>
-        <h2><?php _e('Invoices','zero-bs-crm'); ?></h2>
+        <h2><?php esc_html_e('Invoices','zero-bs-crm'); ?></h2>
         <div class='zbs-entry-content zbs-responsive-table' style="position:relative;">
 		    <?php 
 				$invoices_endpoint = new Automattic\JetpackCRM\Invoices_Endpoint( $portal );

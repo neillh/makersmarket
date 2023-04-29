@@ -158,12 +158,12 @@ function jpcrm_settings_page_html_woosync_connections() {
 						<?php _e('Are you sure?',"zero-bs-crm"); ?>
 					</div>
 					<p><?php echo sprintf( __( 'Are you sure you want to disconnect the connection to the store at <br><code>%s</code>?', 'zero-bs-crm' ), $sync_sites[ $site_key_to_disconnect ]['domain'] ); ?></p>
-					<p><?php _e( 'This will pernamently remove this connection, no new data will be synchronised from this external store unless you add a new connection to it at a later date. This will not remove any existing data.', 'zero-bs-crm' ); ?></p>
+					<p><?php esc_html_e( 'This will pernamently remove this connection. No new data will be synchronised from this external store unless you add a new connection to it at a later date. This will not remove any existing data.', 'zero-bs-crm' ); ?></p>
 					<p><?php
 
 									// actions
-									echo '<a href="' . wp_nonce_url( '?page=' . $zbs->slugs['settings'] . '&tab=' . $zbs->modules->woosync->slugs['settings'] . '&subtab=' . $zbs->modules->woosync->slugs['settings_connections'] . '&disconnect=' . $site_key_to_disconnect . '&definitely_disconnect=1', 'disconnect_woosync_site_connection_' . $site_key_to_disconnect ) . '" class="ui orange button right floated"><i class="trash alternate icon"></i> ' . __( 'Disconnect Store Connection', 'zero-bs-crm' ) . '</a>';
-									echo '<a href="' . zbsLink( $zbs->slugs['settings'] . '&tab=' . $zbs->modules->woosync->slugs['settings'] . '&subtab=' . $zbs->modules->woosync->slugs['settings_connections'] ) . '" class="ui green button right floated"><i class="angle double left icon"></i> ' . __('Back to Connections', 'zero-bs-crm' ) . '</a>';
+									echo '<a href="' . esc_url( wp_nonce_url( '?page=' . $zbs->slugs['settings'] . '&tab=' . $zbs->modules->woosync->slugs['settings'] . '&subtab=' . $zbs->modules->woosync->slugs['settings_connections'] . '&disconnect=' . $site_key_to_disconnect . '&definitely_disconnect=1', 'disconnect_woosync_site_connection_' . $site_key_to_disconnect ) ) . '" class="ui orange button right floated"><i class="trash alternate icon"></i> ' . esc_html__( 'Disconnect Store Connection', 'zero-bs-crm' ) . '</a>';
+									echo '<a href="' . jpcrm_esc_link( $zbs->slugs['settings'] . '&tab=' . $zbs->modules->woosync->slugs['settings'] . '&subtab=' . $zbs->modules->woosync->slugs['settings_connections'] ) . '" class="ui green button right floated"><i class="angle double left icon"></i> ' . esc_html__('Back to Connections', 'zero-bs-crm' ) . '</a>';
 									
 					?></p>
 				</div>
@@ -173,9 +173,9 @@ function jpcrm_settings_page_html_woosync_connections() {
 	} else {
 
 		// normal page load  ?>
-		<p><?php echo sprintf( __( 'From this page you can manage connections between Jetpack CRM and one or more WooCommerce stores. <a href="%s" target="_blank">Read more about connecting Jetpack CRM to WooCommerce</a>.', 'zero-bs-crm' ), $zbs->urls['connect-multi-woo'] ); ?></p>
+		<p><?php echo wp_kses( sprintf( __( 'From this page you can manage connections between Jetpack CRM and one or more WooCommerce stores. <a href="%s" target="_blank">Read more about connecting Jetpack CRM to WooCommerce</a>.', 'zero-bs-crm' ), esc_url( $zbs->urls['connect-multi-woo'] ) ), $zbs->acceptable_restricted_html ); ?></p>
 
-		<h3 style="text-align: center;" class="ui blue header"><?php _e( 'WooCommerce Connections', 'zero-bs-crm'); ?></h3>
+		<h3 style="text-align: center;" class="ui blue header"><?php esc_html_e( 'WooCommerce Connections', 'zero-bs-crm'); ?></h3>
 		<table class="table table-striped wtab">
 			<tbody>
 				<td>
@@ -225,19 +225,19 @@ function jpcrm_settings_page_html_woosync_connections() {
 						<button class="ui blue button" id="jpcrm-woosync-connect-to-store"><i class="plug icon"></i> <?php 
 						if ( count( $sync_sites ) == 0 ){
 							
-							_e( 'Connect a Store', 'zero-bs-crm' );
+							esc_html_e( 'Connect a Store', 'zero-bs-crm' );
 							
 						} else {
 							
-							_e( 'Connect another Store', 'zero-bs-crm' );
+							esc_html_e( 'Connect another Store', 'zero-bs-crm' );
 
 						}
 						?></button>
 						<?php 
 						echo sprintf(
 							'<a href="%s" class="ui basic positive button" style="margin-top:1em"><i class="shopping cart icon"></i> %s</a>',
-							zbsLink( $zbs->slugs['woosync'] ),
-							__( 'WooSync Hub', 'zero-bs-crm' )
+							jpcrm_esc_link( $zbs->slugs['woosync'] ),
+							esc_html__( 'WooSync Hub', 'zero-bs-crm' )
 						); ?>
 					</td>
 				</tr>
@@ -318,7 +318,7 @@ function jpcrm_woosync_connections_page_single_connection( $site_key, $site_info
 
 	}
 
-	?><div class="jpcrm-woocommerce-connection ui segment" id="jpcrm-woocommerce-connection-<?php echo $site_key; ?>">
+	?><div class="jpcrm-woocommerce-connection ui segment" id="jpcrm-woocommerce-connection-<?php echo esc_attr( $site_key ); ?>">
 
 		<div class="ui grid">
 			<div class="twelve wide column">
@@ -338,7 +338,7 @@ function jpcrm_woosync_connections_page_single_connection( $site_key, $site_info
 								// pause
 								$additional_button_html = sprintf(
 									'<a href="%s&tab=%s&subtab=%s&pause=%s&_wpnonce=%s" class="ui small basic fluid button" style="margin-top:1em"><i class="pause icon"></i> %s</a>',
-									zbsLink($zbs->slugs['settings']),
+									jpcrm_esc_link($zbs->slugs['settings']),
 									$zbs->modules->woosync->slugs['settings'],
 									$zbs->modules->woosync->slugs['settings_connections'],
 									$site_key,
@@ -351,7 +351,7 @@ function jpcrm_woosync_connections_page_single_connection( $site_key, $site_info
 								// resume
 								$additional_button_html = sprintf(
 									'<a href="%s&tab=%s&subtab=%s&resume=%s&_wpnonce=%s" class="ui small basic orange fluid button" style="margin-top:1em"><i class="play icon"></i> %s</a>',
-									zbsLink($zbs->slugs['settings']),
+									jpcrm_esc_link($zbs->slugs['settings']),
 									$zbs->modules->woosync->slugs['settings'],
 									$zbs->modules->woosync->slugs['settings_connections'],
 									$site_key,
@@ -368,26 +368,26 @@ function jpcrm_woosync_connections_page_single_connection( $site_key, $site_info
 
 						} 
 
-						echo '<span class="ui right floated large label jpcrm-woocommerce-connection-state ' . $label_color . '">' . $label_str . '</span>';
+						echo '<span class="ui right floated large label jpcrm-woocommerce-connection-state ' . esc_attr( $label_color ) . '">' . esc_html( $label_str ) . '</span>';
 
 
 						switch ( $site_info['mode'] ){
 
 							case JPCRM_WOO_SYNC_MODE_LOCAL:
 
-								echo '<span class="ui large label teal"><i class="home icon"></i> ' . __( 'Local', 'zero-bs-crm' ) . '</span>';
+								echo '<span class="ui large label teal"><i class="home icon"></i> ' . esc_html__( 'Local', 'zero-bs-crm' ) . '</span>';
 
 								break;
 
 							case JPCRM_WOO_SYNC_MODE_API:
 
-								echo '<span class="ui large label blue"><i class="plug icon"></i> ' . __( 'External', 'zero-bs-crm' ) . '</span>';
+								echo '<span class="ui large label blue"><i class="plug icon"></i> ' . esc_html__( 'External', 'zero-bs-crm' ) . '</span>';
 
 								break;
 
 						}
 
-						echo '<span class="jpcrm-woocommerce-site-url">' . $site_info['domain'] . '</span>';
+						echo '<span class="jpcrm-woocommerce-site-url">' . esc_html( $site_info['domain'] ) . '</span>';
 
 					?>
 				</div>
@@ -401,10 +401,10 @@ function jpcrm_woosync_connections_page_single_connection( $site_key, $site_info
 
 						// last synced
 						if ( $site_info['last_sync_fired'] != -1 ) {
-							echo '<div class="jpcrm-woocommerce-last-synced jpcrm-woocommerce-connection-detail">' . sprintf( __( 'Last Synced Data: %s', 'zero-bs-crm' ), zeroBSCRM_locale_utsToDatetime( $site_info['last_sync_fired'] ) ) . '</div>';
+							echo '<div class="jpcrm-woocommerce-last-synced jpcrm-woocommerce-connection-detail">' . esc_html( sprintf( __( 'Last Synced Data: %s', 'zero-bs-crm' ), zeroBSCRM_locale_utsToDatetime( $site_info['last_sync_fired'] ) ) ) . '</div>';
 						}
 						if ( isset( $site_info['total_order_count'] ) ){
-							echo '<div class="jpcrm-woocommerce-total-order-count jpcrm-woocommerce-connection-detail">' . sprintf( __( 'Total Orders Imported: %s', 'zero-bs-crm' ), zeroBSCRM_prettifyLongInts( $site_info['total_order_count'] ) ) . '</div>';						
+							echo '<div class="jpcrm-woocommerce-total-order-count jpcrm-woocommerce-connection-detail">' . esc_html( sprintf( __( 'Total Orders Imported: %s', 'zero-bs-crm' ), zeroBSCRM_prettifyLongInts( $site_info['total_order_count'] ) ) ) . '</div>';
 						}
 
 					?></div><?php
@@ -420,11 +420,11 @@ function jpcrm_woosync_connections_page_single_connection( $site_key, $site_info
 				// edit
 				$edit_button = sprintf(
 					'<a href="%s&tab=%s&subtab=%s&site_key=%s" class="ui small basic fluid button" style="margin-top:1em"><i class="pencil alternate icon"></i> %s</a>',
-					zbsLink($zbs->slugs['settings']),
-					$zbs->modules->woosync->slugs['settings'],
-					$zbs->modules->woosync->slugs['settings_connection_edit'],
-					$site_key,
-					__( 'Edit', 'zero-bs-crm' )
+					jpcrm_esc_link( $zbs->slugs['settings'] ),
+					esc_attr( $zbs->modules->woosync->slugs['settings'] ),
+					esc_attr( $zbs->modules->woosync->slugs['settings_connection_edit'] ),
+					esc_attr( $site_key ),
+					esc_html__( 'Edit', 'zero-bs-crm' )
 				);
 
 				// actions
@@ -437,7 +437,7 @@ function jpcrm_woosync_connections_page_single_connection( $site_key, $site_info
 							// All Okay
 
 							// visit store
-							echo '<a href="' . $zbs->modules->woosync->get_local_woo_admin_url() . '" target="_blank" class="ui small blue fluid button"><i class="building alternate icon"></i> ' . __( 'WooCommerce Admin', 'zero-bs-crm' ) . '</a>';
+							echo '<a href="' . esc_url( $zbs->modules->woosync->get_local_woo_admin_url() ) . '" target="_blank" class="ui small blue fluid button"><i class="building alternate icon"></i> ' . esc_html__( 'WooCommerce Admin', 'zero-bs-crm' ) . '</a>';
 
 							// edit
 							echo $edit_button;
@@ -448,7 +448,7 @@ function jpcrm_woosync_connections_page_single_connection( $site_key, $site_info
 						} else {
 
 							// Some issue with connection, could be lack of WooCommerce (was active, isn't now)
-							_e( 'There was an error connecting to your local WooCommerce store. Please make sure WooCommerce is active, after which if this error message persists, please contact support.', 'zero-bs-crm' );
+							esc_html_e( 'There was an error connecting to your local WooCommerce store. Please make sure WooCommerce is active, after which if this error message persists, please contact support.', 'zero-bs-crm' );
 
 						}
 
@@ -461,7 +461,7 @@ function jpcrm_woosync_connections_page_single_connection( $site_key, $site_info
 							// already connected, nothing to do
 
 							// visit store
-							echo '<a href="' . $zbs->modules->woosync->get_external_woo_admin_url( $site_info['domain'] ) . '" target="_blank" class="ui small blue fluid button"><i class="external square alternate icon"></i> ' . __( 'WooCommerce Admin', 'zero-bs-crm' ) . '</a>'; 
+							echo '<a href="' . esc_url( $zbs->modules->woosync->get_external_woo_admin_url( $site_info['domain'] ) ) . '" target="_blank" class="ui small blue fluid button"><i class="external square alternate icon"></i> ' . esc_html__( 'WooCommerce Admin', 'zero-bs-crm' ) . '</a>'; 
 
 							// edit
 							echo $edit_button;
@@ -472,11 +472,11 @@ function jpcrm_woosync_connections_page_single_connection( $site_key, $site_info
 							// delete
 							echo sprintf(
 								'<a href="%s&tab=%s&subtab=%s&disconnect=%s" class="ui small basic negative fluid button" style="margin-top:1em"><i class="times circle outline icon"></i> %s</a>',
-								zbsLink( $zbs->slugs['settings'] ),
-								$zbs->modules->woosync->slugs['settings'],
-								$zbs->modules->woosync->slugs['settings_connections'],
-								$site_key,
-								__( 'Delete Connection', 'zero-bs-crm' )
+								jpcrm_esc_link( $zbs->slugs['settings'] ),
+								esc_attr( $zbs->modules->woosync->slugs['settings'] ),
+								esc_attr( $zbs->modules->woosync->slugs['settings_connections'] ),
+								esc_attr( $site_key ),
+								esc_html__( 'Delete Connection', 'zero-bs-crm' )
 							);
 
 						} else {
@@ -487,11 +487,11 @@ function jpcrm_woosync_connections_page_single_connection( $site_key, $site_info
 							// delete
 							echo sprintf(
 								'<a href="%s&tab=%s&subtab=%s&disconnect=%s" class="ui small basic negative fluid button" style="margin-top:1em"><i class="times circle outline icon"></i> %s</a>',
-								zbsLink( $zbs->slugs['settings'] ),
-								$zbs->modules->woosync->slugs['settings'],
-								$zbs->modules->woosync->slugs['settings_connections'],
-								$site_key,
-								__( 'Delete Connection', 'zero-bs-crm' )
+								jpcrm_esc_link( $zbs->slugs['settings'] ),
+								esc_attr( $zbs->modules->woosync->slugs['settings'] ),
+								esc_attr( $zbs->modules->woosync->slugs['settings_connections'] ),
+								esc_attr( $site_key ),
+								esc_html__( 'Delete Connection', 'zero-bs-crm' )
 							);
 						}
 
@@ -501,7 +501,7 @@ function jpcrm_woosync_connections_page_single_connection( $site_key, $site_info
 
 					// explainer?
 					if ( !empty( $connection_explainer_str ) ) {
-						echo '<br>' . $connection_explainer_str; 
+						echo '<br>' . esc_html( $connection_explainer_str );
 					}
 
 			?></div>

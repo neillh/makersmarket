@@ -13,7 +13,6 @@ namespace WooCommerce\Facebook;
 
 use WooCommerce\Facebook\Admin\Enhanced_Catalog_Attribute_Fields;
 use WooCommerce\Facebook\Framework\Helper;
-use Automattic\WooCommerce\Internal\DataStores\Orders\CustomOrdersTableController;
 use Automattic\WooCommerce\Utilities\OrderUtil;
 
 defined( 'ABSPATH' ) or exit;
@@ -1126,7 +1125,7 @@ class Admin {
 		$tabs['fb_commerce_tab'] = array(
 			'label'  => __( 'Facebook', 'facebook-for-woocommerce' ),
 			'target' => 'facebook_options',
-			'class'  => array( 'show_if_simple', 'show_if_variable' ),
+			'class'  => array( 'show_if_simple', 'show_if_variable', 'show_if_external' ),
 		);
 
 		return $tabs;
@@ -1143,9 +1142,11 @@ class Admin {
 	public function add_product_settings_tab_content() {
 		global $post;
 
+
 		// all products have sync enabled unless explicitly disabled
 		$sync_enabled = 'no' !== get_post_meta( $post->ID, Products::SYNC_ENABLED_META_KEY, true );
 		$is_visible   = ( $visibility = get_post_meta( $post->ID, Products::VISIBILITY_META_KEY, true ) ) ? wc_string_to_bool( $visibility ) : true;
+		$product 	  = wc_get_product( $post );
 
 		$description  = get_post_meta( $post->ID, \WC_Facebookcommerce_Integration::FB_PRODUCT_DESCRIPTION, true );
 		$price        = get_post_meta( $post->ID, \WC_Facebook_Product::FB_PRODUCT_PRICE, true );
@@ -1161,7 +1162,7 @@ class Admin {
 		// 'id' attribute needs to match the 'target' parameter set above
 		?>
 		<div id='facebook_options' class='panel woocommerce_options_panel'>
-			<div class='options_group show_if_simple'>
+			<div class='options_group hide_if_variable'>
 				<?php
 
 				woocommerce_wp_select(
@@ -1241,7 +1242,6 @@ class Admin {
 				?>
 			</div>
 			<?php
-			$product          = wc_get_product( $post );
 			$commerce_handler = facebook_for_woocommerce()->get_commerce_handler();
 			?>
 			<?php if ( $commerce_handler->is_connected() && $commerce_handler->is_available() ) : ?>

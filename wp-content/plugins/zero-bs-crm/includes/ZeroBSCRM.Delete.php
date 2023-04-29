@@ -340,16 +340,16 @@ class zeroBSCRM_Delete{
                                           <i class="trash icon"></i>
                                           <div class="content">
                                             <div class="header">
-                                              <?php _e('Deleted',"zero-bs-crm"); ?>
+                                              <?php esc_html_e('Deleted',"zero-bs-crm"); ?>
                                             </div>
-                                            <p><?php echo $this->singular.' '.__('was successfully deleted.',"zero-bs-crm"); ?></p>
+                                            <p><?php echo esc_html( $this->singular ).' '. esc_html__('was successfully deleted.',"zero-bs-crm"); ?></p>
                                             <p><?php
 
                                                 // delete / back buttons
-                                                $backUrl = zbsLink('list',-1,$this->objTypeID);
+                                                $backUrl = jpcrm_esc_link('list',-1,$this->objTypeID);
 
                                                     // output
-                                                    echo '<a href="'.$backUrl.'" class="ui green button right floated">'.__('Back to','zero-bs-crm').' '.$this->plural.'</a>';
+                                                    echo '<a href="'.esc_url( $backUrl ).'" class="ui green button right floated">'. esc_html__('Back to','zero-bs-crm').' '. esc_html( $this->plural ).'</a>';
                                                     
                                             ?></p>
                                           </div>
@@ -371,16 +371,16 @@ class zeroBSCRM_Delete{
 
                                     <div class="twelve wide column">
 
-                                        <input type="hidden" name="zbs-delete-id" value="<?php echo $this->objID; ?>" />
-                                        <input type="hidden" name="zbs-delete-form-master" value="<?php echo $this->objTypeID; ?>" />
+                                        <input type="hidden" name="zbs-delete-id" value="<?php echo esc_attr( $this->objID ); ?>" />
+                                        <input type="hidden" name="zbs-delete-form-master" value="<?php echo esc_attr( $this->objTypeID ); ?>" />
 
                                         <div class="ui icon big warning message">
                                           <i class="trash icon"></i>
                                           <div class="content">
                                             <div class="header">
-                                              <?php _e('Are you sure?',"zero-bs-crm"); ?>
+                                              <?php esc_html_e('Are you sure?',"zero-bs-crm"); ?>
                                             </div>
-                                            <p><?php echo __('Are you sure you want to delete this',"zero-bs-crm").' '.$this->singular.'?'; ?></p>
+                                            <p><?php echo esc_html__('Are you sure you want to delete this',"zero-bs-crm").' '. esc_html( $this->singular ).'?'; ?></p>
                                             <?php
 
                                                 $objectTypesWithChildren = array(
@@ -396,14 +396,20 @@ class zeroBSCRM_Delete{
 
                                                         case ZBS_TYPE_CONTACT:
                                                         case ZBS_TYPE_COMPANY:
-                                                            ?><p><?php _e('Shall I also delete the associated Contacts, Invoices, Quotes, Transactions and Events?','zero-bs-crm'); echo '<br>'; _e('(This cannot be undone!)',"zero-bs-crm"); ?></p><?php
-                                                            break;
-
-                                                    } ?>
+														?>
+														<?php
+															echo '<p>';
+															esc_html_e( 'Shall I also delete the associated Contacts, Invoices, Quotes, Transactions, and Tasks?', 'zero-bs-crm' );
+															echo '<br>';
+															esc_html_e( '(This cannot be undone!)', 'zero-bs-crm' );
+															echo '</p>';
+															break;
+												}
+												?>
                                                     <p>
                                                         <select name="zbs-delete-kill-children">
-                                                            <option value="no"><?php _e('No, leave them',"zero-bs-crm"); ?></option>
-                                                            <option value="yes"><?php _e('Yes, remove everything',"zero-bs-crm"); ?></option>
+                                                            <option value="no"><?php esc_html_e('No, leave them',"zero-bs-crm"); ?></option>
+                                                            <option value="yes"><?php esc_html_e('Yes, remove everything',"zero-bs-crm"); ?></option>
                                                         </select>
                                                     </p><?php
                                                 }
@@ -412,11 +418,11 @@ class zeroBSCRM_Delete{
                                             <p><?php
 
                                                 // delete / back buttons
-                                                $backUrl = zbsLink('edit',$this->objID,$this->objTypeID);
+                                                $backUrl = jpcrm_esc_link('edit',$this->objID,$this->objTypeID);
 
                                                     // output
-                                                    echo '<button type="submit" class="ui orange button right floated"><i class="trash alternate icon"></i> '.__('Delete','zero-bs-crm').' '.$this->singular.'</button>';
-                                                    echo '<a href="'.$backUrl.'" class="ui green button right floated"><i class="angle double left icon"></i> '.__('Back to','zero-bs-crm').' '.$this->singular.' ('.__('Cancel','zero-bs-crm').')</a>';
+                                                    echo '<button type="submit" class="ui orange button right floated"><i class="trash alternate icon"></i> '. esc_html__('Delete','zero-bs-crm').' '. esc_html( $this->singular ) .'</button>';
+                                                    echo '<a href="'. esc_url( $backUrl ) .'" class="ui green button right floated"><i class="angle double left icon"></i> '. esc_html__('Back to','zero-bs-crm').' '. esc_html( $this->singular ).' ('. esc_html__('Cancel','zero-bs-crm').')</a>';
                                                     
                                             ?></p>
                                           </div>
@@ -451,7 +457,7 @@ class zeroBSCRM_Delete{
                 -->
             </div> <!-- / mainlistview wrap -->
 
-            <input type="hidden" name="zbs-delete-nonce" value="<?php echo wp_create_nonce( "delete-nonce" ); ?>" />
+            <input type="hidden" name="zbs-delete-nonce" value="<?php echo esc_attr( wp_create_nonce( "delete-nonce" ) ); ?>" />
         </form></div>
 
         <script type="text/javascript">
@@ -463,25 +469,25 @@ class zeroBSCRM_Delete{
             // General options for edit page
             var zbsDeleteSettings = {
 
-                objid: <?php echo $this->objID; ?>,
-                objdbname: '<?php echo $this->objType; ?>'
+                objid: <?php echo esc_html( $this->objID ); ?>,
+                objdbname: '<?php echo esc_html( $this->objType ); ?>'
 
             };
-            var zbsObjectViewLinkPrefixCustomer = '<?php echo zbsLink('view',-1,'zerobs_customer',true); ?>';
-            var zbsObjectEditLinkPrefixCustomer = '<?php echo zbsLink('edit',-1,'zerobs_customer',true); ?>';
-            var zbsObjectViewLinkPrefixCompany = '<?php echo zbsLink('view',-1,'zerobs_company',true); ?>';
-            var zbsListViewLink = '<?php echo zbsLink($this->listViewSlug); ?>';
-            var zbsClick2CallType = parseInt('<?php echo zeroBSCRM_getSetting('clicktocalltype'); ?>');
+            var zbsObjectViewLinkPrefixCustomer = '<?php echo jpcrm_esc_link( 'view', -1, 'zerobs_customer', true ); ?>';
+            var zbsObjectEditLinkPrefixCustomer = '<?php echo jpcrm_esc_link( 'edit', -1, 'zerobs_customer', true ); ?>';
+            var zbsObjectViewLinkPrefixCompany = '<?php echo jpcrm_esc_link( 'view', -1, 'zerobs_company', true ); ?>';
+            var zbsListViewLink = '<?php echo jpcrm_esc_link($this->listViewSlug ); ?>';
+            var zbsClick2CallType = parseInt('<?php echo esc_html( zeroBSCRM_getSetting('clicktocalltype') ); ?>');
             var zbsEditViewLangLabels = {
 
-                    'today': '<?php echo zeroBSCRM_slashOut(__('Today',"zero-bs-crm")); ?>',
+                    'today': '<?php echo esc_html( zeroBSCRM_slashOut(__('Today',"zero-bs-crm")) ); ?>',
 
                     <?php $labelCount = 0; 
                     if (count($this->langLabels) > 0) foreach ($this->langLabels as $labelK => $labelV){
 
                         if ($labelCount > 0) echo ',';
 
-                        echo $labelK.":'".zeroBSCRM_slashOut($labelV)."'";
+                        echo esc_html( $labelK ).":'". esc_html( zeroBSCRM_slashOut($labelV) )."'";
 
                         $labelCount++;
 
@@ -489,7 +495,7 @@ class zeroBSCRM_Delete{
 
             };
             <?php   #} Nonce for AJAX
-                    echo 'var zbscrmjs_secToken = \''.wp_create_nonce( "zbscrmjs-ajax-nonce" ).'\';'; ?></script><?php
+                    echo "var zbscrmjs_secToken = '" . esc_js( wp_create_nonce( 'zbscrmjs-ajax-nonce' ) ) . "';"; ?></script><?php
 
     } // /draw func
 

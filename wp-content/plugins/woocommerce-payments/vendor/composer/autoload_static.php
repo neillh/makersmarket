@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticIniteb976a645bcdd704fdfcf141b425bf04
+class ComposerStaticInitb1ef787a6896682f273893b008d3fbc2
 {
     public static $files = array (
         '3773ef3f09c37da5478d578e32b03a4b' => __DIR__ . '/..' . '/automattic/jetpack-assets/actions.php',
@@ -14,10 +14,6 @@ class ComposerStaticIniteb976a645bcdd704fdfcf141b425bf04
         'W' => 
         array (
             'WCPay\\MultiCurrency\\' => 20,
-        ),
-        'M' => 
-        array (
-            'MyCLabs\\Enum\\' => 13,
         ),
         'C' => 
         array (
@@ -33,10 +29,6 @@ class ComposerStaticIniteb976a645bcdd704fdfcf141b425bf04
         'WCPay\\MultiCurrency\\' => 
         array (
             0 => __DIR__ . '/../..' . '/includes/multi-currency',
-        ),
-        'MyCLabs\\Enum\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/myclabs/php-enum/src',
         ),
         'Composer\\Installers\\' => 
         array (
@@ -61,6 +53,7 @@ class ComposerStaticIniteb976a645bcdd704fdfcf141b425bf04
         'Automattic\\Jetpack\\Autoloader\\ManifestGenerator' => __DIR__ . '/..' . '/automattic/jetpack-autoloader/src/ManifestGenerator.php',
         'Automattic\\Jetpack\\Config' => __DIR__ . '/..' . '/automattic/jetpack-config/src/class-config.php',
         'Automattic\\Jetpack\\Connection\\Client' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-client.php',
+        'Automattic\\Jetpack\\Connection\\Connection_Notice' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-connection-notice.php',
         'Automattic\\Jetpack\\Connection\\Error_Handler' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-error-handler.php',
         'Automattic\\Jetpack\\Connection\\Initial_State' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-initial-state.php',
         'Automattic\\Jetpack\\Connection\\Manager' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-manager.php',
@@ -82,11 +75,17 @@ class ComposerStaticIniteb976a645bcdd704fdfcf141b425bf04
         'Automattic\\Jetpack\\Connection\\XMLRPC_Async_Call' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-xmlrpc-async-call.php',
         'Automattic\\Jetpack\\Connection\\XMLRPC_Connector' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-xmlrpc-connector.php',
         'Automattic\\Jetpack\\Constants' => __DIR__ . '/..' . '/automattic/jetpack-constants/src/class-constants.php',
-        'Automattic\\Jetpack\\Heartbeat' => __DIR__ . '/..' . '/automattic/jetpack-heartbeat/src/class-heartbeat.php',
+        'Automattic\\Jetpack\\CookieState' => __DIR__ . '/..' . '/automattic/jetpack-status/src/class-cookiestate.php',
+        'Automattic\\Jetpack\\Errors' => __DIR__ . '/..' . '/automattic/jetpack-status/src/class-errors.php',
+        'Automattic\\Jetpack\\Files' => __DIR__ . '/..' . '/automattic/jetpack-status/src/class-files.php',
+        'Automattic\\Jetpack\\Heartbeat' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-heartbeat.php',
+        'Automattic\\Jetpack\\IP\\Utils' => __DIR__ . '/..' . '/automattic/jetpack-ip/src/class-utils.php',
         'Automattic\\Jetpack\\IdentityCrisis\\REST_Endpoints' => __DIR__ . '/..' . '/automattic/jetpack-identity-crisis/src/class-rest-endpoints.php',
         'Automattic\\Jetpack\\IdentityCrisis\\UI' => __DIR__ . '/..' . '/automattic/jetpack-identity-crisis/src/class-ui.php',
         'Automattic\\Jetpack\\Identity_Crisis' => __DIR__ . '/..' . '/automattic/jetpack-identity-crisis/src/class-identity-crisis.php',
+        'Automattic\\Jetpack\\Modules' => __DIR__ . '/..' . '/automattic/jetpack-status/src/class-modules.php',
         'Automattic\\Jetpack\\Password_Checker' => __DIR__ . '/..' . '/automattic/jetpack-password-checker/src/class-password-checker.php',
+        'Automattic\\Jetpack\\Paths' => __DIR__ . '/..' . '/automattic/jetpack-status/src/class-paths.php',
         'Automattic\\Jetpack\\Redirect' => __DIR__ . '/..' . '/automattic/jetpack-redirect/src/class-redirect.php',
         'Automattic\\Jetpack\\Roles' => __DIR__ . '/..' . '/automattic/jetpack-roles/src/class-roles.php',
         'Automattic\\Jetpack\\Status' => __DIR__ . '/..' . '/automattic/jetpack-status/src/class-status.php',
@@ -147,7 +146,7 @@ class ComposerStaticIniteb976a645bcdd704fdfcf141b425bf04
         'Automattic\\Jetpack\\Sync\\Users' => __DIR__ . '/..' . '/automattic/jetpack-sync/src/class-users.php',
         'Automattic\\Jetpack\\Sync\\Utils' => __DIR__ . '/..' . '/automattic/jetpack-sync/src/class-utils.php',
         'Automattic\\Jetpack\\Terms_Of_Service' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-terms-of-service.php',
-        'Automattic\\Jetpack\\Tracking' => __DIR__ . '/..' . '/automattic/jetpack-tracking/src/class-tracking.php',
+        'Automattic\\Jetpack\\Tracking' => __DIR__ . '/..' . '/automattic/jetpack-connection/src/class-tracking.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Composer\\Installers\\AglInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AglInstaller.php',
         'Composer\\Installers\\AimeosInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/AimeosInstaller.php',
@@ -249,13 +248,11 @@ class ComposerStaticIniteb976a645bcdd704fdfcf141b425bf04
         'Composer\\Installers\\ZikulaInstaller' => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers/ZikulaInstaller.php',
         'Jetpack_IXR_Client' => __DIR__ . '/..' . '/automattic/jetpack-connection/legacy/class-jetpack-ixr-client.php',
         'Jetpack_IXR_ClientMulticall' => __DIR__ . '/..' . '/automattic/jetpack-connection/legacy/class-jetpack-ixr-clientmulticall.php',
-        'Jetpack_Options' => __DIR__ . '/..' . '/automattic/jetpack-options/legacy/class-jetpack-options.php',
+        'Jetpack_Options' => __DIR__ . '/..' . '/automattic/jetpack-connection/legacy/class-jetpack-options.php',
         'Jetpack_Signature' => __DIR__ . '/..' . '/automattic/jetpack-connection/legacy/class-jetpack-signature.php',
-        'Jetpack_Tracks_Client' => __DIR__ . '/..' . '/automattic/jetpack-tracking/legacy/class-jetpack-tracks-client.php',
-        'Jetpack_Tracks_Event' => __DIR__ . '/..' . '/automattic/jetpack-tracking/legacy/class-jetpack-tracks-event.php',
+        'Jetpack_Tracks_Client' => __DIR__ . '/..' . '/automattic/jetpack-connection/legacy/class-jetpack-tracks-client.php',
+        'Jetpack_Tracks_Event' => __DIR__ . '/..' . '/automattic/jetpack-connection/legacy/class-jetpack-tracks-event.php',
         'Jetpack_XMLRPC_Server' => __DIR__ . '/..' . '/automattic/jetpack-connection/legacy/class-jetpack-xmlrpc-server.php',
-        'MyCLabs\\Enum\\Enum' => __DIR__ . '/..' . '/myclabs/php-enum/src/Enum.php',
-        'MyCLabs\\Enum\\PHPUnit\\Comparator' => __DIR__ . '/..' . '/myclabs/php-enum/src/PHPUnit/Comparator.php',
         'WCPay\\MultiCurrency\\AdminNotices' => __DIR__ . '/../..' . '/includes/multi-currency/AdminNotices.php',
         'WCPay\\MultiCurrency\\Analytics' => __DIR__ . '/../..' . '/includes/multi-currency/Analytics.php',
         'WCPay\\MultiCurrency\\BackendCurrencies' => __DIR__ . '/../..' . '/includes/multi-currency/BackendCurrencies.php',
@@ -292,9 +289,9 @@ class ComposerStaticIniteb976a645bcdd704fdfcf141b425bf04
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticIniteb976a645bcdd704fdfcf141b425bf04::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticIniteb976a645bcdd704fdfcf141b425bf04::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticIniteb976a645bcdd704fdfcf141b425bf04::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb1ef787a6896682f273893b008d3fbc2::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb1ef787a6896682f273893b008d3fbc2::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb1ef787a6896682f273893b008d3fbc2::$classMap;
 
         }, null, ClassLoader::class);
     }

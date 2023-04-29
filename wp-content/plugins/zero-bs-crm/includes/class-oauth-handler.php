@@ -286,7 +286,7 @@ class Oauth_Handler {
 				'info', 
 				__( 'Google API Credentials needed', 'zero-bs-crm' ),
 				'<p>' . __( 'To authenticate this OAuth connection you\'ll first need to add API credentials.', 'zero-bs-crm' ) . '</p>'
-			    . '<p style="text-align:center"><a href="' . zbsLink( $zbs->slugs['settings'] . '&tab=oauth&edit-provider=google_mail' ) . '" class="ui button green">' . __( 'Add your credentials', 'zero-bs-crm' ) . '</a></p>',
+			    . '<p style="text-align:center"><a href="' . jpcrm_esc_link( $zbs->slugs['settings'] . '&tab=oauth&edit-provider=google_mail' ) . '" class="ui button green">' . __( 'Add your credentials', 'zero-bs-crm' ) . '</a></p>',
 				'',
 				'', 
 				true // exit
@@ -1023,7 +1023,7 @@ class Oauth_Handler {
 
 			?><html>
 			<head>
-				<link rel="stylesheet" type="text/css" href="<?php echo plugins_url('/css/ZeroBSCRM.admin.semantic-ui'.wp_scripts_get_suffix().'.css',ZBS_ROOTFILE); ?>">
+				<link rel="stylesheet" type="text/css" href="<?php echo esc_url( plugins_url('/css/ZeroBSCRM.admin.semantic-ui'.wp_scripts_get_suffix().'.css',ZBS_ROOTFILE) ); ?>">
 				<style>
 					body {
 						vertical-align: middle;

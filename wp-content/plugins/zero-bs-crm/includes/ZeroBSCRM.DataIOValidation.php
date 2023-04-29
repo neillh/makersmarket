@@ -57,6 +57,18 @@
         return $str;
     }
 
+    /*
+     * sanitize_text_field, but allows whitespace through :roll-eyes:
+     * https://developer.wordpress.org/reference/functions/sanitize_text_field/
+     */
+    function jpcrm_sanitize_text_field_allow_whitespace( $string = '' ){
+
+        $string = str_replace( ' ', '**WHITESPACE**', $string );
+        $string = sanitize_text_field( $string );
+        return str_replace( '**WHITESPACE**', ' ', $string );
+
+    }
+
     // takes WP Editor content + applies WP conversion (adds <p> and deals with <b> as if was wp post)
     // KSES = Strips evil scripts
     // NOTE: html strings saved in this way should be output via
@@ -105,7 +117,7 @@
         //return html_entity_decode(nl2br(stripslashes($string)));
 
         // See https://wordpress.stackexchange.com/questions/245201/how-to-save-html-and-text-in-the-database
-        return wpautop(html_entity_decode(stripslashes($string)));
+        return wpautop(html_entity_decode(stripslashes($string), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401));
 
     }
 
@@ -113,7 +125,7 @@
     // .. and returns first X characters, no tags
     function zeroBSCRM_io_WPEditor_DBToHTMLExcerpt($string='',$len=200){
 
-        $string = strip_tags(html_entity_decode(stripslashes($string)));
+        $string = strip_tags(html_entity_decode(stripslashes($string), ENT_QUOTES | ENT_SUBSTITUTE | ENT_HTML401));
         return substr($string , 0, $len);
         
     }

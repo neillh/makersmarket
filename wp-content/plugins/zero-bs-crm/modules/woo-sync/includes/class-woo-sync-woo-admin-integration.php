@@ -121,15 +121,15 @@ class Woo_Sync_Woo_Admin_Integration {
 
 						//we have an email. Add in some actions
 						echo '<div class="zbs-actions">';
-							$url = zbsLink( 'view', $contact_id, 'zerobs_customer' );
-							echo '<a class="button button-primary" href="' . esc_url( $url ) . '">' . __( 'View Contact', 'zero-bs-crm' ) . '</a>';
+							$url = jpcrm_esc_link( 'view', $contact_id, 'zerobs_customer' );
+							echo '<a class="button button-primary" href="' . esc_url( $url ) . '">' . esc_html__( 'View Contact', 'zero-bs-crm' ) . '</a>';
 						echo '</div>';
 
 					} else {
 
 						echo '<div class="zbs-actions">';
 							$url = admin_url( 'admin.php?page=' . $zbs->modules->woosync->slugs['hub'] );
-							echo '<a class="button button-secondary" href="' . esc_url( $url ) . '">' . __( 'Add Contact', 'zero-bs-crm' ) . '</a>';
+							echo '<a class="button button-secondary" href="' . esc_url( $url ) . '">' . esc_html__( 'Add Contact', 'zero-bs-crm' ) . '</a>';
 						echo '</div>';
 
 					}
@@ -234,8 +234,8 @@ class Woo_Sync_Woo_Admin_Integration {
 							// Render HTML
 							echo "<div class='customer-panel-header'>";
 								echo "<div id='panel-customer-avatar'>" . $avatar . "</div>";
-								echo "<div id='panel-name'><span class='jpcrm-name'>" . $contact_name . "</span></div>";
-								echo "<div id='panel-status' class='ui label status " . strtolower( $crm_contact['status'] ) . "'>" . $crm_contact['status'] . "</div>";							
+								echo "<div id='panel-name'><span class='jpcrm-name'>" . esc_html( $contact_name ) . "</span></div>";
+								echo "<div id='panel-status' class='ui label status " . esc_attr( strtolower( $crm_contact['status'] ) ) . "'>" . esc_html( $crm_contact['status'] ) . "</div>";
 								echo "<div class='simple-actions zbs-hide'>";
 									echo "<a class='ui label circular'><i class='ui icon phone'></i></a>";
 									echo "<a class='ui label circular'><i class='ui icon envelope'></i></a>";
@@ -245,18 +245,18 @@ class Woo_Sync_Woo_Admin_Integration {
 							echo "<div class='ui divider'></div>";
 
 							echo "<div class='total-paid-wrap'>";
-									echo "<div class='total-paid cell'><div class='heading'> " . zeroBSCRM_prettifyLongInts( $contact_transaction_count) . ' ' . ( $contact_transaction_count > 1 ? __( 'Transactions', 'zero-bs-crm' ) : __( 'Transaction', 'zero-bs-crm' ) ) . "</div></div>";
+									echo "<div class='total-paid cell'><div class='heading'> " . esc_html( zeroBSCRM_prettifyLongInts( $contact_transaction_count) . ' ' . ( $contact_transaction_count > 1 ? __( 'Transactions', 'zero-bs-crm' ) : __( 'Transaction', 'zero-bs-crm' ) ) ) . "</div></div>";
 							echo "</div>";
 
 							echo "<div class='clear'></div>";
 							echo "<div class='ui divider'></div>";
 
 							echo "<div class='panel-left-info cust-email'>";
-								echo "<i class='ui icon envelope outline'></i> <span class='panel-customer-email'>" . $email . "</span>";
+								echo "<i class='ui icon envelope outline'></i> <span class='panel-customer-email'>" . esc_html( $email ) . "</span>";
 							echo "</div>";
 
 							echo "<div class='panel-edit-contact'>";
-								echo "<a class='edit-contact-link button button-primary' href='" . zbsLink( 'view', $contact_id, 'zerobs_customer' ) . "'>" . __( 'View Contact', 'zero-bs-crm' ) . "</a>";
+								echo "<a class='edit-contact-link button button-primary' href='" . jpcrm_esc_link( 'view', $contact_id, 'zerobs_customer' ) . "'>" . esc_html__( 'View Contact', 'zero-bs-crm' ) . "</a>";
 							echo "</div>";
 
 							echo "<div class='clear'></div>";
@@ -265,7 +265,7 @@ class Woo_Sync_Woo_Admin_Integration {
 					} else {
 
 						echo "<div class='no-crm-contact'><p style='margin-top:20px;'>";
-							_e( "Once you save your order to a customer with a billing email the CRM contact card will display here.", 'zero-bs-crm' );
+							esc_html_e( "Once you save your order to a customer with a billing email the CRM contact card will display here.", 'zero-bs-crm' );
 						echo "</p></div>";
 
 					} ?>

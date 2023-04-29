@@ -109,7 +109,7 @@ function zeroBSCRM_notify_me(){
   // jQuery fills in the number in the bubble..
   if ( is_user_logged_in() && zeroBSCRM_permsNotify() ){
     $url = zeroBSCRM_getAdminURL($zbs->slugs['notifications']);
-      echo "<a id='notty' class = 'item' href='". $url ."'><span class='notifyme' id='notifymebell'><i class='fa fa-bell'></i></span></a>";
+      echo "<a id='notty' class='item' href='". esc_url( $url ) ."'><span class='notifyme' id='notifymebell'><i class='fa fa-bell'></i></span></a>";
 
   }
 }
@@ -127,36 +127,36 @@ function zeroBSCRM_notifyme_echo_type($type = '', $title = '', $sender = -999, $
     switch ($type) {
 
     case 'migration.blocked.errors':
-        _e("There has been a general error with CRM migrations, a single migration appears to be blocked. Please contact support.", "zero-bs-crm");
+        esc_html_e("There has been a general error with CRM migrations, a single migration appears to be blocked. Please contact support.", "zero-bs-crm");
         break;
 
     case 'woosync.suggestion':
-        _e("🎯 we have detected that you are running WooCommerce. We have a kick ass extension for that. ", "zero-bs-crm");
+        esc_html_e("🎯 we have detected that you are running WooCommerce. We have a kick ass extension for that. ", "zero-bs-crm");
         break;
 
     case 'salesdash.suggestion':
-        _e( '⛽ See all your sales information in a sales dashboard built just for you.', 'zero-bs-crm') . ' ';
+        esc_html_e( '⛽ See all your sales information in a sales dashboard built just for you.', 'zero-bs-crm') . ' ';
         break;
 
 
     case 'notifications.suggestion':
-        echo sprintf( __( '🔔 Want notifications PRO? This is coming soon to our <a href="%s" target="_blank">Entrepreneur Bundle</a>. Get it while it\'s hot!', 'zero-bs-crm' ), $zbs->urls['upgrade'] ) . ' ';
+        echo wp_kses( sprintf( __( '🔔 Want notifications PRO? This is coming soon to our <a href="%s" target="_blank">Entrepreneur Bundle</a>. Get it while it\'s hot!', 'zero-bs-crm' ), esc_url( $zbs->urls['upgrade'] ) ), $zbs->acceptable_restricted_html ) . ' ';
         break;
 
     case 'extension.update':
       ##WLREMOVE
-        echo sprintf( __( '🔔 [URGENT] Your extension(s) need updating <a href="%s" target="_blank">Click here to retrieve the new versions</a>. (If you don\'t know your login, please <a href="%s" target="_blank">Email Support</a>.)', 'zero-bs-crm' ), $zbs->urls['account'], $zbs->urls['support'] );
+        echo wp_kses( sprintf( __( '🔔 [URGENT] Your extension(s) need updating <a href="%s" target="_blank">Click here to retrieve the new versions</a>. (If you don\'t know your login, please <a href="%s" target="_blank">Email Support</a>.)', 'zero-bs-crm' ), esc_url( $zbs->urls['account'] ), esc_url( $zbs->urls['support'] ) ), $zbs->acceptable_restricted_html );
       ##/WLREMOVE
         break;
 
     // v2.70 - DB2 contacts migration :)
     case 'db2.update.253':
-        echo sprintf( __( '🔔 [URGENT] Your Contact Database needs migrating. <a href="%s">Click here to run migration routine</a>.<div style="margin: 2em;margin-left: 4em;">Running this database update will increase your CRM load-times by up to 60x!<br /><a href="%s" target="_blank" class="ui button basic">Read Guide</a> <a href="%s" class="ui button green">Run now</a>', "zero-bs-crm" ), zbsLink( $zbs->slugs['migratedb2contacts'] ), $zbs->urls['db2migrate'], zbsLink( $zbs->slugs['migratedb2contacts'] ) );
+        echo esc_html( sprintf( __( '🔔 [URGENT] Your Contact Database needs migrating. Running this database update will increase your CRM load-times by up to 60x!', 'zero-bs-crm' ) ) );
         break;
 
     // v2.70 - DB2 contacts migration :) FINI
     case 'db2.update.253.success':
-        echo sprintf( __('Your contact database was successfully migrated. Please update any <a href="%s" target="_blank">PRO Extensions</a> you may have installed.',"zero-bs-crm" ), $zbs->urls['products'] );
+        echo wp_kses( sprintf( __('Your contact database was successfully migrated. Please update any <a href="%s" target="_blank">PRO Extensions</a> you may have installed.',"zero-bs-crm" ), esc_url( $zbs->urls['products'] ) ), $zbs->acceptable_restricted_html );
         break;
 
     // v2.70 - DB2 contacts migration :) FINI
@@ -166,48 +166,48 @@ function zeroBSCRM_notifyme_echo_type($type = '', $title = '', $sender = -999, $
           $zbsMigrationErrors = get_option( 'zbs_db_migration_253_errors', -1);
           $errStr = ''; if (isset($zbsMigrationErrors) && is_array($zbsMigrationErrors)) foreach ($zbsMigrationErrors as $zme) $errStr .= '<br />'.$zme;
 
-        echo sprintf( __( 'Jetpack CRM has tried to update your core CRM to 2.70 but hit errors. Please send the following error report to Support:<hr /><strong>Migration Error Report:</strong>%s</hr> <a href="%s" target="_blank">Contact Support</a>', "zero-bs-crm" ), $errStr, $zbs->urls['support'] );
+        echo sprintf( __( 'Jetpack CRM has tried to update your core CRM to 2.70 but hit errors. Please send the following error report to Support:<hr /><strong>Migration Error Report:</strong>%s</hr> <a href="%s" target="_blank">Contact Support</a>', "zero-bs-crm" ), $errStr, esc_url( $zbs->urls['support'] ) );
         break;
 
     // v2.70 - DB2 contacts migration :) FINI + has extensions to update
     case 'db2.extupdate.253':
         ##WLREMOVE
-        echo sprintf( __( 'Please Update your Extensions (DB Migration makes this essential!) <a href="%s">View Extension Updates</a>', "zero-bs-crm" ), zbsLink( $zbs->slugs['connect'] ) );
+        echo wp_kses( sprintf( __( 'Please Update your Extensions (DB Migration makes this essential!) <a href="%s">View Extension Updates</a>', "zero-bs-crm" ), jpcrm_esc_link( $zbs->slugs['connect'] ) ), $zbs->acceptable_restricted_html );
         ##/WLREMOVE
         break;
 
     case 'extension.new.update.avail':
         ##WLREMOVE
-        echo sprintf(  __( '🔔 One or more of your extensions need updating. Please update to avoid any issues with security or compatibility <a href="%s">Learn More</a>.', "zero-bs-crm" ), admin_url('admin.php?page=zerobscrm-connect'));
+        echo wp_kses( sprintf(  __( '🔔 One or more of your extensions need updating. Please update to avoid any issues with security or compatibility <a href="%s">Learn More</a>.', "zero-bs-crm" ), esc_url( admin_url('admin.php?page=zerobscrm-connect')) ), $zbs->acceptable_restricted_html );
         ##/WLREMOVE
-        break;    
+        break;
 
     case 'license.update.needed':
-    echo __("⚠️ ","zero-bs-crm") . $content;
-    break;    
+        echo '⚠️ ' . $content;
+        break;
 
     case 'general.extension.update.needed':
-    echo __("⚠️ ","zero-bs-crm") . $content;
-    break;  
+        echo '⚠️ ' . $content;
+        break;
 
     // 2.94.2 - smtp mode changed, need to tell peeps to revalidate
     case 'smtp.2943.needtocheck':
-        echo sprintf( __( 'Important: 🔔 Jetpack CRM has just updated the way it handles SMTP Delivery Methods.<br />Please check each of your Delivery Methods still works by loading <a href="%s">Mail Delivery Methods</a> and clicking \'send test\', validating that it still sends', 'zero-bs-crm' ), admin_url('admin.php?page=zerobscrm-plugin-settings&tab=maildelivery') );
+        echo sprintf( __( 'Important: 🔔 Jetpack CRM has just updated the way it handles SMTP Delivery Methods.<br />Please check each of your Delivery Methods still works by loading <a href="%s">Mail Delivery Methods</a> and clicking \'send test\', validating that it still sends', 'zero-bs-crm' ), esc_url( admin_url('admin.php?page=zerobscrm-plugin-settings&tab=maildelivery') ) );
     break;
 	
     // 3.0.17 - Changed the password encryption, so get people to validate
     case 'smtp.3017.needtocheck':
-        echo sprintf( __( 'Important: 🔔 Jetpack CRM has improved the encryption of SMTP passwords.<br />Please check each of your Delivery Methods still works by loading <a href="%s">Mail Delivery Methods</a> and clicking \'send test\', validating that it still sends', 'zero-bs-crm' ), esc_url(zbsLink( $zbs->slugs['settings'] ) . '&tab=maildelivery' ) );
+        echo sprintf( __( 'Important: 🔔 Jetpack CRM has improved the encryption of SMTP passwords.<br />Please check each of your Delivery Methods still works by loading <a href="%s">Mail Delivery Methods</a> and clicking \'send test\', validating that it still sends', 'zero-bs-crm' ), jpcrm_esc_link( $zbs->slugs['settings'] . '&tab=maildelivery' ) );
     break;
 
 
     //now do the extension updates like this 
 
     case 'custom.extension.update.needed':
-        $x = __("🔔","zero-bs-crm") . $content  . ' <a href="'.admin_url('update-core.php').'">' . __("Update Now", "zero-bs-crm") . '</a>.';
+        $x = __("🔔","zero-bs-crm") . $content  . ' <a href="'. esc_url( admin_url('update-core.php') ) .'">' . __("Update Now", "zero-bs-crm") . '</a>.';
         
         ##WLREMOVE
-        $x = __("🔔","zero-bs-crm") . $content  . ' <a href="'.admin_url('update-core.php').'">' . __("Update Now", "zero-bs-crm") . '</a>.';
+        $x = __("🔔","zero-bs-crm") . $content  . ' <a href="'. esc_url( admin_url('update-core.php') ) .'">' . __("Update Now", "zero-bs-crm") . '</a>.';
         ##/WLREMOVE
         echo $x;
     break;
@@ -215,14 +215,14 @@ function zeroBSCRM_notifyme_echo_type($type = '', $title = '', $sender = -999, $
     // this is WL CORE update
     case 'core.update.needed':
         
-        echo __("🔔","zero-bs-crm") . $content  . ' <a href="'.admin_url('update-core.php').'">' . __("Update Now", "zero-bs-crm") . '</a>.';
+        echo esc_html__("🔔","zero-bs-crm") . $content  . ' <a href="'. esc_url( admin_url('update-core.php') ) .'">' . esc_html__("Update Now", "zero-bs-crm") . '</a>.';
         
     break;
 
   
     // 4.5.0 - Missing template file
     case 'missing.template':
-        echo __( 'Template File Error:<br /> It was not possible to load the following template file. This will mean that related documents will not be loaded properly.<br/>Template File: ', 'zero-bs-crm' ) . $content;
+        echo wp_kses( __( 'Template File Error:<br /> It was not possible to load the following template file. This will mean that related documents will not be loaded properly.<br/>Template File: ', 'zero-bs-crm' ), $zbs->acceptable_restricted_html ) . $content;
     break;
 
 
@@ -230,24 +230,24 @@ function zeroBSCRM_notifyme_echo_type($type = '', $title = '', $sender = -999, $
 
     // v3.0 - DB3 objs migration :)
     case 'db3.update.300':
-        echo sprintf( __( '🔔 [URGENT] Your CRM Database needs migrating. <a href="%s">Click here to run migration routine</a><div style="margin: 2em;margin-left: 4em;">Running this database update will increase your CRM load-times by up to 60x!<br /><a href="%s" target="_blank" class="ui button basic">Read Guide</a> <a href="%s" class="ui button green">Run now</a>', "zero-bs-crm" ), zbsLink( $zbs->slugs['migratedal3'] ), $zbs->urls['db3migrate'], zbsLink( $zbs->slugs['migratedal3'] ) );
+        echo sprintf( __( '🔔 [URGENT] Your CRM Database needs migrating. <a href="%s">Click here to run migration routine</a><div style="margin: 2em;margin-left: 4em;">Running this database update will increase your CRM load-times by up to 60x!<br /><a href="%s" target="_blank" class="ui button basic">Read Guide</a> <a href="%s" class="ui button green">Run now</a>', "zero-bs-crm" ), jpcrm_esc_link( $zbs->slugs['migratedal3'] ), esc_url( $zbs->urls['db3migrate'] ), jpcrm_esc_link( $zbs->slugs['migratedal3'] ) );
         break;
 
     // v3.0 - DB3 objs migration :) FINI
     case 'db3.update.300.success':
-       echo sprintf( __( 'Your CRM database was successfully migrated. Please update any <a href="%s" target="_blank">PRO Extensions</a> you may have installed.',"zero-bs-crm"), $zbs->urls['products'] );
+       echo wp_kses( sprintf( __( 'Your CRM database was successfully migrated. Please update any <a href="%s" target="_blank">PRO Extensions</a> you may have installed.',"zero-bs-crm"), esc_url( $zbs->urls['products'] ) ), $zbs->acceptable_restricted_html );
        break;
 
     // v3.0 - DB3 objs migration :) FINI
     case 'db3.update.300.errors':
 
-        echo __("Jetpack CRM has tried to updated your core CRM successfully, despite a few errors:","zero-bs-crm").'</hr><a href="'.zeroBSCRM_getAdminURL($zbs->slugs['systemstatus']).'&v3migrationlog=1" target="_blank">'.__('View Migration Report','zero-bs-crm').'</a>';
+        echo __("Jetpack CRM has tried to updated your core CRM successfully, despite a few errors:","zero-bs-crm").'</hr><a href="'. esc_url( zeroBSCRM_getAdminURL($zbs->slugs['systemstatus']) ).'&v3migrationlog=1" target="_blank">'. esc_html__('View Migration Report','zero-bs-crm').'</a>';
         break;
 
     // v3.0 - DB3 objs migration :) FINI + has extensions to update
     case 'db3.extupdate.300':
         ##WLREMOVE
-        echo __("Please Update your Extensions (DB Migration makes this essential!)","zero-bs-crm").' <a href="'.zbsLink($zbs->slugs['connect']).'">'.__("View Extension Updates","zero-bs-crm").'</a>';
+        echo esc_html__("Please Update your Extensions (DB Migration makes this essential!)","zero-bs-crm").' <a href="'. jpcrm_esc_link( $zbs->slugs['connect'] ).'">'. esc_html__("View Extension Updates","zero-bs-crm").'</a>';
         ##/WLREMOVE
         break;
 
@@ -258,7 +258,7 @@ function zeroBSCRM_notifyme_echo_type($type = '', $title = '', $sender = -999, $
     // v5.1 - migrate woosync sites
     case 'woosync.5.1.migration':
         
-        echo __( 'WooSync was unable to migrate settings (5.2). Sync will be stopped until this is remedied.', 'zero-bs-crm' ) . ' ' . sprintf( __( 'Please <a href="%s" target="_blank">contact support</a>.', 'zero-bs-crm' ), $zbs->urls['support'] );
+        echo esc_html__( 'WooSync was unable to migrate settings (5.2). Sync will be stopped until this is remedied.', 'zero-bs-crm' ) . ' ' . wp_kses( sprintf( __( 'Please <a href="%s" target="_blank">contact support</a>.', 'zero-bs-crm' ), esc_url( $zbs->urls['support'] ) ), $zbs->acceptable_restricted_html );
 
         break;
     // ========= / v5+ MIGRATIONS
@@ -269,7 +269,7 @@ function zeroBSCRM_notifyme_echo_type($type = '', $title = '', $sender = -999, $
     // (likely segment created with adv segments active, then adv segments been deactivated)
     case 'segments.orphaned.conditions':
 
-        echo __( '⚠️ A segment was retrieved which has conditions which produced no arguments. (This usually happens when a segment was made via Advanced Segments extension, then that extension is deactivated). Please reactivate any segment extending plugins you have, or contact support.', "zero-bs-crm" );
+        echo esc_html__( '⚠️ A segment was retrieved which has conditions which produced no arguments. (This usually happens when a segment was made via Advanced Segments extension, then that extension is deactivated). Please reactivate any segment extending plugins you have, or contact support.', "zero-bs-crm" );
         break;
 
     // ========= / Exceptions seen
@@ -277,12 +277,12 @@ function zeroBSCRM_notifyme_echo_type($type = '', $title = '', $sender = -999, $
     // =========   MC2
     case 'campaign.paused.due.to.error':
 
-        echo __( 'A mail campaign has been paused due to an error.', 'zero-bs-crm' ) . '&nbsp;&nbsp;&nbsp;&nbsp;' . $content;
+        echo esc_html__( 'A mail campaign has been paused due to an error.', 'zero-bs-crm' ) . '&nbsp;&nbsp;&nbsp;&nbsp;' . $content;
 
         break;
     case 'campaign.can.be.unpaused':
 
-        echo __( 'A mail campaign which was previously blocked from sending by an error is now able to send. Please unpause the campaign to continue to send.', 'zero-bs-crm' ) . '&nbsp;&nbsp;&nbsp;&nbsp;' . $content;
+        echo esc_html__( 'A mail campaign which was previously blocked from sending by an error is now able to send. Please unpause the campaign to continue to send.', 'zero-bs-crm' ) . '&nbsp;&nbsp;&nbsp;&nbsp;' . $content;
 
         break;
     // ========= / MC2
@@ -290,20 +290,20 @@ function zeroBSCRM_notifyme_echo_type($type = '', $title = '', $sender = -999, $
     // =========   WooSync
     case 'woosync.conflict.deactivated':
 
-        echo sprintf( __( 'Your standalone WooSync extension has been deactivated; WooSync is now in the core CRM! <a href="%s" target="_blank">Read more</a>', 'zero-bs-crm' ), $zbs->urls['v5announce'] );
+        echo wp_kses( sprintf( __( 'Your standalone WooSync extension has been deactivated; WooSync is now in the core CRM! <a href="%s" target="_blank">Read more</a>', 'zero-bs-crm' ), esc_url( $zbs->urls['v5announce'] ) ), $zbs->acceptable_restricted_html );
 
         break;
     case 'woosync.syncsite.paused':
-            
-        echo sprintf( __( 'Your WooSync Store connection has been paused due to three errors in connecting to the store. <a href="%s" target="_blank">View Connections</a>', 'zero-bs-crm' ), $content );
+
+        echo wp_kses( sprintf( __( 'Your WooSync Store connection has been paused due to three errors in connecting to the store. <a href="%s" target="_blank">View Connections</a>', 'zero-bs-crm' ), esc_url( $content ) ), $zbs->acceptable_restricted_html );
 
         break;
     // ========= / WooSync
 
 	 // =========   Client Portal Pro
     case 'clientportalpro.incompatible.version.deactivated':
-            
-        echo sprintf( __( 'You are using an outdated version of the Client Portal Pro extension, which is not compatible with this version of the CRM. It has been deactivated. Please update the extension to continue using Client Portal Pro.', 'zero-bs-crm' ), $content );
+
+        echo esc_html__( 'You are using an outdated version of the Client Portal Pro extension, which is not compatible with this version of the CRM. It has been deactivated. Please update the extension to continue using Client Portal Pro.', 'zero-bs-crm' );
 
         break;
     // ========= / Client Portal Pro
@@ -311,22 +311,22 @@ function zeroBSCRM_notifyme_echo_type($type = '', $title = '', $sender = -999, $
     // =========   Package Installer
     case 'package.installer.fail_count_over':
 
-        echo sprintf( __( 'Package Installer was not able to install the requested package %s, after trying the maximum number of times.', 'zero-bs-crm' ), $content ) . sprintf( __( ' Please <a href="%s" target="_blank">contact support</a>.', 'zero-bs-crm' ), $zbs->urls['support'] );
+        echo sprintf( __( 'Package Installer was not able to install the requested package %s, after trying the maximum number of times.', 'zero-bs-crm' ), $content ) . wp_kses( sprintf( __( ' Please <a href="%s" target="_blank">contact support</a>.', 'zero-bs-crm' ), esc_url( $zbs->urls['support'] ) ), $zbs->acceptable_restricted_html );
 
         break;
     case 'package.installer.dir_create_error':
 
-        echo sprintf( __( 'Package Installer could not create directories needed to install the package %s.', 'zero-bs-crm' ), $content ) . sprintf( __( ' Please <a href="%s" target="_blank">contact support</a>.', 'zero-bs-crm' ), $zbs->urls['support'] );
+        echo sprintf( __( 'Package Installer could not create directories needed to install the package %s.', 'zero-bs-crm' ), $content ) . wp_kses( sprintf( __( ' Please <a href="%s" target="_blank">contact support</a>.', 'zero-bs-crm' ), esc_url( $zbs->urls['support'] ) ), $zbs->acceptable_restricted_html );
 
         break;
     case 'package.installer.unzip_error':
 
-        echo sprintf( __( 'Package Installer was not able to expand the requested package zip file for the package %s', 'zero-bs-crm' ), $content ) . sprintf( __( ' Please <a href="%s" target="_blank">contact support</a>.', 'zero-bs-crm' ), $zbs->urls['support'] );
+        echo sprintf( __( 'Package Installer was not able to expand the requested package zip file for the package %s', 'zero-bs-crm' ), $content ) . wp_kses( sprintf( __( ' Please <a href="%s" target="_blank">contact support</a>.', 'zero-bs-crm' ), esc_url( $zbs->urls['support'] ) ), $zbs->acceptable_restricted_html );
 
         break;
     case 'package.installer.dl_error':
 
-        echo sprintf( __( 'Package Installer was not able to download the requested package %s', 'zero-bs-crm' ), $content ) . sprintf( __( ' Please <a href="%s" target="_blank">contact support</a>.', 'zero-bs-crm' ), $zbs->urls['support'] );
+        echo sprintf( __( 'Package Installer was not able to download the requested package %s', 'zero-bs-crm' ), $content ) . wp_kses( sprintf( __( ' Please <a href="%s" target="_blank">contact support</a>.', 'zero-bs-crm' ), esc_url( $zbs->urls['support'] ) ), $zbs->acceptable_restricted_html );
 
         break;
     case 'curl.timeout.error':
@@ -337,7 +337,7 @@ function zeroBSCRM_notifyme_echo_type($type = '', $title = '', $sender = -999, $
     // ========= / Package Installer
 
     default:
-        _e(" something went wrong", 'zero-bs-crm');
+        esc_html_e(" something went wrong", 'zero-bs-crm');
     }
 }
 
@@ -462,13 +462,13 @@ function zeroBSCRM_notifyme_activity(){
 
         echo "<div class='ph_notification_list r0' id='mike-face' style='display:none;'>";
           echo '<div class="ph_noti_img">';
-            echo "<img src='".ZEROBSCRM_URL."i/defaultDude.jpeg'  width='30px;float:left;'>";
+            echo "<img src='". esc_url( ZEROBSCRM_URL )."i/defaultDude.jpeg' width='30px;float:left;'>";
           echo '</div>';
           echo '<div class="ph_noti_message">';
-          echo $another_notty;
+          echo esc_html( $another_notty );
           echo "</div>";
           echo '<div class="ph_noti_timeago">';
-            _e("Just now", "zero-bs-crm");
+            esc_html_e("Just now", "zero-bs-crm");
           echo '</div>';
         echo '</div>';
         echo '<div class="clear"></div>';
@@ -478,10 +478,10 @@ function zeroBSCRM_notifyme_activity(){
             echo $sender_avatar;
           echo '</div>';
           echo '<div class="ph_noti_message">';
-            _e("This is an example notification. Here is where you will be kept notified :) simple. effective.", "zero-bs-crm"); 
+            esc_html_e("This is an example notification. Here is where you will be kept notified :) simple. effective.", "zero-bs-crm"); 
           echo "</div>";
           echo '<div class="ph_noti_timeago">';
-            _e("Just now", "zero-bs-crm");
+            esc_html_e("Just now", "zero-bs-crm");
           echo '</div>';
         echo '</div>';
 
@@ -508,7 +508,7 @@ function zeroBSCRM_notifyme_activity(){
         $sender_url = ''; if (isset($n) && isset($n->sender_id)) $sender_url = get_author_posts_url($n->sender_id);
 
 
-        echo "<div class='ph_notification_list r". $n->zbsnotify_unread ."'>";
+        echo "<div class='ph_notification_list r". esc_attr( $n->zbsnotify_unread ) ."'>";
           echo '<div class="ph_noti_img">';
             echo $sender_avatar;
           echo '</div>';
@@ -516,7 +516,7 @@ function zeroBSCRM_notifyme_activity(){
             zeroBSCRM_notifyme_echo_type($n->zbsnotify_type, $title, $n->zbsnotify_sender_id, $n->zbsnotify_parameters); 
           echo "</div>";
           echo '<div class="ph_noti_timeago">';
-            _e(zeroBSCRM_notifyme_time_ago($n->zbsnotify_created_at) . " ago ", "zero-bs-crm");
+            esc_html_e(zeroBSCRM_notifyme_time_ago($n->zbsnotify_created_at) . " ago ", "zero-bs-crm");
           echo '</div>';
         echo '</div>';
         echo '<div class="clear"></div>';

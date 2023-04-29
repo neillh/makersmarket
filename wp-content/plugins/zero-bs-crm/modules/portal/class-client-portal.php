@@ -129,7 +129,7 @@ class Client_Portal {
 		// Adds the public portal script with the daterangepicker locale inline (it retrieves the locale from our core function)
 		$locale_opt_for_daterangepicker = json_encode( zeroBSCRM_date_localeForDaterangePicker() );
 		wp_enqueue_script( 'jpcrm-public-bind-daterange-js', plugins_url( '/js/jpcrm-public-bind-daterange'.wp_scripts_get_suffix() . '.js', ZBS_ROOTFILE ), $zbs->version, true );
-		wp_add_inline_script( 'jpcrm-public-bind-daterange-js', 'const JPCRM_PUBLIC_LOCALE_OPT_FOR_DATERANGEPICKER = ' . $locale_opt_for_daterangepicker . ';', 'before' );
+		wp_add_inline_script( 'jpcrm-public-bind-daterange-js', 'var JPCRM_PUBLIC_LOCALE_OPT_FOR_DATERANGEPICKER = ' . $locale_opt_for_daterangepicker . ';', 'before' );
 	}
 
 	/**
@@ -216,7 +216,7 @@ class Client_Portal {
 		endif;	
 		$template_file = $this->locate_template( $template_name, $tempate_path, $default_path );
 		if ( ! file_exists( $template_file ) ) :
-			_doing_it_wrong( __FUNCTION__, sprintf( '<code>%s</code> does not exist.', $template_file ), '1.0.0' );
+			_doing_it_wrong( __FUNCTION__, sprintf( '<code>%s</code> does not exist.', esc_html( $template_file ) ), '1.0.0' );
 			return;
 		endif;
 		include_once $template_file;
@@ -323,11 +323,11 @@ class Client_Portal {
 					'zerobs_customer'
 				);
 
-				echo "<div class='zbs_alert'>" . __( 'Details updated.', 'zero-bs-crm') . "</div>";
+				echo "<div class='zbs_alert'>" . esc_html__( 'Details updated.', 'zero-bs-crm') . "</div>";
 
 			}
 			else {
-				echo "<div class='zbs-alert-danger'>" . __( 'Error updating details!', 'zero-bs-crm' ) . "</div>";
+				echo "<div class='zbs-alert-danger'>" . esc_html__( 'Error updating details!', 'zero-bs-crm' ) . "</div>";
 			}
 		}
 

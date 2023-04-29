@@ -441,10 +441,10 @@ function zeroBSCRM_privatisedDirCheck( $echo = false ) {
 	return $storage_dir_info;
 }
 
-function jpcrm_get_hash_for_contact( $crm_contact ) {
+function jpcrm_get_hash_for_object( $object_id, $object_hash_string ) {
 	global $zbs;
 	$zbs->load_encryption();
-	return $zbs->encryption->hash( $crm_contact['id'] . $zbs->encryption->get_encryption_key( 'contact_hash' ) );
+	return $zbs->encryption->hash( $object_id . $zbs->encryption->get_encryption_key( $object_hash_string ) );
 }
 
 /*
@@ -491,18 +491,29 @@ function jpcrm_storage_fonts_dir_path() {
 }
 
 /*
- * Returns the 'dir info' for the provided contact.
- * contact dir info = 
+ * Returns the 'dir info' for the provided generic object. This directory should
+ * be used to store all files associated to this object (e.g. contact files, 
+ * company files, invoices...). 
+ * 
+ * dir info = 
  * [ 
- * 'avatar' => 
- *   [ 
- *      'path' => 'path for the physical file',
- *      'url'  => 'public facing url'
- *    ]
+ *   'subfolder_1' => 
+ *     [ 
+ *        'path' => 'path for the physical file',
+ *        'url'  => 'public facing url'
+ *      ],
+ *   'subfolder_2' => 
+ *     [ 
+ *        'path' => 'path for the physical file',
+ *        'url'  => 'public facing url'
+ *      ],
+ *    .
+ *    .
+ *    .
  * ]
  *
  */
-function jpcrm_storage_dir_info_for_contact( $contact_id ) {
+function jpcrm_storage_dir_info_for_object( $object_id, $object_hash_string, $object_parent_folder, $subfolder_list ) {
 	global $zbs;
 
 	$root_storage_info = jpcrm_storage_dir_info();
@@ -511,31 +522,138 @@ function jpcrm_storage_dir_info_for_contact( $contact_id ) {
 		return false;
 	}
 
-	$contact_folder_name   = 'contacts';
-	$contacts_storage_info = array( 
-		'path' => $root_storage_info['path'] . '/' . $contact_folder_name, 
-		'url'  => $root_storage_info['url'] . '/' . $contact_folder_name 
+	$parent_storage_info = array( 
+		'path' => $root_storage_info['path'] . '/' . $object_parent_folder, 
+		'url'  => $root_storage_info['url'] . '/' . $object_parent_folder 
 	);
 
+	if ( ! jpcrm_create_and_secure_dir_from_external_access( $parent_storage_info['path'], false ) ) {
+		return false;
+	}
 
-	$crm_contact  = $zbs->DAL->contacts->getContact( $contact_id );
-	$contact_hash = jpcrm_get_hash_for_contact( $crm_contact );
-	$contact_path = sprintf( '/%s-%s/', $crm_contact['id'], $contact_hash );
+	$object_unique_hash   = jpcrm_get_hash_for_object( $object_id, $object_hash_string );
+	$parent_relative_path = sprintf( '/%s-%s/', $object_id, $object_unique_hash );
+	$parent_full_path     = $parent_storage_info['path'] . $parent_relative_path;
 
-	$avatar_path     = $contacts_storage_info['path'] . $contact_path . 'avatar';
-	$avatar_dir_info = array(
-		'path' => $avatar_path,
-		'url'  => $contacts_storage_info['url']  . $contact_path . 'avatar',
+	if ( ! jpcrm_create_and_secure_dir_from_external_access( $parent_full_path, false ) ) {
+		return false;
+	}
+
+	$object_dir_info = array();
+
+	foreach ( $subfolder_list as $subfolder ) {
+		$object_dir_info[ $subfolder ] = array(
+			'path' => $parent_full_path . $subfolder,
+			'url'  => $parent_storage_info['url']  . $parent_relative_path . $subfolder,
+		);
+	}
+
+	return $object_dir_info;
+}
+
+/*
+ * Returns the 'dir info' for the provided contact with the subfolders 'avatar',
+ * and 'files'. The definition of 'dir info' can be found in the function
+ * 'jpcrm_storage_dir_info_for_object'.
+ *
+ */
+function jpcrm_storage_dir_info_for_contact( $contact_id ) {
+
+	return jpcrm_storage_dir_info_for_object( 
+		$contact_id,
+		'contact_hash',
+		'contacts',
+		array( 'avatar', 'files' )
 	);
 
-	$files_path     = $contacts_storage_info['path'] . $contact_path . 'files';
-	$files_dir_info = array(
-		'path' => $files_path,
-		'url'  => $contacts_storage_info['url']  . $contact_path . 'files',
+}
+
+/*
+ * Returns the 'dir info' for the provided company with the subfolder 'files'.
+ * The definition of 'dir info' can be found in the function 'jpcrm_storage_dir_info_for_object'.
+ *
+ */
+function jpcrm_storage_dir_info_for_company( $company_id ) {
+
+	return jpcrm_storage_dir_info_for_object( 
+		$company_id,
+		'company_hash',
+		'companies',
+		array( 'files' )
 	);
 
-	// add more dirs as needed
-	return array ( 'avatar' => $avatar_dir_info, 'files' => $files_dir_info );
+}
+
+/*
+ * Returns the 'dir info' for the provided invoice with the subfolder 'files'.
+ * The definition of 'dir info' can be found in the function 'jpcrm_storage_dir_info_for_object'.
+ *
+ */
+function jpcrm_storage_dir_info_for_invoices( $invoice_id ) {
+
+	return jpcrm_storage_dir_info_for_object( 
+		$invoice_id,
+		'invoice_hash',
+		'invoices',
+		array( 'files' )
+	);
+
+}
+
+/*
+ * Returns the 'dir info' for the provided quote with the subfolder 'files'.
+ * The definition of 'dir info' can be found in the function 'jpcrm_storage_dir_info_for_object'.
+ *
+ */
+function jpcrm_storage_dir_info_for_quotes( $quote_id ) {
+
+	return jpcrm_storage_dir_info_for_object( 
+		$quote_id,
+		'quote_hash',
+		'quotes',
+		array( 'files' )
+	);
+
+}
+/*
+ * Saves a file uploaded by an admin from $_FILES[ $param_name ] to the folder
+ * $target_dir_info['path'] and returns an array( 'error' => something ) in the
+ * case of errors and an 
+ * array( 'file' => file_path, 'url' => file_url, 'priv' => boolean) in the case
+ * of success.
+ */
+function jpcrm_save_admin_upload_to_folder( $param_name, $target_dir_info ) {
+	$upload = wp_upload_bits( $_FILES[ $param_name ]['name'], null, file_get_contents( $_FILES[ $param_name ]['tmp_name'] ) );
+
+	if( isset( $upload['error'] ) && $upload['error'] != 0 ) {
+		return $upload;
+	}
+	// change this to return a custom error in the future if needed
+	if ( $target_dir_info === false ) {
+		return $upload;
+	}
+
+	global $zbs;
+	$zbs->load_encryption();
+
+	$upload_path          = $target_dir_info['path'];
+	$upload_folder_exists = jpcrm_create_and_secure_dir_from_external_access( $upload_path, false );
+	if ( $upload_folder_exists ) {
+		$upload_filename  = sanitize_file_name( sprintf( 
+			'%s-%s',
+			$zbs->encryption->get_rand_hex( 16 ),
+			$_FILES[ $param_name ]['name'] // for admins we are accepting "filename.ext" as provided by $_FILES
+		) );
+
+		if ( move_uploaded_file( $_FILES[ $param_name ]['tmp_name'], $upload_path . '/' . $upload_filename ) ) {
+			$upload['file'] = $upload_path . '/' . $upload_filename;
+			$upload['url']  = $target_dir_info['url'] . '/' . $upload_filename;
+			// add this extra identifier if in privatised sys
+			$upload['priv'] = true;
+		}
+	}
+
+	return $upload;
 }
 
 // 2.95.5+ we also add a subdir for 'work' (this is used by CPP when making thumbs, for example)
@@ -566,8 +684,6 @@ function zeroBSCRM_privatisedDirCheckWorks( $echo = false ) {
 
 	return false;
 }
-
-
 
 /* ======================================================
   / File Upload related funcs
@@ -747,4 +863,67 @@ function jpcrm_get_hashed_filename( $filename, $suffix='' ) {
 	$salt = $zbs->encryption->get_encryption_key( 'filename' );
 	$hashed_filename = $zbs->encryption->hash( $filename . $salt ) . $suffix;
 	return $hashed_filename;
+}
+
+
+/**
+ * Checks legitimacy (in so far as practicable) of an uploaded file 
+ * With default 'setting' params, checks against the core functions:
+ * `zeroBS_acceptableFileTypeMIMEArr()` and `zeroBS_acceptableFileTypeListArr()`
+ * (Which reflect the core setting)
+ * 
+ * @param $FILE
+ * @param $check_file_extension string|array - if string, can be single, e.g. `.pdf`, if array, can be multiple strings
+ * @param $check_mime_type string|array - if string, can be single, e.g. `application/pdf`, if array, can be multiple strings
+ */
+function jpcrm_file_check_mime_extension( $FILE, $check_file_extension = 'setting', $check_mime_type = 'setting' ){
+
+		// expects $_FILES type array (e.g. pass $_FILES['zbsc_file_attachment'])
+		if ( !is_array( $FILE ) || !isset( $FILE['name'] ) || !isset( $FILE['type'] ) || !isset( $FILE['tmp_name'] ) ){
+			return false;
+		}
+
+		// check file extension
+
+		// retrieve settings, or prepare an array of acceptable file extensions from passed string/array
+		if ( $check_file_extension == 'setting' ){
+			$check_file_extension = zeroBS_acceptableFileTypeListArr();
+		} elseif ( $check_file_extension != 'setting' && !is_array( $check_file_extension ) ){
+			$check_file_extension = array( $check_file_extension );
+		}
+
+		// check actual extension
+		if ( !in_array( '.' . pathinfo( $FILE['name'], PATHINFO_EXTENSION ), $check_file_extension ) ){
+			return false;
+		}
+
+		// check mime
+
+		// retrieve settings, or prepare an array of acceptable file extensions from passed string/array
+		if ( $check_mime_type == 'setting' ){
+			$check_mime_type = zeroBS_acceptableFileTypeMIMEArr();
+		} elseif ( $check_mime_type != 'setting' && !is_array( $check_mime_type ) ){
+			$check_mime_type = array( $check_mime_type );
+		}
+
+		// catch 'all' legacy solution which (perhaps dangerously) sidesteps this check
+		// will do mime check if legacy 'all' is empty, which includes false, 0, and !isset()
+		if ( empty( $check_mime_type['all'] ) ) {
+			// check actual mime type
+			if ( ! in_array( $FILE['type'], $check_mime_type ) ) {
+				return false;
+			}
+
+			// also check the mime type directly inferred from the uploaded file
+			// note: we don't check this type against $FILE['type'] because it
+			// doesn't really matter if they are different but both accepted types
+			$tmp_file_info = finfo_open( FILEINFO_MIME_TYPE );
+			$tmp_file_type = finfo_file( $tmp_file_info, $FILE['tmp_name'] );
+			if ( ! in_array( $tmp_file_type, $check_mime_type ) ) {
+				return false;
+			}
+		}
+
+		return true;
+
 }

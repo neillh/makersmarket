@@ -236,7 +236,8 @@ function jpcrm_sniff_feature_woosync() {
       array(
         'feature_slug'    => 'woocommerce',
         'plugin_slug'     => 'woocommerce/woocommerce.php',
-        'more_info_link'  => $zbs->urls['kb-woosync-home']
+        'more_info_link'  => $zbs->urls['kb-woosync-home'],
+        'is_module'       => true,
       )
     );
 
@@ -259,7 +260,7 @@ function jpcrm_add_woo_jobs_to_system_assistant( $job_list ) {
 			'icon'            => 'dollar sign',
 			'desc_incomplete' => __( 'You have the WooCommerce plugin installed, but the CRM module is not yet enabled. In order to sync your WooCommerce data to the CRM, you first need to enable the module.', 'zero-bs-crm' ),
 			'desc_complete'   => __( 'The WooSync module is active.', 'zero-bs-crm' ),
-			'button_url'      => zbsLink( $zbs->slugs['modules'] ),
+			'button_url'      => jpcrm_esc_link( $zbs->slugs['modules'] ),
 			'button_txt'      => __( 'Check module state', 'zero-bs-crm' ),
 			'state'           => zeroBSCRM_isExtensionInstalled( 'woo-sync' ),
 
@@ -274,7 +275,7 @@ function jpcrm_add_woo_jobs_to_system_assistant( $job_list ) {
 				'icon'            => 'sync alternate',
 				'desc_incomplete' => __( 'No orders have been imported yet. Please verify that the module is properly configured.', 'zero-bs-crm' ),
 				'desc_complete'   => __( 'Order data has been imported.', 'zero-bs-crm' ),
-				'button_url'      => zbsLink( $zbs->modules->woosync->slugs['hub'] ),
+				'button_url'      => jpcrm_esc_link( $zbs->modules->woosync->slugs['hub'] ),
 				'button_txt'      => __( 'Check sync status', 'zero-bs-crm' ),
 				'state'           => $zbs->modules->woosync->get_crm_woo_transaction_count() > 0,
 

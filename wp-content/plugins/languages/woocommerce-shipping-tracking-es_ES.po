@@ -1,0 +1,2324 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Shipping Tracking\n"
+"POT-Creation-Date: 2023-02-16 21:11+0100\n"
+"PO-Revision-Date: 2023-02-16 21:11+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.2.2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: shipping-tracking.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SearchPathExcluded-1: classes/acf\n"
+
+#: classes/admin/WCST_ActivationPage.php:52
+#: classes/admin/WCST_ActivationPage.php:53
+#: classes/admin/WCST_ActivationPage.php:112
+msgid " Activator"
+msgstr ""
+
+#: classes/admin/WCST_ActivationPage.php:93
+msgid "Purchase code is invalid!"
+msgstr ""
+
+#: classes/admin/WCST_ActivationPage.php:94
+msgid "Buyer name is invalid!"
+msgstr ""
+
+#: classes/admin/WCST_ActivationPage.php:95
+msgid "Item id is invalid!"
+msgstr ""
+
+#: classes/admin/WCST_ActivationPage.php:96
+msgid ""
+"Max number of domains reached! You have to purchase a new license. The "
+"current license has been activated in the following domains: "
+msgstr ""
+
+#: classes/admin/WCST_ActivationPage.php:97
+#: classes/admin/WCST_ActivationPage.php:175
+msgid "Verifing, please wait..."
+msgstr ""
+
+#: classes/admin/WCST_ActivationPage.php:98
+msgid ""
+"There was an error while verifing the code. Please retry in few minutes!"
+msgstr ""
+
+#: classes/admin/WCST_ActivationPage.php:99
+msgid "Activation successfully completed!"
+msgstr ""
+
+#: classes/admin/WCST_ActivationPage.php:100
+msgid "Buyer and Purchase code fields must be filled!"
+msgstr ""
+
+#: classes/admin/WCST_ActivationPage.php:141
+msgid "Activation"
+msgstr ""
+
+#: classes/admin/WCST_ActivationPage.php:158
+msgid ""
+"The plugin can be activate in only <strong>two</strong> domains and they "
+"cannot be unregistered. For each activated domain, you can reactivate "
+"<strong>unlimited</strong> times (including <strong>subdomains</strong> and "
+"<strong>subfolders</strong>). The \"localhost\" domain will not consume "
+"activations. Please enter the following data and hit the activation button"
+msgstr ""
+
+#: classes/admin/WCST_ActivationPage.php:164
+msgid "Buyer"
+msgstr ""
+
+#: classes/admin/WCST_ActivationPage.php:165
+msgid "Insert the Envato username used to purchase the plugin."
+msgstr ""
+
+#: classes/admin/WCST_ActivationPage.php:166
+msgid "Example: vanquish"
+msgstr ""
+
+#: classes/admin/WCST_ActivationPage.php:169
+msgid "Purchase code"
+msgstr ""
+
+#: classes/admin/WCST_ActivationPage.php:170
+msgid ""
+"Insert the purchase code. It can be downloaded from your CodeCanyon "
+"\"Downloads\" profile page."
+msgstr ""
+
+#: classes/admin/WCST_ActivationPage.php:171
+msgid "Example: 7d7c3rt8-f512-227c-8c98-fc53c3b212fe"
+msgstr ""
+
+#: classes/admin/WCST_ActivationPage.php:173
+msgid "Activate"
+msgstr ""
+
+#: classes/admin/WCST_ActivationPage.php:178
+msgid "The plugin has been successfully activated!"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:125 classes/admin/WCST_AdminMenu.php:204
+#: classes/admin/WCST_AdminMenu.php:444
+msgid "NOTE:"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:125 classes/admin/WCST_AdminMenu.php:444
+msgid ""
+"WPML Detected! to translate following texts simply select the language you "
+"desire from the upper WPML language selector, edit texts and save!"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:129
+msgid "Instructions"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:131
+msgid ""
+"For the <strong>MAIN</strong> shipping company you can use the following "
+"<strong>[shipping_company_name]</strong>, <strong>[tracking_number]</"
+"strong>, <strong>[custom_text]</strong>, <strong>[dispatch_date]</strong>, "
+"<strong>[url_track]</strong>,  <strong>[order_url]</strong>, "
+"<strong>[associated_products]</strong> and <strong>[track_shipping_in_site] "
+"*</strong> shortocodes to display into the messages the Shipping company "
+"name, the tracking number and the tracking url."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:133
+msgid ""
+"For <strong>ADDITIONAL</strong> shipping companies you can use the following "
+"<strong>[additional_shipping_company_name]</strong>, "
+"<strong>[additional_shipping_tracking_number]</strong>, "
+"<strong>[additional_shipping_url_track]</strong>, "
+"<strong>[additional_custom_text]</strong>, "
+"<strong>[additional_dispatch_date]</strong>, <strong>[additional_order_url]</"
+"strong>, <strong>[additional_associated_products]</strong> and "
+"<strong>[additional_shipping_track_in_site]*</strong> shortcodes."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:135
+msgid ""
+"* <strong>[track_shipping_in_site]</strong> and "
+"<strong>[additional_track_shipping_in_site]</strong> shortcodes can be use "
+"only for <strong>Order details messages</strong>. Those shortcode will "
+"render a special area tha will display tracking info directly on site. This "
+"<strong>requires</strong> you have entered a valid AfterShip Api Key in the "
+"<strong>General optiosn & Texts</strong> menu (click on that menu to have "
+"more info on how to get it, it is jus a 2 step operation and it is free!)."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:138
+msgid "NOTE"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:139
+msgid ""
+"If you are using a <strong>Custom company</strong> for which you have "
+"<strong>Disabled the tracking url</strong>, use the conditional "
+"<strong>[if_has_tracking_url] [/if_has_tracking_url]</strong> shortcode to "
+"wrap the message part you won't to display in case there is no tracking url. "
+"This is useful when generating auotomatic tracking links."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:141
+msgid "Exmple:"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:143
+msgid ""
+"In this way the tracking link will not be generated if the current company "
+"has not any tracking url associated."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:145 classes/admin/WCST_AdminMenu.php:902
+msgid "Email"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:146 classes/admin/WCST_AdminMenu.php:164
+msgid "Main shipping company message"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:149
+msgid "Additional companies message."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:150
+msgid ""
+"In case of one or more additional shippings the plugin will show the "
+"following message per each additional shipping."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:153
+msgid "Active notification: Text showed before tracking info "
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:154
+msgid ""
+"This text will be showed before the tracking info messages setted in the "
+"previous options. You can use the following shortcodes: <strong>[order_id]</"
+"strong>, <strong>[billing_first_name]</strong>, <strong>[billing_last_name]</"
+"strong>, <strong>[shipping_first_name]</strong>, "
+"<strong>[shipping_last_name]</strong>, <strong>[formatted_billing_address]</"
+"strong>, <strong>[formatted_shipping_address]</strong>."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:157
+msgid "Email message preview"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:160
+msgid "Active notification email message preview"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:163
+msgid "Order details page"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:167
+msgid ""
+"Additional companies message (in case of one or more additional shippings. "
+"Will be rendered one per additional shippings)"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:171
+msgid "Order detail page message preview"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:199
+msgid "Saved successfully."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:202
+msgid "Custom defined shipping companies"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:203
+msgid "Add or remove custom shipping companies:"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:205
+msgid ""
+"You can create a special URL using the <b>%s</b> string in the address as "
+"placeholder for the tracking code. For example: <i>\"http://www.shipping-"
+"company.com/?tracking-code:%s\"</i><br/>In this way the WCST plugin will "
+"include the tracking code directly in the url. Use <i>%post_code</i> and "
+"<i>%country_code</i> as place holder for the order postcode and country code "
+"(shipping country code)."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:208
+#, php-format
+msgid ""
+"In case the URL takes more than one code, use multiple %s. Example: "
+"<i>http://www.courriersite.com?tracking_code=%s&item_code=%s</i>"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:213
+msgid "Add one more Company"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:220 classes/admin/WCST_AdminMenu.php:242
+#: classes/admin/WCST_AdminMenu.php:274
+msgid "Shipping Company Name:"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:223
+msgid "Set a shipping Company Tracking URL:"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:225
+msgid "Remove company"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:227 classes/admin/WCST_AdminMenu.php:249
+#: classes/admin/WCST_AdminMenu.php:277
+msgid "Extra options"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:229 classes/admin/WCST_AdminMenu.php:251
+#: classes/admin/WCST_AdminMenu.php:278
+msgid "Disable the tracking url"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:230 classes/admin/WCST_AdminMenu.php:252
+#: classes/admin/WCST_AdminMenu.php:279
+msgid "The plugin will not generate any tracking url for this company."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:231 classes/admin/WCST_AdminMenu.php:253
+msgid "Disable tracking url"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:234 classes/admin/WCST_AdminMenu.php:256
+#: classes/admin/WCST_AdminMenu.php:280
+msgid "Use a 3rd party tracking service to track the shipping"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:235 classes/admin/WCST_AdminMenu.php:257
+#: classes/admin/WCST_AdminMenu.php:281
+msgid "Use Aftership service to track order"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:236 classes/admin/WCST_AdminMenu.php:258
+#: classes/admin/WCST_AdminMenu.php:282
+msgid "Use TrackingMore service to track order"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:245
+msgid "Shipping Company Tracking URL:"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:247 classes/admin/WCST_AdminMenu.php:276
+msgid "Remove field"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:266 classes/admin/WCST_AdminMenu.php:419
+#: classes/admin/WCST_AdminMenu.php:551 classes/admin/WCST_AdminMenu.php:949
+msgid "Save Changes"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:275
+msgid "Shipping Company URL:"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:301
+msgid "Select Shipping Companies used to ship products"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:307
+msgid "Select default company"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:308
+msgid ""
+"Optionally you can select a company that will be the company that will be "
+"already selected when editing an order. First enable one or more predefined/"
+"custom companies, save and then select a default one (if you need it!)."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:310 classes/com/WCST_HtmlHelper.php:211
+#: classes/com/WCST_HtmlHelper.php:267 classes/com/WCST_HtmlHelper.php:366
+msgid "No Tracking"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:344
+msgid "User defined Companies list:"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:345
+#, php-format
+msgid ""
+"You can add new ones clicking on the <a href=\"%s\" target=\"_blank\">Custom "
+"companies</a> menu link."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:377
+msgid "Already defined Companies list:"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:378
+msgid "Enable the ones that will be used to ship products."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:448
+msgid "General"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:452
+msgid "Order details editing"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:453
+msgid ""
+"By default, once the delivery date and time has been setted it cannot be "
+"edited. Would you like your customer to be able to edit date and time?"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:462
+msgid "Delivery date and time"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:464
+msgid ""
+"If enabled, a date and time selector is displayed  to allow the customer to "
+"set an optional date and/or time when receive the items"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:465
+msgid "Display date range selector"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:467
+msgid "Display just one date selector"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:472
+msgid "Visibility"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:473
+msgid ""
+"Set where the date (and eventually the time) selector has to be displayed."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:476
+msgid "Show date selector on Checkout page"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:477
+msgid "Show date selector on Order details page"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:482
+msgid "Time ranges"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:483
+msgid ""
+"Display time range (you can restrict selection using the following starting "
+"and ending hours and minutes boxes)"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:484 classes/admin/WCST_AdminMenu.php:493
+msgid "Start hour & minute"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:487 classes/admin/WCST_AdminMenu.php:496
+msgid "End hour & minute"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:492
+msgid ""
+"Display secondary time range (will be displayed only in previous option has "
+"been checked. You can restrict selection using the following starting and "
+"ending hours and minutes boxes)"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:502
+msgid "Dates to exclude"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:503
+msgid "Add new"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:505
+msgid "Remove selected"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:510
+msgid "Day"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:511
+msgid "Month"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:525
+msgid "Title, labels and description"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:528
+msgid "Title"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:529
+msgid "Ex.: Additional shipping delivery info"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:532
+msgid "Will be visible only if one of the previews option has been selected."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:534
+msgid "Date range label"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:535
+msgid "Ex.: Select a start and end period."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:538
+msgid "Time range label"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:539
+msgid "Ex.: Select a start and end time period."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:542
+msgid "Seconday time range"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:543
+msgid "Ex.: Select a secondary start and end time period."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:546
+msgid "Description"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:547
+msgid ""
+"Ex.: Type a preferead Date and time to receive you items, we will do the "
+"best to respect your needings."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:579 classes/admin/WCST_AdminMenu.php:882
+#: classes/frontend/WCST_CheckoutPage.php:26
+#: classes/frontend/WCST_ProductPage.php:55
+#: classes/frontend/WCST_ProductTable.php:35
+msgid "Estimated shipping date:"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:580 classes/admin/WCST_AdminMenu.php:885
+#: classes/com/WCST_Shortcodes.php:28
+msgid "Out of stock, date unavailable"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:581 classes/admin/WCST_AdminMenu.php:898
+#: classes/frontend/WCST_MyAccountPage.php:51
+#, php-format
+msgid "Track shipment #%s"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:582 classes/admin/WCST_AdminMenu.php:907
+#: classes/com/WCST_Order.php:619
+msgid "Your products have been shipped"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:609
+msgid "System"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:611
+msgid "Email options"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:613
+msgid ""
+"By default tracking info are displayed in every woocommerce outgoing email "
+"only if the Order status is completed. Select which in which order "
+"status(es) would you like to include the info"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:625
+msgid "Custom statuses"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:626
+msgid ""
+"In case you are using custom statuses email, please enter the status codes "
+"comma separated for which you want to embed shipping tracking info"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:631
+msgid "Autofocus on admin order detail page"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:632
+msgid "Main tracking code field will be automatically autofocused"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:634 classes/admin/WCST_AdminMenu.php:662
+#: classes/admin/WCST_AdminMenu.php:680 classes/admin/WCST_AdminMenu.php:711
+#: classes/admin/WCST_AdminMenu.php:856 classes/admin/WCST_AdminMenu.php:866
+#: classes/admin/WCST_BulkImport.php:48
+#: classes/admin/WCST_QuickAssignPage.php:83
+#: classes/admin/WCST_QuickAssignPage.php:100
+#: classes/com/WCST_HtmlHelper.php:328
+msgid "No"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:635 classes/admin/WCST_AdminMenu.php:663
+#: classes/admin/WCST_AdminMenu.php:681 classes/admin/WCST_AdminMenu.php:712
+#: classes/admin/WCST_AdminMenu.php:857 classes/admin/WCST_AdminMenu.php:865
+#: classes/admin/WCST_BulkImport.php:49
+#: classes/admin/WCST_QuickAssignPage.php:82
+#: classes/com/WCST_HtmlHelper.php:329 classes/com/WCST_HtmlHelper.php:338
+msgid "Yes"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:641
+msgid "Disable UTF-8 encoding for the estimated shipping data texts"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:642
+msgid ""
+"In some installation the UTF-8 installation may corrupt the estimated "
+"shipping data text. Enable the following option to disable the encoding."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:643
+msgid "Disable UTF-8"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:652
+msgid "Import options"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:653
+msgid "CSV fields separator. Default character is \",\""
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:654
+msgid "Default separator: ,"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:658
+msgid "Automatic bulk import"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:659
+msgid ""
+"<strong>NOTE:</strong> Scheduling task is performed using the WordPress "
+"function <i>wp_schedule_event()</i>. It will trigger  the scheduled import "
+"task at the specified interval <strong>ONLY</strong> if someone visits your "
+"WordPress site. More info at <a href=\"https://codex.wordpress.org/"
+"Function_Reference/wp_schedule_event\" target=\"_blank\">wp_schedule_event "
+"reference page</a>."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:660
+msgid "Enable automatic bulk import?"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:667
+msgid "Set a valid csv url path"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:668
+msgid "It can be a DropBox public url, http url, etc..."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:671
+msgid "How often has the automatic import to be performed?"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:673
+msgid "Hourly"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:674
+msgid "Twice a day"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:675
+msgid "Daily"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:678 classes/admin/WCST_BulkImport.php:46
+msgid ""
+"In case an order already has some tracking info associated, merge the "
+"existing info with imported data?"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:686
+msgid "Frontend - Orders list & Order details page"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:688
+msgid "Track shipment buttons"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:689
+msgid ""
+"Disable \"Track shipment\" buttons displayed in the Orders list table (My "
+"Account -> Orders)"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:697
+msgid "Tracking data associated with products"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:698
+msgid ""
+"Disable the display of the tracking data associated with a product in the "
+"Order details page -> Product table."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:705
+msgid "Admin order page"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:708
+msgid "Automatic dispatch date field filling"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:709
+msgid "Automatically fill dispatch date field with today date"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:716
+msgid "Hide \"Associated products\" field"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:717 classes/admin/WCST_AdminMenu.php:726
+#: classes/admin/WCST_AdminMenu.php:735 classes/admin/WCST_AdminMenu.php:744
+#: classes/admin/WCST_AdminMenu.php:753 classes/admin/WCST_AdminMenu.php:762
+msgid "The field will not be displayed anymore on the order details page"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:725
+msgid "Hide \"Dispatch date\" field"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:734
+msgid "Hide \"Custom text\" field"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:743
+msgid "Hide \"Send notification\" field"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:752
+msgid "Hide \"Disable email embedding\" field"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:761
+msgid "Hide \"Switch order status to completed\" field"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:770
+msgid "Set \"Send notification\" option enabled by default"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:771
+msgid ""
+"The field will be set to \"enabled\" by default.<br><strong>Note:</strong> "
+"even if you manually disable the field, once you reload the page it will be "
+"once again set as \"enabled\"."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:779
+msgid "Set \"Switch order status to completed\" option enabled by default"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:780
+msgid "The field will be set to \"enabled\" by default"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:788
+msgid "Style options"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:790
+msgid "Date format"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:791
+msgid "Select the date format used for dispatch and delivery dates"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:793
+msgid "dd/mm/yyyy"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:794
+msgid "mm/dd/yyyy"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:795
+msgid "yyyy/mm/dd"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:796
+msgid "dd.mm.yyyy"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:797
+msgid "mm.dd.yyyy"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:798
+msgid "yyyy.mm.dd"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:799
+msgid "dd-mm-yyyy"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:800
+msgid "mm-dd-yyyy"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:801
+msgid "yyyy-mm-dd"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:802
+msgid "F j, Y"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:803
+msgid "M j"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:804
+msgid "j M"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:805
+msgid "l, d.m"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:810
+msgid "Tracking form redirection"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:811
+msgid ""
+"Select redirection method. Using the \"Open new tab\" method could cause the "
+"browse to detect the new tab as a popup."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:813
+msgid "Same page"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:814
+msgid "Open a new tab"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:818
+msgid "Tracking info positioning"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:819
+msgid "Order details page: select where to display tracking info"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:821
+msgid "After order table"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:822
+msgid "Before order table"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:825
+msgid "Estimated shipping date display"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:828
+msgid "Estimated shipping for products"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:829
+msgid "Report estimated info on order details page and emails"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:838
+msgid "Product Page - automatic estimated shipping info positioning"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:839
+msgid ""
+"By default estimated shipping info on product page is displayed using the "
+"[wcst_show_estimated_date] shortcode. However using the following option you "
+"can display that info automatically at specific positions:"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:841
+msgid "Do not automatically show"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:842
+msgid "After variable options dropdown(s) and before add to cart button"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:843
+msgid "Before both variable options dropdown(s)\tand add to cart button"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:844
+msgid "After add to cart button"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:845
+msgid "After product images"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:846
+msgid "Before product Images"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:847
+msgid "Before short description"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:848
+msgid "After product description"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:853
+msgid "Cart/Checkout Pages - automatic estimated shipping display"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:854
+msgid ""
+"Would you like to display estimated shipping info under each product on "
+"product table displayed in Cart/Checkout page:"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:862
+msgid "Show a warning text for item no longer in stock "
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:863
+msgid ""
+"By default, if a item is out of stock or in back order, no estimation date "
+"will be displayed. Enable this option to display a warning text. To "
+"customize it, use the <i>Text displayed when the product is out of stock</i> "
+"setting in the next section. Note: if the text is autonatically showed "
+"according to the previous option, the warning text won't be displayed for "
+"the first 4 options due to a WooCommerce limitation."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:870
+msgid "Texts"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:872
+msgid "Estimation date"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:873
+msgid "Label to display before the date:"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:875
+msgid ""
+"This label is used on Product, Cart and Checkout pages to display product "
+"estimated shipping date. "
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:879 classes/admin/WCST_AdminMenu.php:895
+msgid ""
+"<strong>WPML NOTE:</strong> to localize this label, simply switch language "
+"using WPML language selector and then save the options."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:884
+msgid "Text displayed when the product is out of stock:"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:889
+msgid "Track shipment button"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:891
+#, php-format
+msgid ""
+"This label is displayed inside the Track shipment buttons displayed inside "
+"the orders list (My Account -> Order). In case of multiple shipment, use the "
+"placeholder %s to identify the shipment progressive id."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:903
+msgid "Active notification - Email subject"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:905
+msgid ""
+"This is the subject used for active notification emails (the ones sent by "
+"checking the \"Send a notification email\" in the order details page). "
+"Permitted shortcode: <strong>[order_id]</strong>. "
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:909
+msgid "Active notification - Email heading"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:911
+msgid ""
+"This is the heading used for active notification emails (the ones sent by "
+"checking the \"Send a notification email\" in the order details page). "
+"Permitted shortcode: <strong>[order_id]</strong>. "
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:915
+msgid "Active notification - \"From\" name"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:917
+msgid ""
+"This is the From name used for the active notification emails. Leave empty "
+"to use the default value (your blog name)"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:921
+msgid "Active notification - \"From\" email address"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:923
+msgid ""
+"This is the from email address used for the active notification emails. "
+"Leave empty to use the default value (noreply@yourdomain.com). <br><br>NOTE: "
+"some installation doesn't allow to modify the from email address for "
+"security reasons, so this option might be ineffective."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:928
+msgid "Track shipping status in site"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:930 classes/admin/WCST_AdminMenu.php:933
+msgid "AfterShip API Key"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:931
+msgid ""
+"Generate a valid API Key following the <a href=\"https://support.aftership."
+"com/en/article/generate-aftership-api-key-12cuqj2/\" "
+"target=\"_blank\">instruction</a>. Once done copy it in the following text "
+"area to be able to track order via AfterShip service."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:932
+msgid ""
+"The service will automatically detect the carrier from the tracking code (if "
+"supported) without the requirement of any further code."
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:936
+msgid "Company detection"
+msgstr ""
+
+#: classes/admin/WCST_AdminMenu.php:937
+msgid ""
+"The plugin will automatically detect the shipping company from the tracking "
+"code. This however may generate extra queries that may be exceding the "
+"AfterShip tracking codes quota plan you are actually using. To help the "
+"plugin detecting the company and save time and quota, please select the "
+"companies you are actually using. If none is seleceted, the plugin will try "
+"detecting using all of them:"
+msgstr ""
+
+#: classes/admin/WCST_BulkImport.php:24
+msgid "Import tracking info"
+msgstr ""
+
+#: classes/admin/WCST_BulkImport.php:28
+msgid "Select a .csv file that has the following columns:"
+msgstr ""
+
+#: classes/admin/WCST_BulkImport.php:31
+msgid ""
+"Leave empty to leave order status unchanghed, otherwise use the follwing "
+"codes to set order status: "
+msgstr ""
+
+#: classes/admin/WCST_BulkImport.php:39
+msgid ""
+"Leave empty for no notification, otherwise choose one of the following "
+"values to resend a notification email: <strong>send_active_notification</"
+"strong>, <strong>send_email_new_order</strong>, "
+"<strong>send_email_cancelled_order</strong>, "
+"<strong>send_email_customer_processing_order</strong>, "
+"<strong>send_email_customer_completed_order</strong>, "
+"<strong>send_email_customer_refunded_order</strong>, "
+"<strong>send_email_customer_invoice</strong>"
+msgstr ""
+
+#: classes/admin/WCST_BulkImport.php:40
+msgid ""
+"In case of multiple tracking code, can be spacified multiple dispatch dates "
+"using the <strong>|</strong> character to separate dates: "
+"<strong>dispatch_date1|dispatch_date2</strong>"
+msgstr ""
+
+#: classes/admin/WCST_BulkImport.php:41
+msgid ""
+"<strong>REMOVE ALL , CHARACTERS</strong> eventually present in this field "
+"otherwise import <strong>WILL FAIL</strong>. In case of multiple tracking "
+"code, can be spacified multiple text using the <strong>|</strong> character "
+"to separate texts: <strong>text1|text2</strong>"
+msgstr ""
+
+#: classes/admin/WCST_BulkImport.php:42
+msgid ""
+"this column must have the following format: <strong>company_id:"
+"tracking_code</strong>. In case of multiple codes use the <strong>|</strong> "
+"to separate the info: <strong>company_id:tracking_code|company_id2:"
+"tracking_code2</strong>. All compani ids are reported in the "
+"<strong>Shipping companies</strong> section"
+msgstr ""
+
+#: classes/admin/WCST_BulkImport.php:53
+msgid "Select a file"
+msgstr ""
+
+#: classes/admin/WCST_BulkImport.php:62
+msgid "Start import"
+msgstr ""
+
+#: classes/admin/WCST_BulkImport.php:64
+msgid "Import another csv"
+msgstr ""
+
+#: classes/admin/WCST_Dashboard.php:12
+msgid "WooCommerce shipping tracking - Server time"
+msgstr ""
+
+#: classes/admin/WCST_Dashboard.php:21
+msgid "Current server time with offset (date format: dd/mm/yyyy):"
+msgstr ""
+
+#: classes/admin/WCST_Dashboard.php:26
+#, php-format
+msgid ""
+"Rule dates are syncronized with server time. Configure a proper "
+"<strong>Timezone</strong> in the <a href=\"%s\">Settings -> General</a> "
+"option menu"
+msgstr ""
+
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:26
+msgid "Estimated delivery times"
+msgstr ""
+
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:27
+msgid ""
+"Here you can define estimation for delivery time for each Shipping rate you "
+"have defined. Estimation can be associated only to Default WooCommerce "
+"shipping rates and to the one created with <strong>Table Rate Shipping for "
+"WooCommerce</strong> plugin."
+msgstr ""
+
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:28
+msgid ""
+"How will the delivery estimation will be displayed? According which fields "
+"you will fill you will have different output. Follows an example:"
+msgstr ""
+
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:30
+msgid ""
+"Filling both <strong>From</strong> and <strong>To</strong> fields: "
+"<strong><i>x - y days</i></strong>"
+msgstr ""
+
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:31
+msgid ""
+"Filling only <strong>From</strong> field (<strong>To</strong> field empty): "
+"<strong><i>at least x day(s)</i></strong>"
+msgstr ""
+
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:32
+msgid ""
+"Filling only <strong>To</strong> field (<strong>To</strong> field empty): "
+"<strong><i>up to y day(s)</i></strong>"
+msgstr ""
+
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:55
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:157
+msgid "Methods"
+msgstr ""
+
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:59
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:161
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:205
+msgid "Name"
+msgstr ""
+
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:60
+msgid "Label"
+msgstr ""
+
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:61
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:163
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:207
+msgid "From (days)"
+msgstr ""
+
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:61
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:163
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:207
+msgid "The earliest estimated arrival. Can be left blank."
+msgstr ""
+
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:62
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:164
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:208
+msgid "To (days)"
+msgstr ""
+
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:62
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:164
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:208
+msgid "The latest estimated arrival. Can be left blank."
+msgstr ""
+
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:109
+#: classes/com/WCST_Time.php:10 template/email.php:19
+#: template/order_details.php:20
+msgid "N/A"
+msgstr ""
+
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:155
+msgid "Rest of the World"
+msgstr ""
+
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:162
+msgid "Type"
+msgstr ""
+
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:202
+msgid "Other Methods"
+msgstr ""
+
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:206
+msgid "ID"
+msgstr ""
+
+#: classes/admin/WCST_DeliveryEstimatorConfigurator.php:243
+#: template/order_details_extra_delivery_info.php:61
+msgid "Save"
+msgstr ""
+
+#: classes/admin/WCST_OrderPage.php:29
+msgid "Tracking Code"
+msgstr ""
+
+#: classes/admin/WCST_OrderTable.php:23
+msgid "Select a shipping company"
+msgstr ""
+
+#: classes/admin/WCST_OrderTable.php:66
+msgid "Tracking Number"
+msgstr ""
+
+#: classes/admin/WCST_OrderTable.php:108
+msgid "Est. shipping rule"
+msgstr ""
+
+#: classes/admin/WCST_OrderTable.php:162 classes/admin/WCST_OrderTable.php:198
+msgid "On: "
+msgstr ""
+
+#: classes/admin/WCST_QuickAssignPage.php:47
+msgid "Shipping info added"
+msgstr ""
+
+#: classes/admin/WCST_QuickAssignPage.php:61
+#: classes/frontend/WCST_ProductPage.php:39
+msgid "Loading..."
+msgstr ""
+
+#: classes/admin/WCST_QuickAssignPage.php:73
+msgid "Quick assign: how it works?"
+msgstr ""
+
+#: classes/admin/WCST_QuickAssignPage.php:74
+msgid ""
+"In this section in just 3 step you can easily assign one or more shipping "
+"tracking info to an order. NOTE: older order info will be overwritten. Leave "
+"empty to clear an order shipping info data."
+msgstr ""
+
+#: classes/admin/WCST_QuickAssignPage.php:75
+msgid "1. Select order"
+msgstr ""
+
+#: classes/admin/WCST_QuickAssignPage.php:76
+msgid ""
+"You can search by order id, order date, user id, billing email and billing/"
+"shipping first and last name"
+msgstr ""
+
+#: classes/admin/WCST_QuickAssignPage.php:79
+msgid "Merge tracking info with the existing one?"
+msgstr ""
+
+#: classes/admin/WCST_QuickAssignPage.php:80
+msgid ""
+"If \"Yes\" option is selected, the existing order shipping trackin info (if "
+"any) will be merged with the one inserted now."
+msgstr ""
+
+#: classes/admin/WCST_QuickAssignPage.php:86
+msgid "2. Assign a shipping"
+msgstr ""
+
+#: classes/admin/WCST_QuickAssignPage.php:89
+msgid "3. Change order status?"
+msgstr ""
+
+#: classes/admin/WCST_QuickAssignPage.php:90
+msgid ""
+"Note that if the order hits for the first time a status, a notification "
+"email will be send automatically to the user"
+msgstr ""
+
+#: classes/admin/WCST_QuickAssignPage.php:92
+msgid "Leave unchanged"
+msgstr ""
+
+#: classes/admin/WCST_QuickAssignPage.php:98
+msgid ""
+"Resend order emails? (useful to force email sending if an order already "
+"hitted a status)"
+msgstr ""
+
+#: classes/admin/WCST_QuickAssignPage.php:101
+msgid "New order"
+msgstr ""
+
+#: classes/admin/WCST_QuickAssignPage.php:102
+msgid "Cancelled order"
+msgstr ""
+
+#: classes/admin/WCST_QuickAssignPage.php:103
+msgid "Processing order"
+msgstr ""
+
+#: classes/admin/WCST_QuickAssignPage.php:104
+msgid "Completed order"
+msgstr ""
+
+#: classes/admin/WCST_QuickAssignPage.php:105
+msgid "Refunded order"
+msgstr ""
+
+#: classes/admin/WCST_QuickAssignPage.php:106
+msgid "Customer invoice"
+msgstr ""
+
+#: classes/com/WCST_AfterShip.php:173
+msgid "Tracking service unavailable at the moment. Please try again later"
+msgstr ""
+
+#: classes/com/WCST_AfterShip.php:179
+msgid "No currier detected for the selected tracking code."
+msgstr ""
+
+#: classes/com/WCST_AfterShip.php:188
+msgid "No tracking info avaliable at the moment. Please try again later"
+msgstr ""
+
+#: classes/com/WCST_AfterShip.php:196
+msgid "Please try again later, we are awaiting tracking info from the carrier."
+msgstr ""
+
+#: classes/com/WCST_Email.php:80
+msgid "Something needs your attention..."
+msgstr ""
+
+#: classes/com/WCST_Email.php:84
+msgid "<h2>The following error has been generated by your site:</h2>"
+msgstr ""
+
+#: classes/com/WCST_ExtraDelivery.php:51
+msgid "Check start and end date. Start date cannot be greater than end."
+msgstr ""
+
+#: classes/com/WCST_ExtraDelivery.php:52
+msgid "Check start and end time. Start time cannot be greater than end."
+msgstr ""
+
+#: classes/com/WCST_ExtraDelivery.php:53
+msgid ""
+"Check secondary start and end time. Start time cannot be greater than end."
+msgstr ""
+
+#: classes/com/WCST_ExtraDelivery.php:168
+msgid "Delivery date range: "
+msgstr ""
+
+#: classes/com/WCST_ExtraDelivery.php:178
+#: template/email_extra_delivery_info.php:17
+msgid "Delivery time range: "
+msgstr ""
+
+#: classes/com/WCST_ExtraDelivery.php:188
+#: template/email_extra_delivery_info.php:28
+msgid "Delivery secondary time range: "
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:96 shipping-tracking.php:233
+msgid "Custom companies"
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:119 classes/com/WCST_HtmlHelper.php:277
+#: classes/com/WCST_HtmlHelper.php:375
+msgid "Associated products"
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:120 classes/com/WCST_HtmlHelper.php:278
+#: classes/com/WCST_HtmlHelper.php:376
+msgid ""
+"Use this option only if you wish to give feedback to the user about which "
+"products the shipment refers"
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:165
+msgid ""
+"Clicking on the \"Update\" button, the plugin will send a notification email "
+"containing the tracking codes for which this option has been checked."
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:166
+msgid ""
+"Tracking info will be showed even if no tracking code has been entered. Use "
+"the Custom text textarea to give more details about the shipping."
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:202
+msgid ""
+"Add, edit or remove the tracking info. Once done click on the \"Save Order\" "
+"button to update order tracking info."
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:207 classes/com/WCST_HtmlHelper.php:263
+#: classes/com/WCST_HtmlHelper.php:365
+msgid "Shipping Company:"
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:216 classes/com/WCST_HtmlHelper.php:272
+#: classes/com/WCST_HtmlHelper.php:367
+msgid "Tracking Number:"
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:217
+msgid ""
+"In case the tracking URL requires multiple codes, insert them by separating "
+"using the \",\" character. Example: \"code1,code2,code2\""
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:218 classes/com/WCST_HtmlHelper.php:273
+#: classes/com/WCST_HtmlHelper.php:368
+msgid "Enter Tracking No"
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:229 classes/com/WCST_HtmlHelper.php:295
+#: classes/com/WCST_HtmlHelper.php:369
+msgid "Dispatch date"
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:230
+#, php-format
+msgid "%s or %s"
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:235 classes/com/WCST_HtmlHelper.php:301
+#: classes/com/WCST_HtmlHelper.php:371
+msgid "Custom text"
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:236 classes/com/WCST_HtmlHelper.php:302
+#: classes/com/WCST_HtmlHelper.php:372
+msgid "Info about the shipped item(s) or whatever you want"
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:241 classes/com/WCST_HtmlHelper.php:307
+#: classes/com/WCST_HtmlHelper.php:373
+msgid "Send a notification email"
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:246 classes/com/WCST_HtmlHelper.php:312
+msgid "Tracking link"
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:251
+msgid "Additional tracking codes"
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:296
+msgid "19/02/16 or 15th Dec 2016"
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:315 classes/com/WCST_HtmlHelper.php:374
+msgid "Remove"
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:320
+msgid "Add another tracking code"
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:324
+msgid "Disable email embedding"
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:326
+msgid ""
+"This overrides the <strong>General option -> Email options</strong> settings "
+"allowing you to not embed any tracking info into WooCommerce emails"
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:336
+msgid "Switch order status to completed"
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:337
+msgid ""
+"This saves you some time. Check the following option to set the order status "
+"as \"Completed\" :)"
+msgstr ""
+
+#: classes/com/WCST_HtmlHelper.php:370
+msgid "19/02/23 or 15th December 2023"
+msgstr ""
+
+#: classes/com/WCST_Option.php:214
+msgid "Select a date range"
+msgstr ""
+
+#: classes/com/WCST_Option.php:215
+msgid "Select a time range"
+msgstr ""
+
+#: classes/com/WCST_Option.php:217
+msgid "Select a secondary time range"
+msgstr ""
+
+#: classes/com/WCST_Option.php:218
+msgid "Select a preferred delivery date and time"
+msgstr ""
+
+#: classes/com/WCST_Order.php:46
+msgid ""
+"The current account hasn't the right capabilities. Please use a 'Shop "
+"manager' or an 'Administrator' account type."
+msgstr ""
+
+#: classes/com/WCST_Order.php:57
+#, php-format
+msgid ""
+"Automatic bulk importer task failed because could not load the following "
+"file: %s"
+msgstr ""
+
+#: classes/com/WCST_Order.php:119
+msgid ""
+"The file hasn't a valid header row, import process stopped. Please check the "
+"csv file structure."
+msgstr ""
+
+#: classes/com/WCST_Order.php:127
+#, php-format
+msgid ""
+"Row number %s has less columns than expected so it has not been imported. "
+"Please check."
+msgstr ""
+
+#: classes/com/WCST_Order.php:143
+#, php-format
+msgid "Order %s (row number %s): the id is not valid."
+msgstr ""
+
+#: classes/com/WCST_Order.php:156
+#, php-format
+msgid ""
+"Order %s (row number %s): selected status was not valid. Its status has been "
+"left unchanged."
+msgstr ""
+
+#: classes/com/WCST_Order.php:165
+#, php-format
+msgid ""
+"Order %s (row number %s): notification email status was not valid. No "
+"notification has been sent."
+msgstr ""
+
+#: classes/com/WCST_Order.php:185
+#, php-format
+msgid ""
+"Order %s (row number %s): Check dispatch date(s), an invalid format has been "
+"used. Please use the yyyy-mm-dd format."
+msgstr ""
+
+#: classes/com/WCST_Order.php:189
+#, php-format
+msgid "Order %s (row number %s): tacking data cannot be empty."
+msgstr ""
+
+#: classes/com/WCST_Shortcodes.php:66
+msgid "Please fill the tracking code input field."
+msgstr ""
+
+#: classes/com/WCST_Shortcodes.php:120
+msgid "Loading shipping info, this could take few seconds. Please wait..."
+msgstr ""
+
+#: classes/com/WCST_Time.php:97
+msgid " - "
+msgstr ""
+
+#: classes/frontend/WCST_MyAccountPage.php:16
+msgctxt "hash before order number"
+msgid "#"
+msgstr ""
+
+#: classes/frontend/WCST_OrderTableFragment.php:30
+#, php-format
+msgid "Delivery: %1$s - %2$s days"
+msgstr ""
+
+#: classes/frontend/WCST_OrderTableFragment.php:32
+#, php-format
+msgid "Delivery: up to %1$s day(s)"
+msgstr ""
+
+#: classes/frontend/WCST_OrderTableFragment.php:34
+#, php-format
+msgid "Delivery: at least %1$s day(s)"
+msgstr ""
+
+#: classes/frontend/WCST_ProductTable.php:62
+msgid "Tracking number: "
+msgstr ""
+
+#: classes/frontend/WCST_ProductTable.php:63
+msgid "Carrier: "
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:5
+msgid "Afghan POST"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:6
+msgid "AFL Logistics / Transportation"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:7
+msgid "AFL WiZ Express"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:8
+msgid "An POST"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:9
+msgid "A-1 International"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:10
+msgid "APC OverNight"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:11
+msgid "Aramex"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:12
+msgid "ATS Solutions Canada"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:13
+msgid "ATS Healthcare"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:14
+msgid "Australia POST Domestic"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:15
+msgid "Australia POST International"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:16
+msgid "BlazeFlash Domestic"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:17
+msgid "BlazeFlash International"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:18
+msgid "BlueDart"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:19
+msgid "Bartolini Courier Express"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:20
+msgid "Canada POST"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:21
+msgid "CEVA"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:22
+msgid "Chilexpress"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:23
+msgid "China POST"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:24
+msgid "Chrono Expres"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:25
+msgid "Chronos Couriers"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:26
+msgid "City link"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:27
+msgid "CitySprint"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:28
+msgid "Colissimo"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:29
+msgid "Collect+"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:30
+msgid "Correios"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:31
+msgid "Correos de Chile"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:32
+msgid "Correos España"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:33
+msgid "CourierPost"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:34
+msgid "CTT"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:35
+msgid "Danske Fragtmand"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:36
+msgid "Delhivery"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:37
+msgid "Deutsche Post"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:38
+msgid "DHL"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:39
+msgid "DHL DE"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:40
+msgid "DHLFORYOU International"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:41
+msgid "DHL Germany"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:42
+msgid "DHL Global Mail"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:43
+msgid "DPD France"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:44
+msgid "DPD Ireland"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:45
+msgid "DPD Parcel"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:46
+msgid "DPD"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:47
+msgid "Dynamex"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:48
+msgid "Elta"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:49
+msgid "Ensenda"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:50
+msgid "Estafeta"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:51
+msgid "Fastway Couriers AU"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:52
+msgid "Fastway Couriers NZ"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:53
+msgid "Fedex"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:54
+msgid "First Flight Courier"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:55
+msgid "Flash Express"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:56
+msgid "FlyKing"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:57
+msgid "GATI"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:58
+msgid "GD Express"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:59
+msgid "GLS International"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:60
+msgid "GLS Italia"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:61
+msgid "GLS Spain"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:62
+msgid "GLS Germany"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:63
+msgid "GLS Denmark"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:64
+msgid "Home Delivery Network"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:65
+msgid "HongKong POST"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:66
+msgid "ICC Worldwide"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:67
+msgid "InterLink Express"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:68
+msgid "JNE Express"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:69
+msgid "Japan POST"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:70
+msgid "LA Poste"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:71
+msgid "LaserShip"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:72
+msgid "LBC Express"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:73
+msgid "Lithuania POST"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:74
+msgid "LPExpress"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:75
+msgid "Mondial relay"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:76
+msgid "Hermes UK"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:77
+msgid "My Hermes EU & Germany"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:78
+msgid "NAPAREX"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:79
+msgid "New Zealand Post"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:80
+msgid "New Zealand Couriers"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:81
+msgid "OCA Argentina"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:82
+#: included_companies/WCST_shipping_companies_list.php:83
+msgid "OM International Courier & Cargo"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:84
+msgid "OnTrac"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:85
+msgid "Orbit Worldwide"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:86
+msgid "OverSeas Courier Service"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:87
+msgid "Pakistan POST"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:88
+msgid "Parcel2Go"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:89
+msgid "Parcel Force"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:90
+msgid "Parcel link"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:91
+msgid "PBT Transport"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:92
+msgid "PHL Post"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:93
+msgid "Poslaju National Courier"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:94
+msgid "POS Malaysia"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:95
+msgid "Post Danmark"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:96
+msgid "POST India"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:97
+msgid "POSTNL International"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:98
+msgid "POSTNL Local"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:99
+msgid "Posten Norway"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:100
+msgid "POST Office UK"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:101
+msgid "Postnord"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:102
+msgid "Purolator"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:103
+msgid "Romania POST"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:104
+msgid "Royal Mail"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:105
+msgid "SafeXpress"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:106
+msgid "South African Post Office"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:107
+msgid "Selektvracht"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:108
+msgid "Shree Mahavir Courier"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:109
+msgid "Shree Maruti Courier"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:110
+msgid "SingPost"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:111
+msgid "SkyNET"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:112
+msgid "SmartSend"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:113
+msgid "S M Courier Services"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:114
+msgid "Spee Dee"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:115
+msgid "Starken"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:116
+msgid "T-Cat"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:117
+msgid "The Courier Guy"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:118
+msgid "TNT Chile"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:119
+msgid "TNT Express"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:120
+msgid "The Professionals Courier"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:121
+msgid "TradeLink International"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:122
+msgid "Urgent Air Courier Express"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:123
+msgid "UK Mail"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:124
+msgid "UPS"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:125
+msgid "UPS Germany"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:126
+msgid "US Postal Service"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:127
+msgid "Yodel"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:128
+msgid "Thailand POST"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:129
+msgid "Poste Italiane"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:130
+msgid "Toll Australia"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:131
+msgid "Russian POST"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:132
+msgid "Inter Parcel"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:133
+msgid "Austria POST"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:134
+msgid "Armenia POST"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:135
+msgid "Belarus POST"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:136
+msgid "Belgium POST"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:137
+msgid "Bulgarian POST"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:138
+msgid "Finland POST"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:139
+msgid "ChronoPOST France"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:140
+msgid "Temando"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:141
+msgid "Seur"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:142
+msgid "SF Express"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:143
+msgid "Vietnam Post"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:144
+msgid "Vasp Expresso"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:145
+msgid "Welivery"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:146
+msgid "YunExpress"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:147
+msgid "Sunyou Post"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:148
+msgid "4PX"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:149
+msgid "Equick China"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:150
+msgid "Buylogic"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:151
+msgid "JCEX"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:152
+msgid "Bluecare Express"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:153
+msgid "XpressBees"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:154
+msgid "SDA Italia"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:155
+msgid "OSM Worldwide"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:156
+msgid "EVRi"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:157
+msgid "Spanish Seur"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:158
+msgid "Chit Chats"
+msgstr ""
+
+#: included_companies/WCST_shipping_companies_list.php:159
+msgid "India Post"
+msgstr ""
+
+#: shipping-tracking.php:69
+#, php-format
+msgid ""
+"To complete the <span style=\"color:#96588a; font-weight:bold;\">%s</span> "
+"plugin activation, you must verify your purchase license. Click <a "
+"href=\"%s\">here</a> to verify it."
+msgstr ""
+
+#: shipping-tracking.php:231
+msgid "Shipping tracking"
+msgstr ""
+
+#: shipping-tracking.php:232
+msgid "Shipping companies"
+msgstr ""
+
+#: shipping-tracking.php:234
+msgid "Edit emails/order page messages"
+msgstr ""
+
+#: shipping-tracking.php:235
+msgid "Delivery date and time input fields"
+msgstr ""
+
+#: shipping-tracking.php:236
+msgid "General options & Texts"
+msgstr ""
+
+#: shipping-tracking.php:237
+msgid "Quick assign"
+msgstr ""
+
+#: shipping-tracking.php:238
+msgid "Bulk import"
+msgstr ""
+
+#: shipping-tracking.php:239
+msgid "Estimated delivery for shipping rate"
+msgstr ""
+
+#: template/email_extra_delivery_info.php:6
+msgid "Delivery date range"
+msgstr ""
+
+#: template/email_extra_delivery_info.php:8
+#: template/email_extra_delivery_info.php:19
+#: template/email_extra_delivery_info.php:30
+msgid "From: "
+msgstr ""
+
+#: template/email_extra_delivery_info.php:9
+#: template/email_extra_delivery_info.php:20
+#: template/email_extra_delivery_info.php:31
+msgid "To: "
+msgstr ""
+
+#: template/shortcode_tracking_input.php:8
+msgid "Select a company:"
+msgstr ""
+
+#: template/shortcode_tracking_input.php:27
+msgid "Type the tracking code:"
+msgstr ""
+
+#: template/shortcode_tracking_input.php:29
+msgid "Track"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "WooCommerce Shipping Tracking"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"WCST plugin adds shipping tacking code to woocommerce mails and view order "
+"page."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Lagudi Domenico"
+msgstr ""

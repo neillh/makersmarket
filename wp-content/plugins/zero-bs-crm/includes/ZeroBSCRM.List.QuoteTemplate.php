@@ -84,7 +84,7 @@ class zeroBSCRM_QuoteTemplate_List extends WP_List_Table {
 
     /** Text displayed when no booking data is available */
     public function no_items() {
-        _e( 'No Quote Templates avaliable.', 'zero-bs-crm' );
+        esc_html_e( 'No Quote Templates avaliable.', 'zero-bs-crm' );
     }
 
 

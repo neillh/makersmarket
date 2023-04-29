@@ -1,0 +1,67 @@
+@import 'base/required';
+
+@import 'layout/home';
+@import 'layout/product-category';
+@import 'layout/product';
+
+
+
+
+
+
+@include respond-below(sm) {
+	h2 {
+		text-align: center;
+	}
+	.woocommerce .shop-header, .page .shop-header {
+		min-height: 150px;
+		margin-bottom: 40px;
+	}
+}
+@include respond-below(md) {
+	.header__title {
+		width: 40%;
+		.header__title-inner {
+			margin-right: 15px;
+		}
+	}
+}
+
+
+
+
+
+@include respond-below(md) {
+	.wc-block-grid__product .wc-block-grid__product-title {
+	min-height: 103px;
+	display: flex;
+	align-items: center;
+	}
+}
+
+
+footer h2 {
+	font-family: var(--skinny--type-heading);
+	font-weight: normal;
+	font-size: var(--skinny--type-heading-medium);
+	line-height: var(--skinny--type-heading-medium-height);
+}
+
+table td {
+	word-break: break-word;
+}
+table th {
+	word-break: keep-all;
+}
+.woocommerce-orders-table__cell-order-actions {
+	width: 39%;
+	padding: 4px 0px !important;
+}
+.woocommerce table.my_account_orders .button {
+    margin: 0 2px;
+}
+
+
+.cross-sells h2 {
+	font-size: 45px;
+}

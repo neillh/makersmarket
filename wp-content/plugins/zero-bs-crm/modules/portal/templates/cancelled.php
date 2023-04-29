@@ -35,10 +35,10 @@ do_action( 'zbs_enqueue_scripts_and_styles' );
 	endif;
 ?>
 	<div class="zbs-portal-content">
-			<h2><?php _e("Payment Cancelled", "zero-bs-crm"); ?></h2>
+			<h2><?php esc_html_e("Payment Cancelled", "zero-bs-crm"); ?></h2>
 			<div class='zbs-entry-content' style="position:relative;">
 				<p>
-				<?php _e("Your payment was cancelled.", "zero-bs-crm"); ?>
+				<?php esc_html_e("Your payment was cancelled.", "zero-bs-crm"); ?>
 				</p>
 			</div>
 	</div>

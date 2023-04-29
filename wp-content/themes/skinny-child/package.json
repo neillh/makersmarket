@@ -1,0 +1,75 @@
+{
+    "name": "Makers Market",
+    "version": "1.0.0",
+    "description": "Skinny Child WP Theme for Makers Market",
+    "license": "",
+    "contributors": [
+        {
+            "name": "neillh",
+            "email": "info@neillh.com.au"
+        }
+    ],
+    "engines": {
+        "node": ">=18.5.0",
+        "npm": ">=8.12.1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/neillh/makersmarket"
+    },
+    "homepage": "https://github.com/neillh/makersmarket#readme",
+    "postcss": {
+        "plugins": {
+            "autoprefixer": {}
+        }
+    },
+    "browserslist": [
+        "last 2 versions",
+        "ie >= 10",
+        "ios >= 9",
+        "Android >= 4"
+    ],
+    "scripts": {
+        "build": "npm run lint && cross-env NODE_ENV=production webpack --progress --bail --mode production",
+        "build:dev": "npm run lint && cross-env NODE_ENV=development webpack --bail --progress --mode development",
+        "build:watch": "cross-env NODE_ENV=development webpack --progress --mode development --watch",
+        "build:no-lint": "cross-env NODE_ENV=production webpack --progress --bail --mode production",
+        "fmt:js": "prettier --write ./assets/src/js/**/*.js",
+        "lint:js": "eslint --fix --ext .js ./assets/src/js/**/*.js",
+        "lint": "run-s fmt:js lint:js"
+    },
+    "dependencies": {
+        "jquery": "^3.6.4"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.15.7",
+        "@babel/core": "^7.18.0",
+        "@babel/eslint-parser": "^7.17.0",
+        "@babel/polyfill": "^7.12.1",
+        "@babel/preset-env": "^7.18.0",
+        "babel-loader": "^8.2.2",
+        "copy-webpack-plugin": "^11.0.0",
+        "cross-env": "^7.0.3",
+        "css-loader": "^6.7.1",
+        "eslint": "^8.15.0",
+        "eslint-config-airbnb": "^19.0.4",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-import": "^2.26.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "file-loader": "^6.2.0",
+        "mini-css-extract-plugin": "^2.6.1",
+        "npm-run-all": "^4.1.5",
+        "postcss-loader": "^7.0.0",
+        "prettier": "^2.6.2",
+        "resolve-url-loader": "^5.0.0",
+        "sass": "^1.52.0",
+        "sass-lint": "^1.13.1",
+        "sass-lint-webpack": "^1.0.4",
+        "sass-loader": "^13.0.0",
+        "style-loader": "^3.3.1",
+        "terser-webpack-plugin": "^5.3.1",
+        "url-loader": "^4.1.1",
+        "webpack": "^5.72.1",
+        "webpack-cli": "^4.9.2"
+    }
+}

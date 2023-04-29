@@ -1,5 +1,6 @@
-<?php 
-/*!
+<?php
+/*
+!
  * Jetpack CRM
  * https://jetpackcrm.com
  * V2.4+
@@ -9,22 +10,33 @@
  * Date: 05/02/2017
  */
 
-
 // block access to this file
-	if ( ! defined( 'ZEROBSCRM_PATH' ) ) exit;
+if ( ! defined( 'ZEROBSCRM_PATH' ) ) {
+	exit;
+}
 
 /*
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !
-!	THIS FILE IS FOR WordPress Menu related changes - later to be unified into one .Menu file
+!   THIS FILE IS FOR WordPress Menu related changes - later to be unified into one .Menu file
 !
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 */
 
+/*
+When positioning menus, consider the following order:
 
-/* ======================================================
-   v3 ZBS Menu Arr -> WP Admin Menu Associated Funcs
-   ====================================================== */
+* 1-9: important menu items (e.g. dashboard, contacts, quotes, invoices)
+* 10-49: good for semi-important modules/extensions (e.g. WooSync)
+* 50-89: less-important menu items (e.g. segments, forms, tasks)
+* 90+: config/settings/administrative stuff (e.g. Settings, Extensions, Modules, Feedback)
+
+*/
+
+/*
+======================================================
+	v3 ZBS Menu Arr -> WP Admin Menu Associated Funcs
+	====================================================== */
 
 // This builds out our ZBS menu array()
 // ... which ultimately forms the "default" zbs menu
@@ -46,11 +58,11 @@ function zeroBSCRM_menu_buildMenu() {
 	$is_b2b_mode = zeroBSCRM_getSetting( 'companylevelcustomers' ) == 1;
 
 	// other feats
-	$use_quotes = zeroBSCRM_getSetting( 'feat_quotes' ) == 1;
-	$use_invoices = zeroBSCRM_getSetting( 'feat_invs' ) == 1;
+	$use_quotes       = zeroBSCRM_getSetting( 'feat_quotes' ) == 1;
+	$use_invoices     = zeroBSCRM_getSetting( 'feat_invs' ) == 1;
 	$use_transactions = zeroBSCRM_getSetting( 'feat_transactions' ) == 1;
-	$use_forms = zeroBSCRM_isExtensionInstalled( 'forms' ) == 1; // zeroBSCRM_getSetting('feat_forms');
-	$use_calendar = zeroBSCRM_getSetting( 'feat_calendar' ) == 1;
+	$use_forms        = zeroBSCRM_isExtensionInstalled( 'forms' ) == 1; // zeroBSCRM_getSetting('feat_forms');
+	$use_calendar     = zeroBSCRM_getSetting( 'feat_calendar' ) == 1;
 
 	// Menu Builder, in a POST CPT world
 
@@ -209,8 +221,8 @@ function zeroBSCRM_menu_buildMenu() {
 				'title'      => __( 'Task Scheduler', 'zero-bs-crm' ),
 				'url'        => $zbs->slugs['manage-events'],
 				'perms'      => 'admin_zerobs_view_events',
-				'order'      => 6,
-				'wpposition' => 6,
+				'order'      => 50,
+				'wpposition' => 50,
 				'callback'   => 'zeroBSCRM_render_eventscalendar_page',
 				'stylefuncs' => array( 'zeroBSCRM_global_admin_styles', 'zeroBSCRM_calendar_admin_styles' ),
 			);
@@ -221,8 +233,8 @@ function zeroBSCRM_menu_buildMenu() {
 			'title'      => __( 'Segments', 'zero-bs-crm' ),
 			'url'        => $zbs->slugs['segments'],
 			'perms'      => 'admin_zerobs_customers',
-			'order'      => 7,
-			'wpposition' => 7,
+			'order'      => 51,
+			'wpposition' => 51,
 			'callback'   => 'zeroBSCRM_render_segmentslist_page',
 			'stylefuncs' => array( 'zeroBSCRM_global_admin_styles', 'zeroBSCRM_admin_styles_ui2_listview' ),
 		);
@@ -233,8 +245,8 @@ function zeroBSCRM_menu_buildMenu() {
 				'title'      => __( 'Forms', 'zero-bs-crm' ),
 				'url'        => $zbs->slugs['manageformscrm'],
 				'perms'      => 'admin_zerobs_forms',
-				'order'      => 8,
-				'wpposition' => 8,
+				'order'      => 52,
+				'wpposition' => 52,
 				'callback'   => 'zeroBSCRM_render_formslist_page',
 				'stylefuncs' => array( 'zeroBSCRM_global_admin_styles', 'zeroBSCRM_admin_styles_ui2_listview' ),
 			);
@@ -671,8 +683,8 @@ function zeroBSCRM_menu_buildMenu() {
 				'title'      => __( 'Task Scheduler', 'zero-bs-crm' ),
 				'url'        => $zbs->slugs['manage-events'],
 				'perms'      => 'admin_zerobs_events',
-				'order'      => 30,
-				'wpposition' => 30,
+				'order'      => 50,
+				'wpposition' => 50,
 				'subitems'   => array(),
 				'callback'   => 'zeroBSCRM_render_eventscalendar_page',
 				'stylefuncs' => array( 'zeroBSCRM_global_admin_styles', 'zeroBSCRM_calendar_admin_styles' ),
@@ -727,8 +739,8 @@ function zeroBSCRM_menu_buildMenu() {
 				'title'      => __( 'Forms', 'zero-bs-crm' ),
 				'url'        => $zbs->slugs['manageformscrm'],
 				'perms'      => 'admin_zerobs_forms',
-				'order'      => 30,
-				'wpposition' => 30,
+				'order'      => 51,
+				'wpposition' => 51,
 				'subitems'   => array(),
 				'callback'   => 'zeroBSCRM_render_formslist_page',
 				'stylefuncs' => array( 'zeroBSCRM_global_admin_styles', 'zeroBSCRM_admin_styles_ui2_listview' ),
@@ -746,7 +758,6 @@ function zeroBSCRM_menu_buildMenu() {
 			);
 
 		}
-
 	}
 
 	// ===================================================
@@ -791,7 +802,7 @@ function zeroBSCRM_menu_buildMenu() {
 	);
 
 	// File Edit (hidden)
-	$menu['hidden']['subitems']['fileedit'] = array(
+	$menu['hidden']['subitems']['fileedit']   = array(
 		'title'      => __( 'Edit File', 'zero-bs-crm' ),
 		'url'        => $zbs->slugs['editfile'],
 		'perms'      => 'admin_zerobs_customers',
@@ -869,7 +880,7 @@ function zeroBSCRM_menu_buildMenu() {
 	$menu['hidden']['subitems']['emails'] = array(
 		'title'      => __( 'Emails', 'zero-bs-crm' ),
 		'url'        => $zbs->slugs['emails'],
-		'perms'      => 'admin_zerobs_customers',
+		'perms'      => 'admin_zerobs_sendemails_contacts',
 		'order'      => 1,
 		'wpposition' => 1,
 		'callback'   => 'zeroBSCRM_pages_emailbox',
@@ -969,7 +980,6 @@ function zeroBSCRM_menu_buildMenu() {
 	// ===================================================
 
 	return $menu;
-
 }
 
 // takes ZBS formatted menu items + adds via wp menu system.
@@ -995,14 +1005,14 @@ function zeroBSCRM_menu_applyTakeover( $menu = false ) {
 
 	// Get the admin layout option 1 = Full, 2 = Slimline, 3 = CRM Only
 	$crm_menu_mode = zeroBSCRM_getSetting( 'menulayout' );
-	if ( !isset( $crm_menu_mode ) || !in_array( $crm_menu_mode, array( 1, 2, 3 ) ) ) {
+	if ( ! isset( $crm_menu_mode ) || ! in_array( $crm_menu_mode, array( 1, 2, 3 ) ) ) {
 		$crm_menu_mode = 2; // Defaults to slimline
 	}
 
 	// Only for zbs custom user role users or all if flagged
 	$takeoverModeAll = $zbs->settings->get( 'wptakeovermodeforall' );
 	$takeoverModeZBS = $zbs->settings->get( 'wptakeovermode' );
-	$takeoverMode = false;
+	$takeoverMode    = false;
 
 	if ( $takeoverModeAll || ( zeroBSCRM_permsIsZBSUser() && $takeoverModeZBS ) ) {
 		$takeoverMode = true;
@@ -1012,7 +1022,7 @@ function zeroBSCRM_menu_applyTakeover( $menu = false ) {
 	if ( $crm_menu_mode == ZBS_MENU_CRMONLY ) {
 		$takeoverModeAll = true;
 		$takeoverModeZBS = true;
-		$takeoverMode  = true;
+		$takeoverMode    = true;
 	}
 
 	if ( $takeoverMode ) {
@@ -1074,9 +1084,7 @@ function zeroBSCRM_menu_applyTakeover( $menu = false ) {
 	}
 
 	return $menu;
-
 }
-
 
 // Works through each menu item + subitem and validates current user has perms to see it
 function zeroBSCRM_menu_securityGuard( $menu = array() ) {
@@ -1085,7 +1093,7 @@ function zeroBSCRM_menu_securityGuard( $menu = array() ) {
 	// 'hidden' array checks for zbs_dash permissions. So all hidden wp pages are not going to work
 	// ... for users who can't 'zbs_dash'
 
-	$nMenu = array();
+	$nMenu    = array();
 	$userCaps = zeroBSCRM_getCurrentUserCaps();
 
 	if ( is_array( $menu ) ) {
@@ -1093,13 +1101,13 @@ function zeroBSCRM_menu_securityGuard( $menu = array() ) {
 		foreach ( $menu as $topMenuKey => $topMenu ) {
 
 			// got perms?
-			if ( isset( $topMenu['perms'] ) && !empty( $topMenu['perms'] ) ) {
+			if ( isset( $topMenu['perms'] ) && ! empty( $topMenu['perms'] ) ) {
 
 				// user has perm for this top level menu?
 				if ( in_array( $topMenu['perms'], $userCaps ) ) {
 
 					// user has permissions, lets add, but check each sub item too
-					$toAdd = $topMenu;
+					$toAdd             = $topMenu;
 					$toAdd['subitems'] = array();
 
 					// check sub items
@@ -1108,37 +1116,31 @@ function zeroBSCRM_menu_securityGuard( $menu = array() ) {
 						foreach ( $topMenu['subitems'] as $subMenuKey => $subMenu ) {
 
 							// got perms?
-							if ( isset( $subMenu['perms'] ) && !empty( $subMenu['perms'] ) ) {
+							if ( isset( $subMenu['perms'] ) && ! empty( $subMenu['perms'] ) ) {
 
 								// user has perm for this sub level menu?
 								if ( in_array( $subMenu['perms'], $userCaps ) ) {
 
 									// user has permissions, add to top menu subitems arr
-									$toAdd['subitems'][$subMenuKey] = $subMenu;
+									$toAdd['subitems'][ $subMenuKey ] = $subMenu;
 
 								}
-
 							}
-
 						}
-
 					} // / check sub items
 
 					// add
-					$nMenu[$topMenuKey] = $toAdd;
+					$nMenu[ $topMenuKey ] = $toAdd;
 
 				} // / user has cap for top menu
 
 			} // / top menu has perms attr
 
 		}
-
 	} // / top level menu item
 
 	return $nMenu;
-
 }
-
 
 // Order menu items + subitems based on 'order'
 function zeroBSCRM_menu_order( $menu = array() ) {
@@ -1154,7 +1156,7 @@ function zeroBSCRM_menu_order( $menu = array() ) {
 			$toAdd = $topMenu;
 
 			// got subitems?
-			if ( isset( $topMenu['subitems'] ) && !empty( $topMenu['subitems'] ) ) {
+			if ( isset( $topMenu['subitems'] ) && ! empty( $topMenu['subitems'] ) ) {
 
 				// sort subitems
 				uasort( $toAdd['subitems'], 'zeroBSCRM_menu_order_sort' );
@@ -1162,10 +1164,9 @@ function zeroBSCRM_menu_order( $menu = array() ) {
 			} // / top menu has subitems attr
 
 			// add
-			$nMenu[$topMenuKey] = $toAdd;
+			$nMenu[ $topMenuKey ] = $toAdd;
 
 		}
-
 	} // / top level menu item (sort subitems)
 
 	// Now sort toplevel:
@@ -1173,16 +1174,15 @@ function zeroBSCRM_menu_order( $menu = array() ) {
 
 	// return ordered menu
 	return $nMenu;
-
 }
 
 // Sort Func for: Order menu items + subitems based on 'order'
 function zeroBSCRM_menu_order_sort( $a, $b ) {
 	// catch
-	if ( !is_array( $a ) || !is_array( $b ) ) {
+	if ( ! is_array( $a ) || ! is_array( $b ) ) {
 		return 0;
 	}
-	if ( !isset( $a['order'] ) || !isset( $b['order'] ) ) {
+	if ( ! isset( $a['order'] ) || ! isset( $b['order'] ) ) {
 		return 0;
 	}
 	if ( $a['order'] == $b['order'] ) {
@@ -1190,7 +1190,6 @@ function zeroBSCRM_menu_order_sort( $a, $b ) {
 	}
 	return ( $a['order'] < $b['order'] ) ? -1 : 1;
 }
-
 
 // adds a toplevel menu item, and its subitems to wp menus:
 function zeroBSCRM_menu_add_toplevel( $menuItemKey = '', $menuItem = -1 ) {
@@ -1255,9 +1254,7 @@ function zeroBSCRM_menu_add_toplevel( $menuItemKey = '', $menuItem = -1 ) {
 		} // / NORMAL MENU
 
 	} // if menuitem is array
-
 }
-
 
 // adds a sublevel menu item:
 // to add a "HIDDEN" secret menu, pass $menuItem = false, and rest correct
@@ -1280,7 +1277,6 @@ function zeroBSCRM_menu_add_sublevel( $menuItem = -1, $subMenuKey = -1, $subMenu
 				add_action( "admin_print_styles-{$adminSubPage}", $subStyleFunc );
 			}
 		}
-
 	}
 }
 
@@ -1293,16 +1289,16 @@ function zeroBSCRM_menus_removeWPSubMenu( $slug = '', $subpage = '' ) {
 	// Global
 	global $submenu;
 
-	// Use this to debug: 	print_r($submenu); exit();
-	if ( isset( $submenu[$slug] ) && is_array( $submenu[$slug] ) ) {
+	// Use this to debug:   print_r($submenu); exit();
+	if ( isset( $submenu[ $slug ] ) && is_array( $submenu[ $slug ] ) ) {
 
 		$newArr = array();
-		foreach ( $submenu[$slug] as $ind => $page ) {
+		foreach ( $submenu[ $slug ] as $ind => $page ) {
 			if ( $page[2] != $subpage ) {
 				$newArr[] = $page;
 			}
 		}
-		$submenu[$slug] = $newArr;
+		$submenu[ $slug ] = $newArr;
 
 	}
 }

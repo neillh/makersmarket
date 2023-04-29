@@ -308,6 +308,12 @@ return array(
                     'opt_name'   => 'saswp-ampforwp',
                     'part_in'    => 'free',
         ),
+        'bunyadamp'  =>  array(            
+                    'name'       => 'Bunyad AMP',
+                    'free'       => 'bunyad-amp/bunyad-amp.php',            
+                    'opt_name'   => 'saswp-bunyadamp',
+                    'part_in'    => 'free',
+        ),
         'ampbyautomatic'  =>  array(            
                     'name'       => 'AMP',
                     'free'       => 'amp/amp.php',            
@@ -499,6 +505,12 @@ return array(
                     'name'       => 'WP Event Manager',
                     'free'       => 'wp-event-manager/wp-event-manager.php',            
                     'opt_name'   => 'saswp-wp-event-manager', 
+                    'part_in'    => 'pro',
+        ),
+        'wp_event_solution' => array(            
+                    'name'       => 'Eventin',
+                    'free'       => 'wp-event-solution/eventin.php',            
+                    'opt_name'   => 'saswp-wp-event-solution', 
                     'part_in'    => 'pro',
         ),
         'events_manager' => array(            
@@ -706,7 +718,13 @@ return array(
             'free'       => 'stampedio-product-reviews/woocommerce-stamped-io.php',               
             'opt_name'   => 'saswp-stamped',
             'part_in'    => 'free',
-        ),                   
+        ),  
+        'publishpress_authors' => array(            
+                    'name'       => 'PublishPress Authors',
+                    'free'       => 'publishpress-authors/publishpress-authors.php',
+                    'opt_name'   => 'saswp-publish-press-authors', 
+                    'part_in'    => 'free',
+        ),                 
     ),
     'themes' => array(
         'enfold' => array(            

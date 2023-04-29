@@ -122,7 +122,7 @@
                     #} if a saved post...
                     if (isset($post->post_status) && $post->post_status != "auto-draft"){
                     ?>
-                        <input type="hidden" name="meta_box_ids[]" value="<?php echo $metabox['id']; ?>" />
+                        <input type="hidden" name="meta_box_ids[]" value="<?php echo esc_attr($metabox['id']); ?>" />
 
                 
                                 <?php
@@ -141,13 +141,13 @@
                                 <div class="zbs-actions-side">
                                     <div class="row">
                                         <div class='pull-left zbs-what'>
-                                            <?php _e('Status',"zero-bs-crm"); ?>
+                                            <?php esc_html_e('Status',"zero-bs-crm"); ?>
                                         </div>
                                         <div class="action pull-right">
                                             <select id="invoice_status" name="invoice_status">
                                                 <?php foreach($zbsCustomerInvoiceFields['status'][3] as $z){
                                                     if($z == $zbs_stat){$sel = 'selected'; }else{ $sel = '';}
-                                                    echo '<option value="'.$z.'"'. $sel .'>'.__($z,"zero-bs-crm").'</option>';
+                                                    echo '<option value="'.esc_attr($z).'"'. esc_attr($sel) .'>'.esc_html__($z,"zero-bs-crm").'</option>';
                                                 } ?>
                                             </select>
                                         </div>
@@ -166,7 +166,7 @@
                          
                        
                             <div class='bottom zbs-invoice-actions-bottom'>
-                                <button class='button button-primary button-large pull-right' id="zbs_invoice_save"><?php _e("Update","zero-bs-crm"); ?></button>
+                                <button class='button button-primary button-large pull-right' id="zbs_invoice_save"><?php esc_attr_e("Update","zero-bs-crm"); ?></button>
                                 <?php
 
                                     #} Quick ver of this: http://themeflection.com/replace-wordpress-submit-meta-box/
@@ -179,7 +179,7 @@
                                    else
                                         $delete_text = __('Move to Trash', "zero-bs-crm");
                                  ?>
-                                 <a class="submitdelete deletion" href="<?php echo get_delete_post_link($post->ID); ?>"><?php echo $delete_text; ?></a><?php
+                                 <a class="submitdelete deletion" href="<?php echo get_delete_post_link($post->ID); ?>"><?php echo esc_html($delete_text); ?></a><?php
                                  } //if ?>
                                 </div>
                                 <div class='clear'></div>
@@ -193,7 +193,7 @@
 
                     <?php do_action('zbs_invpro_itemlink'); ?>
 
-                    <button class='button button-primary button-large' id="zbs_invoice_save"><?php _e("Save","zero-bs-crm"); ?></button>
+                    <button class='button button-primary button-large' id="zbs_invoice_save"><?php esc_html_e("Save","zero-bs-crm"); ?></button>
 
                      <?php
 

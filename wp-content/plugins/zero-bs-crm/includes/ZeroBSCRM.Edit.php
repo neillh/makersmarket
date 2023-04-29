@@ -289,7 +289,7 @@ class zeroBSCRM_Edit{
         $this->preChecks();
 
 
-        ?><div id="zbs-edit-master-wrap"><form method="post" id="zbs-edit-form" enctype="multipart/form-data"><input type="hidden" name="zbs-edit-form-master" value="<?php echo $this->objType; ?>" />
+        ?><div id="zbs-edit-master-wrap"><form method="post" id="zbs-edit-form" enctype="multipart/form-data"><input type="hidden" name="zbs-edit-form-master" value="<?php echo esc_attr( $this->objType ); ?>" />
 
             <div id="zbs-edit-warnings-wrap">
                 <?php #} Pre-loaded msgs, because I wrote the helpers in php first... should move helpers to js and fly these 
@@ -300,7 +300,7 @@ class zeroBSCRM_Edit{
                 ?>
             </div>
             <!-- main view: list + sidebar -->
-            <div id="zbs-edit-wrap" class="ui divided grid <?php echo 'zbs-edit-wrap-'.$this->objType; ?>">
+            <div id="zbs-edit-wrap" class="ui divided grid <?php echo 'zbs-edit-wrap-'. esc_attr( $this->objType ); ?>">
 
                 <?php
 
@@ -377,9 +377,9 @@ class zeroBSCRM_Edit{
             // General options for edit page
             var zbsEditSettings = {
 
-                objid: <?php echo $this->objID; ?>,
-                objdbname: '<?php echo $this->objType; ?>',
-                nonce: '<?php echo wp_create_nonce( 'edit-nonce-'. $this->objType ); ?>'
+                objid: <?php echo esc_js( $this->objID ); ?>,
+                objdbname: '<?php echo esc_js( $this->objType ); ?>',
+                nonce: '<?php echo esc_js( wp_create_nonce( 'edit-nonce-'. $this->objType ) ); ?>'
 
             };
             var zbsDrawEditViewBlocker = false;
@@ -387,26 +387,26 @@ class zeroBSCRM_Edit{
             var zbsDrawEditLoadingBoxHTML = '<?php echo zeroBSCRM_UI2_loadingSegmentIncTextHTML(); ?>';
 
             <?php // these are all legacy, move over to zeroBSCRMJS_obj_editLink in global js: ?>
-            var zbsObjectViewLinkPrefixCustomer = '<?php echo zbsLink('view',-1,'zerobs_customer',true); ?>';
-            var zbsObjectEditLinkPrefixCustomer = '<?php echo zbsLink('edit',-1,'zerobs_customer',true); ?>';
-            var zbsObjectViewLinkPrefixCompany = '<?php echo zbsLink('view',-1,'zerobs_company',true); ?>';
-            var zbsListViewLink = '<?php echo zbsLink($this->listViewSlug); ?>';
+            var zbsObjectViewLinkPrefixCustomer = '<?php echo jpcrm_esc_link( 'view', -1, 'zerobs_customer', true ); ?>';
+            var zbsObjectEditLinkPrefixCustomer = '<?php echo jpcrm_esc_link( 'edit', -1, 'zerobs_customer', true ); ?>';
+            var zbsObjectViewLinkPrefixCompany = '<?php echo jpcrm_esc_link( 'view', -1, 'zerobs_company', true ); ?>';
+            var zbsListViewLink = '<?php echo jpcrm_esc_link( $this->listViewSlug ); ?>';
 
             
-            var zbsClick2CallType = parseInt('<?php echo zeroBSCRM_getSetting('clicktocalltype'); ?>');
+            var zbsClick2CallType = parseInt('<?php echo esc_html( zeroBSCRM_getSetting('clicktocalltype') ); ?>');
             var zbsEditViewLangLabels = {
 
-                    'today': '<?php echo zeroBSCRM_slashOut(__('Today',"zero-bs-crm")); ?>',
-                    'view': '<?php echo zeroBSCRM_slashOut(__('View',"zero-bs-crm")); ?>',
-                    'contact': '<?php echo zeroBSCRM_slashOut(__('Contact',"zero-bs-crm")); ?>',
-                    'company': '<?php echo zeroBSCRM_slashOut(jpcrm_label_company()); ?>',
+                    'today': '<?php echo esc_html( zeroBSCRM_slashOut(__('Today',"zero-bs-crm")) ); ?>',
+                    'view': '<?php echo esc_html( zeroBSCRM_slashOut(__('View',"zero-bs-crm")) ); ?>',
+                    'contact': '<?php echo esc_html( zeroBSCRM_slashOut(__('Contact',"zero-bs-crm")) ); ?>',
+                    'company': '<?php echo esc_html( zeroBSCRM_slashOut(jpcrm_label_company()) ); ?>',
 
                     <?php $labelCount = 0; 
                     if (count($this->langLabels) > 0) foreach ($this->langLabels as $labelK => $labelV){
 
                         if ($labelCount > 0) echo ',';
 
-                        echo $labelK.":'".zeroBSCRM_slashOut($labelV,true)."'";
+                        echo esc_html( $labelK ).":'". esc_html( zeroBSCRM_slashOut($labelV,true) )."'";
 
                         $labelCount++;
 
@@ -414,7 +414,7 @@ class zeroBSCRM_Edit{
 
             };
             <?php   #} Nonce for AJAX
-                    echo 'var zbscrmjs_secToken = \''.wp_create_nonce( "zbscrmjs-ajax-nonce" ).'\';'; ?></script><?php
+                    echo "var zbscrmjs_secToken = '" . esc_js( wp_create_nonce( 'zbscrmjs-ajax-nonce' ) ) . "';"; ?></script><?php
 
     } // /draw func
 

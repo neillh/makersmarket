@@ -443,6 +443,9 @@ class saswp_output_compatibility{
     public function wp_event_manager_on_activation(){
          $this->saswp_update_option_on_compatibility_activation('saswp-wp-event-manager');
     }
+    public function wp_event_solution_on_activation(){
+        $this->saswp_update_option_on_compatibility_activation('saswp-wp-event-solution');
+    }
     public function events_manager_on_activation(){
          $this->saswp_update_option_on_compatibility_activation('saswp-events-manager');
     }
@@ -544,6 +547,9 @@ class saswp_output_compatibility{
     }
     public function ampforwp_on_activation(){
          $this->saswp_update_option_on_compatibility_activation('saswp-ampforwp');
+    }
+    public function bunyadamp_on_activation(){
+        $this->saswp_update_option_on_compatibility_activation('saswp-bunyadamp');
     }
     public function ampbyautomatic_on_activation(){
          $this->saswp_update_option_on_compatibility_activation('saswp-ampbyautomatic');
@@ -689,6 +695,9 @@ class saswp_output_compatibility{
     }
     public function yet_another_stars_rating_on_activation(){
         $this->saswp_update_option_on_compatibility_activation('saswp-yet-another-stars-rating');
+    }
+    public function publishpress_authors_on_activation(){
+        $this->saswp_update_option_on_compatibility_activation('saswp-publish-press-authors');
     }
     public function saswp_update_option_on_compatibility_activation($opt_name){   
         

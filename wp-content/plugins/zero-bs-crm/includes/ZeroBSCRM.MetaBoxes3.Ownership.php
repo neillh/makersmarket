@@ -102,12 +102,12 @@ class zeroBS__Metabox_Ownership extends zeroBS__Metabox {
 				?>
 				<div style="text-align:center">
 					<select class="" id="zerobscrm-owner" name="zerobscrm-owner">
-						<option value="-1"><?php _e('None',"zero-bs-crm");?></option>
+						<option value="-1"><?php esc_html_e('None',"zero-bs-crm");?></option>
 						<?php
 						if ( is_array( $zbsPossibleOwners ) && count( $zbsPossibleOwners ) > 0 ) {
 							foreach ( $zbsPossibleOwners as $possOwner ) {
 								$is_selected = isset($zbsThisOwner['ID']) && $possOwner->ID == $zbsThisOwner['ID'];
-								echo '<option value="' . $possOwner->ID . '"' . ($is_selected ? ' selected="selected"' : '') . '>' . esc_html( $possOwner->display_name ) . '</option>';
+								echo '<option value="' . esc_attr( $possOwner->ID ) . '"' . ($is_selected ? ' selected="selected"' : '') . '>' . esc_html( $possOwner->display_name ) . '</option>';
 							}
 						}
 						?>

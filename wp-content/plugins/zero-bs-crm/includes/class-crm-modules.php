@@ -115,7 +115,7 @@ class CRM_Modules {
 		if ( ! empty( $zbs->modules->$safe_module_name ) ) {
 
 			// default to CRM dashboard
-			$redirect_to = zbsLink( $zbs->slugs['dash'] );
+			$redirect_to = jpcrm_esc_link( $zbs->slugs['dash'] );
 
 			//if redirect_to is specified, use that
 			if ( isset( $_GET['redirect_to'] ) ) {
@@ -124,14 +124,14 @@ class CRM_Modules {
 
 			// otherwise, if module has a hub slug use that
 			else if ( isset( $zbs->modules->$safe_module_name->slugs['hub'] ) ) {
-				$redirect_to = zbsLink( $zbs->modules->$safe_module_name->slugs['hub'] );
+				$redirect_to = jpcrm_esc_link( $zbs->modules->$safe_module_name->slugs['hub'] );
 			}
 
 			// redirect to URL
 			wp_safe_redirect( $redirect_to );
 			exit;
 		} else {
-			echo sprintf( 'Module %s not found. Error #607', $module_name );
+			echo sprintf( 'Module %s not found. Error #607', esc_html( $module_name ) );
 		}
 
 	}
